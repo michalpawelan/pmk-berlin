@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Wydarzenie | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Szczegoly wydarzenia w Polskiej Misji Katolickiej w Berlinie">
+  <link rel="canonical" href="https://pmk-berlin.de/event">
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/event-detail.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="sakramente.html">Sakramenty</a></li>
+      <li><a href="events.html" class="active">Wydarzenia</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Event Detail Content -->
+<main id="event-detail">
+  <!-- Loading State -->
+  <div class="event-loading" id="event-loading">
+    <div class="loading-spinner"></div>
+    <p>Ladowanie wydarzenia...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="event-error" id="event-error" style="display: none;">
+    <div class="error-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4m0 4h.01"/>
+      </svg>
+    </div>
+    <h2>Wydarzenie nie znalezione</h2>
+    <p>Przepraszamy, nie udało się znaleźć tego wydarzenia.</p>
+    <a href="events.html" class="btn btn-primary">Wróc do kalendarza</a>
+  </div>
+
+  <!-- Event Content (Luma-style, filled by JavaScript) -->
+  <article class="event-article" id="event-content" style="display: none;">
+
+    <!-- Back Link -->
+    <a href="events.html" class="event-back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5m0 0l7 7m-7-7l7-7"/>
+      </svg>
+      Wróc do wydarzen
+    </a>
+
+    <!-- Top: Image + Title/Info side by side -->
+    <div class="event-top">
+      <!-- Image -->
+      <div class="event-image-container" id="event-image-container">
+        <div class="event-image-placeholder" id="event-image-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+        </div>
+        <img id="event-image" src="" alt="" loading="lazy" style="display:none;">
+      </div>
+
+      <!-- Title + Info -->
+      <div class="event-header">
+        <h1 class="event-title" id="event-title"></h1>
+
+        <div class="event-info-rows">
+          <!-- Date -->
+          <div class="event-info-row">
+            <div class="event-info-icon event-info-icon-date">
+              <span id="event-month-short"></span>
+              <span class="date-num" id="event-day"></span>
+            </div>
+            <div class="event-info-text">
+              <strong id="event-date-full"></strong>
+              <span id="event-time" data-section="time"></span>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="event-info-row">
+            <div class="event-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="event-info-text">
+              <strong id="event-location"></strong>
+              <span id="event-address"></span>
+              <a id="event-map-link" href="#" target="_blank" rel="noopener">Otworz w Google Maps ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="event-about">
+      <h2>O wydarzeniu</h2>
+      <div class="event-description" id="event-description">
+        <!-- Filled by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="event-actions-bar">
+      <a class="action-btn action-btn-google" id="btn-google" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Google Calendar
+      </a>
+      <button class="action-btn" id="btn-copy-link" title="Kopiuj link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+        </svg>
+        Kopiuj link
+      </button>
+      <a class="action-btn" id="btn-share-whatsapp" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- Location + Map -->
+    <div class="event-location-section">
+      <h2>Lokalizacja</h2>
+      <div class="location-info">
+        <div class="location-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="location-info-text">
+          <strong id="event-location-2"></strong>
+          <span id="event-address-2"></span>
+        </div>
+      </div>
+      <div class="event-map" id="event-map">
+        <div class="map-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <p>Kliknij aby zobaczyc mape</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <a href="tel:+493075240 80">+49 (30) 752 40 80</a>
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Nawigacja</h4>
+          <a href="index.html">Strona główna</a>
+          <a href="sakramente.html">Sakramenty</a>
+          <a href="events.html">Wydarzenia</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Chatbot Floating Button -->
+<button class="chatbot-fab" id="chatbotFab" aria-label="Chatbot">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+</button>
+
+<!-- Chatbot Chat Window -->
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-header">
+    <img src="images/pmk-logo-chatbot.png" alt="PMK" class="chatbot-avatar">
+    <div class="chatbot-header-text">
+      <strong>PMK Berlin</strong>
+      <span>Asystent parafialny</span>
+    </div>
+    <button class="chatbot-close" id="chatbotClose" aria-label="Zamknij">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+  </div>
+  <form class="chatbot-input" id="chatbotForm">
+    <input type="text" id="chatbotInputField" placeholder="Napisz wiadomosc..." autocomplete="off">
+    <button type="submit" aria-label="Wyslij">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script src="main.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/events-manager.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  // Event ID aus URL holen
+  const params = new URLSearchParams(window.location.search);
+  const eventId = params.get('id');
+
+  if (!eventId) {
+    showError();
+    return;
+  }
+
+  try {
+    const event = await EventsManager.getEventById(eventId);
+
+    if (!event) {
+      showError();
+      return;
+    }
+
+    renderEvent(event);
+  } catch (error) {
+    console.error('Fehler beim Laden:', error);
+    showError();
+  }
+});
+
+function showError() {
+  document.getElementById('event-loading').style.display = 'none';
+  document.getElementById('event-error').style.display = 'flex';
+}
+
+function renderEvent(event) {
+  // Update page title
+  document.title = `${event.title} | PMK Berlin`;
+
+  // Hide loading, show content
+  document.getElementById('event-loading').style.display = 'none';
+  document.getElementById('event-content').style.display = 'block';
+
+  // Image (Luma-style)
+  if (event.imageUrl) {
+    const imgEl = document.getElementById('event-image');
+    imgEl.src = event.imageUrl;
+    imgEl.alt = event.title;
+    imgEl.style.display = 'block';
+    document.getElementById('event-image-placeholder').style.display = 'none';
+  }
+
+  // Title
+  document.getElementById('event-title').textContent = event.title;
+
+  // Date
+  const dateInfo = EventsManager.formatDateShort(event.date);
+  document.getElementById('event-day').textContent = dateInfo.day;
+  document.getElementById('event-month-short').textContent = dateInfo.month;
+
+  const weekday = EventsManager.getWeekday(event.date);
+  const fullDate = EventsManager.formatDate(event.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  document.getElementById('event-date-full').textContent = fullDate;
+
+  // Time
+  if (event.time) {
+    const timeText = event.endTime ? `${event.time} - ${event.endTime}` : event.time;
+    document.getElementById('event-time').textContent = timeText;
+  }
+
+  // Description
+  const descEl = document.getElementById('event-description');
+  if (event.fullDesc) {
+    descEl.innerHTML = event.fullDesc.replace(/\n/g, '<br>');
+  } else if (event.shortDesc) {
+    descEl.innerHTML = `<p>${event.shortDesc}</p>`;
+  }
+
+  // Location
+  const locationName = event.location || 'Johannes-Basilika';
+  const locationAddr = event.address || 'Lilienthalstr. 5, 10965 Berlin';
+  document.getElementById('event-location').textContent = locationName;
+  document.getElementById('event-address').textContent = locationAddr;
+  document.getElementById('event-location-2').textContent = locationName;
+  document.getElementById('event-address-2').textContent = locationAddr;
+
+  // Maps
+  const address = event.address || 'Lilienthalstrasse 5, 10965 Berlin';
+  document.getElementById('event-map-link').href = EventsManager.getGoogleMapsUrl(address);
+
+  // Map embed (click to load)
+  const mapContainer = document.getElementById('event-map');
+  mapContainer.addEventListener('click', function() {
+    this.innerHTML = `<iframe src="https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed" frameborder="0" allowfullscreen loading="lazy"></iframe>`;
+  });
+
+  // Calendar buttons
+  const btnIcs = document.getElementById('btn-ics');
+  if (btnIcs) btnIcs.addEventListener('click', () => EventsManager.downloadICS(event));
+  document.getElementById('btn-google').href = EventsManager.getGoogleCalendarUrl(event);
+
+  // Share buttons
+  const pageUrl = window.location.href;
+  document.getElementById('btn-copy-link').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(pageUrl);
+      const btn = document.getElementById('btn-copy-link');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Skopiowano!';
+      setTimeout(() => btn.innerHTML = original, 2000);
+    } catch (e) {
+      prompt('Skopiuj link:', pageUrl);
+    }
+  });
+
+  document.getElementById('btn-share-whatsapp').href =
+    `https://wa.me/?text=${encodeURIComponent(event.title + ' - ' + pageUrl)}`;
+}
+</script>
+</body>
+</html>

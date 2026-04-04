@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/events"
+public_folder: "/images/events"
+
+locale: "pl"
+
+collections:
+  - name: "events"
+    label: "Wydarzenia"
+    folder: "_events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Tytuł", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Godzina", name: "time", widget: "string", required: false, hint: "np. 10:00 - 12:00" }
+      - { label: "Miejsce", name: "location", widget: "string", required: false, hint: "np. Bazylika, Dom Jana Pawła II" }
+      - { label: "Zdjęcie", name: "image", widget: "image", required: false }
+      - { label: "Opis", name: "body", widget: "markdown" }
+      - { label: "Kategoria", name: "category", widget: "select", options: ["Msza Święta", "Rekolekcje", "Koncert", "Spotkanie", "Święto", "Inne"], default: "Inne" }

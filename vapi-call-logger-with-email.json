@@ -1,0 +1,187 @@
+{
+  "name": "PMK Voice Agent Call Logger + Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-call-log",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Vapi Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "vapi-voice-agent-log"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Parse Vapi end-of-call report\n// Supports BOTH new UUID-based Structured Outputs AND old flat format\nconst items = $input.all();\nconst body = items[0].json.body || items[0].json;\nconst message = body.message || body;\nconst call = message.call || {};\nconst analysis = message.analysis || {};\nconst rawStructuredData = analysis.structuredData || {};\nconst summary = analysis.summary || '';\n\n// Parse structured data (new UUID format + old flat format)\nconst parsed = {};\nfor (const key of Object.keys(rawStructuredData)) {\n  const val = rawStructuredData[key];\n  if (val && typeof val === 'object' && val.name !== undefined && val.result !== undefined) {\n    parsed[val.name] = val.result;\n  } else {\n    parsed[key] = val;\n  }\n}\n\n// Call duration\nconst startedAt = call.startedAt ? new Date(call.startedAt) : null;\nconst endedAt = call.endedAt ? new Date(call.endedAt) : null;\nlet durationStr = '';\nif (startedAt && endedAt) {\n  const ms = endedAt - startedAt;\n  durationStr = Math.floor(ms / 60000) + ':' + String(Math.floor((ms % 60000) / 1000)).padStart(2, '0');\n}\n\n// Date/time Berlin\nconst now = new Date();\nconst dateStr = now.toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' });\nconst timeStr = now.toLocaleTimeString('de-DE', { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit' });\n\n// Extract fields\nconst callerName = parsed.callerName || '';\nconst topicCategory = parsed.topicCategory || '';\nconst urgencyLevel = parsed.urgencyLevel || 'niski';\nconst followUpNeeded = parsed.followUpNeeded === true || parsed.followUpNeeded === 'true';\nconst callSummary = parsed['Call Summary'] || summary;\nconst phoneNumber = (call.customer ? call.customer.number : '') || '';\n\nreturn [{\n  json: {\n    'Data': dateStr,\n    'Godzina': timeStr,\n    'Imie': callerName || 'Nieznany',\n    'Telefon': phoneNumber,\n    'Kategoria': topicCategory,\n    'Pilnosc': urgencyLevel,\n    'Podsumowanie': callSummary,\n    'Rozwiazane': followUpNeeded ? 'Nie' : 'Tak',\n    'Czas rozmowy': durationStr,\n    'Follow-up': followUpNeeded ? 'Tak' : 'Nie'\n  }\n}];"
+      },
+      "id": "code-node",
+      "name": "Transform Vapi Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Voice Agent",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {
+          "cellFormat": "USER_ENTERED"
+        }
+      },
+      "id": "sheets-node",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "urgent-check",
+              "leftValue": "={{ $json.Pilnosc }}",
+              "rightValue": "wysoki",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "followup-check",
+              "leftValue": "={{ $json['Follow-up'] }}",
+              "rightValue": "Tak",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "if-node",
+      "name": "Important Call?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const item = $input.all()[0].json;\n\nconst urgency = item.Pilnosc || 'unbekannt';\nconst urgencyEmoji = urgency === 'wysoki' ? '🔴' : urgency === 'sredni' ? '🟡' : '🟢';\n\nconst subject = urgencyEmoji + ' PMK Anruf: ' + (item.Kategoria || 'Neuer Anruf') + ' - ' + urgency;\n\nconst body = '<h2>' + urgencyEmoji + ' Wichtiger Anruf bei PMK Berlin</h2>' +\n  '<table style=\"border-collapse:collapse;width:100%;max-width:600px;\">' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Datum</td><td style=\"padding:8px;border:1px solid #ddd;\">' + item.Data + ' um ' + item.Godzina + '</td></tr>' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Anrufer</td><td style=\"padding:8px;border:1px solid #ddd;\">' + item.Imie + '</td></tr>' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Telefon</td><td style=\"padding:8px;border:1px solid #ddd;\">' + (item.Telefon || '-') + '</td></tr>' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Kategorie</td><td style=\"padding:8px;border:1px solid #ddd;\">' + (item.Kategoria || '-') + '</td></tr>' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Dringlichkeit</td><td style=\"padding:8px;border:1px solid #ddd;\">' + urgencyEmoji + ' ' + urgency + '</td></tr>' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Follow-up</td><td style=\"padding:8px;border:1px solid #ddd;\">' + item['Follow-up'] + '</td></tr>' +\n  '<tr><td style=\"padding:8px;border:1px solid #ddd;font-weight:bold;\">Zusammenfassung</td><td style=\"padding:8px;border:1px solid #ddd;\">' + (item.Podsumowanie || '-') + '</td></tr>' +\n  '</table>' +\n  '<br><p style=\"color:#666;font-size:12px;\">Automatisch gesendet vom PMK Voice Agent.</p>';\n\nreturn [{ json: { subject, body } }];"
+      },
+      "id": "email-format-node",
+      "name": "Format Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "michal.michal.an@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.body }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "email-node",
+      "name": "Send Email to Team",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1500, 200]
+    }
+  ],
+  "connections": {
+    "Vapi Webhook": {
+      "main": [
+        [
+          {
+            "node": "Transform Vapi Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform Vapi Data": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Important Call?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Important Call?": {
+      "main": [
+        [
+          {
+            "node": "Format Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Format Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email to Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [],
+  "pinData": {}
+}

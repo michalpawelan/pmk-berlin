@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Wydarzenia | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Nadchodzace wydarzenia w Polskiej Misji Katolickiej w Berlinie.">
+  <link rel="canonical" href="https://pmk-berlin.de/events">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="sakramente.html">Sakramenty</a></li>
+      <li><a href="events.html" class="active">Wydarzenia</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Page Hero -->
+<section class="page-hero page-hero-compact">
+  <div class="page-hero-content">
+    <span class="section-label">Wydarzenia</span>
+    <h1 class="page-hero-title">Co <em>nadchodzi?</em></h1>
+    <p class="page-hero-lead">Aktualne wydarzenia w naszej parafii</p>
+  </div>
+</section>
+
+<!-- Events List -->
+<section class="section">
+  <div class="section-container">
+    <div class="events-simple-list" id="events-container">
+      <div class="events-loading"><div class="loading-spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Mass Schedule -->
+<section class="section section-dark">
+  <div class="section-container">
+    <div class="quick-schedule">
+      <header class="section-header section-header-left">
+        <span class="section-label section-label-light">Nabozenstwa</span>
+        <h2 class="section-title section-title-light">Staly rozklad <em>Mszy</em></h2>
+      </header>
+
+      <div class="schedule-grid">
+        <div class="schedule-item reveal">
+          <h3>Niedziela i Święta</h3>
+          <div class="schedule-times">
+            <span>10:15</span>
+            <span>12:00</span>
+            <span>18:00</span>
+          </div>
+        </div>
+        <div class="schedule-item reveal">
+          <h3>Poniedziałek - Piątek</h3>
+          <div class="schedule-times">
+            <span>07:00</span>
+            <span>18:00</span>
+          </div>
+        </div>
+        <div class="schedule-item reveal">
+          <h3>Sobota</h3>
+          <div class="schedule-times">
+            <span>07:00</span>
+            <span>18:00</span>
+          </div>
+        </div>
+        <div class="schedule-item reveal">
+          <h3>Spowiedz</h3>
+          <p class="schedule-note">30 min przed kazda Msza<br>Piatek: 17:00 - 18:00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <a href="tel:+493075240 80">+49 (30) 752 40 80</a>
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Nawigacja</h4>
+          <a href="index.html">Strona główna</a>
+          <a href="sakramente.html">Sakramenty</a>
+          <a href="events.html">Wydarzenia</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Chatbot Floating Button -->
+<button class="chatbot-fab" id="chatbotFab" aria-label="Chatbot">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+</button>
+
+<!-- Chatbot Chat Window -->
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-header">
+    <img src="images/pmk-logo-chatbot.png" alt="PMK" class="chatbot-avatar">
+    <div class="chatbot-header-text">
+      <strong>PMK Berlin</strong>
+      <span>Asystent parafialny</span>
+    </div>
+    <button class="chatbot-close" id="chatbotClose" aria-label="Zamknij">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+  </div>
+  <form class="chatbot-input" id="chatbotForm">
+    <input type="text" id="chatbotInputField" placeholder="Napisz wiadomosc..." autocomplete="off">
+    <button type="submit" aria-label="Wyslij">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script src="main.js"></script>
+<script src="js/chatbot.js"></script>
+<script src="js/events-manager.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', loadEvents);
+
+async function loadEvents() {
+  const container = document.getElementById('events-container');
+
+  try {
+    const events = await EventsManager.getUpcomingEvents(20);
+
+    if (events.length === 0) {
+      container.innerHTML = `
+        <div class="events-empty">
+          <p>Aktualnie brak zaplanowanych wydarzen.</p>
+          <p>Sprawdz ponownie pozniej!</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Group: This Week, Next Week, Later
+    const now = new Date();
+    const thisWeekEnd = getEndOfWeek(now);
+    const nextWeekEnd = getEndOfWeek(addDays(now, 7));
+
+    const thisWeek = [];
+    const nextWeek = [];
+    const later = [];
+
+    events.forEach(ev => {
+      const eventDate = new Date(ev.date);
+      if (eventDate <= thisWeekEnd) {
+        thisWeek.push(ev);
+      } else if (eventDate <= nextWeekEnd) {
+        nextWeek.push(ev);
+      } else {
+        later.push(ev);
+      }
+    });
+
+    let html = '';
+
+    if (thisWeek.length > 0) {
+      html += renderSection('W tym tygodniu', thisWeek);
+    }
+
+    if (nextWeek.length > 0) {
+      html += renderSection('W przyszlym tygodniu', nextWeek);
+    }
+
+    if (later.length > 0) {
+      html += renderSection('Wkrotce', later);
+    }
+
+    container.innerHTML = html;
+    initScrollReveal();
+
+  } catch (error) {
+    console.error('Error:', error);
+    container.innerHTML = '<p class="events-empty">Nie udało się załadować wydarzeń.</p>';
+  }
+}
+
+function renderSection(title, events) {
+  let html = `<div class="events-section"><h2 class="events-section-title">${title}</h2>`;
+
+  events.forEach(ev => {
+    const dateInfo = EventsManager.formatDateShort(ev.date);
+    const weekday = EventsManager.getWeekday(ev.date);
+    const hasImage = ev.imageUrl && ev.imageUrl.length > 0;
+    const desc = ev.shortDesc || ev.description || '';
+
+    const location = ev.location || 'Johannes-Basilika';
+
+    const imageHtml = hasImage
+      ? `<div class="event-card-img"><img src="${ev.imageUrl}" alt="${ev.title}" loading="lazy"></div>`
+      : '';
+
+    html += `
+      <a href="event.html?id=${ev.id}" class="event-card-simple reveal ${hasImage ? 'has-image' : ''}">
+        ${imageHtml}
+        <div class="event-card-date">
+          <span class="day">${dateInfo.day}</span>
+          <span class="month">${dateInfo.month}</span>
+        </div>
+        <div class="event-card-body">
+          <p class="event-card-meta">${weekday}${ev.time ? ', ' + ev.time : ''}</p>
+          <h3>${ev.title}</h3>
+          <p class="event-card-location">${location}</p>
+        </div>
+        <span class="event-card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14m0 0l-7-7m7 7l-7 7"/>
+          </svg>
+        </span>
+      </a>
+    `;
+  });
+
+  html += '</div>';
+  return html;
+}
+
+function getEndOfWeek(date) {
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = 7 - day;
+  d.setDate(d.getDate() + diff);
+  d.setHours(23, 59, 59, 999);
+  return d;
+}
+
+function addDays(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function initScrollReveal() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+}
+</script>
+</body>
+</html>

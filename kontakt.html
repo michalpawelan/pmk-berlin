@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Kontakt | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Skontaktuj się z Polska Misja Katolicka w Berlinie - adres, telefon, e-mail, godziny urzędowania i formularz kontaktowy.">
+  <link rel="canonical" href="https://pmk-berlin.de/kontakt">
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="sakramente.html">Sakramenty</a></li>
+      <li><a href="events.html">Wydarzenia</a></li>
+      <li><a href="kontakt.html" class="active">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Page Hero -->
+<section class="page-hero page-hero-compact">
+  <div class="page-hero-content">
+    <span class="section-label">Kontakt</span>
+    <h1 class="page-hero-title">Skontaktuj się <em>z nami</em></h1>
+    <p class="page-hero-lead">Jesteśmy do Twojej dyspozycji. Napisz, zadzwoń lub odwiedź nas osobiście.</p>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section">
+  <div class="section-container">
+    <div class="contact-page-layout">
+      <!-- Contact Info Column -->
+      <div class="contact-info-column">
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-card-content">
+            <h3>Adres</h3>
+            <p>
+              <strong>Johannes-Basilika</strong><br>
+              Lilienthalstr. 5<br>
+              10965 Berlin-Kreuzberg
+            </p>
+            <a href="https://maps.app.goo.gl/Rz8zAVkuQMXwTXtr8" target="_blank" rel="noopener" class="contact-card-link">
+              Pokaz na mapie
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-card-content">
+            <h3>Telefon</h3>
+            <a href="tel:+4930752 4080" class="contact-phone">+49 (30) 752 40 80</a>
+            <p class="contact-note">Telefon czynny w godzinach urzędowania</p>
+          </div>
+        </div>
+
+        <div class="contact-card reveal">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </div>
+          <div class="contact-card-content">
+            <h3>E-mail</h3>
+            <a href="mailto:pmk@pmk-berlin.de" class="contact-email">pmk@pmk-berlin.de</a>
+            <p class="contact-note">Odpowiadamy najszybciej jak to mozliwe</p>
+          </div>
+        </div>
+
+        <div class="contact-card contact-card-highlight reveal">
+          <div class="contact-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="contact-card-content">
+            <h3>Godziny urzędowania</h3>
+            <div class="office-hours-list">
+              <div class="office-hours-item">
+                <span>Poniedziałek - Piątek</span>
+                <strong>09:00 - 12:00</strong>
+              </div>
+              <div class="office-hours-item">
+                <span>Środa (dodatkowe)</span>
+                <strong>15:00 - 18:00</strong>
+              </div>
+              <div class="office-hours-item">
+                <span>Sobota - Niedziela</span>
+                <strong>Nieczynne</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form Column -->
+      <div class="contact-form-column">
+        <div class="contact-form-card reveal">
+          <h2>Napisz do nas</h2>
+          <p class="form-intro">Wypelnij formularz, a odpowiemy najszybciej jak to mozliwe.</p>
+
+          <form class="contact-form" id="contactForm">
+            <div class="form-row form-row-half">
+              <div class="form-group">
+                <label for="name">Imie i nazwisko</label>
+                <input type="text" id="name" name="name" placeholder="Jan Kowalski" required>
+              </div>
+              <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="jan@email.pl" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon (opcjonalnie)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+49 123 456 789">
+            </div>
+            <div class="form-group">
+              <label for="subject">Temat</label>
+              <select id="subject" name="subject" required>
+                <option value="">Wybierz temat...</option>
+                <optgroup label="Sakramenty">
+                  <option value="Chrzest">Chrzest</option>
+                  <option value="Pierwsza Komunia">Pierwsza Komunia</option>
+                  <option value="Bierzmowanie">Bierzmowanie</option>
+                  <option value="Slub">Slub koscielny</option>
+                  <option value="Namaszczenie">Namaszczenie chorych</option>
+                </optgroup>
+                <optgroup label="Wspólnoty">
+                  <option value="Wspolnota: Chor Parafialny">Chor Parafialny</option>
+                  <option value="Wspolnota: Ministranci">Ministranci</option>
+                  <option value="Wspolnota: Ruch Swiatlo-Zycie">Ruch Swiatlo-Zycie</option>
+                  <option value="Wspolnota: Legia Maryi">Legia Maryi</option>
+                  <option value="Wspolnota: Caritas">Caritas</option>
+                  <option value="Wspolnota: Kregi Biblijne">Kregi Biblijne</option>
+                  <option value="Wspolnota: Mlodzi Dorosli">Mlodzi Dorosli</option>
+                  <option value="Wspolnota: Katecheza Doroslych">Katecheza Doroslych</option>
+                  <option value="Wspolnota: Szkola Ewangelizacji">Szkola Ewangelizacji (SE)</option>
+                  <option value="Wspolnota: Kosciol Domowy">Kosciol Domowy</option>
+                  <option value="Wspolnota: Ruch Szensztacki">Ruch Szensztacki</option>
+                </optgroup>
+                <optgroup label="Inne">
+                  <option value="Intencja Mszalna">Intencja Mszalna</option>
+                  <option value="Inne">Inne pytanie</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Wiadomosc</label>
+              <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomosc..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Wyslij wiadomosc</button>
+            <p class="form-note">Formularz otworzy Twoj program e-mail z wypelniona wiadomoscia.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map Section -->
+<section class="section section-map">
+  <div class="map-container">
+    <iframe
+      src="https://maps.google.com/maps?q=Johannes-Basilika+Lilienthalstra%C3%9Fe+5+10965+Berlin&t=&z=16&ie=UTF8&iwloc=&output=embed"
+      width="100%"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Mapa - Johannes-Basilika Berlin">
+    </iframe>
+  </div>
+</section>
+
+<!-- Other Churches -->
+<section class="section section-alt">
+  <div class="section-container">
+    <header class="section-header">
+      <span class="section-label">Inne lokalizacje</span>
+      <h2 class="section-title">Nasze <em>koscioly</em></h2>
+    </header>
+
+    <div class="churches-list">
+      <div class="church-list-item reveal">
+        <div class="church-list-info">
+          <h3>St. Joseph</h3>
+          <p>Wedding</p>
+        </div>
+        <address>Müllerstraße 161, 13353 Berlin</address>
+        <a href="https://maps.app.goo.gl/T5US2kgZrmV7AZfB9" target="_blank" rel="noopener" class="church-list-link">Mapa</a>
+      </div>
+
+      <div class="church-list-item reveal">
+        <div class="church-list-info">
+          <h3>St. Marien am Behnitz</h3>
+          <p>Spandau</p>
+        </div>
+        <address>Behnitz 9, 13597 Berlin</address>
+        <a href="https://maps.app.goo.gl/op47upC6SL5v1TPz5" target="_blank" rel="noopener" class="church-list-link">Mapa</a>
+      </div>
+
+      <div class="church-list-item reveal">
+        <div class="church-list-info">
+          <h3>St. Marien</h3>
+          <p>Karlshorst</p>
+        </div>
+        <address>Gundelfinger Straße 36, 10318 Berlin</address>
+        <a href="https://maps.app.goo.gl/SPNaz3PtLYxbeVCv8" target="_blank" rel="noopener" class="church-list-link">Mapa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <a href="tel:+493075240 80">+49 (30) 752 40 80</a>
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Nawigacja</h4>
+          <a href="index.html">Strona główna</a>
+          <a href="sakramente.html">Sakramenty</a>
+          <a href="events.html">Wydarzenia</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Chatbot Floating Button -->
+<button class="chatbot-fab" id="chatbotFab" aria-label="Chatbot">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+</button>
+
+<!-- Chatbot Chat Window -->
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-header">
+    <img src="images/pmk-logo-chatbot.png" alt="PMK" class="chatbot-avatar">
+    <div class="chatbot-header-text">
+      <strong>PMK Berlin</strong>
+      <span>Asystent parafialny</span>
+    </div>
+    <button class="chatbot-close" id="chatbotClose" aria-label="Zamknij">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+  </div>
+  <form class="chatbot-input" id="chatbotForm">
+    <input type="text" id="chatbotInputField" placeholder="Napisz wiadomosc..." autocomplete="off">
+    <button type="submit" aria-label="Wyslij">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script src="main.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+// Pre-fill subject from URL parameter (?temat=Wspolnota:%20Chor%20Parafialny)
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const temat = params.get('temat');
+  if (temat) {
+    const select = document.getElementById('subject');
+    for (let opt of select.options) {
+      if (opt.value === temat) {
+        opt.selected = true;
+        break;
+      }
+    }
+    // Scroll to form
+    document.getElementById('contactForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+})();
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const subject = document.getElementById('subject').value;
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !email || !subject || !message) {
+    alert('Prosimy wypełnić wszystkie wymagane pola.');
+    return;
+  }
+
+  let body = `Imie i nazwisko: ${name}\nE-mail: ${email}`;
+  if (phone) body += `\nTelefon: ${phone}`;
+  body += `\n\n${message}`;
+
+  const mailtoLink = `mailto:pmk@pmk-berlin.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailtoLink;
+});
+</script>
+</body>
+</html>

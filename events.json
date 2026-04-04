@@ -1,0 +1,94 @@
+[
+  {
+    "id": "rekolekcje-2026",
+    "title": "Rekolekcje Wielkopostne",
+    "date": "2026-03-23",
+    "time": "18:00",
+    "category": "Wielki Post",
+    "shortDesc": "Nauki rekolekcyjne poprowadzi ks. Stanislaw Kowalski z Krakowa.",
+    "fullDesc": "Serdecznie zapraszamy na tegoroczne rekolekcje wielkopostne w dniach 23-25 marca.\n\nProgram:\n- 18:00 - Msza Swieta z nauka rekolekcyjna\n- 19:30 - Adoracja Najswietszego Sakramentu\n\nSpowiedz codziennie od 17:00.",
+    "imageUrl": "images/events/adoracja-krzyz.jpg",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "niedziela-palmowa-2026",
+    "title": "Niedziela Palmowa",
+    "date": "2026-03-29",
+    "time": "10:15",
+    "category": "Wielki Tydzien",
+    "shortDesc": "Poswiecenie palm i procesja. Msze o 10:15, 12:00 i 18:00.",
+    "fullDesc": "Uroczystosc Niedzieli Palmowej.\n\n10:15 - Poswiecenie palm, procesja i uroczysta Msza Swieta.\n\nProsimy o przyniesienie palm do poswiecenia.",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "wielki-czwartek-2026",
+    "title": "Wielki Czwartek",
+    "date": "2026-04-02",
+    "time": "18:00",
+    "category": "Wielki Tydzien",
+    "shortDesc": "Msza Wieczerzy Panskiej. Adoracja do polnocy.",
+    "fullDesc": "18:00 - Msza Wieczerzy Panskiej z obrzedem umycia nog.\n\nPo Mszy adoracja w Ciemnicy do polnocy.",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "wielki-piatek-2026",
+    "title": "Wielki Piatek",
+    "date": "2026-04-03",
+    "time": "15:00",
+    "category": "Wielki Tydzien",
+    "shortDesc": "Droga Krzyzowa o 15:00. Liturgia o 18:00.",
+    "fullDesc": "15:00 - Droga Krzyzowa\n18:00 - Liturgia Meki Panskiej\n\nDzien scislego postu.",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "wielka-sobota-2026",
+    "title": "Wielka Sobota",
+    "date": "2026-04-04",
+    "time": "09:00",
+    "category": "Wielki Tydzien",
+    "shortDesc": "Swiecenie pokarmow 9-12 i 14-16. Wigilia Paschalna o 20:00.",
+    "fullDesc": "Swiecenie pokarmow:\n- 09:00 - 12:00\n- 14:00 - 16:00\n\n20:00 - Wigilia Paschalna",
+    "imageUrl": "images/events/triduum-paschalne.jpg",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "wielkanoc-2026",
+    "title": "Niedziela Zmartwychwstania",
+    "date": "2026-04-05",
+    "time": "07:00",
+    "category": "Wielkanoc",
+    "shortDesc": "Rezurekcja o 7:00. Msze o 10:15, 12:00 i 18:00.",
+    "fullDesc": "07:00 - Uroczysta Rezurekcja z procesja\n\nMsze Swiete: 10:15, 12:00, 18:00\n\nALLELUJA!",
+    "imageUrl": "images/basilika-kerze.jpg",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "pierwsza-komunia-2026",
+    "title": "Pierwsza Komunia Swieta",
+    "date": "2026-05-03",
+    "time": "10:15",
+    "category": "Sakramenty",
+    "shortDesc": "Uroczystosc I Komunii Swietej dzieci naszej parafii.",
+    "fullDesc": "Uroczysta Msza Swieta z Pierwsza Komunia.\n\nPo Mszy blogoslawienstwo rodzin.",
+    "imageUrl": "images/basilika-interior.jpg",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  },
+  {
+    "id": "boze-cialo-2026",
+    "title": "Boze Cialo",
+    "date": "2026-06-04",
+    "time": "10:15",
+    "category": "Uroczystosc",
+    "shortDesc": "Procesja eucharystyczna do czterech oltarzy.",
+    "fullDesc": "10:15 - Uroczysta Msza Swieta\n\nPo Mszy procesja eucharystyczna.",
+    "location": "Johannes-Basilika",
+    "address": "Lilienthalstraße 5, 10965 Berlin"
+  }
+]

@@ -1,0 +1,98 @@
+Kopiere die folgenden Zeilen in Google Sheets (ab Zeile 5, Zeile 4 bleibt wie sie ist):
+
+=== ZEILE 5 ===
+A: niedziela-palmowa-2026
+B: Niedziela Palmowa
+C: 2026-03-29
+D: 10:15
+E: Uroczystosc Niedzieli Palmowej. Poswiecenie palm i procesja.
+F: 10:15 - Poswiecenie palm, procesja i uroczysta Msza Swieta.
+Prosimy o przyniesienie palm do poswiecenia.
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 6 ===
+A: wielki-czwartek-2026
+B: Wielki Czwartek
+C: 2026-04-02
+D: 18:00
+E: Msza Wieczerzy Panskiej. Adoracja do polnocy.
+F: 18:00 - Msza Wieczerzy Panskiej z obrzedem umycia nog.
+Po Mszy adoracja w Ciemnicy do polnocy.
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 7 ===
+A: wielki-piatek-2026
+B: Wielki Piatek
+C: 2026-04-03
+D: 15:00
+E: Liturgia Meki Panskiej. Droga Krzyzowa.
+F: 15:00 - Liturgia Meki Panskiej
+17:00 - Droga Krzyzowa
+20:00 - Adoracja przy Grobie Panskim
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 8 ===
+A: wielka-sobota-2026
+B: Wielka Sobota
+C: 2026-04-04
+D: 09:00
+E: Swiecenie pokarmow i Wigilia Paschalna.
+F: 09:00-12:00 i 14:00-16:00 - Swiecenie pokarmow
+20:00 - Wigilia Paschalna
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 9 ===
+A: wielkanoc-2026
+B: Niedziela Zmartwychwstania
+C: 2026-04-05
+D: 07:00
+E: Rezurekcja o 7:00. Msze o 10:15, 12:00, 18:00.
+F: 07:00 - Uroczysta Rezurekcja z procesja
+Msze: 10:15, 12:00, 18:00
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 10 ===
+A: poniedzialek-wielkanocny-2026
+B: Poniedzialek Wielkanocny
+C: 2026-04-06
+D: 10:15
+E: Msza Swieta w Poniedzialek Wielkanocny.
+F: 10:15 - Msza Swieta
+Emaus - spotkanie wielkanocne po Mszy
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 11 ===
+A: pierwsza-komunia-2026
+B: Pierwsza Komunia Swieta
+C: 2026-05-03
+D: 10:15
+E: Uroczystosc I Komunii Swietej.
+F: Uroczysta Msza Swieta z Pierwsza Komunia.
+Po Mszy blogoslawienstwo rodzin.
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin
+
+=== ZEILE 12 ===
+A: boze-cialo-2026
+B: Boze Cialo
+C: 2026-06-04
+D: 10:15
+E: Uroczystosc Najswietszego Ciala i Krwi Chrystusa z procesja.
+F: 10:15 - Uroczysta Msza Swieta
+Po Mszy procesja z Najswietszym Sakramentem
+G: (leer)
+H: Johannes-Basilika
+I: Lilienthalstraße 5, 10965 Berlin

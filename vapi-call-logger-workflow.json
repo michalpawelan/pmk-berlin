@@ -1,0 +1,88 @@
+{
+  "name": "PMK Voice Agent Call Logger",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-call-log",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Vapi Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "vapi-voice-agent-log"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Parse Vapi end-of-call report\nconst items = $input.all();\nconst body = items[0].json.body || items[0].json;\nconst message = body.message || body;\nconst call = message.call || {};\nconst analysis = message.analysis || {};\nconst structuredData = analysis.structuredData || {};\nconst summary = analysis.summary || '';\n\n// Calculate call duration\nconst startedAt = call.startedAt ? new Date(call.startedAt) : null;\nconst endedAt = call.endedAt ? new Date(call.endedAt) : null;\nlet durationStr = '';\nif (startedAt && endedAt) {\n  const durationMs = endedAt - startedAt;\n  const durationMin = Math.floor(durationMs / 60000);\n  const durationSec = Math.floor((durationMs % 60000) / 1000);\n  durationStr = durationMin + ':' + String(durationSec).padStart(2, '0');\n}\n\n// Format date and time (Berlin timezone)\nconst now = new Date();\nconst dateStr = now.toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin' });\nconst timeStr = now.toLocaleTimeString('de-DE', { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit' });\n\n// Determine if resolved\nconst followUp = structuredData.followUpNeeded;\nconst resolved = followUp === true ? 'Nie' : followUp === false ? 'Tak' : '';\n\n// Get phone number\nconst phoneNumber = structuredData.callerContact || (call.customer ? call.customer.number : '') || '';\n\n// Build notes\nconst notes = [];\nif (structuredData.callerName) notes.push('Imię: ' + structuredData.callerName);\nif (structuredData.languageUsed) notes.push('Język: ' + structuredData.languageUsed);\nif (structuredData.topicRequest) notes.push('Temat: ' + structuredData.topicRequest);\n\nreturn [{\n  json: {\n    'Data': dateStr,\n    'Godzina': timeStr,\n    'Podsumowanie rozmowy': summary,\n    'Rozwiązane?': resolved,\n    'Numer telefonu': phoneNumber,\n    'Czas rozmowy': durationStr,\n    'Notatki': notes.join(' | ')\n  }\n}];"
+      },
+      "id": "code-node",
+      "name": "Transform Vapi Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Voice Agent",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": null
+        },
+        "options": {
+          "cellFormat": "USER_ENTERED"
+        }
+      },
+      "id": "sheets-node",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [750, 300]
+    }
+  ],
+  "connections": {
+    "Vapi Webhook": {
+      "main": [
+        [
+          {
+            "node": "Transform Vapi Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform Vapi Data": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [],
+  "pinData": {}
+}

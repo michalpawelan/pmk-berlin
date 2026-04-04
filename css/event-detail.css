@@ -1,0 +1,419 @@
+/**
+ * Event Detail Page Styles - Luma-inspired
+ */
+
+/* Loading State */
+.event-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid var(--color-warm-200);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.event-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: var(--space-8);
+  text-align: center;
+  gap: var(--space-4);
+}
+
+.error-icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-warm-400);
+}
+
+.error-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.event-error h2 {
+  font-size: var(--text-2xl);
+  font-weight: 500;
+}
+
+.event-error p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* ============================================
+   Luma-style Event Layout
+   ============================================ */
+
+.event-article {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: calc(5rem + var(--space-8)) var(--container-padding) var(--space-16);
+}
+
+/* Back Link */
+.event-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-warm-100);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-8);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.event-back-link:hover {
+  background: var(--color-warm-200);
+  color: var(--color-text-primary);
+}
+
+.event-back-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Top Section: Image + Title side by side */
+.event-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-10);
+}
+
+@media (min-width: 768px) {
+  .event-top {
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .event-top {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+/* Event Image - Portrait format */
+.event-image-container {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-warm-200) 0%, var(--color-warm-300) 100%);
+}
+
+.event-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-image-placeholder svg {
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-warm-400);
+}
+
+/* Event Header (title + info) */
+.event-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.event-title {
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+}
+
+@media (min-width: 768px) {
+  .event-title {
+    font-size: var(--text-4xl);
+  }
+}
+
+/* Info Rows (date, time, location) */
+.event-info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.event-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.event-info-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-warm-100);
+  border-radius: var(--radius-lg);
+  color: var(--color-accent);
+}
+
+.event-info-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.event-info-icon-date {
+  flex-direction: column;
+  font-weight: 700;
+  font-size: var(--text-xs);
+  line-height: 1;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.event-info-icon-date .date-num {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.event-info-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 2.75rem;
+}
+
+.event-info-text strong {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.event-info-text span {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.event-info-text a {
+  font-size: var(--text-sm);
+  color: var(--color-accent-dark);
+  font-weight: 500;
+}
+
+.event-info-text a:hover {
+  color: var(--color-accent);
+}
+
+/* ============================================
+   About Section
+   ============================================ */
+
+.event-about {
+  margin-bottom: var(--space-10);
+}
+
+.event-about h2 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.event-description {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.event-description p {
+  margin-bottom: var(--space-4);
+}
+
+.event-description p:last-child {
+  margin-bottom: 0;
+}
+
+.event-description strong {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* ============================================
+   Actions Bar (Calendar + Share)
+   ============================================ */
+
+.event-actions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-10);
+  padding: var(--space-5);
+  background: var(--color-warm-100);
+  border-radius: var(--radius-xl);
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.action-btn:hover {
+  border-color: var(--color-warm-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-btn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.action-btn-google {
+  background: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}
+
+.action-btn-google:hover {
+  background: #3367d6;
+  border-color: #3367d6;
+}
+
+/* ============================================
+   Location Section
+   ============================================ */
+
+.event-location-section {
+  margin-bottom: var(--space-10);
+}
+
+.event-location-section h2 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.location-info {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.location-info-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-warm-100);
+  border-radius: var(--radius-lg);
+  color: var(--color-accent);
+}
+
+.location-info-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.location-info-text strong {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.location-info-text span {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.event-map {
+  aspect-ratio: 21 / 9;
+  max-height: 250px;
+  background: var(--color-warm-200);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: var(--space-3);
+  color: var(--color-text-muted);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.event-map:hover .map-placeholder {
+  background: var(--color-warm-300);
+}
+
+.map-placeholder svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.map-placeholder p {
+  font-size: var(--text-sm);
+}
+
+.event-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Grupa Męska – Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Wspólnota chrześcijańskich mężczyzn wspierających się nawzajem w przezwyciężaniu wyzwań duchowych i życiowych.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ===== Group Detail Page Styles ===== */
+
+    .group-hero {
+      padding: calc(var(--nav-height, 80px) + var(--space-12)) 0 var(--space-12);
+      background: var(--color-warm-100);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .group-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, var(--color-accent-light));
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .group-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .group-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .group-breadcrumb a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .group-breadcrumb a:hover {
+      color: var(--color-accent);
+    }
+
+    .group-breadcrumb svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.4;
+    }
+
+    .group-hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .group-hero-text {
+      max-width: 540px;
+    }
+
+    .group-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 16px;
+      margin-bottom: var(--space-5);
+    }
+
+    .group-icon-badge svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .group-hero-text h1 {
+      font-family: var(--font-serif);
+      font-size: var(--text-4xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      line-height: 1.15;
+      margin-bottom: var(--space-4);
+    }
+
+    .group-hero-text h1 em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    .group-hero-tagline {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+    }
+
+    .group-hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .group-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .group-meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .group-meta-item strong {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    .group-hero-image {
+      position: relative;
+      border-radius: var(--radius-2xl, 1.5rem);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--color-warm-200);
+    }
+
+    .group-hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .group-hero-image-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--color-warm-200), var(--color-warm-300));
+      color: var(--color-accent);
+      font-size: 4rem;
+      opacity: 0.5;
+    }
+
+    .group-hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(166, 139, 91, 0.15);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* Main Content */
+    .group-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-6);
+    }
+
+    .group-content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    /* Left Column - Description */
+    .group-description h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-5);
+    }
+
+    .group-description h2 em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    .group-description p {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-5);
+    }
+
+    .group-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin: var(--space-8) 0;
+    }
+
+    .group-highlight-card {
+      padding: var(--space-5);
+      background: var(--color-warm-100);
+      border-radius: var(--radius-xl, 1rem);
+      border: 1px solid var(--color-border);
+    }
+
+    .group-highlight-card h4 {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .group-highlight-card p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Right Column - Contact Card */
+    .group-contact-card {
+      position: sticky;
+      top: calc(var(--nav-height, 80px) + var(--space-6));
+      background: white;
+      border-radius: var(--radius-2xl, 1.5rem);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+
+    .group-contact-header {
+      background: var(--color-warm-950);
+      color: white;
+      padding: var(--space-6);
+      text-align: center;
+    }
+
+    .group-contact-header h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      font-weight: 500;
+      margin-bottom: var(--space-1);
+    }
+
+    .group-contact-header p {
+      font-size: var(--text-sm);
+      opacity: 0.7;
+    }
+
+    .group-contact-body {
+      padding: var(--space-6);
+    }
+
+    .group-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .group-contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .group-contact-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .group-contact-item .label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .group-contact-item .value {
+      font-size: var(--text-sm);
+      color: var(--color-text-primary);
+      line-height: 1.5;
+    }
+
+    .group-contact-item a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .group-contact-item a:hover {
+      color: var(--color-accent-dark);
+      text-decoration: underline;
+    }
+
+    .group-contact-cta {
+      display: block;
+      width: 100%;
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      background: var(--color-accent);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--text-sm);
+      border-radius: var(--radius-lg, 0.75rem);
+      transition: all 0.2s;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+    }
+
+    .group-contact-cta:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(166, 139, 91, 0.3);
+    }
+
+    /* Back link */
+    .group-back-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-16);
+      text-align: center;
+    }
+
+    .group-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: var(--space-3) var(--space-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full, 9999px);
+      transition: all 0.2s;
+    }
+
+    .group-back-link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .group-back-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .group-content-grid {
+        grid-template-columns: 1fr;
+      }
+      .group-contact-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .group-hero-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .group-hero-text {
+        order: 1;
+      }
+      .group-hero-image {
+        order: 0;
+        max-height: 280px;
+      }
+      .group-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon">
+        <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie">
+      </span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">BERLIN</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="sakramente.html">Sakramenty</a></li>
+      <li><a href="events.html">Wydarzenia</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Group Hero Section -->
+<section class="group-hero">
+  <div class="group-hero-inner">
+
+    <nav class="group-breadcrumb">
+      <a href="index.html">Strona główna</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <a href="index.html#wspolnoty">Wspólnoty</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span>Grupa Męska</span>
+    </nav>
+
+    <div class="group-hero-content">
+      <div class="group-hero-text">
+        <div class="group-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h1>Grupa <em>Męska</em></h1>
+        <p class="group-hero-tagline">
+          Wspólnota chrześcijańskich mężczyzn wspierających się nawzajem w przezwyciężaniu wyzwań duchowych i życiowych.
+        </p>
+        <div class="group-hero-meta">
+          <div class="group-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Spotkania: <strong>1 raz w miesiącu, czwartek, 19:00</strong></span>
+          </div>
+          <div class="group-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Miejsce: <strong>Dom Jana Pawła II</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-hero-image">
+        <div class="group-hero-image-placeholder">📷</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="group-content">
+  <div class="group-content-grid">
+
+    <!-- Left: Description -->
+    <div class="group-description">
+      <h2>O <em>nas</em></h2>
+      <p>
+        Jesteśmy grupą chrześcijańskich mężczyzn. Wspieramy się wzajemnie, aby znaleźć pokrzepienie i pomoc w przezwyciężaniu wyzwań zarówno duchowych, jak i życiowych. Uczymy się od siebie nawzajem i dzielimy się swoimi doświadczeniami, przez co stajemy się lepszymi braćmi, mężami i ojcami.
+      </p>
+
+            <div class="group-highlights">
+        <div class="group-highlight-card">
+          <h4>Wsparcie wzajemne</h4>
+          <p>Mężczyźni wspierają się nawzajem w wierze i życiu codziennym.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Wyzwania duchowe</h4>
+          <p>Dzielenie się doświadczeniami oraz szukanie pokrzepienia w drodze wiary.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Lepsi mężowie i ojcowie</h4>
+          <p>Formacja zmierzająca do lepszej realizacji roli w rodzinie i społeczeństwie.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Braterstwo</h4>
+          <p>Budowanie głębokich więzi braterskich opartych na wspólnej wierze.</p>
+        </div>
+      </div>
+
+      <h2>Dołącz <em>do nas</em></h2>
+      <p>
+        Zapraszamy serdecznie wszystkich, którzy chcą dołączyć do naszej wspólnoty. Niezależnie od doświadczenia,
+        każdy jest w naszej grupie mile widziany. Skontaktuj się z nami lub przyjdź na jedno z naszych spotkań.
+      </p>
+    </div>
+
+    <!-- Right: Contact Card -->
+    <aside>
+      <div class="group-contact-card">
+        <div class="group-contact-header">
+          <h3>Kontakt</h3>
+          <p>Skontaktuj się z nami</p>
+        </div>
+        <div class="group-contact-body">
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+            <div>
+              <div class="label">Prowadzący / Odpowiedzialny</div>
+              <div class="value">Brak danych</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg>
+            <div>
+              <div class="label">Opieka duchowa</div>
+              <div class="value">Ks. Przemek Kawecki SDB</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div class="label">Spotkania</div>
+              <div class="value">1 raz w miesiącu, czwartek, 19:00<br>Dom Jana Pawła II</div>
+            </div>
+          </div>
+          <a href="kontakt.html?temat=Wspolnota%3A%20Grupa%20Meska" class="group-contact-cta">
+            Napisz do nas
+          </a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- Back to groups -->
+<div class="group-back-section">
+  <a href="index.html#wspolnoty" class="group-back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Wszystkie wspólnoty
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Nawigacja</h4>
+          <a href="index.html">Strona główna</a>
+          <a href="sakramente.html">Sakramenty</a>
+          <a href="events.html">Wydarzenia</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

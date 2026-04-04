@@ -1,0 +1,36 @@
+===== TAB 1: "Wydarzenia" (Tabellenblatt1) =====
+Kopfzeile (Zeile 1):
+Tytuł	Data	Godzina	Opis	Zdjęcie	Miejsce	Opublikowane
+
+Beispieldaten (ab Zeile 2):
+Niedziela Palmowa	29.03.2026	10:15	Poświęcenie palm i procesja. Msze o 10:15, 12:00 i 18:00. Prosimy o przyniesienie palm do poświęcenia.		Johannes-Basilika	TAK
+Wielki Czwartek	02.04.2026	18:00	Msza Wieczerzy Pańskiej z obrzędem umycia nóg. Po Mszy adoracja w Ciemnicy do północy.		Johannes-Basilika	TAK
+Wielki Piątek	03.04.2026	15:00	15:00 - Liturgia Męki Pańskiej. 17:00 - Droga Krzyżowa. 20:00 - Adoracja przy Grobie Pańskim.		Johannes-Basilika	TAK
+Wielka Sobota	04.04.2026	09:00	09:00-12:00 i 14:00-16:00 - Święcenie pokarmów. 20:00 - Wigilia Paschalna.		Johannes-Basilika	TAK
+Niedziela Zmartwychwstania	05.04.2026	07:00	07:00 - Uroczysta Rezurekcja z procesją. Msze: 10:15, 12:00, 18:00. ALLELUJA!		Johannes-Basilika	TAK
+Poniedziałek Wielkanocny	06.04.2026	10:15	10:15 - Msza Święta. Emaus - spotkanie wielkanocne po Mszy.		Johannes-Basilika	TAK
+Pierwsza Komunia Święta	03.05.2026	10:15	Uroczysta Msza Święta z Pierwszą Komunią. Po Mszy błogosławieństwo rodzin.		Johannes-Basilika	TAK
+Boże Ciało	04.06.2026	10:15	10:15 - Uroczysta Msza Święta. Po Mszy procesja z Najświętszym Sakramentem.		Johannes-Basilika	TAK
+
+
+===== TAB 2: "Voice Agent" =====
+Kopfzeile (Zeile 1):
+Data	Godzina	Podsumowanie	Rozwiązane	Numer telefonu	Czas rozmowy	Notatki
+
+Hinweis: Dieser Tab wird automatisch vom Voice Agent (Vapi) befüllt.
+Die Spalte "Rozwiązane" hat folgende Werte: TAK / NIE / CZĘŚCIOWO
+
+
+===== TAB 3: "Chatbot" =====
+Kopfzeile (Zeile 1):
+Data	Godzina	Pytanie	Rozwiązane	Email kontaktowy	Notatki
+
+Hinweis: Dieser Tab wird automatisch vom Website-Chatbot befüllt.
+Die Spalte "Rozwiązane" hat folgende Werte: TAK / NIE / CZĘŚCIOWO
+
+
+===== INSTRUKCJA =====
+1. WYDARZENIA: Wpisz tytuł, datę (DD.MM.YYYY), godzinę i opis. W kolumnie "Opublikowane" wpisz TAK lub NIE. Tylko wydarzenia z TAK pojawiają się na stronie.
+2. ZDJĘCIE: Wklej link do zdjęcia z Google Drive (kliknij prawym -> "Pobierz link do udostępniania") lub dowolny link do obrazka.
+3. MIEJSCE: Jeśli puste, domyślnie Johannes-Basilika. Wpisz inną nazwę jeśli wydarzenie jest gdzieś indziej.
+4. VOICE AGENT / CHATBOT: Te zakładki wypełniają się automatycznie. Możesz je przeglądać i dodawać notatki.
