@@ -5,8 +5,14 @@
 (function() {
   'use strict';
 
-  // N8N WEBHOOK URL
-  const WEBHOOK_URL = 'https://michal1234567.app.n8n.cloud/webhook/248af9e0-2a84-4805-adf2-9fef31096fea/chat';
+  // Security: HTML escaping for user-provided data
+  function escapeHTML(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  }
+
+  // Chatbot API (proxied through Netlify Function)
+  const WEBHOOK_URL = '/.netlify/functions/chatbot-proxy';
 
   const CONTACT_EMAIL = 'pmk@pmk-berlin.de';
   const CONTACT_PHONE = '+49 (30) 752 40 80';
@@ -48,7 +54,7 @@
     QUICK_REPLIES.forEach(qr => {
       const btn = document.createElement('button');
       btn.className = 'chatbot-qr-btn';
-      btn.innerHTML = '<span class="chatbot-qr-icon">' + qr.icon + '</span> ' + qr.label;
+      btn.innerHTML = '<span class="chatbot-qr-icon">' + escapeHTML(qr.icon) + '</span> ' + escapeHTML(qr.label);
       btn.addEventListener('click', () => {
         container.remove();
         input.value = qr.text;
@@ -110,20 +116,25 @@
       const data = await res.json();
       typing.remove();
 
-      const reply = data.output || data.text || data.response || '';
+      // n8n error responses have a "code" field - treat as failure
+      if (data.code && data.code >= 400) {
+        throw new Error('Webhook error: ' + data.code);
+      }
+
+      const reply = data.output || data.text || data.response || data.message || data.answer || '';
 
       if (!reply || detectUnresolved(reply)) {
         // Bot konnte nicht helfen - einfach auf E-Mail verweisen
         const msg = reply
-          ? reply + '\n\nJesli potrzebujesz dodatkowej pomocy, napisz do nas: <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a>'
-          : 'Przepraszam, nie mam odpowiedzi na to pytanie. Napisz do nas na <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> — postaramy sie odpowiedziec jak najszybciej!';
+          ? reply + '\n\nJesli potrzebujesz dodatkowej pomocy, napisz do nas: [' + CONTACT_EMAIL + '](mailto:' + CONTACT_EMAIL + ')'
+          : 'Przepraszam, nie mam odpowiedzi na to pytanie. Napisz do nas na [' + CONTACT_EMAIL + '](mailto:' + CONTACT_EMAIL + ') — postaramy sie odpowiedziec jak najszybciej!';
         addMessage(msg, 'bot');
       } else {
         addMessage(reply, 'bot');
       }
     } catch (err) {
       typing.remove();
-      addMessage('Przepraszam, cos poszlo nie tak. Napisz do nas na <a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> lub zadzwon: ' + CONTACT_PHONE, 'bot');
+      addMessage('Przepraszam, cos poszlo nie tak. Napisz do nas na [' + CONTACT_EMAIL + '](mailto:' + CONTACT_EMAIL + ') lub zadzwon: ' + CONTACT_PHONE, 'bot');
     }
   });
 
@@ -140,8 +151,10 @@
   }
 
   // Markdown-Rohtext in sauberes HTML umwandeln
+  // Input is already escaped; markdown syntax operates on escaped text
   function formatBotReply(text) {
-    let html = text;
+    // First escape the raw text to prevent XSS
+    let html = escapeHTML(text);
 
     // ### Überschriften → fett auf eigener Zeile
     html = html.replace(/###\s*(.+)/g, '<strong>$1</strong>');
@@ -149,8 +162,8 @@
     html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     // *kursiv* → <em>
     html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    // [text](url) → klickbare Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    // [text](url) → klickbare Links (only allow http/https/mailto)
+    html = html.replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:)[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
     // - Listenpunkte → saubere Zeilen mit Punkt
     html = html.replace(/^- /gm, '• ');
     // Zeilenumbrüche
@@ -164,7 +177,7 @@
   function addMessage(text, type) {
     const div = document.createElement('div');
     div.className = 'chatbot-msg chatbot-msg-' + (type === 'user' ? 'user' : 'bot');
-    const formatted = type === 'bot' ? formatBotReply(text) : text.replace(/\n/g, '<br>');
+    const formatted = type === 'bot' ? formatBotReply(text) : escapeHTML(text).replace(/\n/g, '<br>');
     div.innerHTML = '<p>' + formatted + '</p>';
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
