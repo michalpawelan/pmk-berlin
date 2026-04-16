@@ -27,23 +27,45 @@
 
 const SHEET_ID = '1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w';
 const SHEET_NAME = 'Tabellenblatt1';
+const NEWSLETTER_SHEET_NAME = 'Newsletter';
 const ADMIN_PIN = 'pmk2026';
 
 // Google Drive Ordner fuer Bilder (wird automatisch erstellt)
 const DRIVE_FOLDER_NAME = 'PMK_Events_Bilder';
 
 // Spalten: A:Tytul  B:Data  C:Godzina  D:Opis  E:Zdjecie  F:Miejsce  G:Adres  H:Opublikowane
+// Newsletter-Tab Spalten: A:Email  B:Data  C:Jezyk  D:Zrodlo
 
 function getSheet() {
   return SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
 }
 
+function getNewsletterSheet() {
+  return SpreadsheetApp.openById(SHEET_ID).getSheetByName(NEWSLETTER_SHEET_NAME);
+}
+
+function jsonResponse(obj) {
+  const output = ContentService.createTextOutput();
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setContent(JSON.stringify(obj));
+  return output;
+}
+
 function doGet(e) {
+  const params = (e && e.parameter) || {};
+  if (params.action === 'subscribe') {
+    return jsonResponse(subscribeNewsletter(params));
+  }
   return handleRequest(e);
 }
 
 function doPost(e) {
   const params = e.parameter || {};
+
+  // Oeffentliche Newsletter-Anmeldung (kein PIN)
+  if (params.action === 'subscribe') {
+    return jsonResponse(subscribeNewsletter(params));
+  }
 
   // PIN-Pruefung
   if (params.pin !== ADMIN_PIN) {
@@ -246,6 +268,43 @@ function togglePublish(params) {
   SpreadsheetApp.flush();
 
   return { success: true, message: 'Status zmieniony na: ' + newValue, published: newValue };
+}
+
+/**
+ * Oeffentliche Newsletter-Anmeldung
+ * Schreibt in Tab "Newsletter" (A:Email, B:Data, C:Jezyk, D:Zrodlo)
+ * Kein PIN noetig. Duplikate werden ignoriert.
+ */
+function subscribeNewsletter(params) {
+  const rawEmail = String(params.email || '').trim().toLowerCase();
+  if (!rawEmail || rawEmail.length > 254) {
+    return { success: false, error: 'invalid_email' };
+  }
+  // Einfache E-Mail-Validierung
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)) {
+    return { success: false, error: 'invalid_email' };
+  }
+
+  const lang = String(params.lang || 'pl').toLowerCase().slice(0, 2);
+  const source = String(params.source || '').slice(0, 200);
+
+  const sheet = getNewsletterSheet();
+  if (!sheet) {
+    return { success: false, error: 'sheet_missing' };
+  }
+
+  // Duplikat-Check (Spalte A)
+  const values = sheet.getRange('A:A').getValues();
+  for (let i = 0; i < values.length; i++) {
+    if (String(values[i][0] || '').trim().toLowerCase() === rawEmail) {
+      return { success: true, message: 'already_subscribed', duplicate: true };
+    }
+  }
+
+  sheet.appendRow([rawEmail, new Date(), lang, source]);
+  SpreadsheetApp.flush();
+
+  return { success: true, message: 'subscribed' };
 }
 
 /**

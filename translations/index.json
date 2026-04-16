@@ -1,0 +1,350 @@
+{
+  "index.hero.badge": {
+    "pl": "Od 1945 roku w Berlinie",
+    "de": "Seit 1945 in Berlin"
+  },
+  "index.hero.title": {
+    "pl": "Polska Misja <em>Katolicka</em>",
+    "de": "Polnische Katholische <em>Mission</em>"
+  },
+  "index.hero.subtitle": {
+    "pl": "Johannes-Basilika w sercu Kreuzbergu",
+    "de": "Johannes-Basilika im Herzen von Kreuzberg"
+  },
+  "index.hero.verse": {
+    "pl": "Błogosławieni, którzy wprowadzają pokój, albowiem oni będą nazwani synami Bożymi.",
+    "de": "Selig, die Frieden stiften; denn sie werden Kinder Gottes genannt werden."
+  },
+  "index.hero.btn_sacraments": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "index.hero.btn_contact": {
+    "pl": "Kontakt",
+    "de": "Kontakt"
+  },
+  "index.mass_banner.sunday": {
+    "pl": "Niedziela",
+    "de": "Sonntag"
+  },
+  "index.mass_banner.weekdays": {
+    "pl": "Poniedziałek - Sobota",
+    "de": "Montag – Samstag"
+  },
+  "index.mass_banner.full_schedule": {
+    "pl": "Pełny rozkład",
+    "de": "Vollständiger Zeitplan"
+  },
+  "index.events.label": {
+    "pl": "Wydarzenia",
+    "de": "Veranstaltungen"
+  },
+  "index.events.title": {
+    "pl": "Nadchodzące <em>Wydarzenia</em>",
+    "de": "Kommende <em>Veranstaltungen</em>"
+  },
+  "index.events.lead": {
+    "pl": "Ważne daty i uroczystości w naszej parafii",
+    "de": "Wichtige Termine und Feierlichkeiten in unserer Pfarrei"
+  },
+  "index.events.whatsapp_title": {
+    "pl": "Nie przegap żadnego wydarzenia!",
+    "de": "Verpassen Sie keine Veranstaltung!"
+  },
+  "index.events.whatsapp_desc": {
+    "pl": "Dołącz do naszego kanału WhatsApp — 100% anonimowo.",
+    "de": "Treten Sie unserem WhatsApp-Kanal bei — 100% anonym."
+  },
+  "index.events.whatsapp_btn": {
+    "pl": "Dołącz do kanału",
+    "de": "Kanal beitreten"
+  },
+  "index.mass.label": {
+    "pl": "Nabożeństwa",
+    "de": "Gottesdienste"
+  },
+  "index.mass.title": {
+    "pl": "Msze <em>Święte</em>",
+    "de": "Heilige <em>Messen</em>"
+  },
+  "index.mass.location_name": {
+    "pl": "Johannes-Basilika",
+    "de": "Johannes-Basilika"
+  },
+  "index.mass.confession_title": {
+    "pl": "Spowiedź święta",
+    "de": "Heilige Beichte"
+  },
+  "index.mass.confession_desc": {
+    "pl": "Pon.–Sob. podczas Mszy wieczornej<br>Niedziela przed i podczas każdej Mszy Św.<br>I piątek miesiąca od 17:00",
+    "de": "Mo.–Sa. während der Abendmesse<br>Sonntag vor und während jeder Hl. Messe<br>1. Freitag im Monat ab 17:00"
+  },
+  "index.mass.weekdays": {
+    "pl": "Poniedziałek - Sobota",
+    "de": "Montag – Samstag"
+  },
+  "index.mass.wednesday": {
+    "pl": "Środa",
+    "de": "Mittwoch"
+  },
+  "index.mass.saturday": {
+    "pl": "Sobota",
+    "de": "Samstag"
+  },
+  "index.mass.sunday": {
+    "pl": "Niedziela i Święta",
+    "de": "Sonn- und Feiertage"
+  },
+  "index.communities.label": {
+    "pl": "Wspólnoty",
+    "de": "Gemeinschaften"
+  },
+  "index.communities.title": {
+    "pl": "Nasze <em>Wspólnoty</em>",
+    "de": "Unsere <em>Gemeinschaften</em>"
+  },
+  "index.communities.lead": {
+    "pl": "Grupy parafialne, w których możesz wzrastać w wierze i wspólnocie",
+    "de": "Pfarrgruppen, in denen Sie im Glauben und in Gemeinschaft wachsen können"
+  },
+  "index.no_events": {
+    "pl": "Brak nadchodzących wydarzeń.",
+    "de": "Keine kommenden Veranstaltungen."
+  },
+  "index.event_status.upcoming": {
+    "pl": "Nadchodzi",
+    "de": "Bevorstehend"
+  },
+  "index.event_status.today": {
+    "pl": "Dzisiaj",
+    "de": "Heute"
+  },
+  "index.event_status.soon": {
+    "pl": "Wkrótce",
+    "de": "In Kürze"
+  },
+  "index.event_status.past": {
+    "pl": "Minione",
+    "de": "Vergangen"
+  },
+  "index.mass.sunday_note": {
+    "pl": "Uroczyste Msze ze śpiewem",
+    "de": "Feierliche Messen mit Gesang"
+  },
+  "index.mass.other_churches": {
+    "pl": "Msze Św. w innych kościołach",
+    "de": "Hl. Messen in anderen Kirchen"
+  },
+  "index.mass.sundays_holidays": {
+    "pl": "Niedziele i święta",
+    "de": "Sonn- und Feiertage"
+  },
+  "index.sacraments.label": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "index.sacraments.title": {
+    "pl": "Życie <em>sakramentalne</em>",
+    "de": "Sakramentales <em>Leben</em>"
+  },
+  "index.sacraments.lead": {
+    "pl": "Towarzyszymy wiernym na każdym etapie duchowej drogi",
+    "de": "Wir begleiten die Gläubigen auf jedem Abschnitt ihres geistlichen Weges"
+  },
+  "index.sacraments.baptism": {
+    "pl": "Chrzest",
+    "de": "Taufe"
+  },
+  "index.sacraments.baptism_desc": {
+    "pl": "Sakrament inicjacji chrześcijańskiej",
+    "de": "Sakrament der christlichen Initiation"
+  },
+  "index.sacraments.communion": {
+    "pl": "Pierwsza Komunia",
+    "de": "Erstkommunion"
+  },
+  "index.sacraments.communion_desc": {
+    "pl": "Zgłoszenie online",
+    "de": "Online-Anmeldung"
+  },
+  "index.sacraments.confirmation": {
+    "pl": "Bierzmowanie",
+    "de": "Firmung"
+  },
+  "index.sacraments.confirmation_desc": {
+    "pl": "Zgłoszenie online",
+    "de": "Online-Anmeldung"
+  },
+  "index.sacraments.marriage": {
+    "pl": "Małżeństwo",
+    "de": "Ehe"
+  },
+  "index.sacraments.marriage_desc": {
+    "pl": "Ślub kościelny i przygotowanie",
+    "de": "Kirchliche Trauung und Vorbereitung"
+  },
+  "index.sacraments.confession": {
+    "pl": "Spowiedź",
+    "de": "Beichte"
+  },
+  "index.sacraments.confession_desc": {
+    "pl": "Sakrament pojednania",
+    "de": "Sakrament der Versöhnung"
+  },
+  "index.sacraments.anointing": {
+    "pl": "Namaszczenie",
+    "de": "Krankensalbung"
+  },
+  "index.sacraments.anointing_desc": {
+    "pl": "Sakrament chorych",
+    "de": "Sakrament der Kranken"
+  },
+  "index.sacraments.all_btn": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  },
+  "index.churches.label": {
+    "pl": "Nasze kościoły",
+    "de": "Unsere Kirchen"
+  },
+  "index.churches.title": {
+    "pl": "Gdzie nas <em>znajdziesz</em>",
+    "de": "Wo Sie uns <em>finden</em>"
+  },
+  "index.churches.main_badge": {
+    "pl": "Kościół główny",
+    "de": "Hauptkirche"
+  },
+  "index.churches.show_map": {
+    "pl": "Pokaż na mapie",
+    "de": "Auf der Karte anzeigen"
+  },
+  "index.about.label": {
+    "pl": "O nas",
+    "de": "Über uns"
+  },
+  "index.about.title": {
+    "pl": "Nasza <em>historia</em>",
+    "de": "Unsere <em>Geschichte</em>"
+  },
+  "index.about.lead": {
+    "pl": "Polska Misja Katolicka w Berlinie istnieje od 1945 roku i jest duchowym domem dla polskojęzycznych katolików w stolicy Niemiec.",
+    "de": "Die Polnische Katholische Mission in Berlin besteht seit 1945 und ist die geistliche Heimat für polnischsprachige Katholiken in der deutschen Hauptstadt."
+  },
+  "index.about.text1": {
+    "pl": "Nasza wspólnota gromadzi się w zabytkowej Johannes-Basilice w sercu Kreuzbergu. Pielęgnujemy polską tradycję, kulturę i wiarę - otwierając nasze drzwi dla wszystkich, którzy szukają wspólnoty modlitwy w języku polskim.",
+    "de": "Unsere Gemeinschaft versammelt sich in der historischen Johannes-Basilika im Herzen von Kreuzberg. Wir pflegen polnische Tradition, Kultur und Glauben — und öffnen unsere Türen für alle, die eine Gebetsgemeinschaft in polnischer Sprache suchen."
+  },
+  "index.about.text2": {
+    "pl": "Zapraszamy do uczestnictwa w naszych nabożeństwach, sakramentach i życiu parafialnym. Jesteśmy wspólnotą otwartą, gotową służyć każdemu, kto szuka Boga.",
+    "de": "Wir laden Sie herzlich ein, an unseren Gottesdiensten, Sakramenten und dem Pfarrleben teilzunehmen. Wir sind eine offene Gemeinschaft, bereit, jedem zu dienen, der Gott sucht."
+  },
+  "index.about.stat_years": {
+    "pl": "lat w Berlinie",
+    "de": "Jahre in Berlin"
+  },
+  "index.about.stat_churches": {
+    "pl": "kościoły",
+    "de": "Kirchen"
+  },
+  "index.about.stat_community": {
+    "pl": "wspólnota",
+    "de": "Gemeinschaft"
+  },
+  "index.pastors.label": {
+    "pl": "Duszpasterze",
+    "de": "Seelsorger"
+  },
+  "index.pastors.title": {
+    "pl": "Nasi <em>księża</em>",
+    "de": "Unsere <em>Priester</em>"
+  },
+  "index.pastors.pastor_badge": {
+    "pl": "Proboszcz",
+    "de": "Pfarrer"
+  },
+  "index.pastors.pastor_role": {
+    "pl": "Proboszcz Polskiej Misji Katolickiej w Berlinie",
+    "de": "Pfarrer der Polnischen Katholischen Mission in Berlin"
+  },
+  "index.pastors.pastor_bio": {
+    "pl": "Serdecznie zaprasza wszystkich Polaków i osoby niemieckojęzyczne do uczestnictwa w naszych nabożeństwach i życiu parafialnym.",
+    "de": "Lädt alle Polen und Deutschsprachigen herzlich ein, an unseren Gottesdiensten und dem Pfarrleben teilzunehmen."
+  },
+  "index.pastors.vicar_title": {
+    "pl": "Wikariusze",
+    "de": "Vikare"
+  },
+  "index.pastors.vicar_role": {
+    "pl": "Wikariusz",
+    "de": "Vikar"
+  },
+  "index.contact.label": {
+    "pl": "Kontakt",
+    "de": "Kontakt"
+  },
+  "index.contact.title": {
+    "pl": "Napisz do <em>nas</em>",
+    "de": "Schreiben Sie <em>uns</em>"
+  },
+  "index.contact.address_label": {
+    "pl": "Adres",
+    "de": "Adresse"
+  },
+  "index.contact.phone_label": {
+    "pl": "Telefon",
+    "de": "Telefon"
+  },
+  "index.contact.office_hours": {
+    "pl": "Godziny urzędowania",
+    "de": "Öffnungszeiten"
+  },
+  "index.contact.form_name": {
+    "pl": "Imię",
+    "de": "Vorname"
+  },
+  "index.contact.form_name_placeholder": {
+    "pl": "Twoje imię",
+    "de": "Ihr Vorname"
+  },
+  "index.contact.form_email_placeholder": {
+    "pl": "twoj@email.pl",
+    "de": "ihre@email.de"
+  },
+  "index.contact.form_subject": {
+    "pl": "Temat",
+    "de": "Betreff"
+  },
+  "index.contact.form_select_topic": {
+    "pl": "Wybierz temat...",
+    "de": "Thema wählen..."
+  },
+  "index.contact.form_message": {
+    "pl": "Wiadomość",
+    "de": "Nachricht"
+  },
+  "index.contact.form_message_placeholder": {
+    "pl": "Twoja wiadomość...",
+    "de": "Ihre Nachricht..."
+  },
+  "index.contact.form_submit": {
+    "pl": "Wyślij wiadomość",
+    "de": "Nachricht senden"
+  },
+  "index.contact.form_note": {
+    "pl": "Formularz otworzy Twój program e-mail z wypełnioną wiadomością.",
+    "de": "Das Formular öffnet Ihr E-Mail-Programm mit der ausgefüllten Nachricht."
+  },
+  "index.footer.nav_title": {
+    "pl": "Nawigacja",
+    "de": "Navigation"
+  },
+  "index.footer.info_title": {
+    "pl": "Informacje",
+    "de": "Informationen"
+  },
+  "index.footer.motto": {
+    "pl": "\"Niech będzie pochwalony Jezus Chrystus\"",
+    "de": "\"Gelobt sei Jesus Christus\""
+  }
+}

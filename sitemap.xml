@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
+
+  <!-- ============================================ -->
+  <!-- Strona glowna / Startseite (PL ↔ DE) -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://www.pmk-berlin.de/</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/"/>
+    <image:image>
+      <image:loc>https://www.pmk-berlin.de/images/basilika-fassade.webp</image:loc>
+      <image:title>Johannes-Basilika - Polska Misja Katolicka Berlin</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.pmk-berlin.de/de/index.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/index.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- Sakramenty / Sakramente (PL ↔ DE) -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://www.pmk-berlin.de/sakramente.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakramente.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/sakramente.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakramente.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/sakramente.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakramente.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/sakramente.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakramente.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- Kontakt (PL ↔ DE) -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://www.pmk-berlin.de/kontakt.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/kontakt.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/kontakt.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/kontakt.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- DE-only Seiten (Messzeiten, Über uns) -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://www.pmk-berlin.de/de/messzeiten.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/messzeiten.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/de/messzeiten.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/ueber-uns.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/ueber-uns.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/de/ueber-uns.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- PL-only Seiten -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://www.pmk-berlin.de/events.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/grupy.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/event.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Sakramenty - podstrony -->
+  <url>
+    <loc>https://www.pmk-berlin.de/sakrament-chrzest.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/sakrament-komunia.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/sakrament-bierzmowanie.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/sakrament-spowiedz.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/sakrament-malzenstwo.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/sakrament-namaszczenie.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Wspolnoty parafialne -->
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-sne.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-domowy-kosciol.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-schola.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-ruch-swiatlo-zycie.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-ruch-szensztacki.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-grono-dzieci-maryi.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-radio-maryja.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-apostolstwo.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-grupa-meska.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Rechtliches -->
+  <url>
+    <loc>https://www.pmk-berlin.de/impressum.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/datenschutz.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/schutzkonzept.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+</urlset>

@@ -7,6 +7,14 @@
   'use strict';
 
   // ============================================
+  // Security: HTML escaping for user-provided data
+  // ============================================
+  function escapeHTML(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  }
+
+  // ============================================
   // Configuration
   // ============================================
   const CONFIG = {
@@ -22,7 +30,6 @@
   document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initScrollReveal();
-    initContactForm();
     loadEvents();
     initSmoothScroll();
   });
@@ -34,6 +41,21 @@
     const nav = document.getElementById('mainNav');
     let lastScrollY = window.scrollY;
     let ticking = false;
+
+    // Bind hamburger menu button
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger) {
+      hamburger.addEventListener('click', toggleMenu);
+    }
+
+    // Bind language switcher buttons (data-lang attribute)
+    document.querySelectorAll('[data-lang]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (typeof window.setLang === 'function') {
+          window.setLang(this.getAttribute('data-lang'));
+        }
+      });
+    });
 
     function updateNav() {
       const scrollY = window.scrollY;
@@ -61,7 +83,7 @@
   }
 
   // Mobile menu toggle
-  window.toggleMenu = function() {
+  function toggleMenu() {
     const navLinks = document.getElementById('navLinks');
     const hamburger = document.getElementById('hamburger');
 
@@ -70,16 +92,7 @@
 
     // Prevent body scroll when menu is open
     document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-  };
-
-  // Language switch
-  window.setLang = function(lang) {
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
-    });
-    // Language switching logic would go here
-    console.log('Language set to:', lang);
-  };
+  }
 
   // ============================================
   // Scroll Reveal Animation
@@ -89,31 +102,48 @@
 
     if (!reveals.length) return;
 
+    // Elements already in viewport on page load: show instantly (no animation)
+    const viewportHeight = window.innerHeight;
+    reveals.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < viewportHeight && rect.bottom > 0) {
+        el.classList.add('visible', 'no-transition');
+        // Remove no-transition after a frame so future hover/state transitions still work
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.classList.remove('no-transition');
+          });
+        });
+      }
+    });
+
+    // Only observe elements not yet visible (below the fold)
+    const remaining = document.querySelectorAll('.reveal:not(.visible)');
+    if (!remaining.length) return;
+
+    let staggerBase = 0;
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          // Stagger animation for multiple elements
-          const delay = index * CONFIG.animationDelay;
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, delay);
-          observer.unobserve(entry.target);
-        }
+      const newEntries = entries.filter(e => e.isIntersecting);
+      newEntries.forEach((entry, index) => {
+        const delay = index * CONFIG.animationDelay;
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+        observer.unobserve(entry.target);
       });
     }, {
       threshold: CONFIG.revealThreshold,
       rootMargin: CONFIG.revealMargin
     });
 
-    reveals.forEach(el => observer.observe(el));
+    remaining.forEach(el => observer.observe(el));
   }
 
   // ============================================
   // Events Loading
   // ============================================
-  // Google Sheet Config - HIER ANPASSEN
-  const SHEET_ID = '1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w';
-  const SHEET_NAME = 'Tabellenblatt1';
+  // Events API (proxied through Netlify Function)
+  const EVENTS_API = '/.netlify/functions/events-proxy';
 
   async function loadEvents() {
     const container = document.getElementById('events-container');
@@ -124,9 +154,9 @@
     // 1. Versuch: Google Sheets
     try {
       events = await fetchFromGoogleSheets();
-      console.log('Events loaded from Google Sheets:', events.length);
+      // Events loaded from Google Sheets
     } catch (e) {
-      console.warn('Google Sheets failed:', e);
+      // Google Sheets fetch failed
     }
 
     // 2. Versuch: Lokale JSON (nur wenn online/Server)
@@ -135,17 +165,17 @@
         const response = await fetch('events.json');
         if (response.ok) {
           events = await response.json();
-          console.log('Events loaded from events.json:', events.length);
+          // Events loaded from events.json
         }
       } catch (e) {
-        console.warn('events.json failed:', e);
+        // events.json fetch failed
       }
     }
 
     // 3. Fallback: Hardcoded Events
     if (events.length === 0) {
       events = getHardcodedEvents();
-      console.log('Using hardcoded events');
+      // Using hardcoded events
     }
 
     // Filter & Render
@@ -158,13 +188,21 @@
       .slice(0, 6);
 
     if (upcoming.length === 0) {
-      container.innerHTML = '<p class="no-events">Brak nadchodzacych wydarzen.</p>';
+      const noEventsMsg = getLang() === 'de' ? 'Keine kommenden Veranstaltungen.' : 'Brak nadchodzących wydarzeń.';
+      container.innerHTML = '<p class="no-events">' + noEventsMsg + '</p>';
       return;
     }
 
     container.innerHTML = upcoming.map(ev => renderEventCard(ev)).join('');
 
-    // Event cards are now direct links to detail page
+    // Add count class for centering when few events
+    container.classList.remove('events-count-1', 'events-count-2');
+    if (upcoming.length <= 2) {
+      container.classList.add(`events-count-${upcoming.length}`);
+    }
+
+    // Inject Event structured data for SEO
+    injectEventSchema(upcoming);
 
     initScrollReveal();
   }
@@ -175,8 +213,7 @@
   // NEUE SPALTEN (vereinfacht, 7 Spalten):
   // A: Tytul  B: Data  C: Godzina  D: Opis  E: Zdjecie (URL)  F: Miejsce  G: Opublikowane (TAK/NIE)
   async function fetchFromGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&headers=1`;
-    const response = await fetch(url);
+    const response = await fetch(EVENTS_API);
     const text = await response.text();
 
     const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
@@ -295,24 +332,35 @@
   // Hardcoded Fallback Events
   // ============================================
   function getHardcodedEvents() {
-    return [
-      { id: 'niedziela-palmowa', title: 'Niedziela Palmowa', date: '2026-03-29', time: '10:15', shortDesc: 'Poswiecenie palm i procesja.', fullDesc: 'Poswiecenie palm i procesja. Msze o 10:15, 12:00 i 18:00. Prosimy o przyniesienie palm do poswiecenia.', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' },
-      { id: 'wielki-czwartek', title: 'Wielki Czwartek', date: '2026-04-02', time: '18:00', shortDesc: 'Msza Wieczerzy Panskiej.', fullDesc: 'Msza Wieczerzy Panskiej z obrzedem umycia nog. Po Mszy adoracja w Ciemnicy do polnocy.', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' },
-      { id: 'wielki-piatek', title: 'Wielki Piatek', date: '2026-04-03', time: '15:00', shortDesc: 'Liturgia Meki Panskiej. Droga Krzyzowa.', fullDesc: '15:00 - Liturgia Meki Panskiej. 17:00 - Droga Krzyzowa. 20:00 - Adoracja przy Grobie Panskim.', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' },
-      { id: 'wielka-sobota', title: 'Wielka Sobota', date: '2026-04-04', time: '09:00', shortDesc: 'Swiecenie pokarmow. Wigilia Paschalna.', fullDesc: '09:00-12:00 i 14:00-16:00 - Swiecenie pokarmow. 20:00 - Wigilia Paschalna.', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' },
-      { id: 'niedziela-zmartwychwstania', title: 'Niedziela Zmartwychwstania', date: '2026-04-05', time: '07:00', shortDesc: 'Rezurekcja o 7:00. Msze o 10:15, 12:00, 18:00.', fullDesc: '07:00 - Uroczysta Rezurekcja z procesja. Msze: 10:15, 12:00, 18:00. ALLELUJA!', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' },
-      { id: 'pierwsza-komunia-swieta', title: 'Pierwsza Komunia Swieta', date: '2026-05-03', time: '10:15', shortDesc: 'Uroczystosc I Komunii Swietej.', fullDesc: 'Uroczysta Msza Swieta z Pierwsza Komunia. Po Mszy blogoslawienstwo rodzin.', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' },
-      { id: 'boze-cialo', title: 'Boze Cialo', date: '2026-06-04', time: '10:15', shortDesc: 'Procesja z Najswietszym Sakramentem.', fullDesc: '10:15 - Uroczysta Msza Swieta. Po Mszy procesja z Najswietszym Sakramentem.', location: 'Johannes-Basilika', address: 'Lilienthalstraße 5, 10965 Berlin' }
-    ];
+    return [];
+  }
+
+  // i18n-aware labels for event cards
+  const i18nLabels = {
+    months: {
+      pl: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'],
+      de: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+    },
+    weekdays: {
+      pl: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+      de: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+    },
+    status: {
+      pl: { upcoming: 'Nadchodzi', today: 'Dzisiaj', soon: 'Wkrótce', past: 'Minione' },
+      de: { upcoming: 'Bevorstehend', today: 'Heute', soon: 'In Kürze', past: 'Vergangen' }
+    }
+  };
+
+  function getLang() {
+    try { return localStorage.getItem('pmk-lang') || 'pl'; } catch (e) { return 'pl'; }
   }
 
   function renderEventCard(ev) {
+    const lang = getLang();
     const d = new Date(ev.date);
     const day = String(d.getDate()).padStart(2, '0');
-    const months = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paz', 'lis', 'gru'];
-    const month = months[d.getMonth()];
-    const weekdays = ['Niedziela', 'Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota'];
-    const weekday = weekdays[d.getDay()];
+    const month = i18nLabels.months[lang][d.getMonth()];
+    const weekday = i18nLabels.weekdays[lang][d.getDay()];
 
     const mapsUrl = ev.address
       ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ev.address)}`
@@ -323,8 +371,8 @@
     const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(ev.title)}&dates=${calStart}/${calEnd}&details=${encodeURIComponent(ev.shortDesc || '')}&location=${encodeURIComponent((ev.location || '') + ', ' + (ev.address || ''))}&ctz=Europe/Berlin`;
 
     const fullDescHtml = ev.fullDesc
-      ? ev.fullDesc.replace(/\n/g, '<br>')
-      : (ev.shortDesc || '');
+      ? escapeHTML(ev.fullDesc).replace(/\n/g, '<br>')
+      : escapeHTML(ev.shortDesc || '');
 
     const eventUrl = `event.html?id=${ev.id}`;
 
@@ -335,32 +383,39 @@
     eventDate.setHours(0, 0, 0, 0);
     const diffDays = Math.round((eventDate - now) / (1000 * 60 * 60 * 24));
 
+    const statusLabels = i18nLabels.status[lang];
     let statusClass = 'status-upcoming';
-    let statusText = 'Nadchodzi';
+    let statusText = statusLabels.upcoming;
     if (diffDays === 0) {
       statusClass = 'status-today';
-      statusText = 'Dzisiaj';
+      statusText = statusLabels.today;
     } else if (diffDays <= 3) {
       statusClass = 'status-soon';
-      statusText = 'Wkrotce';
+      statusText = statusLabels.soon;
     } else if (diffDays < 0) {
       statusClass = 'status-past';
-      statusText = 'Minione';
+      statusText = statusLabels.past;
     }
 
-    const statusDot = `<span class="event-status ${statusClass}"><span class="status-dot"></span>${statusText}</span>`;
+    const safeTitle = escapeHTML(ev.title);
+    const safeLocation = escapeHTML(ev.location);
+    const safeTime = escapeHTML(ev.time);
+    const safeEndTime = escapeHTML(ev.endTime);
+    const safeImageUrl = escapeHTML(ev.imageUrl);
 
-    const timeDisplay = ev.time ? (ev.endTime ? `${ev.time} - ${ev.endTime}` : ev.time) : '';
+    const statusDot = `<span class="event-status ${statusClass}"><span class="status-dot"></span>${escapeHTML(statusText)}</span>`;
+
+    const timeDisplay = safeTime ? (safeEndTime ? `${safeTime} - ${safeEndTime}` : safeTime) : '';
 
     if (ev.imageUrl) {
       // Luma style: image left, text right
       return `
         <a href="${eventUrl}" class="event-card has-image reveal">
-          <div class="event-card-image"><img src="${ev.imageUrl}" alt="${ev.title}" loading="lazy"></div>
+          <div class="event-card-image"><img src="${safeImageUrl}" alt="${safeTitle}" loading="lazy"></div>
           <div class="event-card-info">
             ${statusDot}
-            <h3 class="event-title">${ev.title}</h3>
-            <p class="event-meta">${weekday}${timeDisplay ? ', ' + timeDisplay : ''}${ev.location ? ' · ' + ev.location : ''}</p>
+            <h3 class="event-title">${safeTitle}</h3>
+            <p class="event-meta">${weekday}${timeDisplay ? ', ' + timeDisplay : ''}${safeLocation ? ' · ' + safeLocation : ''}</p>
           </div>
         </a>
       `;
@@ -375,14 +430,66 @@
         </time>
         <div class="event-card-info">
           ${statusDot}
-          <h3 class="event-title">${ev.title}</h3>
-          <p class="event-meta">${weekday}${timeDisplay ? ' · ' + timeDisplay : ''}${ev.location ? ' · ' + ev.location : ''}</p>
+          <h3 class="event-title">${safeTitle}</h3>
+          <p class="event-meta">${weekday}${timeDisplay ? ' · ' + timeDisplay : ''}${safeLocation ? ' · ' + safeLocation : ''}</p>
         </div>
         <span class="event-expand-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
         </span>
       </a>
     `;
+  }
+
+  // ============================================
+  // Event Schema.org Structured Data (SEO)
+  // ============================================
+  function injectEventSchema(events) {
+    const schemaEvents = events.map(ev => {
+      const startDate = ev.time ? `${ev.date}T${ev.time}:00+02:00` : ev.date;
+      const endDate = ev.endTime ? `${ev.date}T${ev.endTime}:00+02:00` : undefined;
+
+      return {
+        "@type": "Event",
+        "name": ev.title,
+        "description": ev.fullDesc || ev.shortDesc || '',
+        "startDate": startDate,
+        ...(endDate && { "endDate": endDate }),
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+          "@type": "Place",
+          "name": ev.location || "Johannes-Basilika",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": ev.address || "Lilienthalstraße 5",
+            "addressLocality": "Berlin",
+            "addressCountry": "DE"
+          }
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "Polska Misja Katolicka Berlin",
+          "url": "https://pmk-berlin.de"
+        },
+        ...(ev.imageUrl && { "image": ev.imageUrl }),
+        "inLanguage": "pl"
+      };
+    });
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Nadchodzące wydarzenia - PMK Berlin",
+      "numberOfItems": schemaEvents.length,
+      "itemListElement": schemaEvents.map((ev, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": ev
+      }))
+    });
+    document.head.appendChild(script);
   }
 
   function formatGCalDate(date, time, addHours = 0) {
@@ -395,32 +502,28 @@
   }
 
   // ============================================
-  // Contact Form
+  // Toast Notifications
   // ============================================
-  function initContactForm() {
-    const form = document.getElementById('contactForm');
-    if (!form) return;
+  function showToast(message, type) {
+    type = type || 'error';
+    var existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    var toast = document.createElement('div');
+    toast.className = 'toast-notification toast-' + type;
+    toast.textContent = message;
+    document.body.appendChild(toast);
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const subject = document.getElementById('subject').value.trim();
-      const message = document.getElementById('message').value.trim();
-
-      // Basic validation
-      if (!name || !email || !subject || !message) {
-        alert('Prosimy wypelnic wszystkie pola.');
-        return;
-      }
-
-      const body = `Imie: ${name}\nE-mail: ${email}\n\n${message}`;
-      const mailtoLink = `mailto:pmk@pmk-berlin.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      window.location.href = mailtoLink;
+    requestAnimationFrame(function() {
+      toast.classList.add('toast-visible');
     });
+
+    setTimeout(function() {
+      toast.classList.remove('toast-visible');
+      setTimeout(function() { toast.remove(); }, 300);
+    }, 4000);
   }
+  window.showToast = showToast;
 
   // ============================================
   // Smooth Scroll

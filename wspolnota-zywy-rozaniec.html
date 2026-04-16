@@ -6,8 +6,60 @@
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <title>Koło Żywego Różańca – Polska Misja Katolicka Berlin</title>
+  <title>Koło Żywego Różańca | Polska Misja Katolicka Berlin</title>
   <meta name="description" content="Międzynarodowy ruch religijny łączący modlitwę różańca z życiem Ewangelią, założony przez Pauline-Marie Jaricot.">
+  <link rel="canonical" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html">
+
+  <meta property="og:title" content="Koło Żywego Różańca | Polska Misja Katolicka Berlin">
+  <meta property="og:description" content="Międzynarodowy ruch religijny łączący modlitwę różańca z życiem Ewangelią, założony przez Pauline-Marie Jaricot.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Polska Misja Katolicka w Berlinie">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Koło Żywego Różańca | PMK Berlin">
+  <meta name="twitter:description" content="Międzynarodowy ruch modlitewny łączący różaniec z życiem Ewangelią.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Kreuzberg">
+  <meta name="geo.position" content="52.4870;13.3950">
+  <meta name="ICBM" content="52.4870, 13.3950">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.pmk-berlin.de/" },
+      { "@type": "ListItem", "position": 2, "name": "Grupy parafialne", "item": "https://www.pmk-berlin.de/grupy.html" },
+      { "@type": "ListItem", "position": 3, "name": "Koło Żywego Różańca", "item": "https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Koło Żywego Różańca",
+    "description": "Wspólnota parafialna PMK Berlin. Międzynarodowy ruch religijny łączący modlitwę różańca z życiem Ewangelią.",
+    "url": "https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html",
+    "memberOf": { "@id": "https://www.pmk-berlin.de/#church" },
+    "areaServed": { "@type": "City", "name": "Berlin" },
+    "founder": { "@type": "Person", "name": "Pauline-Marie Jaricot" }
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,6 +206,32 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    /* Fade-in animation for images */
+    .group-hero-image img,
+    .group-hero-image .group-hero-image-placeholder {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInImage 0.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeInImage {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .group-hero-text {
+      opacity: 0;
+      animation: fadeInText 0.6s ease-out 0.1s forwards;
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
     }
 
     .group-hero-image-placeholder {
@@ -405,13 +483,14 @@
   </style>
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
 
 <!-- Navigation -->
 <header class="nav-header" id="mainNav">
   <nav class="nav-container">
     <a href="index.html" class="nav-brand">
       <span class="nav-brand-icon">
-        <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie">
+        <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie" width="45" height="45">
       </span>
       <div class="nav-brand-text">
         <span class="nav-brand-name">Polska Misja Katolicka</span>
@@ -423,15 +502,16 @@
       <li><a href="index.html">Strona główna</a></li>
       <li><a href="sakramente.html">Sakramenty</a></li>
       <li><a href="events.html">Wydarzenia</a></li>
+      <li><a href="grupy.html">Grupy parafialne</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
     </ul>
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
-        <button class="lang-btn" onclick="setLang('de')">DE</button>
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
       </div>
-      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
@@ -441,13 +521,13 @@
 </header>
 
 <!-- Group Hero Section -->
-<section class="group-hero">
+<section id="main-content" class="group-hero">
   <div class="group-hero-inner">
 
     <nav class="group-breadcrumb">
       <a href="index.html">Strona główna</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      <a href="index.html#wspolnoty">Wspólnoty</a>
+      <a href="grupy.html">Wspólnoty</a>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
       <span>Koło Żywego Różańca</span>
     </nav>
@@ -549,7 +629,7 @@
               <div class="value">1. niedziela miesiąca, 13:00<br>Po Mszy Św. o 12:00</div>
             </div>
           </div>
-          <a href="kontakt.html?temat=Wspolnota%3A%20Kolo%20Zywego%20Rozanca" class="group-contact-cta">
+          <a href="kontakt.html?temat=Wsp%C3%B3lnota%3A%20Ko%C5%82o%20%C5%BBywego%20R%C3%B3%C5%BCa%C5%84ca" class="group-contact-cta">
             Napisz do nas
           </a>
         </div>
@@ -561,7 +641,7 @@
 
 <!-- Back to groups -->
 <div class="group-back-section">
-  <a href="index.html#wspolnoty" class="group-back-link">
+  <a href="grupy.html" class="group-back-link">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Wszystkie wspólnoty
   </a>
@@ -573,7 +653,7 @@
     <div class="footer-top">
       <div class="footer-main">
         <div class="footer-brand">
-          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
           <div class="footer-brand-text">
             <strong>Polska Misja Katolicka</strong>
             <span>w Berlinie</span>
@@ -601,17 +681,45 @@
           <h4>Informacje</h4>
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
         </div>
       </nav>
     </div>
 
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
+        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+      </div>
+      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
+        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
+        <div class="footer-newsletter-input-wrap">
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="twoj@email.pl"
+            data-i18n-attr="placeholder:footer.newsletter_placeholder"
+            aria-describedby="newsletter-status">
+          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
+        </div>
+        <div class="newsletter-hp-wrap" aria-hidden="true">
+          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
     <div class="footer-bottom">
-      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
       <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
     </div>
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script src="main.js" defer></script>
+<script src="js/newsletter.js" defer></script>
 </body>
 </html>

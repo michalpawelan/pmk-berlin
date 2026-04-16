@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-  <title>Zarządzanie Wydarzeniami | PMK Berlin</title>
+  <title>Zarządzanie Wydarzeniami | Polska Misja Katolicka Berlin</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,9 +127,9 @@
 
     .login-logo {
       width: 64px;
-      height: 64px;
+      height: auto;
       margin: 0 auto 1.5rem;
-      filter: none;
+      object-fit: contain;
     }
 
     .login-title {
@@ -1782,38 +1782,29 @@
   // ============================================
   // Delete Event
   // ============================================
-  window.deleteEvent = async function(row, title) {
-    // Optimistisch sofort aus der Liste entfernen
-    const removedEvent = allEvents.find(e => e.row === row);
-    allEvents = allEvents.filter(e => e.row !== row);
-    renderEvents();
-    updateStats();
+  window.deleteEvent = function(row, title) {
+    showConfirm(
+      'Usunąć wydarzenie?',
+      `„${title}" — tej operacji nie można cofnąć.`,
+      async () => {
+        // Optimistisch sofort aus der Liste entfernen
+        allEvents = allEvents.filter(e => e.row !== row);
+        renderEvents();
+        updateStats();
+        showToast('Wydarzenie usunięte', 'success');
 
-    // Undo-Toast anzeigen (3 Sekunden zum Rückgängig machen)
-    let undone = false;
-    showToastWithUndo('Wydarzenie usunięte', () => {
-      undone = true;
-      if (removedEvent) allEvents.push(removedEvent);
-      allEvents.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-      renderEvents();
-      updateStats();
-      showToast('Przywrócono', 'success');
-    });
-
-    // 3 Sekunden warten, dann tatsächlich löschen
-    await new Promise(r => setTimeout(r, 3000));
-    if (undone) return;
-
-    try {
-      const result = await apiCall('delete', { row: String(row) });
-      if (!result.success) {
-        showToast(result.error || 'Nie udało się usunąć', 'error');
-        await refreshEvents();
+        try {
+          const result = await apiCall('delete', { row: String(row) });
+          if (!result.success) {
+            showToast(result.error || 'Nie udało się usunąć', 'error');
+            await refreshEvents();
+          }
+        } catch (err) {
+          showToast('Błąd połączenia', 'error');
+          await refreshEvents();
+        }
       }
-    } catch (err) {
-      showToast('Błąd połączenia', 'error');
-      await refreshEvents();
-    }
+    );
   };
 
   // ============================================
@@ -2010,44 +2001,7 @@
     }, 3000);
   }
 
-  function showToastWithUndo(message, undoCallback) {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = 'toast success';
-    toast.style.display = 'flex';
-    toast.style.alignItems = 'center';
-    toast.style.gap = '0.5rem';
 
-    const icon = document.createElement('span');
-    icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
-    toast.appendChild(icon);
-
-    const text = document.createElement('span');
-    text.textContent = message;
-    toast.appendChild(text);
-
-    let dismissed = false;
-    const dismiss = () => {
-      if (dismissed) return;
-      dismissed = true;
-      toast.style.animation = 'toastOut 0.3s var(--ease-out) forwards';
-      setTimeout(() => toast.remove(), 300);
-    };
-
-    const btn = document.createElement('button');
-    btn.textContent = 'Cofnij';
-    btn.style.cssText = 'margin-left:auto;background:none;border:1px solid rgba(255,255,255,0.4);color:inherit;padding:0.2rem 0.6rem;border-radius:var(--radius-full);font-size:var(--text-xs);cursor:pointer;font-weight:600;';
-    btn.addEventListener('click', () => {
-      undoCallback();
-      dismiss();
-    });
-    toast.appendChild(btn);
-    container.appendChild(toast);
-
-    setTimeout(() => {
-      dismiss();
-    }, 3500);
-  }
 
   // ============================================
   // Helpers

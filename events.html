@@ -7,8 +7,57 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <title>Wydarzenia | Polska Misja Katolicka Berlin</title>
-  <meta name="description" content="Nadchodzace wydarzenia w Polskiej Misji Katolickiej w Berlinie.">
-  <link rel="canonical" href="https://pmk-berlin.de/events">
+  <meta name="description" content="Nadchodzące wydarzenia i ogłoszenia parafialne w Polskiej Misji Katolickiej w Berlinie. Msze Święte, rekolekcje, spotkania wspólnot i uroczystości.">
+  <link rel="canonical" href="https://www.pmk-berlin.de/events.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/events.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/events.html">
+
+  <meta property="og:title" content="Wydarzenia | Polska Misja Katolicka Berlin">
+  <meta property="og:description" content="Nadchodzące wydarzenia i ogłoszenia parafialne w Polskiej Misji Katolickiej w Berlinie. Msze Święte, rekolekcje, spotkania wspólnot i uroczystości.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.pmk-berlin.de/events.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Polska Misja Katolicka w Berlinie">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wydarzenia | PMK Berlin">
+  <meta name="twitter:description" content="Msze, rekolekcje, spotkania wspólnot, uroczystości — nadchodzące wydarzenia PMK Berlin.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Kreuzberg">
+  <meta name="geo.position" content="52.4870;13.3950">
+  <meta name="ICBM" content="52.4870, 13.3950">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.pmk-berlin.de/" },
+      { "@type": "ListItem", "position": 2, "name": "Wydarzenia", "item": "https://www.pmk-berlin.de/events.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Wydarzenia PMK Berlin",
+    "description": "Nadchodzące wydarzenia i ogłoszenia parafialne w Polskiej Misji Katolickiej w Berlinie.",
+    "url": "https://www.pmk-berlin.de/events.html",
+    "inLanguage": "pl",
+    "isPartOf": { "@id": "https://www.pmk-berlin.de/#church" }
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +66,13 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
 
 <!-- Navigation -->
 <header class="nav-header" id="mainNav">
   <nav class="nav-container">
     <a href="index.html" class="nav-brand">
-      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo"></span>
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
       <div class="nav-brand-text">
         <span class="nav-brand-name">Polska Misja Katolicka</span>
         <span class="nav-brand-location">Berlin</span>
@@ -33,15 +83,16 @@
       <li><a href="index.html">Strona główna</a></li>
       <li><a href="sakramente.html">Sakramenty</a></li>
       <li><a href="events.html" class="active">Wydarzenia</a></li>
+      <li><a href="grupy.html">Grupy parafialne</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
     </ul>
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
-        <button class="lang-btn" onclick="setLang('de')">DE</button>
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
       </div>
-      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
@@ -51,7 +102,7 @@
 </header>
 
 <!-- Page Hero -->
-<section class="page-hero page-hero-compact">
+<section id="main-content" class="page-hero page-hero-compact">
   <div class="page-hero-content">
     <span class="section-label">Wydarzenia</span>
     <h1 class="page-hero-title">Co <em>nadchodzi?</em></h1>
@@ -87,22 +138,15 @@
           </div>
         </div>
         <div class="schedule-item reveal">
-          <h3>Poniedziałek - Piątek</h3>
+          <h3>Poniedziałek - Sobota</h3>
           <div class="schedule-times">
             <span>07:00</span>
             <span>18:00</span>
           </div>
         </div>
         <div class="schedule-item reveal">
-          <h3>Sobota</h3>
-          <div class="schedule-times">
-            <span>07:00</span>
-            <span>18:00</span>
-          </div>
-        </div>
-        <div class="schedule-item reveal">
-          <h3>Spowiedz</h3>
-          <p class="schedule-note">30 min przed kazda Msza<br>Piatek: 17:00 - 18:00</p>
+          <h3>Spowiedź</h3>
+          <p class="schedule-note">Pon.–Sob. podczas Mszy wieczornej<br>Niedziela przed i podczas każdej Mszy Św.<br>I piątek miesiąca od 17:00</p>
         </div>
       </div>
     </div>
@@ -115,7 +159,7 @@
     <div class="footer-top">
       <div class="footer-main">
         <div class="footer-brand">
-          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
           <div class="footer-brand-text">
             <strong>Polska Misja Katolicka</strong>
             <span>w Berlinie</span>
@@ -126,7 +170,7 @@
           Lilienthalstraße 5, 10965 Berlin
         </p>
         <div class="footer-contact">
-          <a href="tel:+493075240 80">+49 (30) 752 40 80</a>
+          <a href="tel:+49307524080">+49 30 752 40 80</a>
           <span class="footer-divider"></span>
           <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
         </div>
@@ -144,52 +188,47 @@
           <h4>Informacje</h4>
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
         </div>
       </nav>
     </div>
 
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
+        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+      </div>
+      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
+        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
+        <div class="footer-newsletter-input-wrap">
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="twoj@email.pl"
+            data-i18n-attr="placeholder:footer.newsletter_placeholder"
+            aria-describedby="newsletter-status">
+          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
+        </div>
+        <div class="newsletter-hp-wrap" aria-hidden="true">
+          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
     <div class="footer-bottom">
-      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
       <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
     </div>
   </div>
 </footer>
-
-<!-- Chatbot Floating Button -->
-<button class="chatbot-fab" id="chatbotFab" aria-label="Chatbot">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
-    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
-    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
-  </svg>
-</button>
-
-<!-- Chatbot Chat Window -->
-<div class="chatbot-window" id="chatbotWindow">
-  <div class="chatbot-header">
-    <img src="images/pmk-logo-chatbot.png" alt="PMK" class="chatbot-avatar">
-    <div class="chatbot-header-text">
-      <strong>PMK Berlin</strong>
-      <span>Asystent parafialny</span>
-    </div>
-    <button class="chatbot-close" id="chatbotClose" aria-label="Zamknij">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="chatbot-messages" id="chatbotMessages">
-  </div>
-  <form class="chatbot-input" id="chatbotForm">
-    <input type="text" id="chatbotInputField" placeholder="Napisz wiadomosc..." autocomplete="off">
-    <button type="submit" aria-label="Wyslij">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-    </button>
-  </form>
-</div>
-
-<script src="main.js"></script>
-<script src="js/chatbot.js"></script>
-<script src="js/events-manager.js"></script>
+<script src="main.js" defer></script>
+<script src="js/newsletter.js" defer></script>
+<script type="module" src="js/pmk-chat.js"></script>
+<script src="js/events-manager.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', loadEvents);
 

@@ -8,7 +8,62 @@
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <title>Sakramenty | Polska Misja Katolicka Berlin</title>
   <meta name="description" content="Informacje o sakramentach w Polskiej Misji Katolickiej w Berlinie - Chrzest, Pierwsza Komunia, Bierzmowanie, Małżeństwo, Spowiedz, Namaszczenie chorych.">
-  <link rel="canonical" href="https://pmk-berlin.de/sakramente">
+  <link rel="canonical" href="https://www.pmk-berlin.de/sakramente.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakramente.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/sakramente.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakramente.html">
+
+  <meta property="og:title" content="Sakramenty | Polska Misja Katolicka Berlin">
+  <meta property="og:description" content="Informacje o sakramentach w Polskiej Misji Katolickiej w Berlinie - Chrzest, Pierwsza Komunia, Bierzmowanie, Małżeństwo, Spowiedź, Namaszczenie chorych.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.pmk-berlin.de/sakramente.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Johannes-Basilika - Polska Misja Katolicka w Berlinie">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sakramenty | PMK Berlin">
+  <meta name="twitter:description" content="Chrzest, Komunia, Bierzmowanie, Małżeństwo, Spowiedź, Namaszczenie Chorych w PMK Berlin.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Kreuzberg">
+  <meta name="geo.position" content="52.4870;13.3950">
+  <meta name="ICBM" content="52.4870, 13.3950">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.pmk-berlin.de/" },
+      { "@type": "ListItem", "position": 2, "name": "Sakramenty", "item": "https://www.pmk-berlin.de/sakramente.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Sakramenty w Polskiej Misji Katolickiej w Berlinie",
+    "numberOfItems": 6,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chrzest Święty", "url": "https://www.pmk-berlin.de/sakrament-chrzest.html" },
+      { "@type": "ListItem", "position": 2, "name": "Pierwsza Komunia Święta", "url": "https://www.pmk-berlin.de/sakrament-komunia.html" },
+      { "@type": "ListItem", "position": 3, "name": "Bierzmowanie", "url": "https://www.pmk-berlin.de/sakrament-bierzmowanie.html" },
+      { "@type": "ListItem", "position": 4, "name": "Spowiedź", "url": "https://www.pmk-berlin.de/sakrament-spowiedz.html" },
+      { "@type": "ListItem", "position": 5, "name": "Sakrament Małżeństwa", "url": "https://www.pmk-berlin.de/sakrament-malzenstwo.html" },
+      { "@type": "ListItem", "position": 6, "name": "Namaszczenie Chorych", "url": "https://www.pmk-berlin.de/sakrament-namaszczenie.html" }
+    ]
+  }
+  </script>
 
   <!-- Premium Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,12 +73,13 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
 
 <!-- Navigation -->
 <header class="nav-header" id="mainNav">
   <nav class="nav-container">
     <a href="index.html" class="nav-brand">
-      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo"></span>
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
       <div class="nav-brand-text">
         <span class="nav-brand-name">Polska Misja Katolicka</span>
         <span class="nav-brand-location">Berlin</span>
@@ -34,15 +90,16 @@
       <li><a href="index.html">Strona główna</a></li>
       <li><a href="sakramente.html" class="active">Sakramenty</a></li>
       <li><a href="events.html">Wydarzenia</a></li>
+      <li><a href="grupy.html">Grupy parafialne</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
     </ul>
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
-        <button class="lang-btn" onclick="setLang('de')">DE</button>
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
       </div>
-      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
@@ -52,7 +109,7 @@
 </header>
 
 <!-- Page Hero -->
-<section class="page-hero">
+<section id="main-content" class="page-hero">
   <div class="page-hero-content">
     <span class="section-label">Sakramenty</span>
     <h1 class="page-hero-title">Życie <em>sakramentalne</em></h1>
@@ -60,340 +117,79 @@
   </div>
 </section>
 
-<!-- Sacraments Content -->
-<section class="section" id="chrzest">
+<!-- Sacraments Grid -->
+<section class="section section-sacraments">
   <div class="section-container">
-    <div class="sacrament-detail">
-      <div class="sacrament-detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 2v6m0 0c-3.5 0-6 2.5-6 5.5S8.5 19 12 22c3.5-3 6-5.5 6-8.5S15.5 8 12 8z"/>
-        </svg>
-      </div>
-      <div class="sacrament-detail-content">
-        <h2 class="sacrament-detail-title">Chrzest Swiety</h2>
-        <p class="lead">Sakrament inicjacji chrzescijanskiej - brama do zycia nadprzyrodzonego i do innych sakramentów.</p>
+    <div class="sacraments-overview-grid">
 
-        <div class="sacrament-info-grid">
-          <div class="sacrament-info-card reveal">
-            <h3>Wymagane dokumenty</h3>
-            <ul>
-              <li>Akt urodzenia dziecka</li>
-              <li>Świadectwo ślubu kościelnego rodziców (jeśli mają)</li>
-              <li>Zaswiadczenie dla chrzestnych z parafii zamieszkania</li>
-              <li>Dane osobowe rodziców i chrzestnych</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Warunki dla chrzestnych</h3>
-            <ul>
-              <li>Ukonczony 16 rok zycia</li>
-              <li>Katolik, bierzmowany, praktykujacy</li>
-              <li>Zyje zgodnie z wiara i sakramentami</li>
-              <li>Nie jest zwiazany kara koscielna</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Przebieg przygotowania</h3>
-            <ul>
-              <li>Zgłoszenie w kancelarii parafialnej</li>
-              <li>Spotkanie z duszpasterzem</li>
-              <li>Konferencja przedchrzcielna dla rodziców</li>
-              <li>Ustalenie terminu chrztu</li>
-            </ul>
-          </div>
+      <a href="sakrament-chrzest.html" class="sacrament-overview-card reveal">
+        <div class="sacrament-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v6m0 0c-3.5 0-6 2.5-6 5.5S8.5 19 12 22c3.5-3 6-5.5 6-8.5S15.5 8 12 8z"/>
+          </svg>
         </div>
+        <h2 class="sacrament-overview-name">Chrzest Święty</h2>
+        <p class="sacrament-overview-desc">Brama do życia nadprzyrodzonego i do innych sakramentów. Chrzty: 2. i 4. sobota miesiąca.</p>
+        <span class="sacrament-badge sacrament-badge--contact">Więcej informacji <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
+      </a>
 
-        <div class="sacrament-schedule reveal">
-          <p><strong>Chrzty odbywają się:</strong> w niedziele po Mszy Świętej o 12:00 lub w sobotę o 11:00</p>
-          <div class="sacrament-schedule-buttons">
-            <a href="kontakt.html" class="btn btn-primary">Umów spotkanie</a>
-            <a href="downloads/zameldowanie-chrzest.pdf" class="btn btn-secondary" download>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1rem;height:1rem;margin-right:0.25rem"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-              Formularz zgłoszeniowy
-            </a>
-          </div>
+      <a href="sakrament-komunia.html" class="sacrament-overview-card reveal">
+        <div class="sacrament-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M12 8v8m-4-4h8"/>
+          </svg>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <h2 class="sacrament-overview-name">Pierwsza Komunia</h2>
+        <p class="sacrament-overview-desc">Spotkanie z Chrystusem obecnym w Eucharystii. Dwuletni cykl katechezy dla dzieci od 3. klasy.</p>
+        <span class="sacrament-badge">Zapisz online <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
+      </a>
 
-<div class="section-divider"></div>
-
-<section class="section section-alt" id="komunia">
-  <div class="section-container">
-    <div class="sacrament-detail sacrament-detail-reverse">
-      <div class="sacrament-detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="12" cy="12" r="8"/>
-          <path d="M12 8v8m-4-4h8"/>
-        </svg>
-      </div>
-      <div class="sacrament-detail-content">
-        <h2 class="sacrament-detail-title">Pierwsza Komunia Święta</h2>
-        <p class="lead">Pierwsze pełne uczestnictwo w Eucharystii - spotkanie z Chrystusem obecnym w Najświętszym Sakramencie.</p>
-
-        <div class="sacrament-info-grid">
-          <div class="sacrament-info-card reveal">
-            <h3>Przygotowanie</h3>
-            <ul>
-              <li>Dwuletni cykl katechezy</li>
-              <li>Spotkania w grupach (soboty lub niedziele)</li>
-              <li>Uczestnictwo w niedzielnej Mszy Świętej</li>
-              <li>Pierwsza spowiedź przed Komunią</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Zapisy</h3>
-            <ul>
-              <li>Dla dzieci od 2. klasy szkoły podstawowej</li>
-              <li>Zapisy: wrzesien - pazdziernik</li>
-              <li>Wymagane: metryka chrztu dziecka</li>
-              <li>Uroczystosc: maj roku nastepnego</li>
-            </ul>
-          </div>
+      <a href="sakrament-bierzmowanie.html" class="sacrament-overview-card reveal">
+        <div class="sacrament-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2l3 7h7l-5.5 5 2 7.5L12 17l-6.5 4.5 2-7.5L2 9h7l3-7z"/>
+          </svg>
         </div>
+        <h2 class="sacrament-overview-name">Bierzmowanie</h2>
+        <p class="sacrament-overview-desc">Umocnienie darami Ducha Świętego. Roczny kurs przygotowawczy dla młodzieży od 14. roku życia.</p>
+        <span class="sacrament-badge">Zapisz online <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
+      </a>
 
-        <div class="sacrament-schedule reveal">
-          <p><strong>Katecheza odbywa sie:</strong> w soboty o 10:00 lub w niedziele po Mszy o 10:15</p>
-          <div class="sacrament-schedule-buttons">
-            <a href="kontakt.html" class="btn btn-primary">Zapisz dziecko</a>
-            <a href="downloads/zgloszenie-komunia.pdf" class="btn btn-secondary" download>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1rem;height:1rem;margin-right:0.25rem"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-              Formularz zgłoszeniowy
-            </a>
-          </div>
+      <a href="sakrament-malzenstwo.html" class="sacrament-overview-card reveal">
+        <div class="sacrament-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 12a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 100-8 4 4 0 000 8zm-8 2c-4 0-6 2-6 4v2h12v-2c0-2-2-4-6-4zm8 0c-.5 0-1 .05-1.5.15.9.85 1.5 2 1.5 3.35v2.5h6v-2c0-2-2-4-6-4z"/>
+          </svg>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <h2 class="sacrament-overview-name">Małżeństwo</h2>
+        <p class="sacrament-overview-desc">Sakrament miłości i jedności. Zgłoszenie minimum 3 miesiące przed planowanym terminem ślubu.</p>
+        <span class="sacrament-badge sacrament-badge--contact">Więcej informacji <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
+      </a>
 
-<div class="section-divider"></div>
-
-<section class="section" id="bierzmowanie">
-  <div class="section-container">
-    <div class="sacrament-detail">
-      <div class="sacrament-detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 2l3 7h7l-5.5 5 2 7.5L12 17l-6.5 4.5 2-7.5L2 9h7l3-7z"/>
-        </svg>
-      </div>
-      <div class="sacrament-detail-content">
-        <h2 class="sacrament-detail-title">Bierzmowanie</h2>
-        <p class="lead">Sakrament dojrzalosci chrzescijanskiej - umocnienie darami Ducha Swietego do swiadczenia o Chrystusie.</p>
-
-        <div class="sacrament-info-grid">
-          <div class="sacrament-info-card reveal">
-            <h3>Przygotowanie</h3>
-            <ul>
-              <li>Roczny kurs przygotowawczy</li>
-              <li>Spotkania formacyjne (co 2 tygodnie)</li>
-              <li>Rekolekcje przed Bierzmowaniem</li>
-              <li>Aktywne uczestnictwo w zyciu parafii</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Wymagania</h3>
-            <ul>
-              <li>Wiek: od 14 roku zycia</li>
-              <li>Regularna praktyka sakramentalna</li>
-              <li>Znajomosc podstaw wiary</li>
-              <li>Swiadek bierzmowania (bierzmowany katolik)</li>
-            </ul>
-          </div>
+      <a href="sakrament-spowiedz.html" class="sacrament-overview-card reveal">
+        <div class="sacrament-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
         </div>
+        <h2 class="sacrament-overview-name">Spowiedź</h2>
+        <p class="sacrament-overview-desc">Spotkanie z miłosiernym Bogiem. Pon.–Sob. podczas Mszy wieczornej, niedziela przed i podczas każdej Mszy Św., I piątek miesiąca od 17:00.</p>
+        <span class="sacrament-badge sacrament-badge--contact">Więcej informacji <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
+      </a>
 
-        <div class="sacrament-schedule reveal">
-          <p><strong>Zapisy:</strong> wrzesien - pazdziernik kazdego roku</p>
-          <div class="sacrament-schedule-buttons">
-            <a href="kontakt.html" class="btn btn-primary">Dołącz do grupy</a>
-            <a href="downloads/zgloszenie-bierzmowanie.pdf" class="btn btn-secondary" download>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1rem;height:1rem;margin-right:0.25rem"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
-              Formularz zgłoszeniowy
-            </a>
-          </div>
+      <a href="sakrament-namaszczenie.html" class="sacrament-overview-card reveal">
+        <div class="sacrament-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2c-2 4-6 6-6 10a6 6 0 1012 0c0-4-4-6-6-10z"/>
+          </svg>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <h2 class="sacrament-overview-name">Namaszczenie Chorych</h2>
+        <p class="sacrament-overview-desc">Sakrament umocnienia w chorobie. Odwiedziny chorych: pierwszy piątek miesiąca oraz na wezwanie.</p>
+        <span class="sacrament-badge sacrament-badge--contact">Więcej informacji <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
+      </a>
 
-<div class="section-divider"></div>
-
-<section class="section section-alt" id="małżeństwo">
-  <div class="section-container">
-    <div class="sacrament-detail sacrament-detail-reverse">
-      <div class="sacrament-detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M8 12a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 100-8 4 4 0 000 8zm-8 2c-4 0-6 2-6 4v2h12v-2c0-2-2-4-6-4zm8 0c-.5 0-1 .05-1.5.15.9.85 1.5 2 1.5 3.35v2.5h6v-2c0-2-2-4-6-4z"/>
-        </svg>
-      </div>
-      <div class="sacrament-detail-content">
-        <h2 class="sacrament-detail-title">Sakrament Malzenstwa</h2>
-        <p class="lead">Zwiazek mezczyzny i kobiety, ustanowiony przez Boga, podniesiony przez Chrystusa do godnosci sakramentu.</p>
-
-        <div class="sacrament-info-grid">
-          <div class="sacrament-info-card reveal">
-            <h3>Przygotowanie</h3>
-            <ul>
-              <li>Zgłoszenie minimum 3 miesiace przed slubem</li>
-              <li>Kurs przedmalzenski</li>
-              <li>Spotkania w poradni rodzinnej</li>
-              <li>Spisanie protokolu przedslubnego</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Wymagane dokumenty</h3>
-            <ul>
-              <li>Aktualne świadectwo chrztu (nie starsze niz 6 mies.)</li>
-              <li>Swiadectwo bierzmowania</li>
-              <li>Dowody osobiste</li>
-              <li>Zaswiadczenie z USC (jesli slub konkordatowy)</li>
-              <li>Zaswiadczenie o ukonczeniu kursu</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Formalnosci</h3>
-            <ul>
-              <li>Zapowiedzi w parafii zamieszkania</li>
-              <li>Spowiedz przedslubna</li>
-              <li>Dwoch swiadkow (pelnoletni)</li>
-              <li>Ustalenie terminu i oprawy liturgicznej</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="sacrament-schedule reveal">
-          <p><strong>Śluby odbywają się:</strong> w soboty (preferowane) lub inne dni po uzgodnieniu</p>
-          <a href="kontakt.html" class="btn btn-primary">Umów spotkanie</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<section class="section" id="spowiedz">
-  <div class="section-container">
-    <div class="sacrament-detail">
-      <div class="sacrament-detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/>
-          <path d="M12 6v6l4 2"/>
-        </svg>
-      </div>
-      <div class="sacrament-detail-content">
-        <h2 class="sacrament-detail-title">Sakrament Pokuty i Pojednania</h2>
-        <p class="lead">Spotkanie z milosiernym Bogiem, ktory przebacza grzechy i przywraca do pelnej wspólnoty z Kosciolem.</p>
-
-        <div class="sacrament-info-grid">
-          <div class="sacrament-info-card reveal">
-            <h3>Kiedy się spowiadać?</h3>
-            <ul>
-              <li>Przed każdym ważnym wydarzeniem duchowym</li>
-              <li>Gdy popelnilismy grzech ciezki</li>
-              <li>Regularnie - zalecane co miesiac</li>
-              <li>W czasie Adwentu i Wielkiego Postu</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Jak się przygotować?</h3>
-            <ul>
-              <li>Rachunek sumienia</li>
-              <li>Zal za grzechy</li>
-              <li>Mocne postanowienie poprawy</li>
-              <li>Szczera spowiedź</li>
-              <li>Zadoscuczynienie</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="sacrament-schedule reveal">
-          <h3>Godziny spowiedzi</h3>
-          <div class="confession-times">
-            <div class="confession-time-item">
-              <strong>Przed Mszami</strong>
-              <span>30 minut przed każdą Mszą Świętą</span>
-            </div>
-            <div class="confession-time-item">
-              <strong>Piątek</strong>
-              <span>17:00 - 18:00</span>
-            </div>
-            <div class="confession-time-item">
-              <strong>Wielki Post</strong>
-              <span>Dodatkowe terminy - ogłoszenia parafialne</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<section class="section section-alt" id="namaszczenie">
-  <div class="section-container">
-    <div class="sacrament-detail sacrament-detail-reverse">
-      <div class="sacrament-detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 2c-2 4-6 6-6 10a6 6 0 1012 0c0-4-4-6-6-10z"/>
-        </svg>
-      </div>
-      <div class="sacrament-detail-content">
-        <h2 class="sacrament-detail-title">Namaszczenie Chorych</h2>
-        <p class="lead">Sakrament umocnienia w chorobie i w obliczu smierci - laska Boza na trudne chwile zycia.</p>
-
-        <div class="sacrament-info-grid">
-          <div class="sacrament-info-card reveal">
-            <h3>Kto moze przyjac?</h3>
-            <ul>
-              <li>Osoby ciezko chore</li>
-              <li>Osoby w podeszlym wieku</li>
-              <li>Przed powazna operacja</li>
-              <li>W niebezpieczenstwie smierci</li>
-            </ul>
-          </div>
-
-          <div class="sacrament-info-card reveal">
-            <h3>Jak wezwac ksiedza?</h3>
-            <ul>
-              <li>Telefon do kancelarii parafialnej</li>
-              <li>W naglych przypadkach - telefon alarmowy</li>
-              <li>Poinformowac o stanie chorego</li>
-              <li>Przygotowac miejsce do sakramentu</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="sacrament-schedule reveal">
-          <p><strong>Odwiedziny chorych:</strong> pierwszy piątek miesiąca oraz na wezwanie</p>
-          <a href="kontakt.html" class="btn btn-primary">Skontaktuj się z nami</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA Section -->
-<section class="section section-cta-block">
-  <div class="section-container">
-    <div class="cta-content">
-      <h2>Masz pytania o sakramenty?</h2>
-      <p>Chętnie odpowiemy na wszystkie pytania i pomożemy w przygotowaniu do sakramentów.</p>
-      <div class="cta-buttons">
-        <a href="kontakt.html" class="btn btn-primary">Skontaktuj się z nami</a>
-        <a href="index.html#messzeiten" class="btn btn-secondary">Zobacz godziny Mszy</a>
-      </div>
     </div>
   </div>
 </section>
@@ -404,7 +200,7 @@
     <div class="footer-top">
       <div class="footer-main">
         <div class="footer-brand">
-          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
           <div class="footer-brand-text">
             <strong>Polska Misja Katolicka</strong>
             <span>w Berlinie</span>
@@ -415,7 +211,7 @@
           Lilienthalstraße 5, 10965 Berlin
         </p>
         <div class="footer-contact">
-          <a href="tel:+493075240 80">+49 (30) 752 40 80</a>
+          <a href="tel:+49307524080">+49 30 752 40 80</a>
           <span class="footer-divider"></span>
           <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
         </div>
@@ -433,50 +229,45 @@
           <h4>Informacje</h4>
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
         </div>
       </nav>
     </div>
 
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
+        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+      </div>
+      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
+        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
+        <div class="footer-newsletter-input-wrap">
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="twoj@email.pl"
+            data-i18n-attr="placeholder:footer.newsletter_placeholder"
+            aria-describedby="newsletter-status">
+          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
+        </div>
+        <div class="newsletter-hp-wrap" aria-hidden="true">
+          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
     <div class="footer-bottom">
-      <p class="footer-motto">"Niech bedzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
       <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
     </div>
   </div>
 </footer>
-
-<!-- Chatbot Floating Button -->
-<button class="chatbot-fab" id="chatbotFab" aria-label="Chatbot">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
-    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
-    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
-  </svg>
-</button>
-
-<!-- Chatbot Chat Window -->
-<div class="chatbot-window" id="chatbotWindow">
-  <div class="chatbot-header">
-    <img src="images/pmk-logo-chatbot.png" alt="PMK" class="chatbot-avatar">
-    <div class="chatbot-header-text">
-      <strong>PMK Berlin</strong>
-      <span>Asystent parafialny</span>
-    </div>
-    <button class="chatbot-close" id="chatbotClose" aria-label="Zamknij">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="chatbot-messages" id="chatbotMessages">
-  </div>
-  <form class="chatbot-input" id="chatbotForm">
-    <input type="text" id="chatbotInputField" placeholder="Napisz wiadomosc..." autocomplete="off">
-    <button type="submit" aria-label="Wyslij">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-    </button>
-  </form>
-</div>
-
-<script src="main.js"></script>
-<script src="js/chatbot.js"></script>
+<script src="main.js" defer></script>
+<script src="js/newsletter.js" defer></script>
+<script type="module" src="js/pmk-chat.js"></script>
 </body>
 </html>

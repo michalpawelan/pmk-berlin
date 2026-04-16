@@ -10,11 +10,8 @@ const EventsManager = (function() {
   // Konfiguration - HIER ANPASSEN
   // ============================================
   const CONFIG = {
-    // Google Sheet ID (aus der URL: https://docs.google.com/spreadsheets/d/DIESE_ID_HIER/...)
-    SHEET_ID: '1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w',
-
-    // Sheet Name (Tab-Name unten in der Tabelle)
-    SHEET_NAME: 'Tabellenblatt1',
+    // Events API (proxied through Netlify Function)
+    EVENTS_API: '/.netlify/functions/events-proxy',
 
     // Fallback auf lokale JSON wenn Google Sheets nicht erreichbar
     FALLBACK_JSON: 'events.json',
@@ -33,7 +30,7 @@ const EventsManager = (function() {
   // Google Sheets laden
   // ============================================
   async function fetchFromGoogleSheets() {
-    const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(CONFIG.SHEET_NAME)}&headers=1`;
+    const url = CONFIG.EVENTS_API;
 
     try {
       const response = await fetch(url);
@@ -47,7 +44,7 @@ const EventsManager = (function() {
       const data = JSON.parse(jsonString[1]);
       return parseGoogleSheetsData(data);
     } catch (error) {
-      console.warn('[EventsManager] Google Sheets nicht erreichbar, lade Fallback:', error);
+      // Google Sheets nicht erreichbar, lade Fallback
       return fetchFromFallback();
     }
   }
@@ -147,7 +144,7 @@ const EventsManager = (function() {
       const response = await fetch(CONFIG.FALLBACK_JSON);
       return await response.json();
     } catch (error) {
-      console.error('[EventsManager] Fallback JSON auch nicht erreichbar:', error);
+      // Fallback JSON auch nicht erreichbar
       return [];
     }
   }
@@ -304,7 +301,7 @@ const EventsManager = (function() {
   // Google Maps
   // ============================================
   function getGoogleMapsEmbedUrl(address) {
-    return `https://www.google.com/maps/embed/v1/place?key=YOUR_MAPS_API_KEY&q=${encodeURIComponent(address)}`;
+    return `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
   }
 
   function getGoogleMapsUrl(address) {
@@ -341,8 +338,7 @@ const EventsManager = (function() {
   // Public API
   // ============================================
   return {
-    setSheetId: (id) => CONFIG.SHEET_ID = id,
-    setApiKey: (key) => CONFIG.API_KEY = key,
+    setEventsApi: (url) => CONFIG.EVENTS_API = url,
 
     getEvents,
     getUpcomingEvents,

@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zgłoszenie do Pierwszej Komunii Świętej – PMK Berlin</title>
+<title>Zgłoszenie do Pierwszej Komunii Świętej | Polska Misja Katolicka Berlin</title>
+<meta name="description" content="Formularz zgłoszenia dziecka do Pierwszej Komunii Świętej w Polskiej Misji Katolickiej w Berlinie. Wypełnij online i rozpocznij przygotowanie.">
+<link rel="canonical" href="https://www.pmk-berlin.de/zgloszenie-komunia.html">
+<meta name="robots" content="noindex, follow">
+<meta name="author" content="Polska Misja Katolicka Berlin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -11,6 +15,8 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  .skip-nav { position: absolute; top: -100%; left: 50%; transform: translateX(-50%); background: #2c2216; color: #fff; padding: 0.75rem 1.5rem; border-radius: 0 0 0.5rem 0.5rem; z-index: 10001; font-family: 'Outfit', sans-serif; font-size: 0.9rem; text-decoration: none; transition: top 0.2s ease; }
+  .skip-nav:focus { top: 0; }
 
   body {
     font-family: 'Outfit', sans-serif;
@@ -33,38 +39,22 @@
   .header {
     background: #1f1c18;
     color: #fff;
-    padding: 36px 40px;
+    padding: 32px 40px;
     text-align: center;
   }
 
   .header-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .header-logo img {
-    height: 44px;
-  }
-
-  .header-logo-text {
-    text-align: left;
-    font-size: 13px;
-    line-height: 1.3;
-    opacity: 0.8;
-  }
-
-  .header-logo-text strong {
-    display: block;
-    font-size: 14px;
-    opacity: 1;
+    height: 56px;
+    opacity: 0.85;
   }
 
   .header h1 {
     font-family: 'Cormorant', serif;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 500;
     letter-spacing: 0.5px;
   }
@@ -75,9 +65,11 @@
   }
 
   .header p {
-    font-size: 13px;
-    opacity: 0.6;
-    margin-top: 6px;
+    font-size: 12px;
+    opacity: 0.45;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
   }
 
   /* Form */
@@ -385,18 +377,15 @@
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
 
-<div class="container">
+<div class="container" id="main-content">
   <div class="header">
     <div class="header-logo">
-      <img src="images/pmk-logo-white.png" alt="PMK" onerror="this.style.display='none'">
-      <div class="header-logo-text">
-        <strong>Polska Misja Katolicka</strong>
-        w Berlinie
-      </div>
+      <img src="images/pmk-logo-white.png" alt="Polska Misja Katolicka w Berlinie">
     </div>
     <h1>Zgłoszenie do Pierwszej Komunii <em>Świętej</em></h1>
-    <p>Formularz online</p>
+    <p>Polska Misja Katolicka w Berlinie</p>
   </div>
 
   <form id="komuniaForm" novalidate action="https://formsubmit.co/ajax/pmk@pmk-berlin.de" method="POST">
@@ -508,7 +497,7 @@
     <div class="consent">
       <label class="checkbox-label">
         <input type="checkbox" name="datenschutz" required>
-        <span>Wyrażam zgodę na przetwarzanie danych osobowych mojego dziecka przez Polską Misję Katolicką w Berlinie w celu organizacji przygotowania do Pierwszej Komunii Świętej, zgodnie z <a href="https://pmk-berlin.de/datenschutz" target="_blank">Polityką Prywatności</a>. <span class="req">*</span></span>
+        <span>Wyrażam zgodę na przetwarzanie danych osobowych mojego dziecka przez Polską Misję Katolicką w Berlinie w celu organizacji przygotowania do Pierwszej Komunii Świętej, zgodnie z <a href="https://www.pmk-berlin.de/datenschutz.html" target="_blank">Polityką Prywatności</a>. <span class="req">*</span></span>
       </label>
       <div class="error-msg">Zgoda na przetwarzanie danych jest wymagana</div>
     </div>
@@ -546,7 +535,8 @@ let savedData = null;
 function getJsPDF() {
   if (window.jspdf && window.jspdf.jsPDF) return window.jspdf.jsPDF;
   if (window.jsPDF) return window.jsPDF;
-  alert('PDF-Bibliothek konnte nicht geladen werden. Bitte Seite neu laden.');
+  if (typeof showToast === 'function') showToast('PDF-Bibliothek konnte nicht geladen werden. Bitte Seite neu laden.', 'error');
+  else alert('PDF-Bibliothek konnte nicht geladen werden. Bitte Seite neu laden.');
   return null;
 }
 
@@ -614,7 +604,8 @@ document.getElementById('komuniaForm').addEventListener('submit', function(e) {
     if (data.success) {
       showSuccess();
     } else {
-      alert('Wystąpił błąd przy wysyłaniu. Spróbuj ponownie.');
+      if (typeof showToast === 'function') showToast('Wystąpił błąd przy wysyłaniu. Spróbuj ponownie.', 'error');
+      else alert('Wystąpił błąd przy wysyłaniu. Spróbuj ponownie.');
       submitBtn.disabled = false;
       submitBtn.innerHTML = 'Wyślij i pobierz PDF';
     }

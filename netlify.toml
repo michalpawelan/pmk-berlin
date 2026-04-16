@@ -5,9 +5,97 @@
 [functions]
   node_bundler = "esbuild"
 
+# ============================================
+# Security Headers - alle Seiten
+# ============================================
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://identity.netlify.com https://unpkg.com https://esm.sh https://*.elevenlabs.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' blob: https://*.elevenlabs.io; connect-src 'self' https://identity.netlify.com https://script.google.com https://script.googleusercontent.com https://esm.sh https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io; frame-src https://identity.netlify.com https://maps.google.com https://www.google.com https://*.elevenlabs.io; worker-src 'self' blob:; object-src 'none'; base-uri 'self'"
+
+# ============================================
 # CORS und Caching fuer die API
+# ============================================
 [[headers]]
   for = "/.netlify/functions/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-    Cache-Control = "public, max-age=300"
+    Cache-Control = "public, no-cache"
+
+# ============================================
+# Caching: Statische Assets (Bilder, Fonts)
+# ============================================
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "*.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# ============================================
+# Sitemap & Robots
+# ============================================
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# ============================================
+# Domain canonicalization (non-www -> www, 301)
+# ============================================
+[[redirects]]
+  from = "https://pmk-berlin.de/*"
+  to = "https://www.pmk-berlin.de/:splat"
+  status = 301
+  force = true
+
+# ============================================
+# Admin Redirect (Legacy URL)
+# ============================================
+[[redirects]]
+  from = "/admin/events.html"
+  to = "/admin/"
+  status = 301
+
+# ============================================
+# 404 Redirect
+# ============================================
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

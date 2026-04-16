@@ -1,0 +1,66 @@
+{
+  "nav.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "nav.sacraments": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "nav.events": {
+    "pl": "Wydarzenia",
+    "de": "Veranstaltungen"
+  },
+  "nav.contact": {
+    "pl": "Kontakt",
+    "de": "Kontakt"
+  },
+  "brand.name": {
+    "pl": "Polska Misja Katolicka",
+    "de": "Polnische Katholische Mission"
+  },
+  "footer.address_label": {
+    "pl": "Adres",
+    "de": "Adresse"
+  },
+  "footer.phone_label": {
+    "pl": "Telefon",
+    "de": "Telefon"
+  },
+  "footer.office_hours_label": {
+    "pl": "Godziny urzędowania",
+    "de": "Öffnungszeiten"
+  },
+  "footer.privacy": {
+    "pl": "Polityka prywatności",
+    "de": "Datenschutz"
+  },
+  "footer.imprint": {
+    "pl": "Impressum",
+    "de": "Impressum"
+  },
+  "footer.copyright": {
+    "pl": "Wszelkie prawa zastrzeżone.",
+    "de": "Alle Rechte vorbehalten."
+  },
+  "footer.newsletter_title": {
+    "pl": "Bądź na bieżąco",
+    "de": "Bleiben Sie auf dem Laufenden"
+  },
+  "footer.newsletter_desc": {
+    "pl": "Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.",
+    "de": "Tragen Sie Ihre E-Mail ein und verpassen Sie keine Veranstaltung, Messe oder wichtige Information aus unserer Gemeinde."
+  },
+  "footer.newsletter_label": {
+    "pl": "Adres e-mail",
+    "de": "E-Mail-Adresse"
+  },
+  "footer.newsletter_placeholder": {
+    "pl": "twoj@email.pl",
+    "de": "ihre@email.de"
+  },
+  "footer.newsletter_submit": {
+    "pl": "Zapisz się",
+    "de": "Eintragen"
+  }
+}

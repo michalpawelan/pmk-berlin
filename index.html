@@ -6,74 +6,222 @@
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-  <title>Polska Misja Katolicka w Berlinie | PMK Berlin</title>
-  <meta name="description" content="Polska Misja Katolicka w Berlinie - polskie duszpasterstwo katolickie w sercu Berlina. Msze Święte, Sakramenty, Wydarzenia.">
-  <meta name="keywords" content="Polska Misja Katolicka Berlin, PMK Berlin, kościół polski Berlin, msza polska Berlin, Polonia Berlin">
+  <title>Polska Misja Katolicka w Berlinie | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Polska Misja Katolicka w Berlinie - polskie duszpasterstwo katolickie w sercu Berlina. Msze Święte w niedziele o 10:15, 12:00 i 18:00. Sakramenty, wydarzenia, wspólnoty parafialne. Johannes-Basilika, Kreuzberg.">
+  <meta name="keywords" content="Polska Misja Katolicka Berlin, PMK Berlin, kościół polski Berlin, msza polska Berlin, Polonia Berlin, polskie duszpasterstwo Berlin, sakramenty Berlin, polski ksiądz Berlin, Johannes-Basilika Kreuzberg, polnische Gemeinde Berlin">
   <meta name="author" content="Polska Misja Katolicka Berlin">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://pmk-berlin.de/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://www.pmk-berlin.de/">
+
+  <!-- Hreflang - wielojęzyczność -->
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/index.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Polska Misja Katolicka Berlin">
-  <meta property="og:description" content="Polska Misja Katolicka w Berlinie - zapraszamy na msze, sakramenty i spotkania wspólnot.">
+  <meta property="og:title" content="Polska Misja Katolicka Berlin - Polnische Katholische Mission">
+  <meta property="og:description" content="Polska Misja Katolicka w Berlinie - zapraszamy na msze, sakramenty i spotkania wspólnot. Johannes-Basilika, Kreuzberg.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pmk-berlin.de/">
+  <meta property="og:url" content="https://www.pmk-berlin.de/">
   <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Johannes-Basilika - Polska Misja Katolicka w Berlinie">
 
-  <!-- Premium Typography -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Polska Misja Katolicka Berlin">
+  <meta name="twitter:description" content="Polskie duszpasterstwo katolickie w sercu Berlina. Msze Św., sakramenty, wspólnoty parafialne.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <!-- Geo Tags - Local SEO -->
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Kreuzberg">
+  <meta name="geo.position" content="52.4870;13.3950">
+  <meta name="ICBM" content="52.4870, 13.3950">
+
+  <!-- Performance: Preconnect & Preload -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://docs.google.com">
+  <link rel="dns-prefetch" href="https://lh3.googleusercontent.com">
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="main.js" as="script">
+
+  <!-- Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Structured Data -->
+  <!-- Structured Data: Organization + Main Church -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Church",
+    "@id": "https://www.pmk-berlin.de/#church",
     "name": "Polska Misja Katolicka Berlin",
-    "url": "https://pmk-berlin.de",
+    "alternateName": ["PMK Berlin", "Polnische Katholische Mission Berlin"],
+    "description": "Polska Misja Katolicka w Berlinie - polskie duszpasterstwo katolickie od 1945 roku. Msze Święte, sakramenty, wspólnoty parafialne w Johannes-Basilice w Kreuzbergu.",
+    "url": "https://www.pmk-berlin.de",
+    "logo": "https://www.pmk-berlin.de/images/pmk-logo.png",
+    "image": "https://www.pmk-berlin.de/images/basilika-fassade.webp",
+    "foundingDate": "1945",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Lilienthalstrasse 5",
+      "streetAddress": "Lilienthalstraße 5",
       "addressLocality": "Berlin",
+      "addressRegion": "Berlin",
       "postalCode": "10965",
-      "addressCountry": "DE"
+      "addressCountry": "DE",
+      "neighborhood": "Kreuzberg"
     },
-    "telephone": "+49 30 752 40 80",
-    "email": "pmk@pmk-berlin.de"
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 52.4870,
+      "longitude": 13.3950
+    },
+    "hasMap": "https://maps.app.goo.gl/Rz8zAVkuQMXwTXtr8",
+    "telephone": "+49-30-75240-80",
+    "email": "pmk@pmk-berlin.de",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "10:00",
+        "closes": "13:00",
+        "description": "Biuro parafialne"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Wednesday",
+        "opens": "15:00",
+        "closes": "18:00",
+        "description": "Biuro parafialne - popołudnie"
+      }
+    ],
+    "areaServed": {
+      "@type": "City",
+      "name": "Berlin",
+      "sameAs": "https://en.wikipedia.org/wiki/Berlin"
+    },
+    "knowsLanguage": ["pl", "de"],
+    "memberOf": {
+      "@type": "Organization",
+      "name": "Erzbistum Berlin"
+    },
+    "potentialAction": {
+      "@type": "CommunicateAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "mailto:pmk@pmk-berlin.de",
+        "actionPlatform": "http://schema.org/DesktopWebPlatform"
+      },
+      "description": "Kontakt z parafią"
+    }
+  }
+  </script>
+
+  <!-- Structured Data: All Church Locations -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Kościoły Polskiej Misji Katolickiej w Berlinie",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Church",
+          "name": "Johannes-Basilika (Kościół główny)",
+          "address": { "@type": "PostalAddress", "streetAddress": "Lilienthalstraße 5", "addressLocality": "Berlin", "postalCode": "10965", "addressCountry": "DE" },
+          "geo": { "@type": "GeoCoordinates", "latitude": 52.4870, "longitude": 13.3950 }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Church",
+          "name": "St. Joseph - Wedding",
+          "address": { "@type": "PostalAddress", "streetAddress": "Müllerstraße 161", "addressLocality": "Berlin", "postalCode": "13353", "addressCountry": "DE" },
+          "geo": { "@type": "GeoCoordinates", "latitude": 52.5488, "longitude": 13.3495 }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "Church",
+          "name": "St. Marien - Spandau",
+          "address": { "@type": "PostalAddress", "streetAddress": "Flankenschanze 43", "addressLocality": "Berlin", "postalCode": "13585", "addressCountry": "DE" },
+          "geo": { "@type": "GeoCoordinates", "latitude": 52.5369, "longitude": 13.2050 }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "Church",
+          "name": "St. Marien - Karlshorst",
+          "address": { "@type": "PostalAddress", "streetAddress": "Gundelfinger Straße 36", "addressLocality": "Berlin", "postalCode": "10318", "addressCountry": "DE" },
+          "geo": { "@type": "GeoCoordinates", "latitude": 52.4795, "longitude": 13.5237 }
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Strona główna",
+        "item": "https://www.pmk-berlin.de/"
+      }
+    ]
   }
   </script>
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
 
 <!-- Navigation -->
 <header class="nav-header" id="mainNav">
   <nav class="nav-container">
     <a href="index.html" class="nav-brand">
       <span class="nav-brand-icon">
-        <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie">
+        <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie" width="45" height="45">
       </span>
       <div class="nav-brand-text">
-        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-name" data-i18n="brand.name">Polska Misja Katolicka</span>
         <span class="nav-brand-location">BERLIN</span>
       </div>
     </a>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="active">Strona główna</a></li>
-      <li><a href="sakramente.html">Sakramenty</a></li>
-      <li><a href="events.html">Wydarzenia</a></li>
-      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="index.html" class="active" data-i18n="nav.home">Strona główna</a></li>
+      <li><a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a></li>
+      <li><a href="events.html" data-i18n="nav.events">Wydarzenia</a></li>
+      <li><a href="grupy.html" data-i18n="nav.groups">Grupy parafialne</a></li>
+      <li><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></li>
     </ul>
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" onclick="setLang('pl')">PL</button>
-        <button class="lang-btn" onclick="setLang('de')">DE</button>
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
       </div>
-      <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
@@ -83,27 +231,27 @@
 </header>
 
 <!-- Hero Section - Asymmetric Split Design -->
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="hero-content">
     <div class="hero-text">
-      <span class="hero-badge">Od 1945 roku w Berlinie</span>
-      <h1 class="hero-title">
+      <span class="hero-badge" data-i18n="index.hero.badge">Od 1945 roku w Berlinie</span>
+      <h1 class="hero-title" data-i18n-html="index.hero.title">
         Polska Misja
         <em>Katolicka</em>
       </h1>
-      <p class="hero-subtitle">Johannes-Basilika w sercu Kreuzbergu</p>
+      <p class="hero-subtitle" data-i18n="index.hero.subtitle">Johannes-Basilika w sercu Kreuzbergu</p>
       <div class="hero-verse">
-        <p>Błogosławieni, którzy wprowadzają pokój, albowiem oni będą nazwani synami Bożymi.</p>
+        <p data-i18n="index.hero.verse">Błogosławieni, którzy wprowadzają pokój, albowiem oni będą nazwani synami Bożymi.</p>
         <cite>Mt 5,9</cite>
       </div>
       <div class="hero-actions">
-        <a href="#sakramenty" class="btn btn-primary">Sakramenty</a>
-        <a href="#kontakt" class="btn btn-secondary">Kontakt</a>
+        <a href="#sakramenty" class="btn btn-primary" data-i18n="index.hero.btn_sacraments">Sakramenty</a>
+        <a href="#kontakt" class="btn btn-secondary" data-i18n="index.hero.btn_contact">Kontakt</a>
       </div>
     </div>
     <div class="hero-visual">
       <div class="hero-image-container">
-        <img src="images/basilika-interior.jpg" alt="Wnętrze Johannes-Basilika">
+        <img src="images/basilika-interior.webp" alt="Wnętrze Johannes-Basilika" width="800" height="600" fetchpriority="high">
         <div class="hero-image-placeholder">
           <span class="cross-icon">+</span>
         </div>
@@ -120,20 +268,15 @@
 <section class="mass-banner">
   <div class="mass-banner-inner">
     <div class="mass-banner-item">
-      <span class="mass-banner-label">Niedziela</span>
+      <span class="mass-banner-label" data-i18n="index.mass_banner.sunday">Niedziela</span>
       <span class="mass-banner-times">10:15 / 12:00 / 18:00</span>
     </div>
     <div class="mass-banner-divider"></div>
     <div class="mass-banner-item">
-      <span class="mass-banner-label">Dni powszednie</span>
+      <span class="mass-banner-label" data-i18n="index.mass_banner.weekdays">Poniedziałek - Sobota</span>
       <span class="mass-banner-times">07:00 / 18:00</span>
     </div>
-    <div class="mass-banner-divider"></div>
-    <div class="mass-banner-item">
-      <span class="mass-banner-label">Sobota</span>
-      <span class="mass-banner-times">07:00 / 18:00</span>
-    </div>
-    <a href="#messzeiten" class="mass-banner-link">Pełny rozkład</a>
+    <a href="#messzeiten" class="mass-banner-link" data-i18n="index.mass_banner.full_schedule">Pełny rozkład</a>
   </div>
 </section>
 
@@ -141,9 +284,9 @@
 <section class="section section-events" id="wydarzenia">
   <div class="section-container">
     <header class="section-header">
-      <span class="section-label">Wydarzenia</span>
-      <h2 class="section-title">Nadchodzące <em>Wydarzenia</em></h2>
-      <p class="section-lead">Ważne daty i uroczystości w naszej parafii</p>
+      <span class="section-label" data-i18n="index.events.label">Wydarzenia</span>
+      <h2 class="section-title" data-i18n-html="index.events.title">Nadchodzące <em>Wydarzenia</em></h2>
+      <p class="section-lead" data-i18n="index.events.lead">Ważne daty i uroczystości w naszej parafii</p>
     </header>
 
     <div class="events-grid" id="events-container">
@@ -158,10 +301,10 @@
           </svg>
         </div>
         <div class="whatsapp-channel-text">
-          <strong>Nie przegap żadnego wydarzenia!</strong>
-          <span>Dołącz do naszego kanału WhatsApp — 100% anonimowo.</span>
+          <strong data-i18n="index.events.whatsapp_title">Nie przegap żadnego wydarzenia!</strong>
+          <span data-i18n="index.events.whatsapp_desc">Dołącz do naszego kanału WhatsApp — 100% anonimowo.</span>
         </div>
-        <a href="https://whatsapp.com/channel/0029Vb7G2IiFSAt3qHM6Za1A" target="_blank" rel="noopener" class="btn btn-whatsapp">Dołącz do kanału</a>
+        <a href="https://whatsapp.com/channel/0029Vb7G2IiFSAt3qHM6Za1A" target="_blank" rel="noopener" class="btn btn-whatsapp" data-i18n="index.events.whatsapp_btn">Dołącz do kanału</a>
       </div>
     </div>
   </div>
@@ -173,46 +316,19 @@
     <div class="mass-layout">
       <div class="mass-info">
         <header class="section-header section-header-left">
-          <span class="section-label section-label-light">Nabożeństwa</span>
-          <h2 class="section-title section-title-light">Msze <em>Święte</em></h2>
+          <span class="section-label section-label-light" data-i18n="index.mass.label">Nabożeństwa</span>
+          <h2 class="section-title section-title-light" data-i18n-html="index.mass.title">Msze <em>Święte</em></h2>
         </header>
         <p class="mass-location">
           <strong>Johannes-Basilika</strong><br>
           Lilienthalstr. 5, 10965 Berlin-Kreuzberg
         </p>
-        <div class="mass-confession">
-          <img src="images/pmk-logo.png" alt="PMK" class="confession-logo">
-          <div class="confession-text">
-            <strong>Spowiedź święta</strong>
-            <span>30 min. przed każdą Mszą oraz w piątki 17:00-18:00</span>
-          </div>
-        </div>
       </div>
 
       <div class="mass-schedule">
         <div class="mass-card reveal" data-day="weekdays">
           <div class="mass-card-header">
-            <span class="mass-day">Poniedziałek - Piątek</span>
-          </div>
-          <div class="mass-times">
-            <span class="mass-time">07:00</span>
-            <span class="mass-time">18:00</span>
-          </div>
-        </div>
-
-        <div class="mass-card reveal" data-day="wednesday">
-          <div class="mass-card-header">
-            <span class="mass-day">Środa</span>
-          </div>
-          <div class="mass-times">
-            <span class="mass-time">07:00</span>
-            <span class="mass-time">18:00</span>
-          </div>
-        </div>
-
-        <div class="mass-card reveal" data-day="saturday">
-          <div class="mass-card-header">
-            <span class="mass-day">Sobota</span>
+            <span class="mass-day" data-i18n="index.mass.weekdays">Poniedziałek - Sobota</span>
           </div>
           <div class="mass-times">
             <span class="mass-time">07:00</span>
@@ -222,20 +338,42 @@
 
         <div class="mass-card mass-card-featured reveal" data-day="sunday">
           <div class="mass-card-header">
-            <span class="mass-day">Niedziela i Święta</span>
+            <span class="mass-day" data-i18n="index.mass.sunday">Niedziela i Święta</span>
           </div>
           <div class="mass-times">
             <span class="mass-time">10:15</span>
             <span class="mass-time">12:00</span>
             <span class="mass-time">18:00</span>
           </div>
-          <span class="mass-card-note">Uroczyste Msze ze śpiewem</span>
+          <span class="mass-card-note" data-i18n="index.mass.sunday_note">Uroczyste Msze ze śpiewem</span>
+        </div>
+      </div>
+
+      <!-- Confession -->
+      <div class="mass-confession reveal">
+        <img src="images/pmk-logo.png" alt="PMK" class="confession-logo" loading="lazy" width="35" height="35">
+        <div class="confession-text">
+          <strong data-i18n="index.mass.confession_title">Spowiedź święta</strong>
+        </div>
+        <div class="confession-details">
+          <div class="confession-item">
+            <span class="confession-label">Pon. – Sob.</span>
+            <span class="confession-value">podczas Mszy wieczornej</span>
+          </div>
+          <div class="confession-item">
+            <span class="confession-label">Niedziela</span>
+            <span class="confession-value">przed i podczas każdej Mszy Św.</span>
+          </div>
+          <div class="confession-item">
+            <span class="confession-label">I piątek miesiąca</span>
+            <span class="confession-value">od 17:00</span>
+          </div>
         </div>
       </div>
 
       <!-- Other Churches -->
       <div class="other-churches reveal">
-        <h3 class="other-churches-title">Msze Św. w innych kościołach</h3>
+        <h3 class="other-churches-title" data-i18n="index.mass.other_churches">Msze Św. w innych kościołach</h3>
         <div class="other-churches-list">
 
           <div class="oc-row">
@@ -244,7 +382,7 @@
               <span class="oc-address">Mullerstr. 161, 13353 Berlin</span>
             </div>
             <div class="oc-schedule">
-              <span class="oc-label">Niedziele i święta</span>
+              <span class="oc-label" data-i18n="index.mass.sundays_holidays">Niedziele i święta</span>
               <span class="mass-time">16:00</span>
             </div>
           </div>
@@ -255,10 +393,10 @@
               <span class="oc-address">Flankenschanze 43, 13585 Berlin</span>
             </div>
             <div class="oc-schedule">
-              <span class="oc-label">Niedziele i święta</span>
+              <span class="oc-label" data-i18n="index.mass.sundays_holidays">Niedziele i święta</span>
               <span class="mass-time">12:00</span>
               <span class="oc-divider"></span>
-              <span class="oc-label">Środa</span>
+              <span class="oc-label" data-i18n="index.mass.wednesday">Środa</span>
               <span class="mass-time">18:30</span>
             </div>
           </div>
@@ -269,7 +407,7 @@
               <span class="oc-address">Gundelfinger Str. 36, 10318 Berlin</span>
             </div>
             <div class="oc-schedule">
-              <span class="oc-label">Niedziele i święta</span>
+              <span class="oc-label" data-i18n="index.mass.sundays_holidays">Niedziele i święta</span>
               <span class="mass-time">11:00</span>
             </div>
           </div>
@@ -284,78 +422,81 @@
 <section class="section section-sacraments" id="sakramenty">
   <div class="section-container">
     <header class="section-header">
-      <span class="section-label">Sakramenty</span>
-      <h2 class="section-title">Życie <em>sakramentalne</em></h2>
-      <p class="section-lead">Towarzyszymy wiernym na każdym etapie duchowej drogi</p>
+      <span class="section-label" data-i18n="index.sacraments.label">Sakramenty</span>
+      <h2 class="section-title" data-i18n-html="index.sacraments.title">Życie <em>sakramentalne</em></h2>
+      <p class="section-lead" data-i18n="index.sacraments.lead">Towarzyszymy wiernym na każdym etapie duchowej drogi</p>
     </header>
 
     <div class="sacraments-grid">
-      <a href="sakramente.html#chrzest" class="sacrament-card reveal">
+      <a href="sakrament-chrzest.html" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2v6m0 0c-3.5 0-6 2.5-6 5.5S8.5 19 12 22c3.5-3 6-5.5 6-8.5S15.5 8 12 8z"/>
           </svg>
         </div>
-        <h3 class="sacrament-name">Chrzest</h3>
-        <p class="sacrament-desc">Sakrament inicjacji chrześcijańskiej</p>
+        <h3 class="sacrament-name" data-i18n="index.sacraments.baptism">Chrzest</h3>
+        <p class="sacrament-desc" data-i18n="index.sacraments.baptism_desc">Zgłoś dziecko do chrztu</p>
+        <span class="sacrament-badge sacrament-badge--contact">Napisz do nas <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="zgloszenie-komunia.html" class="sacrament-card reveal">
+      <a href="sakrament-komunia.html" class="sacrament-card sacrament-card--online reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="12" cy="12" r="8"/>
             <path d="M12 8v8m-4-4h8"/>
           </svg>
         </div>
-        <h3 class="sacrament-name">Pierwsza Komunia</h3>
-        <p class="sacrament-desc">Zgłoszenie online</p>
+        <h3 class="sacrament-name" data-i18n="index.sacraments.communion">Pierwsza Komunia</h3>
+        <p class="sacrament-desc" data-i18n="index.sacraments.communion_desc">Zapisz dziecko na przygotowanie</p>
+        <span class="sacrament-badge">Zapisz online <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="zgloszenie-bierzmowanie.html" class="sacrament-card reveal">
+      <a href="sakrament-bierzmowanie.html" class="sacrament-card sacrament-card--online reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2l3 7h7l-5.5 5 2 7.5L12 17l-6.5 4.5 2-7.5L2 9h7l3-7z"/>
           </svg>
         </div>
-        <h3 class="sacrament-name">Bierzmowanie</h3>
-        <p class="sacrament-desc">Zgłoszenie online</p>
+        <h3 class="sacrament-name" data-i18n="index.sacraments.confirmation">Bierzmowanie</h3>
+        <p class="sacrament-desc" data-i18n="index.sacraments.confirmation_desc">Zapisz się na przygotowanie</p>
+        <span class="sacrament-badge">Zapisz online <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakramente.html#malzenstwo" class="sacrament-card reveal">
+      <a href="sakrament-malzenstwo.html" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M8 12a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 100-8 4 4 0 000 8zm-8 2c-4 0-6 2-6 4v2h12v-2c0-2-2-4-6-4zm8 0c-.5 0-1 .05-1.5.15.9.85 1.5 2 1.5 3.35v2.5h6v-2c0-2-2-4-6-4z"/>
           </svg>
         </div>
-        <h3 class="sacrament-name">Małżeństwo</h3>
-        <p class="sacrament-desc">Ślub kościelny i przygotowanie</p>
+        <h3 class="sacrament-name" data-i18n="index.sacraments.marriage">Małżeństwo</h3>
+        <p class="sacrament-desc" data-i18n="index.sacraments.marriage_desc">Umów spotkanie w sprawie ślubu</p>
+        <span class="sacrament-badge sacrament-badge--contact">Napisz do nas <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakramente.html#spowiedz" class="sacrament-card reveal">
+      <a href="sakrament-spowiedz.html" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/>
             <path d="M12 6v6l4 2"/>
           </svg>
         </div>
-        <h3 class="sacrament-name">Spowiedź</h3>
-        <p class="sacrament-desc">Sakrament pojednania</p>
+        <h3 class="sacrament-name" data-i18n="index.sacraments.confession">Spowiedź</h3>
+        <p class="sacrament-desc" data-i18n="index.sacraments.confession_desc">Sprawdź godziny spowiedzi</p>
+        <span class="sacrament-badge sacrament-badge--contact">Więcej informacji <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakramente.html#namaszczenie" class="sacrament-card reveal">
+      <a href="sakrament-namaszczenie.html" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2c-2 4-6 6-6 10a6 6 0 1012 0c0-4-4-6-6-10z"/>
           </svg>
         </div>
-        <h3 class="sacrament-name">Namaszczenie</h3>
-        <p class="sacrament-desc">Sakrament chorych</p>
+        <h3 class="sacrament-name" data-i18n="index.sacraments.anointing">Namaszczenie</h3>
+        <p class="sacrament-desc" data-i18n="index.sacraments.anointing_desc">Wezwij księdza do chorego</p>
+        <span class="sacrament-badge sacrament-badge--contact">Napisz do nas <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
     </div>
 
-    <div class="section-cta">
-      <a href="sakramente.html" class="btn btn-primary">Wszystkie sakramenty</a>
-    </div>
   </div>
 </section>
 
@@ -363,18 +504,18 @@
 <section class="section section-churches" id="koscioly">
   <div class="section-container">
     <header class="section-header section-header-left">
-      <span class="section-label">Nasze kościoły</span>
-      <h2 class="section-title">Gdzie nas <em>znajdziesz</em></h2>
+      <span class="section-label" data-i18n="index.churches.label">Nasze kościoły</span>
+      <h2 class="section-title" data-i18n-html="index.churches.title">Gdzie nas <em>znajdziesz</em></h2>
     </header>
 
     <div class="churches-grid">
       <article class="church-card church-card-main reveal">
         <div class="church-image">
-          <img src="images/basilika-fassade.jpg" alt="Johannes-Basilika" onerror="this.parentElement.classList.add('placeholder')">
+          <img src="images/basilika-fassade.webp" alt="Johannes-Basilika" loading="lazy" width="600" height="400" onerror="this.parentElement.classList.add('placeholder')">
           <div class="church-placeholder"><span>+</span></div>
         </div>
         <div class="church-content">
-          <span class="church-badge">Kościół główny</span>
+          <span class="church-badge" data-i18n="index.churches.main_badge">Kościół główny</span>
           <h3 class="church-name">Johannes-Basilika</h3>
           <p class="church-district">Kreuzberg</p>
           <address class="church-address">
@@ -382,7 +523,7 @@
             10965 Berlin
           </address>
           <a href="https://maps.app.goo.gl/Rz8zAVkuQMXwTXtr8" target="_blank" rel="noopener" class="church-link">
-            Pokaż na mapie
+            <span data-i18n="index.churches.show_map">Pokaż na mapie</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
@@ -390,7 +531,7 @@
 
       <article class="church-card reveal">
         <div class="church-image">
-          <img src="images/kirche-st-joseph.jpg" alt="St. Joseph Wedding" onerror="this.parentElement.classList.add('placeholder')">
+          <img src="images/kirche-st-joseph.webp" alt="St. Joseph Wedding" loading="lazy" width="600" height="400" onerror="this.parentElement.classList.add('placeholder')">
           <div class="church-placeholder"><span>+</span></div>
         </div>
         <div class="church-content">
@@ -398,7 +539,7 @@
           <p class="church-district">Wedding</p>
           <address class="church-address">Müllerstraße 161, 13353 Berlin</address>
           <a href="https://maps.app.goo.gl/T5US2kgZrmV7AZfB9" target="_blank" rel="noopener" class="church-link">
-            Pokaż na mapie
+            <span data-i18n="index.churches.show_map">Pokaż na mapie</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
@@ -406,15 +547,15 @@
 
       <article class="church-card reveal">
         <div class="church-image">
-          <img src="images/kirche-st-marien-spandau.jpg" alt="St. Marien Spandau" onerror="this.parentElement.classList.add('placeholder')">
+          <img src="images/kirche-st-marien-spandau.webp" alt="St. Marien Spandau" loading="lazy" width="600" height="400" onerror="this.parentElement.classList.add('placeholder')">
           <div class="church-placeholder"><span>+</span></div>
         </div>
         <div class="church-content">
-          <h3 class="church-name">St. Marien am Behnitz</h3>
+          <h3 class="church-name">St. Marien</h3>
           <p class="church-district">Spandau</p>
-          <address class="church-address">Behnitz 9, 13597 Berlin</address>
+          <address class="church-address">Flankenschanze 43, 13585 Berlin</address>
           <a href="https://maps.app.goo.gl/op47upC6SL5v1TPz5" target="_blank" rel="noopener" class="church-link">
-            Pokaż na mapie
+            <span data-i18n="index.churches.show_map">Pokaż na mapie</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
@@ -422,7 +563,7 @@
 
       <article class="church-card reveal">
         <div class="church-image">
-          <img src="images/kirche-st-marien-karlshorst.jpg" alt="St. Marien Karlshorst" onerror="this.parentElement.classList.add('placeholder')">
+          <img src="images/kirche-st-marien-karlshorst.webp" alt="St. Marien Karlshorst" loading="lazy" width="600" height="400" onerror="this.parentElement.classList.add('placeholder')">
           <div class="church-placeholder"><span>+</span></div>
         </div>
         <div class="church-content">
@@ -430,7 +571,7 @@
           <p class="church-district">Karlshorst</p>
           <address class="church-address">Gundelfinger Straße 36, 10318 Berlin</address>
           <a href="https://maps.app.goo.gl/SPNaz3PtLYxbeVCv8" target="_blank" rel="noopener" class="church-link">
-            Pokaż na mapie
+            <span data-i18n="index.churches.show_map">Pokaż na mapie</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
@@ -445,34 +586,34 @@
     <div class="about-layout">
       <div class="about-image-column">
         <div class="about-image reveal">
-          <img src="images/basilika-turm-blumen.jpg" alt="Johannes-Basilika mit Blumen" onerror="this.parentElement.classList.add('placeholder')">
+          <img src="images/basilika-turm-blumen.webp" alt="Johannes-Basilika mit Blumen" loading="lazy" width="600" height="800" onerror="this.parentElement.classList.add('placeholder')">
           <div class="about-placeholder"><span>+</span></div>
         </div>
         <div class="about-stats">
           <div class="stat reveal">
             <span class="stat-number">80+</span>
-            <span class="stat-label">lat w Berlinie</span>
+            <span class="stat-label" data-i18n="index.about.stat_years">lat w Berlinie</span>
           </div>
           <div class="stat reveal">
             <span class="stat-number">4</span>
-            <span class="stat-label">kościoły</span>
+            <span class="stat-label" data-i18n="index.about.stat_churches">kościoły</span>
           </div>
           <div class="stat reveal">
             <span class="stat-number">1</span>
-            <span class="stat-label">wspólnota</span>
+            <span class="stat-label" data-i18n="index.about.stat_community">wspólnota</span>
           </div>
         </div>
       </div>
 
       <div class="about-content">
         <header class="section-header section-header-left">
-          <span class="section-label">O nas</span>
-          <h2 class="section-title">Nasza <em>historia</em></h2>
+          <span class="section-label" data-i18n="index.about.label">O nas</span>
+          <h2 class="section-title" data-i18n-html="index.about.title">Nasza <em>historia</em></h2>
         </header>
         <div class="about-text">
-          <p class="lead">Polska Misja Katolicka w Berlinie istnieje od 1945 roku i jest duchowym domem dla polskojęzycznych katolików w stolicy Niemiec.</p>
-          <p>Nasza wspólnota gromadzi się w zabytkowej Johannes-Basilice w sercu Kreuzbergu. Pielęgnujemy polską tradycję, kulturę i wiarę - otwierając nasze drzwi dla wszystkich, którzy szukają wspólnoty modlitwy w języku polskim.</p>
-          <p>Zapraszamy do uczestnictwa w naszych nabożeństwach, sakramentach i życiu parafialnym. Jesteśmy wspólnotą otwartą, gotową służyć każdemu, kto szuka Boga.</p>
+          <p class="lead" data-i18n="index.about.lead">Polska Misja Katolicka w Berlinie istnieje od 1945 roku i jest duchowym domem dla polskojęzycznych katolików w stolicy Niemiec.</p>
+          <p data-i18n="index.about.text1">Nasza wspólnota gromadzi się w zabytkowej Johannes-Basilice w sercu Kreuzbergu. Pielęgnujemy polską tradycję, kulturę i wiarę - otwierając nasze drzwi dla wszystkich, którzy szukają wspólnoty modlitwy w języku polskim.</p>
+          <p data-i18n="index.about.text2">Zapraszamy do uczestnictwa w naszych nabożeństwach, sakramentach i życiu parafialnym. Jesteśmy wspólnotą otwartą, gotową służyć każdemu, kto szuka Boga.</p>
         </div>
       </div>
     </div>
@@ -483,50 +624,50 @@
 <section class="section section-pastor" id="duszpasterze">
   <div class="section-container">
     <header class="section-header">
-      <span class="section-label">Duszpasterze</span>
-      <h2 class="section-title">Nasi <em>księża</em></h2>
+      <span class="section-label" data-i18n="index.pastors.label">Duszpasterze</span>
+      <h2 class="section-title" data-i18n-html="index.pastors.title">Nasi <em>księża</em></h2>
     </header>
 
     <!-- Proboszcz - Featured -->
     <div class="pastor-layout pastor-featured reveal">
       <div class="pastor-image">
         <div class="pastor-photo">
-          <img src="images/pastor-kawecki.jpg" alt="ks. Przemysław Kawecki SDB">
+          <img src="images/pastor-kawecki.webp" alt="ks. Przemysław Kawecki SDB" loading="lazy" width="280" height="280">
         </div>
       </div>
       <div class="pastor-content">
-        <span class="pastor-badge">Proboszcz</span>
+        <span class="pastor-badge" data-i18n="index.pastors.pastor_badge">Proboszcz</span>
         <h2 class="pastor-name">ks. Przemysław Kawecki SDB</h2>
-        <p class="pastor-role">Proboszcz Polskiej Misji Katolickiej w Berlinie</p>
+        <p class="pastor-role" data-i18n="index.pastors.pastor_role">Proboszcz Polskiej Misji Katolickiej w Berlinie</p>
         <div class="pastor-bio">
-          <p>Serdecznie zaprasza wszystkich Polaków i osoby niemieckojęzyczne do uczestnictwa w naszych nabożeństwach i życiu parafialnym.</p>
+          <p data-i18n="index.pastors.pastor_bio">Serdecznie zaprasza wszystkich Polaków i osoby niemieckojęzyczne do uczestnictwa w naszych nabożeństwach i życiu parafialnym.</p>
         </div>
       </div>
     </div>
 
     <!-- Wikariusze -->
-    <h3 class="pastors-subtitle">Wikariusze</h3>
+    <h3 class="pastors-subtitle" data-i18n="index.pastors.vicar_title">Wikariusze</h3>
     <div class="pastors-grid">
       <div class="pastor-card reveal">
         <div class="pastor-card-photo">
-          <img src="images/pastor-ulatowski.jpg" alt="ks. Janusz Ulatowski SDB">
+          <img src="images/pastor-ulatowski.webp" alt="ks. Janusz Ulatowski SDB" loading="lazy" width="160" height="160">
         </div>
         <h4 class="pastor-card-name">ks. Janusz Ulatowski SDB</h4>
-        <p class="pastor-card-role">Wikariusz</p>
+        <p class="pastor-card-role" data-i18n="index.pastors.vicar_role">Wikariusz</p>
       </div>
       <div class="pastor-card reveal">
         <div class="pastor-card-photo">
-          <img src="images/pastor-jezewski.jpg" alt="ks. Grzegorz Jeżewski SDB">
+          <img src="images/pastor-jezewski.webp" alt="ks. Grzegorz Jeżewski SDB" loading="lazy" width="160" height="160">
         </div>
         <h4 class="pastor-card-name">ks. Grzegorz Jeżewski SDB</h4>
-        <p class="pastor-card-role">Wikariusz</p>
+        <p class="pastor-card-role" data-i18n="index.pastors.vicar_role">Wikariusz</p>
       </div>
       <div class="pastor-card reveal">
         <div class="pastor-card-photo">
-          <img src="images/pastor-kuskowski.jpg" alt="ks. Janusz Kuskowski SDB">
+          <img src="images/pastor-kuskowski.webp" alt="ks. Janusz Kuskowski SDB" loading="lazy" width="160" height="160">
         </div>
         <h4 class="pastor-card-name">ks. Janusz Kuskowski SDB</h4>
-        <p class="pastor-card-role">Wikariusz</p>
+        <p class="pastor-card-role" data-i18n="index.pastors.vicar_role">Wikariusz</p>
       </div>
     </div>
   </div>
@@ -536,95 +677,176 @@
 <section class="section section-communities" id="wspolnoty">
   <div class="section-container">
     <header class="section-header">
-      <span class="section-label">Wspólnoty</span>
-      <h2 class="section-title">Grupy <em>parafialne</em></h2>
-      <p class="section-lead">Dołącz do jednej z naszych wspólnot</p>
+      <span class="section-label" data-i18n="index.communities.label">Wspólnoty</span>
+      <h2 class="section-title" data-i18n-html="index.communities.title">Grupy <em>parafialne</em></h2>
+      <p class="section-lead" data-i18n="index.communities.lead">Dołącz do jednej z naszych wspólnot</p>
     </header>
 
     <div class="communities-grid">
-      <!-- Chór Parafialny -->
-      <a href="wspolnota-chor.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19V6l12-3v13M9 19c0 1.1-1.79 2-4 2s-4-.9-4-2 1.79-2 4-2 4 .9 4 2zm12-3c0 1.1-1.79 2-4 2s-4-.9-4-2 1.79-2 4-2 4 .9 4 2z"/></svg>
-        </span>
-        <span class="community-name">Chór Parafialny</span>
-      </a>
       <!-- Szkoła Nowej Ewangelizacji -->
       <a href="wspolnota-sne.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-        </span>
-        <span class="community-name">Szkoła Nowej Ewangelizacji</span>
+        <div class="community-image">
+          <img src="images/grupy/sne.jpg" alt="Szkoła Nowej Ewangelizacji" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #8a7248); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Szkoła Nowej Ewangelizacji</span>
+          <p class="community-tagline">Formacja i pogłębianie wiary przez studium Pisma Świętego</p>
+        </div>
       </a>
       <!-- Domowy Kościół -->
       <a href="wspolnota-domowy-kosciol.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </span>
-        <span class="community-name">Domowy Kościół</span>
+        <div class="community-image">
+          <img src="images/grupy/domowy-kosciol.jpg" alt="Domowy Kościół" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #7a6d5c, #5c5247); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Domowy Kościół</span>
+          <p class="community-tagline">Wspólnota małżeństw budujących Kościół w swoich domach</p>
+        </div>
       </a>
-      <!-- Schola „Marana Tha" -->
+      <!-- Schola „Marana Tha“ -->
       <a href="wspolnota-schola.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-        </span>
-        <span class="community-name">Schola „Marana Tha"</span>
+        <div class="community-image">
+          <img src="images/grupy/schola.jpg" alt="Schola Marana Tha" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #a68b5b); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Schola „Marana Tha“</span>
+          <p class="community-tagline">Wzbogacanie liturgii współczesnymi śpiewami religijnymi</p>
+        </div>
       </a>
       <!-- Ruch Światło-Życie -->
       <a href="wspolnota-ruch-swiatlo-zycie.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
-        </span>
-        <span class="community-name">Ruch Światło-Życie</span>
+        <div class="community-image">
+          <img src="images/grupy/ruch-swiatlo-zycie.jpg" alt="Ruch Światło-Życie" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #b8a892, #9a8b76); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Ruch Światło-Życie</span>
+          <p class="community-tagline">Formacja chrześcijańska prowadząca do dojrzałej wiary</p>
+        </div>
       </a>
       <!-- Ruch Szensztacki -->
       <a href="wspolnota-ruch-szensztacki.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
-        </span>
-        <span class="community-name">Ruch Szensztacki</span>
+        <div class="community-image">
+          <img src="images/grupy/ruch-szensztacki.jpg" alt="Ruch Szensztacki" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #8a7248, #6b5a3a); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Ruch Szensztacki</span>
+          <p class="community-tagline">Oddanie się Matce Bożej i apostolstwo w codzienności</p>
+        </div>
       </a>
       <!-- Koło Żywego Różańca -->
       <a href="wspolnota-zywy-rozaniec.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M12 9v3m-4.5 2.6L9 12m7.5 2.6L15 12"/></svg>
-        </span>
-        <span class="community-name">Koło Żywego Różańca</span>
+        <div class="community-image">
+          <img src="images/grupy/zywy-rozaniec.jpg" alt="Koło Żywego Różańca" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #d4c9ba, #b8a892); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M12 9v3m-4.5 2.6L9 12m7.5 2.6L15 12"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Koło Żywego Różańca</span>
+          <p class="community-tagline">Modlitwa różańcowa łącząca wiernych na całym świecie</p>
+        </div>
       </a>
       <!-- Grono Dzieci Maryi -->
       <a href="wspolnota-grono-dzieci-maryi.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </span>
-        <span class="community-name">Grono Dzieci Maryi</span>
+        <div class="community-image">
+          <img src="images/grupy/grono-dzieci-maryi.jpg" alt="Grono Dzieci Maryi" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #9a8b76, #7a6d5c); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Grono Dzieci Maryi</span>
+          <p class="community-tagline">Wspólnota młodych oddanych Matce Bożej</p>
+        </div>
       </a>
       <!-- Koło Przyjaciół Radia Maryja -->
       <a href="wspolnota-radio-maryja.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.4"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.4M19.1 4.9c3.9 3.9 3.9 10.2 0 14.1"/></svg>
-        </span>
-        <span class="community-name">Koło Przyjaciół Radia Maryja</span>
+        <div class="community-image">
+          <img src="images/grupy/radio-maryja.jpg" alt="Koło Przyjaciół Radia Maryja" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #5c5247, #3d3731); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.4"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.4M19.1 4.9c3.9 3.9 3.9 10.2 0 14.1"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Koło Przyjaciół Radia Maryja</span>
+          <p class="community-tagline">Wspólnota modlitwy i wsparcia dla mediów katolickich</p>
+        </div>
       </a>
       <!-- Apostolstwo Dobrej Śmierci -->
       <a href="wspolnota-apostolstwo.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v8m-4-4h8m-4 4v10m-6 0h12"/></svg>
-        </span>
-        <span class="community-name">Apostolstwo Dobrej Śmierci</span>
+        <div class="community-image">
+          <img src="images/grupy/apostolstwo.jpg" alt="Apostolstwo Dobrej Śmierci" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #7a6d5c); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v8m-4-4h8m-4 4v10m-6 0h12"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Apostolstwo Dobrej Śmierci</span>
+          <p class="community-tagline">Modlitwa o łaskę dobrego przejścia do wieczności</p>
+        </div>
       </a>
       <!-- Grupa Męska -->
       <a href="wspolnota-grupa-meska.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg>
-        </span>
-        <span class="community-name">Grupa Męska</span>
+        <div class="community-image">
+          <img src="images/grupy/grupa-meska.jpg" alt="Grupa Męska" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #7a6d5c, #5c5247); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Grupa Męska</span>
+          <p class="community-tagline">Braterstwo mężczyzn wspierających się w wierze i życiu</p>
+        </div>
       </a>
       <!-- Grupa Kobiet Empatycznych -->
       <a href="wspolnota-grupa-kobiet.html" class="community-item reveal">
-        <span class="community-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </span>
-        <span class="community-name">Grupa Kobiet Empatycznych</span>
+        <div class="community-image">
+          <img src="images/grupy/grupa-kobiet.jpg" alt="Grupa Kobiet Empatycznych" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #9a8b76); display: flex;">
+            <span class="community-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="community-body">
+          <span class="community-name">Grupa Kobiet Empatycznych</span>
+          <p class="community-tagline">Siostrzana wspólnota kobiet dzielących się wiarą i życiem</p>
+        </div>
       </a>
     </div>
   </div>
@@ -636,8 +858,8 @@
     <div class="contact-layout">
       <div class="contact-info">
         <header class="section-header section-header-left">
-          <span class="section-label">Kontakt</span>
-          <h2 class="section-title">Napisz do <em>nas</em></h2>
+          <span class="section-label" data-i18n="index.contact.label">Kontakt</span>
+          <h2 class="section-title" data-i18n-html="index.contact.title">Napisz do <em>nas</em></h2>
         </header>
 
         <div class="contact-details">
@@ -646,7 +868,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </span>
             <div class="contact-text">
-              <strong>Adres</strong>
+              <strong data-i18n="index.contact.address_label">Adres</strong>
               <span>Lilienthalstr. 5, 10965 Berlin</span>
             </div>
           </div>
@@ -656,8 +878,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
             </span>
             <div class="contact-text">
-              <strong>Telefon</strong>
-              <a href="tel:+4930752 4080">+49 (30) 752 40 80</a>
+              <strong data-i18n="index.contact.phone_label">Telefon</strong>
+              <a href="tel:+49307524080">+49 30 752 40 80</a>
             </div>
           </div>
 
@@ -673,15 +895,15 @@
         </div>
 
         <div class="office-hours reveal">
-          <h4>Godziny urzędowania</h4>
+          <h4 data-i18n="index.contact.office_hours">Godziny urzędowania</h4>
           <div class="hours-list">
             <div class="hours-row">
-              <span>Poniedziałek - Piątek</span>
-              <span>09:00 - 12:00</span>
+              <span>Poniedziałek i Środa</span>
+              <span>10:00 - 13:00</span>
             </div>
             <div class="hours-row">
-              <span>Środa</span>
-              <span>15:00 - 18:00</span>
+              <span>Poniedziałek i Środa</span>
+              <span>15:00 - 17:30</span>
             </div>
           </div>
         </div>
@@ -689,20 +911,23 @@
 
       <div class="contact-form-wrapper reveal">
         <form class="contact-form" id="contactForm">
+          <div style="position:absolute;left:-9999px" aria-hidden="true">
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form-row form-row-half">
             <div class="form-group">
-              <label for="name">Imię</label>
-              <input type="text" id="name" name="name" placeholder="Twoje imię" required>
+              <label for="name" data-i18n="index.contact.form_name">Imię</label>
+              <input type="text" id="name" name="name" placeholder="Twoje imię" data-i18n-attr="placeholder:index.contact.form_name_placeholder" required>
             </div>
             <div class="form-group">
               <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" placeholder="twoj@email.pl" required>
+              <input type="email" id="email" name="email" placeholder="twoj@email.pl" data-i18n-attr="placeholder:index.contact.form_email_placeholder" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="subject">Temat</label>
+            <label for="subject" data-i18n="index.contact.form_subject">Temat</label>
             <select id="subject" name="subject" required>
-              <option value="">Wybierz temat...</option>
+              <option value="" data-i18n="index.contact.form_select_topic">Wybierz temat...</option>
               <optgroup label="Sakramenty">
                 <option value="Chrzest">Chrzest</option>
                 <option value="Pierwsza Komunia">Pierwsza Komunia</option>
@@ -711,7 +936,6 @@
                 <option value="Namaszczenie">Namaszczenie chorych</option>
               </optgroup>
               <optgroup label="Wspólnoty">
-                <option value="Wspolnota: Chór Parafialny">Chór Parafialny</option>
                 <option value="Wspolnota: Szkoła Nowej Ewangelizacji">Szkoła Nowej Ewangelizacji</option>
                 <option value="Wspolnota: Domowy Kościół">Domowy Kościół</option>
                 <option value="Wspolnota: Schola Marana Tha">Schola „Marana Tha"</option>
@@ -731,11 +955,11 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="message">Wiadomość</label>
-            <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość..." required></textarea>
+            <label for="message" data-i18n="index.contact.form_message">Wiadomość</label>
+            <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość..." data-i18n-attr="placeholder:index.contact.form_message_placeholder" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-full">Wyślij wiadomość</button>
-          <p class="form-note">Formularz otworzy Twój program e-mail z wypełnioną wiadomością.</p>
+          <button type="submit" class="btn btn-primary btn-full" data-i18n="index.contact.form_submit">Wyślij wiadomość</button>
+          <p class="form-note" data-i18n="index.contact.form_note">Formularz otworzy Twój program e-mail z wypełnioną wiadomością.</p>
         </form>
       </div>
     </div>
@@ -748,7 +972,7 @@
     <div class="footer-top">
       <div class="footer-main">
         <div class="footer-brand">
-          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
           <div class="footer-brand-text">
             <strong>Polska Misja Katolicka</strong>
             <span>w Berlinie</span>
@@ -759,7 +983,7 @@
           Lilienthalstraße 5, 10965 Berlin
         </p>
         <div class="footer-contact">
-          <a href="tel:+493075240 80">+49 (30) 752 40 80</a>
+          <a href="tel:+49307524080">+49 30 752 40 80</a>
           <span class="footer-divider"></span>
           <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
         </div>
@@ -767,61 +991,57 @@
 
       <nav class="footer-nav">
         <div class="footer-nav-group">
-          <h4>Nawigacja</h4>
-          <a href="index.html">Strona główna</a>
-          <a href="sakramente.html">Sakramenty</a>
-          <a href="events.html">Wydarzenia</a>
-          <a href="kontakt.html">Kontakt</a>
+          <h4 data-i18n="index.footer.nav_title">Nawigacja</h4>
+          <a href="index.html" data-i18n="nav.home">Strona główna</a>
+          <a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a>
+          <a href="events.html" data-i18n="nav.events">Wydarzenia</a>
+          <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
         </div>
         <div class="footer-nav-group">
-          <h4>Informacje</h4>
+          <h4 data-i18n="index.footer.info_title">Informacje</h4>
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
         </div>
       </nav>
     </div>
 
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
+        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+      </div>
+      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
+        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
+        <div class="footer-newsletter-input-wrap">
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="twoj@email.pl"
+            data-i18n-attr="placeholder:footer.newsletter_placeholder"
+            aria-describedby="newsletter-status">
+          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
+        </div>
+        <div class="newsletter-hp-wrap" aria-hidden="true">
+          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
     <div class="footer-bottom">
-      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-motto" data-i18n="index.footer.motto">"Niech będzie pochwalony Jezus Chrystus"</p>
       <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
     </div>
   </div>
 </footer>
-
-<!-- Chatbot Floating Button -->
-<button class="chatbot-fab" id="chatbotFab" aria-label="Chatbot">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
-    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
-    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
-  </svg>
-</button>
-
-<!-- Chatbot Chat Window -->
-<div class="chatbot-window" id="chatbotWindow">
-  <div class="chatbot-header">
-    <img src="images/pmk-logo-chatbot.png" alt="PMK" class="chatbot-avatar">
-    <div class="chatbot-header-text">
-      <strong>PMK Berlin</strong>
-      <span>Asystent parafialny</span>
-    </div>
-    <button class="chatbot-close" id="chatbotClose" aria-label="Zamknij">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="chatbot-messages" id="chatbotMessages">
-  </div>
-  <form class="chatbot-input" id="chatbotForm">
-    <input type="text" id="chatbotInputField" placeholder="Napisz wiadomość..." autocomplete="off">
-    <button type="submit" aria-label="Wyslij">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-    </button>
-  </form>
-</div>
-
 <!-- Scripts -->
-<script src="main.js"></script>
-<script src="js/chatbot.js"></script>
+<script src="js/i18n.js" defer></script>
+<script src="main.js" defer></script>
+<script src="js/newsletter.js" defer></script>
+<script type="module" src="js/pmk-chat.js"></script>
 </body>
 </html>

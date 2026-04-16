@@ -7,7 +7,7 @@
     "category": "Wielki Post",
     "shortDesc": "Nauki rekolekcyjne poprowadzi ks. Stanislaw Kowalski z Krakowa.",
     "fullDesc": "Serdecznie zapraszamy na tegoroczne rekolekcje wielkopostne w dniach 23-25 marca.\n\nProgram:\n- 18:00 - Msza Swieta z nauka rekolekcyjna\n- 19:30 - Adoracja Najswietszego Sakramentu\n\nSpowiedz codziennie od 17:00.",
-    "imageUrl": "images/events/adoracja-krzyz.jpg",
+    "imageUrl": "images/events/adoracja-krzyz.webp",
     "location": "Johannes-Basilika",
     "address": "Lilienthalstraße 5, 10965 Berlin"
   },
@@ -52,7 +52,7 @@
     "category": "Wielki Tydzien",
     "shortDesc": "Swiecenie pokarmow 9-12 i 14-16. Wigilia Paschalna o 20:00.",
     "fullDesc": "Swiecenie pokarmow:\n- 09:00 - 12:00\n- 14:00 - 16:00\n\n20:00 - Wigilia Paschalna",
-    "imageUrl": "images/events/triduum-paschalne.jpg",
+    "imageUrl": "images/events/triduum-paschalne.webp",
     "location": "Johannes-Basilika",
     "address": "Lilienthalstraße 5, 10965 Berlin"
   },
@@ -64,7 +64,7 @@
     "category": "Wielkanoc",
     "shortDesc": "Rezurekcja o 7:00. Msze o 10:15, 12:00 i 18:00.",
     "fullDesc": "07:00 - Uroczysta Rezurekcja z procesja\n\nMsze Swiete: 10:15, 12:00, 18:00\n\nALLELUJA!",
-    "imageUrl": "images/basilika-kerze.jpg",
+    "imageUrl": "images/basilika-kerze.webp",
     "location": "Johannes-Basilika",
     "address": "Lilienthalstraße 5, 10965 Berlin"
   },
@@ -76,7 +76,7 @@
     "category": "Sakramenty",
     "shortDesc": "Uroczystosc I Komunii Swietej dzieci naszej parafii.",
     "fullDesc": "Uroczysta Msza Swieta z Pierwsza Komunia.\n\nPo Mszy blogoslawienstwo rodzin.",
-    "imageUrl": "images/basilika-interior.jpg",
+    "imageUrl": "images/basilika-interior.webp",
     "location": "Johannes-Basilika",
     "address": "Lilienthalstraße 5, 10965 Berlin"
   },
