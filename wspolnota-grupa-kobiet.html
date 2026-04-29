@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <title>Grupa Kobiet Empatycznych | Polska Misja Katolicka Berlin</title>
-  <meta name="description" content="Wspólnota chrześcijańskich kobiet zakorzeniona w empatii, akceptacji i miłości Boga, przeżywającej wiarę poprzez głęboką samoświadomość.">
+  <meta name="description" content="Wspólnota chrześcijańskich kobiet w PMK Berlin. Spotkania w duchu empatii, akceptacji i wzajemnego szacunku — odkrywanie miłości Boga i budowanie głębokich, dojrzałych relacji.">
   <link rel="canonical" href="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="author" content="Polska Misja Katolicka Berlin">
@@ -16,7 +16,7 @@
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html">
 
   <meta property="og:title" content="Grupa Kobiet Empatycznych | Polska Misja Katolicka Berlin">
-  <meta property="og:description" content="Wspólnota chrześcijańskich kobiet zakorzeniona w empatii, akceptacji i miłości Boga, przeżywającej wiarę poprzez głęboką samoświadomość.">
+  <meta property="og:description" content="Wspólnota chrześcijańskich kobiet w PMK Berlin. Spotkania w duchu empatii, akceptacji i wzajemnego szacunku — odkrywanie miłości Boga i budowanie głębokich, dojrzałych relacji.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html">
   <meta property="og:locale" content="pl_PL">
@@ -53,7 +53,7 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Grupa Kobiet Empatycznych PMK Berlin",
-    "description": "Wspólnota parafialna PMK Berlin. Wspólnota chrześcijańskich kobiet zakorzeniona w empatii, akceptacji i miłości Boga, przeżywającej wiarę poprzez głęboką samoświadomość.",
+    "description": "Wspólnota parafialna PMK Berlin. Chrześcijańska wspólnota kobiet — spotkania w duchu empatii, akceptacji i wzajemnego szacunku, ku odkrywaniu miłości Boga i budowaniu głębokich, dojrzałych relacji.",
     "url": "https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html",
     "memberOf": { "@id": "https://www.pmk-berlin.de/#church" },
     "areaServed": { "@type": "City", "name": "Berlin" }
@@ -479,6 +479,55 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .group-quote {
+      font-family: var(--font-serif);
+      font-size: var(--text-lg);
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--color-text-primary);
+      border-left: 3px solid var(--color-accent);
+      padding: var(--space-4) var(--space-6);
+      margin: 0 0 var(--space-8);
+      background: var(--color-warm-100);
+      border-radius: 0 var(--radius-lg, 0.75rem) var(--radius-lg, 0.75rem) 0;
+    }
+    .group-quote p {
+      margin: 0 0 var(--space-3);
+      color: var(--color-text-primary);
+      font-size: inherit;
+      line-height: inherit;
+    }
+    .group-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+    .group-values-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-6);
+    }
+    .group-values-list li {
+      position: relative;
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-3);
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .group-values-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
   </style>
 </head>
 <body>
@@ -538,12 +587,12 @@
         </div>
         <h1>Grupa Kobiet <em>Empatycznych</em></h1>
         <p class="group-hero-tagline">
-          Wspólnota chrześcijańskich kobiet zakorzeniona w empatii, akceptacji i miłości Boga, przeżywającej wiarę poprzez głęboką samoświadomość.
+          Tworzymy przestrzeń pozwalającą zatrzymać się w biegu codzienności, zajrzeć w głąb siebie oraz spotkać i nawiązać relację z Bogiem i drugim człowiekiem.
         </p>
         <div class="group-hero-meta">
           <div class="group-meta-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span>Spotkania: <strong>1 raz w miesiącu, 18:00</strong></span>
+            <span>Spotkania: <strong>1 raz w miesiącu, czwartek</strong></span>
           </div>
           <div class="group-meta-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -565,38 +614,59 @@
 
     <!-- Left: Description -->
     <div class="group-description">
+      <blockquote class="group-quote">
+        <p>„Człowiek jest tak zbudowany, że sam sobie nie wystarczy. Nasze oczy nie widzą swojej twarzy, potrzebujemy innego, żeby ją zobaczyć. Swoją doskonałość trzeba odkrywać we wspólnocie — z Bogiem i drugim człowiekiem".</p>
+        <cite>— Ks. Krzysztof Grzywocz</cite>
+      </blockquote>
+
       <h2>O <em>nas</em></h2>
       <p>
-        Jesteśmy grupą chrześcijańskich kobiet. Nasze spotkania to przestrzeń zatrzymania się w biegu codzienności i zajrzenia w głąb siebie w duchu empatii, akceptacji, inspiracji oraz działania ku dobru. Celem naszych spotkań jest pełniejsze odkrywanie i doświadczanie miłości Boga, bliźnich oraz samej siebie jako kobiety.
+        Jesteśmy grupą chrześcijańskich kobiet. Tworzymy przestrzeń pozwalającą zatrzymać się w biegu codzienności, zajrzeć w głąb siebie oraz spotkać i nawiązać relację z Bogiem i drugim człowiekiem.
       </p>
 
-      <h3 style="margin-top: var(--space-6); margin-bottom: var(--space-4); font-family: var(--font-serif); font-weight: 500;">Formuła spotkań:</h3>
-            <div class="group-highlights">
-        <div class="group-highlight-card">
-          <h4>Spotkanie przy kawie</h4>
-          <p>Budowanie relacji z bliźnimi.</p>
-        </div>
+      <h2>Nasza <em>misja</em></h2>
+      <p>
+        Pragniemy tworzyć wspólnotę kobiet wspierających się wzajemnie w rozwoju duchowym i osobistym, dzieląc się swoim doświadczeniem oraz inspirując w działaniach ku dobru.
+      </p>
+      <p>
+        Celem naszych spotkań jest odkrywanie i doświadczanie miłości Boga, głębsze poznawanie swojej kobiecej tożsamości oraz budowanie głębokich, dojrzałych relacji.
+      </p>
+
+      <h2>Nasze <em>wartości</em></h2>
+      <ul class="group-values-list">
+        <li>Rozumiemy <em>Spotkanie</em> jako dar i zadanie — widzieć innych i być widzianą — w duchu empatii, otwartości, wzajemnego szacunku i akceptacji.</li>
+        <li>Dbamy o uważność na siebie nawzajem, na swoje potrzeby i granice.</li>
+        <li>Towarzyszymy sobie w wolności, bez oceniania i dawania „złotych rad".</li>
+        <li>Ważna jest dla nas komunikacja nastawiona na budowanie mostów porozumienia.</li>
+      </ul>
+
+      <h2>Nasze <em>spotkania</em></h2>
+      <p>Stałe elementy naszych spotkań to:</p>
+      <div class="group-highlights">
         <div class="group-highlight-card">
           <h4>Modlitwa</h4>
-          <p>Pogłębianie relacji z Bogiem.</p>
+          <p>Pogłębienie relacji z Bogiem.</p>
         </div>
         <div class="group-highlight-card">
-          <h4>Formacja</h4>
-          <p>Czas refleksji.</p>
+          <h4>Warsztaty tematyczne</h4>
+          <p>Lepsze poznanie siebie, wsparcie w rozwoju i wprowadzaniu zmian w życiu oraz budowaniu dobrostanu.</p>
         </div>
         <div class="group-highlight-card">
-          <h4>Działanie ku zmianie</h4>
-          <p>Praca nad relacją z samą sobą.</p>
+          <h4>Dzielenie się w grupach</h4>
+          <p>Czas refleksji i wzajemnego ubogacania się.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Przerwy przy kawie</h4>
+          <p>Integracja i budowanie relacji z bliźnimi.</p>
         </div>
       </div>
-      <p style="margin-top: var(--space-4); color: var(--color-text-secondary);">
-        Spotkania obejmują również dzielenie się w grupach i na forum — wzajemne wsparcie i ubogacenie.
+      <p style="color: var(--color-text-secondary);">
+        W ciągu roku organizujemy także dni skupienia i wspólne wyjazdy.
       </p>
 
       <h2>Dołącz <em>do nas</em></h2>
       <p>
-        Zapraszamy serdecznie wszystkich, którzy chcą dołączyć do naszej wspólnoty. Niezależnie od doświadczenia,
-        każdy jest w naszej grupie mile widziany. Skontaktuj się z nami lub przyjdź na jedno z naszych spotkań.
+        Nasze spotkania mają charakter otwarty — serdecznie zapraszamy! Niezależnie od doświadczenia, każda kobieta jest u nas mile widziana. Skontaktuj się z nami lub przyjdź na jedno ze spotkań.
       </p>
     </div>
 
@@ -619,7 +689,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <div>
               <div class="label">E-mail</div>
-              <div class="value"><a href="mailto:kobietyempatyczne.pmk.berlin@gmail.com">kobietyempatyczne.pmk.berlin@gmail.com</a></div>
+              <div class="value"><a href="mailto:kobietyem.pmk-berlin@web.de">kobietyem.pmk-berlin@web.de</a></div>
             </div>
           </div>
           <div class="group-contact-item">
@@ -633,7 +703,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             <div>
               <div class="label">Spotkania</div>
-              <div class="value">1 raz w miesiącu, 18:00<br>Dom Jana Pawła II</div>
+              <div class="value">1 raz w miesiącu, czwartek<br>Dom Jana Pawła II<br><span style="font-size:var(--text-xs);color:var(--color-text-secondary);">terminy w ogłoszeniach parafialnych</span></div>
             </div>
           </div>
           <a href="kontakt.html?temat=Wsp%C3%B3lnota%3A%20Grupa%20Kobiet%20Empatycznych" class="group-contact-cta">
@@ -712,6 +782,10 @@
             aria-describedby="newsletter-status">
           <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
         </div>
+        <label class="footer-newsletter-consent">
+          <input type="checkbox" name="consent" required>
+          <span data-i18n-html="footer.newsletter_consent">Zapisując się, akceptuję <a href="datenschutz.html#newsletter">Politykę prywatności</a>. Mogę wycofać zgodę w każdej chwili.</span>
+        </label>
         <div class="newsletter-hp-wrap" aria-hidden="true">
           <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         </div>
