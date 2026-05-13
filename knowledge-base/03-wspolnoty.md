@@ -1,8 +1,8 @@
 # Wspólnoty i grupy parafialne / Gemeindegruppen
 
-Informacje o 11 wspólnotach działających w PMK Berlin. Dane zweryfikowane z podstron wspolnota-*.html.
+Informacje o 12 wspólnotach działających w PMK Berlin. Dane zweryfikowane z podstron wspolnota-*.html.
 
-Informationen zu den 11 Gemeindegruppen der PMK Berlin. Angaben aus den Unterseiten wspolnota-*.html.
+Informationen zu den 12 Gemeindegruppen der PMK Berlin. Angaben aus den Unterseiten wspolnota-*.html.
 
 **Zasada ogólna:** jeśli ktoś pyta o konkretną wspólnotę i chce dołączyć, podaj informacje ze strony + zaproponuj kontakt z liderem (jeśli jest email) lub przez biuro parafialne (pmk@pmk-berlin.de). Jeśli nie masz danych o liderze — skieruj przez biuro.
 
@@ -142,6 +142,18 @@ Informationen zu den 11 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 
 ---
 
+## Ministranci – Służba Liturgiczna
+
+- **PL opis:** Wspólnota ministrantów PMK Berlin — dzieci i młodzież (chłopcy i dziewczęta), którzy pełnią służbę liturgiczną przy ołtarzu podczas Mszy Świętych i nabożeństw. Należymy do Ministranckiej Pastoralnej Archidiecezji Berlińskiej (Ministrantenpastoral im Erzbistum Berlin). Posługa to nie tylko obecność przy ołtarzu — to także droga formacji duchowej, poznawania liturgii, Pisma Świętego i znaczenia gestów liturgicznych. W ramach formacji: zbiórki, kursy lektora, pielgrzymki, dni skupienia, obozy. Zapraszamy dzieci od I klasy szkoły podstawowej (po Pierwszej Komunii Świętej lub w trakcie przygotowania).
+- **DE Beschreibung:** *Ministrantengemeinschaft / Liturgischer Dienst* — Kinder und Jugendliche (Jungen und Mädchen) der PMK Berlin, die während der Heiligen Messen und Andachten am Altar dienen. Wir gehören zur Ministrantenpastoral im Erzbistum Berlin. Der Dienst umfasst Altardienst, Lektorat, liturgische Ausbildung, Wallfahrten, Einkehrtage und Sommerlager. Willkommen sind Kinder ab der 1. Klasse (nach der Erstkommunion oder in deren Vorbereitung).
+- **Posługa / Dienst:** Msze Święte w niedziele i święta / Sonntags- und Festtagsmessen
+- **Miejsce / Ort:** Johannes-Basilika, Lilienthalstraße 5, 10965 Berlin (oraz pozostałe kościoły stacyjne PMK / sowie weitere Stationskirchen der PMK)
+- **Osoba odpowiedzialna / Leitung:** Jakub Zdych
+- **E-mail:** ministranci@pmk.berlin
+- **Dla kogo / Für wen:** dzieci i młodzież po Pierwszej Komunii / Kinder und Jugendliche ab der Erstkommunion (chłopcy i dziewczęta / Jungen und Mädchen)
+
+---
+
 ## Skrótowa lista wszystkich wspólnot / Kurzübersicht aller Gruppen
 
 | Wspólnota | Kiedy | Gdzie |
@@ -157,5 +169,6 @@ Informationen zu den 11 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 | Apostolstwo Dobrej Śmierci | ostatnia środa miesiąca 18:00 | Bazylika |
 | Grupa Kobiet Empatycznych | 1x w miesiącu 18:00 | Dom JP2 |
 | Grupa Męska | 1x w miesiącu, czwartek 19:00 | Dom JP2 |
+| Ministranci – Służba Liturgiczna | Msze niedzielne i świąteczne (zbiórki wg ogłoszeń) | Bazylika |
 
 **„Dom Jana Pawła II" / „Dom JP2"** to budynek parafialny *za Bazyliką*. „Bazylika" = Johannes-Basilika, Lilienthalstraße 5.

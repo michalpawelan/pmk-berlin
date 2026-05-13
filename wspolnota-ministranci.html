@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Ministranci – Służba Liturgiczna | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Ministranci PMK Berlin — dzieci i młodzież służąca przy ołtarzu w polskiej parafii. Służba liturgiczna, formacja, wspólnota. Zapraszamy nowych kandydatów.">
+  <link rel="canonical" href="https://www.pmk-berlin.de/wspolnota-ministranci.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ministranci.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ministranci.html">
+
+  <meta property="og:title" content="Ministranci – Służba Liturgiczna | Polska Misja Katolicka Berlin">
+  <meta property="og:description" content="Ministranci PMK Berlin — dzieci i młodzież służąca przy ołtarzu. Służba liturgiczna, formacja, wspólnota. Zapraszamy nowych kandydatów.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.pmk-berlin.de/wspolnota-ministranci.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Polska Misja Katolicka w Berlinie">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ministranci – Służba Liturgiczna | PMK Berlin">
+  <meta name="twitter:description" content="Służba liturgiczna w PMK Berlin — formacja ministrantów, dzieci i młodzieży.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Kreuzberg">
+  <meta name="geo.position" content="52.4870;13.3950">
+  <meta name="ICBM" content="52.4870, 13.3950">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.pmk-berlin.de/" },
+      { "@type": "ListItem", "position": 2, "name": "Grupy parafialne", "item": "https://www.pmk-berlin.de/grupy.html" },
+      { "@type": "ListItem", "position": 3, "name": "Ministranci – Służba Liturgiczna", "item": "https://www.pmk-berlin.de/wspolnota-ministranci.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ministranci PMK Berlin – Służba Liturgiczna",
+    "description": "Wspólnota parafialna PMK Berlin. Służba liturgiczna — ministranci, lektorzy i kandydaci posługujący przy ołtarzu podczas Mszy Świętych i nabożeństw. Formacja duchowa, liturgiczna i wspólnotowa dla dzieci i młodzieży.",
+    "url": "https://www.pmk-berlin.de/wspolnota-ministranci.html",
+    "memberOf": { "@id": "https://www.pmk-berlin.de/#church" },
+    "areaServed": { "@type": "City", "name": "Berlin" },
+    "email": "ministranci@pmk.berlin"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ===== Group Detail Page Styles ===== */
+
+    .group-hero {
+      padding: calc(var(--nav-height, 80px) + var(--space-12)) 0 var(--space-12);
+      background: var(--color-warm-100);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .group-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, var(--color-accent-light));
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .group-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .group-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .group-breadcrumb a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .group-breadcrumb a:hover {
+      color: var(--color-accent);
+    }
+
+    .group-breadcrumb svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.4;
+    }
+
+    .group-hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .group-hero-text {
+      max-width: 540px;
+    }
+
+    .group-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 16px;
+      margin-bottom: var(--space-5);
+    }
+
+    .group-icon-badge svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .group-hero-text h1 {
+      font-family: var(--font-serif);
+      font-size: var(--text-4xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      line-height: 1.15;
+      margin-bottom: var(--space-4);
+    }
+
+    .group-hero-text h1 em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    .group-hero-tagline {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+    }
+
+    .group-hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .group-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .group-meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .group-meta-item strong {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    .group-hero-image {
+      position: relative;
+      border-radius: var(--radius-2xl, 1.5rem);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--color-warm-200);
+    }
+
+    .group-hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Fade-in animation for images */
+    .group-hero-image img,
+    .group-hero-image .group-hero-image-placeholder {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInImage 0.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeInImage {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .group-hero-text {
+      opacity: 0;
+      animation: fadeInText 0.6s ease-out 0.1s forwards;
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .group-hero-image-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--color-warm-200), var(--color-warm-300));
+      color: var(--color-accent);
+      font-size: 4rem;
+      opacity: 0.5;
+    }
+
+    .group-hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(166, 139, 91, 0.15);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* Main Content */
+    .group-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-6);
+    }
+
+    .group-content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    /* Left Column - Description */
+    .group-description h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-5);
+    }
+
+    .group-description h2 em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    .group-description p {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-5);
+    }
+
+    .group-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin: var(--space-8) 0;
+    }
+
+    .group-highlight-card {
+      padding: var(--space-5);
+      background: var(--color-warm-100);
+      border-radius: var(--radius-xl, 1rem);
+      border: 1px solid var(--color-border);
+    }
+
+    .group-highlight-card h4 {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .group-highlight-card p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Right Column - Contact Card */
+    .group-contact-card {
+      position: sticky;
+      top: calc(var(--nav-height, 80px) + var(--space-6));
+      background: white;
+      border-radius: var(--radius-2xl, 1.5rem);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+
+    .group-contact-header {
+      background: var(--color-warm-950);
+      color: white;
+      padding: var(--space-6);
+      text-align: center;
+    }
+
+    .group-contact-header h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      font-weight: 500;
+      margin-bottom: var(--space-1);
+    }
+
+    .group-contact-header p {
+      font-size: var(--text-sm);
+      opacity: 0.7;
+    }
+
+    .group-contact-body {
+      padding: var(--space-6);
+    }
+
+    .group-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .group-contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .group-contact-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .group-contact-item .label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .group-contact-item .value {
+      font-size: var(--text-sm);
+      color: var(--color-text-primary);
+      line-height: 1.5;
+    }
+
+    .group-contact-item a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .group-contact-item a:hover {
+      color: var(--color-accent-dark);
+      text-decoration: underline;
+    }
+
+    .group-contact-cta {
+      display: block;
+      width: 100%;
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      background: var(--color-accent);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--text-sm);
+      border-radius: var(--radius-lg, 0.75rem);
+      transition: all 0.2s;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+    }
+
+    .group-contact-cta:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(166, 139, 91, 0.3);
+    }
+
+    /* Back link */
+    .group-back-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-16);
+      text-align: center;
+    }
+
+    .group-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: var(--space-3) var(--space-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full, 9999px);
+      transition: all 0.2s;
+    }
+
+    .group-back-link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .group-back-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .group-content-grid {
+        grid-template-columns: 1fr;
+      }
+      .group-contact-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .group-hero-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .group-hero-text {
+        order: 1;
+      }
+      .group-hero-image {
+        order: 0;
+        max-height: 280px;
+      }
+      .group-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .group-quote {
+      font-family: var(--font-serif);
+      font-size: var(--text-lg);
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--color-text-primary);
+      border-left: 3px solid var(--color-accent);
+      padding: var(--space-4) var(--space-6);
+      margin: 0 0 var(--space-8);
+      background: var(--color-warm-100);
+      border-radius: 0 var(--radius-lg, 0.75rem) var(--radius-lg, 0.75rem) 0;
+    }
+    .group-quote p {
+      margin: 0 0 var(--space-3);
+      color: var(--color-text-primary);
+      font-size: inherit;
+      line-height: inherit;
+    }
+    .group-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+    .group-values-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-6);
+    }
+    .group-values-list li {
+      position: relative;
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-3);
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .group-values-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon">
+        <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie" width="45" height="45">
+      </span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">BERLIN</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="sakramente.html">Sakramenty</a></li>
+      <li><a href="events.html">Wydarzenia</a></li>
+      <li><a href="grupy.html">Grupy parafialne</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Group Hero Section -->
+<section id="main-content" class="group-hero">
+  <div class="group-hero-inner">
+
+    <nav class="group-breadcrumb">
+      <a href="index.html">Strona główna</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <a href="grupy.html">Wspólnoty</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span>Ministranci</span>
+    </nav>
+
+    <div class="group-hero-content">
+      <div class="group-hero-text">
+        <div class="group-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 6h8"/></svg>
+        </div>
+        <h1>Ministranci – <em>Służba Liturgiczna</em></h1>
+        <p class="group-hero-tagline">
+          Dzieci i młodzież, które z radością i odpowiedzialnością służą przy ołtarzu podczas Mszy Świętych i nabożeństw w Polskiej Misji Katolickiej w Berlinie.
+        </p>
+        <div class="group-hero-meta">
+          <div class="group-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Posługa: <strong>Msze Święte i nabożeństwa</strong></span>
+          </div>
+          <div class="group-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Miejsce: <strong>Johannes-Basilika, Berlin</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-hero-image">
+        <img src="images/grupy/sluzba-liturgiczna.jpg" alt="Ministranci – Służba Liturgiczna PMK Berlin" loading="eager" width="1600" height="1000" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="group-hero-image-placeholder" style="display:none;">✝</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="group-content">
+  <div class="group-content-grid">
+
+    <!-- Left: Description -->
+    <div class="group-description">
+      <blockquote class="group-quote">
+        <p>„Oto idę pełnić Twoją wolę". Służba przy ołtarzu to wielki przywilej i odpowiedź na Boże zaproszenie — by być blisko Chrystusa Eucharystycznego.</p>
+        <cite>— inspirowane Hbr 10,7</cite>
+      </blockquote>
+
+      <h2>Kim <em>jesteśmy</em></h2>
+      <p>
+        Jesteśmy wspólnotą ministrantów PMK Berlin — chłopców i dziewcząt, którzy pełnią służbę liturgiczną przy ołtarzu w polskiej parafii. Należymy do Ministranckiej Pastoralnej Archidiecezji Berlińskiej (Ministrantenpastoral im Erzbistum Berlin) i tworzymy żywą część duszpasterstwa PMK.
+      </p>
+
+      <h2>Nasza <em>posługa</em></h2>
+      <p>
+        Naszym podstawowym zadaniem jest godne usługiwanie kapłanowi podczas Mszy Świętej i nabożeństw. Dbamy o piękno liturgii — niesiemy świece i krzyż, podajemy ampułki, dzwonimy, czytamy Słowo Boże, śpiewamy psalmy.
+      </p>
+      <p>
+        Służba ministranta to nie tylko obecność przy ołtarzu — to także droga formacji duchowej, poznawania Pisma Świętego, zgłębiania znaczenia gestów i symboli liturgicznych.
+      </p>
+
+      <h2>Co <em>robimy</em></h2>
+      <ul class="group-values-list">
+        <li>Pełnimy posługę podczas Mszy Świętych w niedziele i święta — zarówno w Johannes-Basilika, jak i w pozostałych kościołach stacyjnych PMK.</li>
+        <li>Bierzemy udział w nabożeństwach okresowych: roratach, drodze krzyżowej, nabożeństwach majowych i różańcowych.</li>
+        <li>Spotykamy się regularnie na zbiórkach formacyjnych — uczymy się liturgii i pogłębiamy wiarę.</li>
+        <li>Integrujemy się przez wspólne wyjścia, gry i wyjazdy.</li>
+      </ul>
+
+      <h2>Nasze <em>spotkania</em></h2>
+      <p>Stałymi elementami życia naszej wspólnoty są:</p>
+      <div class="group-highlights">
+        <div class="group-highlight-card">
+          <h4>Służba liturgiczna</h4>
+          <p>Asysta przy ołtarzu podczas Mszy Świętych i nabożeństw w parafii.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Zbiórki formacyjne</h4>
+          <p>Nauka liturgii, modlitwa, rozmowy o wierze, wspólne katechezy.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Kursy lektora</h4>
+          <p>Przygotowanie starszych ministrantów do posługi czytania Słowa Bożego.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Wyjazdy i integracja</h4>
+          <p>Pielgrzymki, dni skupienia, obozy i wspólne wydarzenia w ciągu roku.</p>
+        </div>
+      </div>
+
+      <h2>Zostań <em>ministrantem</em></h2>
+      <p>
+        Zapraszamy chłopców i dziewczęta od I klasy szkoły podstawowej, którzy przyjęli już Pierwszą Komunię Świętą lub przygotowują się do niej. Nie wymagamy doświadczenia — wystarczą chęci, otwarte serce i radość ze służby Bogu.
+      </p>
+      <p>
+        Jeśli jesteś rodzicem i chcesz zapisać dziecko, lub jesteś młodym człowiekiem zainteresowanym dołączeniem do naszej wspólnoty — napisz do nas. Z radością odpowiemy na każde pytanie.
+      </p>
+    </div>
+
+    <!-- Right: Contact Card -->
+    <aside>
+      <div class="group-contact-card">
+        <div class="group-contact-header">
+          <h3>Kontakt</h3>
+          <p>Skontaktuj się z nami</p>
+        </div>
+        <div class="group-contact-body">
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+            <div>
+              <div class="label">Osoba odpowiedzialna</div>
+              <div class="value">Jakub Zdych</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <div class="label">E-mail</div>
+              <div class="value"><a href="mailto:ministranci@pmk.berlin">ministranci@pmk.berlin</a></div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div class="label">Miejsce posługi</div>
+              <div class="value">Johannes-Basilika<br>Lilienthalstraße 5, 10965 Berlin</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div class="label">Posługa</div>
+              <div class="value">Msze Święte w niedziele i święta<br><span style="font-size:var(--text-xs);color:var(--color-text-secondary);">zbiórki i terminy w ogłoszeniach parafialnych</span></div>
+            </div>
+          </div>
+          <a href="kontakt.html?temat=Wsp%C3%B3lnota%3A%20Ministranci" class="group-contact-cta">
+            Napisz do nas
+          </a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- Back to groups -->
+<div class="group-back-section">
+  <a href="grupy.html" class="group-back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Wszystkie wspólnoty
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Nawigacja</h4>
+          <a href="index.html">Strona główna</a>
+          <a href="sakramente.html">Sakramenty</a>
+          <a href="events.html">Wydarzenia</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">
+        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
+        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+      </div>
+      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
+        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
+        <div class="footer-newsletter-input-wrap">
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="twoj@email.pl"
+            data-i18n-attr="placeholder:footer.newsletter_placeholder"
+            aria-describedby="newsletter-status">
+          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
+        </div>
+        <label class="footer-newsletter-consent">
+          <input type="checkbox" name="consent" required>
+          <span data-i18n-html="footer.newsletter_consent">Zapisując się, akceptuję <a href="datenschutz.html#newsletter">Politykę prywatności</a>. Mogę wycofać zgodę w każdej chwili.</span>
+        </label>
+        <div class="newsletter-hp-wrap" aria-hidden="true">
+          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+<script src="js/newsletter.js" defer></script>
+</body>
+</html>
