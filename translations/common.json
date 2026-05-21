@@ -43,24 +43,16 @@
     "pl": "Wszelkie prawa zastrzeżone.",
     "de": "Alle Rechte vorbehalten."
   },
-  "footer.newsletter_title": {
-    "pl": "Bądź na bieżąco",
-    "de": "Bleiben Sie auf dem Laufenden"
+  "footer.donate_title": {
+    "pl": "Wesprzyj naszą parafię",
+    "de": "Unterstützen Sie unsere Gemeinde"
   },
-  "footer.newsletter_desc": {
-    "pl": "Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.",
-    "de": "Tragen Sie Ihre E-Mail ein und verpassen Sie keine Veranstaltung, Messe oder wichtige Information aus unserer Gemeinde."
+  "footer.donate_desc": {
+    "pl": "Twoja ofiara pomaga utrzymać Bazylikę i wspierać życie duchowe naszej wspólnoty. Bóg zapłać za każde wsparcie.",
+    "de": "Ihre Spende hilft, die Basilika zu erhalten und das spirituelle Leben unserer Gemeinde zu unterstützen. Vergelt's Gott für jede Unterstützung."
   },
-  "footer.newsletter_label": {
-    "pl": "Adres e-mail",
-    "de": "E-Mail-Adresse"
-  },
-  "footer.newsletter_placeholder": {
-    "pl": "twoj@email.pl",
-    "de": "ihre@email.de"
-  },
-  "footer.newsletter_submit": {
-    "pl": "Zapisz się",
-    "de": "Eintragen"
+  "footer.donate_cta": {
+    "pl": "Wesprzyj parafię",
+    "de": "Jetzt spenden"
   }
 }

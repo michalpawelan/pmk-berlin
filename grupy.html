@@ -150,9 +150,9 @@
       </a>
 
       <a href="wspolnota-schola.html" class="community-item reveal">
-        <div class="community-image">
-          <img src="images/grupy/schola.jpg" alt="Schola Marana Tha" loading="lazy" width="400" height="250" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #a68b5b); display: flex;">
+        <div class="community-image community-image--logo" style="background:#1c3f80;">
+          <img src="images/grupy/schola-marana-tha.jpg" alt="Logo Schola Marana Tha" loading="lazy" width="1024" height="1024" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #a68b5b); display: none;">
             <span class="community-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
             </span>
@@ -270,8 +270,9 @@
       </a>
 
       <a href="wspolnota-grupa-kobiet.html" class="community-item reveal">
-        <div class="community-image">
-          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #9a8b76); display: flex;">
+        <div class="community-image community-image--logo" style="background:#f5f1ea;">
+          <img src="images/grupy/grupa-kobiet.jpg" alt="Logo Grupa Kobiet Empatycznych" loading="lazy" width="1600" height="1488" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #9a8b76); display: none;">
             <span class="community-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
             </span>
@@ -284,8 +285,9 @@
       </a>
 
       <a href="wspolnota-ministranci.html" class="community-item reveal">
-        <div class="community-image">
-          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #7a6d5c); display: flex;">
+        <div class="community-image community-image--logo" style="background:#ffffff;">
+          <img src="images/grupy/sluzba-liturgiczna.jpg" alt="Logo Ministranci – Służba Liturgiczna" loading="lazy" width="1600" height="1000" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #7a6d5c); display: none;">
             <span class="community-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M8 6h8"/></svg>
             </span>
@@ -341,34 +343,14 @@
       </nav>
     </div>
 
-    <div class="footer-newsletter">
-      <div class="footer-newsletter-text">
-        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
-        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4 data-i18n="footer.donate_title">Wesprzyj naszą parafię</h4>
+        <p data-i18n="footer.donate_desc">Twoja ofiara pomaga utrzymać Bazylikę i wspierać życie duchowe naszej wspólnoty. Bóg zapłać za każde wsparcie.</p>
       </div>
-      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
-        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
-        <div class="footer-newsletter-input-wrap">
-          <input
-            type="email"
-            id="newsletter-email"
-            name="email"
-            required
-            autocomplete="email"
-            placeholder="twoj@email.pl"
-            data-i18n-attr="placeholder:footer.newsletter_placeholder"
-            aria-describedby="newsletter-status">
-          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
-        </div>
-        <label class="footer-newsletter-consent">
-          <input type="checkbox" name="consent" required>
-          <span data-i18n-html="footer.newsletter_consent">Zapisując się, akceptuję <a href="datenschutz.html#newsletter">Politykę prywatności</a>. Mogę wycofać zgodę w każdej chwili.</span>
-        </label>
-        <div class="newsletter-hp-wrap" aria-hidden="true">
-          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-        </div>
-        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
-      </form>
+      <div class="footer-donate-cta-wrap">
+        <a href="kontakt.html?temat=Wsparcie%20parafii" class="footer-donate-btn" data-i18n="footer.donate_cta">Wesprzyj parafię</a>
+      </div>
     </div>
 
     <div class="footer-bottom">
@@ -379,6 +361,5 @@
 </footer>
 
 <script src="main.js" defer></script>
-<script src="js/newsletter.js" defer></script>
 </body>
 </html>

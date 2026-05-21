@@ -2438,6 +2438,12 @@ em {
   transition: transform 0.4s var(--ease-out);
 }
 
+/* Logo variant: full logo visible, no cropping, background matches brand */
+.community-image--logo img {
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
 .community-image-placeholder {
   display: flex;
   align-items: center;
@@ -2790,8 +2796,8 @@ em {
   color: var(--color-cream);
 }
 
-/* Footer Newsletter */
-.footer-newsletter {
+/* Footer Donate (Spende) */
+.footer-donate {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-6);
@@ -2801,14 +2807,14 @@ em {
 }
 
 @media (min-width: 900px) {
-  .footer-newsletter {
-    grid-template-columns: 1.1fr 1fr;
+  .footer-donate {
+    grid-template-columns: 1.4fr 1fr;
     gap: var(--space-12);
     align-items: center;
   }
 }
 
-.footer-newsletter-text h4 {
+.footer-donate-text h4 {
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
   font-weight: 500;
@@ -2817,7 +2823,7 @@ em {
   letter-spacing: 0.01em;
 }
 
-.footer-newsletter-text p {
+.footer-donate-text p {
   font-size: var(--text-sm);
   color: var(--color-warm-400);
   line-height: 1.6;
@@ -2825,46 +2831,21 @@ em {
   margin: 0;
 }
 
-.footer-newsletter-form {
+.footer-donate-cta-wrap {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@media (min-width: 900px) {
+  .footer-donate-cta-wrap {
+    justify-content: flex-end;
+  }
+}
+
+.footer-donate-btn {
+  display: inline-flex;
+  align-items: center;
   gap: var(--space-2);
-  width: 100%;
-  max-width: 480px;
-}
-
-.footer-newsletter-input-wrap {
-  display: flex;
-  gap: var(--space-2);
-  width: 100%;
-}
-
-.footer-newsletter-input-wrap input[type="email"] {
-  flex: 1;
-  min-width: 0;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-warm-900);
-  border: 1px solid var(--color-warm-700);
-  border-radius: var(--radius-sm);
-  color: var(--color-cream);
-  font-family: inherit;
-  font-size: var(--text-sm);
-  transition: border-color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.footer-newsletter-input-wrap input[type="email"]::placeholder {
-  color: var(--color-warm-600);
-}
-
-.footer-newsletter-input-wrap input[type="email"]:focus {
-  outline: none;
-  border-color: var(--color-accent-light);
-  background: var(--color-warm-950);
-  box-shadow: 0 0 0 3px rgba(196, 168, 117, 0.15);
-}
-
-.footer-newsletter-btn {
-  flex-shrink: 0;
   padding: var(--space-3) var(--space-6);
   background: var(--color-accent-light);
   color: var(--color-warm-950);
@@ -2874,48 +2855,22 @@ em {
   font-size: var(--text-sm);
   font-weight: 500;
   letter-spacing: 0.02em;
+  text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
-  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
 }
 
-.footer-newsletter-btn:hover:not(:disabled) {
+.footer-donate-btn:hover {
   background: var(--color-cream);
   border-color: var(--color-cream);
+  transform: translateY(-1px);
 }
 
-.footer-newsletter-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.newsletter-hp-wrap {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.footer-newsletter-status {
-  font-size: var(--text-xs);
-  color: var(--color-warm-500);
-  min-height: 1.25em;
-  margin: 0;
-  padding: 0 var(--space-1);
-}
-
-.footer-newsletter-status[data-state="success"] { color: var(--color-accent-light); }
-.footer-newsletter-status[data-state="error"] { color: #e4a2a2; }
-
-@media (max-width: 600px) {
-  .footer-newsletter-input-wrap {
-    flex-direction: column;
-  }
-  .footer-newsletter-btn {
-    width: 100%;
-  }
+.footer-donate-btn::before {
+  content: '♥';
+  font-size: 1em;
+  line-height: 1;
 }
 
 /* Footer Bottom */

@@ -78,8 +78,8 @@
     },
     "geo": { "@type": "GeoCoordinates", "latitude": 52.4870, "longitude": 13.3950 },
     "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "10:00", "closes": "13:00", "description": "Biuro parafialne" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "15:00", "closes": "18:00", "description": "Biuro parafialne - popołudnie" }
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday"], "opens": "10:00", "closes": "13:00", "description": "Biuro parafialne - przedpołudnie" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday"], "opens": "15:00", "closes": "17:30", "description": "Biuro parafialne - popołudnie" }
     ],
     "contactPoint": [
       {
@@ -392,30 +392,14 @@
       </nav>
     </div>
 
-    <div class="footer-newsletter">
-      <div class="footer-newsletter-text">
-        <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
-        <p data-i18n="footer.newsletter_desc">Zapisz się, a nie przegapisz żadnego wydarzenia, mszy ani ważnej informacji z naszej wspólnoty.</p>
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4 data-i18n="footer.donate_title">Wesprzyj naszą parafię</h4>
+        <p data-i18n="footer.donate_desc">Twoja ofiara pomaga utrzymać Bazylikę i wspierać życie duchowe naszej wspólnoty. Bóg zapłać za każde wsparcie.</p>
       </div>
-      <form class="footer-newsletter-form" id="newsletter-form" novalidate>
-        <label for="newsletter-email" class="sr-only" data-i18n="footer.newsletter_label">Adres e-mail</label>
-        <div class="footer-newsletter-input-wrap">
-          <input
-            type="email"
-            id="newsletter-email"
-            name="email"
-            required
-            autocomplete="email"
-            placeholder="twoj@email.pl"
-            data-i18n-attr="placeholder:footer.newsletter_placeholder"
-            aria-describedby="newsletter-status">
-          <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz się</button>
-        </div>
-        <div class="newsletter-hp-wrap" aria-hidden="true">
-          <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-        </div>
-        <p class="footer-newsletter-status" id="newsletter-status" role="status" aria-live="polite"></p>
-      </form>
+      <div class="footer-donate-cta-wrap">
+        <a href="kontakt.html?temat=Wsparcie%20parafii" class="footer-donate-btn" data-i18n="footer.donate_cta">Wesprzyj parafię</a>
+      </div>
     </div>
 
     <div class="footer-bottom">
@@ -425,7 +409,6 @@
   </div>
 </footer>
 <script src="main.js" defer></script>
-<script src="js/newsletter.js" defer></script>
 <script type="module" src="js/pmk-chat.js"></script>
 <script>
 // Pre-fill subject from URL parameter (?temat=Wspolnota:%20Chor%20Parafialny)
