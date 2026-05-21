@@ -127,6 +127,10 @@
     "pl": "Minione",
     "de": "Vergangen"
   },
+  "index.mass.opening_note": {
+    "pl": "Bazylika otwierana 30 minut przed każdą Mszą Świętą i nabożeństwem.",
+    "de": "Die Basilika wird 30 Minuten vor jeder Heiligen Messe und Andacht geöffnet."
+  },
   "index.mass.other_churches": {
     "pl": "Msze Św. w innych kościołach",
     "de": "Hl. Messen in anderen Kirchen"

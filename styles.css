@@ -1632,6 +1632,17 @@ em {
   color: var(--color-warm-400);
 }
 
+.mass-opening-note {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-warm-400);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
 /* Other Churches */
 .other-churches {
   margin-top: var(--space-10);
