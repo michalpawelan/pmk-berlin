@@ -40,12 +40,13 @@ Informationen zu den 12 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 
 ## Schola „Marana Tha"
 
-- **PL opis:** Schola parafialna dla młodzieży i dorosłych. Wzbogaca liturgię współczesnymi śpiewami religijnymi. Założona we wrześniu 2006.
-- **DE Beschreibung:** Pfarr-Schola (Gesangsgruppe) für Jugendliche und Erwachsene. Bereichert die Liturgie mit zeitgenössischen religiösen Gesängen. Gegründet im September 2006.
-- **Spotkania / Treffen:** poniedziałek / Montag, 18:45
-- **Miejsce / Ort:** Dom Jana Pawła II
-- **Prowadzący / Leitung:** Anna Kokowska-Weinstok
+- **PL opis:** Schola parafialna dla młodzieży i dorosłych, założona we wrześniu 2006. Celem scholi jest ubogacenie Liturgii Eucharystycznych i uroczystości parafialnych poprzez śpiewy liturgiczne i religijne oraz pielęgnowanie polskiej tradycji (np. koncerty kolęd). Wykonuje utwory jedno- i wielogłosowe. Organizowane są też warsztaty muzyczno-liturgiczne. Do scholi może należeć każdy, kto posiada umiejętności wokalne — wykształcenie muzyczne nie jest wymagane.
+- **DE Beschreibung:** Pfarr-Schola für Jugendliche und Erwachsene, gegründet im September 2006. Bereichert die Liturgie und Pfarrfeste mit ein- und mehrstimmigen liturgischen und religiösen Gesängen, pflegt polnische Tradition (z. B. Weihnachtsliedkonzerte). Es werden auch musikalisch-liturgische Workshops organisiert. Mitmachen kann jeder mit Gesangsfähigkeit — musikalische Ausbildung ist nicht erforderlich.
+- **Próby / Proben:** poniedziałek / Montag, **19:00**
+- **Miejsce / Ort:** **Dom parafialny przy Bazylice św. Jana Chrzciciela** (Lilienthalstraße 5, Kreuzberg)
+- **Prowadząca / Leitung:** Anna Kokowska-Weinstok — organistka PMK
 - **Opieka duchowa:** Ks. Grzegorz Jeżewski SDB
+- **E-mail:** 25sierp12@gmail.com
 - **Strona:** maranatha.pmk-berlin.de
 
 ---
@@ -83,6 +84,7 @@ Informationen zu den 12 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 - **Miejsce / Ort:** Bazylika
 - **Prowadzący / Leitung:** Krzysztof Golygowski
 - **Opieka duchowa:** Ks. Przemek Kawecki SDB
+- **E-mail:** zywyrozaniec.pmkberlin@gmail.com
 
 ---
 
@@ -160,7 +162,7 @@ Informationen zu den 12 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 |---|---|---|
 | Szkoła Nowej Ewangelizacji | wtorek 19:00 | Bazylika / Dom JP2 |
 | Domowy Kościół | 1x w miesiącu | różne lokalizacje |
-| Schola „Marana Tha" | poniedziałek 18:45 | Dom JP2 |
+| Schola „Marana Tha" | poniedziałek 19:00 | Dom parafialny przy Bazylice |
 | Ruch Światło-Życie | piątek 19:00 (IX–VI) | Dom JP2 |
 | Ruch Szensztacki | 2. sobota miesiąca 15:00 | Frohnau / Bazylika |
 | Koło Żywego Różańca | 1. niedziela miesiąca 13:00 | Bazylika |
