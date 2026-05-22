@@ -19,7 +19,6 @@
     "pl": "Spotkanie z miłosiernym Bogiem, który przebacza grzechy. Nie potrzebujesz umówienia — przyjdź na Mszę Świętą.",
     "de": "Begegnung mit dem barmherzigen Gott, der Sünden vergibt. Sie brauchen keinen Termin — kommen Sie einfach zur Heiligen Messe."
   },
-
   "spowiedz.quick.weekdays": {
     "pl": "Pon.–Sob.: <strong>podczas Mszy wieczornej</strong>",
     "de": "Mo.–Sa.: <strong>während der Abendmesse</strong>"
@@ -36,7 +35,6 @@
     "pl": "Miejsce: <strong>Johannes-Basilika</strong>",
     "de": "Ort: <strong>Johannes-Basilika</strong>"
   },
-
   "spowiedz.steps.title": {
     "pl": "Jak się <em>przygotować?</em>",
     "de": "Wie bereitet man sich <em>vor?</em>"
@@ -45,7 +43,6 @@
     "pl": "Nie byłeś dawno u spowiedzi? Nic się nie martw — kapłan Ci pomoże.",
     "de": "Schon lange nicht mehr gebeichtet? Keine Sorge — der Priester hilft Ihnen weiter."
   },
-
   "spowiedz.step1.title": {
     "pl": "Rachunek sumienia",
     "de": "Gewissenserforschung"
@@ -82,7 +79,6 @@
     "pl": "Kapłan udziela Ci rozgrzeszenia w imię Chrystusa. Wypełnij pokutę, którą Ci zadał — to Twój krok ku przemianie.",
     "de": "Der Priester spricht Sie im Namen Christi los. Verrichten Sie die Buße, die Ihnen aufgetragen wurde — sie ist Ihr Schritt zur Umkehr."
   },
-
   "spowiedz.cta.title": {
     "pl": "Kiedy przyjść?",
     "de": "Wann kommen?"
@@ -100,6 +96,694 @@
     "de": "Anrufen"
   },
   "spowiedz.back": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  },
+  "komunia.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "komunia.breadcrumb.sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "komunia.breadcrumb.current": {
+    "pl": "Pierwsza Komunia",
+    "de": "Erstkommunion"
+  },
+  "komunia.hero.badge": {
+    "pl": "Zgłoszenie online",
+    "de": "Online-Anmeldung"
+  },
+  "komunia.hero.title": {
+    "pl": "Pierwsza <em>Komunia Święta</em>",
+    "de": "Erste <em>Heilige Kommunion</em>"
+  },
+  "komunia.hero.lead": {
+    "pl": "Pierwsze pełne uczestnictwo w Eucharystii — spotkanie z Chrystusem obecnym w Najświętszym Sakramencie.",
+    "de": "Erste volle Teilnahme an der Eucharistie — die Begegnung mit Christus im Allerheiligsten Sakrament."
+  },
+  "komunia.quick.age": {
+    "pl": "Wiek: <strong>od 3. klasy szkoły podstawowej</strong>",
+    "de": "Alter: <strong>ab der 3. Grundschulklasse</strong>"
+  },
+  "komunia.quick.signup": {
+    "pl": "Zapisy: <strong>maj–czerwiec</strong>",
+    "de": "Anmeldung: <strong>Mai–Juni</strong>"
+  },
+  "komunia.quick.ceremony": {
+    "pl": "Uroczystość: <strong>maj następnego roku</strong>",
+    "de": "Feier: <strong>Mai des Folgejahres</strong>"
+  },
+  "komunia.steps.title": {
+    "pl": "Zapisy i <em>przygotowanie</em>",
+    "de": "Anmeldung und <em>Vorbereitung</em>"
+  },
+  "komunia.steps.subtitle": {
+    "pl": "Co musisz zrobić, żeby zapisać dziecko na przygotowanie do Pierwszej Komunii Świętej.",
+    "de": "Was zu tun ist, um Ihr Kind für die Vorbereitung auf die Erstkommunion anzumelden."
+  },
+  "komunia.step1.title": {
+    "pl": "Zapisz dziecko",
+    "de": "Kind anmelden"
+  },
+  "komunia.step1.body": {
+    "pl": "Zapisy odbywają się w maju–czerwcu. Dziecko musi mieć ukończoną min. 3. klasę szkoły podstawowej.",
+    "de": "Die Anmeldung findet im Mai und Juni statt. Das Kind muss mindestens die 3. Grundschulklasse abgeschlossen haben."
+  },
+  "komunia.step1.docs_label": {
+    "pl": "Wymagane dokumenty:",
+    "de": "Erforderliche Unterlagen:"
+  },
+  "komunia.step1.docs_list": {
+    "pl": "<li>Formularz zgłoszeniowy</li><li>Akt Chrztu dziecka</li>",
+    "de": "<li>Anmeldeformular</li><li>Taufschein des Kindes</li>"
+  },
+  "komunia.step1.hint": {
+    "pl": "Formularz znajdziesz na dole tej strony",
+    "de": "Das Formular finden Sie unten auf dieser Seite"
+  },
+  "komunia.step2.title": {
+    "pl": "Początek katechez",
+    "de": "Beginn der Katechese"
+  },
+  "komunia.step2.body": {
+    "pl": "Katecheza rozpoczyna się w pierwszym tygodniu października. Przygotowanie obejmuje:",
+    "de": "Die Katechese beginnt in der ersten Oktoberwoche. Die Vorbereitung umfasst:"
+  },
+  "komunia.step2.list": {
+    "pl": "<li>Cotygodniowa katecheza</li><li>Comiesięczne Msze Święte oraz cykl nabożeństw związanych z Pierwszą Komunią</li>",
+    "de": "<li>Wöchentliche Katechese</li><li>Monatliche Heilige Messen sowie eine Andachtsreihe zur Vorbereitung auf die Erstkommunion</li>"
+  },
+  "komunia.step3.title": {
+    "pl": "Miejsca katechez",
+    "de": "Orte der Katechese"
+  },
+  "komunia.step3.list": {
+    "pl": "<li>Poniedziałek — Wedding, godz. 17:00</li><li>Wtorek — Bazylika, godz. 16:00 lub 17:00</li><li>Środa — Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43), godz. 16:00</li>",
+    "de": "<li>Montag — Wedding, 17:00 Uhr</li><li>Dienstag — Basilika, 16:00 oder 17:00 Uhr</li><li>Mittwoch — Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43), 16:00 Uhr</li>"
+  },
+  "komunia.step4.title": {
+    "pl": "Pierwsza Spowiedź i Komunia Święta",
+    "de": "Erstbeichte und Erstkommunion"
+  },
+  "komunia.step4.body": {
+    "pl": "Uroczystość Pierwszej Komunii Świętej odbywa się w maju następnego roku.",
+    "de": "Die Feier der Erstkommunion findet im Mai des Folgejahres statt."
+  },
+  "komunia.cta.title": {
+    "pl": "Zapisz dziecko na Pierwszą Komunię",
+    "de": "Melden Sie Ihr Kind zur Erstkommunion an"
+  },
+  "komunia.cta.body": {
+    "pl": "Zapisy: maj–czerwiec. Wypełnij formularz zgłoszeniowy i dostarcz go razem z Aktem Chrztu do Biura Parafialnego.",
+    "de": "Anmeldung: Mai–Juni. Füllen Sie das Anmeldeformular aus und reichen Sie es zusammen mit dem Taufschein im Pfarrbüro ein."
+  },
+  "komunia.cta.form": {
+    "pl": "Wypełnij formularz",
+    "de": "Formular ausfüllen"
+  },
+  "komunia.cta.call": {
+    "pl": "Zadzwoń",
+    "de": "Anrufen"
+  },
+  "komunia.cta.email": {
+    "pl": "Napisz e-mail",
+    "de": "E-Mail schreiben"
+  },
+  "komunia.back": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  },
+  "bierzmowanie.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "bierzmowanie.breadcrumb.sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "bierzmowanie.breadcrumb.current": {
+    "pl": "Bierzmowanie",
+    "de": "Firmung"
+  },
+  "bierzmowanie.hero.badge": {
+    "pl": "Zgłoszenie online",
+    "de": "Online-Anmeldung"
+  },
+  "bierzmowanie.hero.title": {
+    "pl": "<em>Bierzmowanie</em>",
+    "de": "<em>Firmung</em>"
+  },
+  "bierzmowanie.hero.lead": {
+    "pl": "Sakrament dojrzałości chrześcijańskiej — umocnienie darami Ducha Świętego do świadczenia o Chrystusie.",
+    "de": "Sakrament der christlichen Reife — Stärkung durch die Gaben des Heiligen Geistes für das Zeugnis von Christus."
+  },
+  "bierzmowanie.quick.age": {
+    "pl": "Młodzież: <strong>od 14 lat</strong>",
+    "de": "Jugendliche: <strong>ab 14 Jahren</strong>"
+  },
+  "bierzmowanie.quick.signup": {
+    "pl": "Zapisy: <strong>maj–czerwiec</strong>",
+    "de": "Anmeldung: <strong>Mai–Juni</strong>"
+  },
+  "bierzmowanie.quick.ceremony": {
+    "pl": "Bierzmowanie: <strong>maj/czerwiec</strong>",
+    "de": "Firmung: <strong>Mai/Juni</strong>"
+  },
+  "bierzmowanie.youth.title": {
+    "pl": "Przygotowanie dla <em>młodzieży</em>",
+    "de": "Vorbereitung für <em>Jugendliche</em>"
+  },
+  "bierzmowanie.youth.subtitle": {
+    "pl": "Dla kandydatów od 14. roku życia. Zapisy: maj–czerwiec.",
+    "de": "Für Kandidaten ab 14 Jahren. Anmeldung: Mai–Juni."
+  },
+  "bierzmowanie.youth.step1.title": {
+    "pl": "Zapisy",
+    "de": "Anmeldung"
+  },
+  "bierzmowanie.youth.step1.body": {
+    "pl": "Zapisy odbywają się w maju–czerwcu. Wymagane dokumenty:",
+    "de": "Die Anmeldung findet im Mai und Juni statt. Erforderliche Unterlagen:"
+  },
+  "bierzmowanie.youth.step1.list": {
+    "pl": "<li>Formularz zgłoszeniowy</li><li>Akt Chrztu</li>",
+    "de": "<li>Anmeldeformular</li><li>Taufschein</li>"
+  },
+  "bierzmowanie.youth.step1.hint": {
+    "pl": "Wiek: skończone 14 lat",
+    "de": "Alter: vollendetes 14. Lebensjahr"
+  },
+  "bierzmowanie.youth.step2.title": {
+    "pl": "Cotygodniowa katecheza",
+    "de": "Wöchentliche Katechese"
+  },
+  "bierzmowanie.youth.step2.body": {
+    "pl": "Początek katechez — pierwszy tydzień października.",
+    "de": "Beginn der Katechese — erste Oktoberwoche."
+  },
+  "bierzmowanie.youth.step3.title": {
+    "pl": "Miejsca katechez",
+    "de": "Orte der Katechese"
+  },
+  "bierzmowanie.youth.step3.list": {
+    "pl": "<li>Poniedziałek — Bazylika 16:30, Wedding 17:45</li><li>Środa — Bazylika 16:30, Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43) 17:00</li>",
+    "de": "<li>Montag — Basilika 16:30, Wedding 17:45</li><li>Mittwoch — Basilika 16:30, Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43) 17:00</li>"
+  },
+  "bierzmowanie.adult.title": {
+    "pl": "Przygotowanie dla <em>dorosłych</em>",
+    "de": "Vorbereitung für <em>Erwachsene</em>"
+  },
+  "bierzmowanie.adult.subtitle": {
+    "pl": "Dla kandydatów od 18. roku życia.",
+    "de": "Für Kandidaten ab 18 Jahren."
+  },
+  "bierzmowanie.adult.step1.title": {
+    "pl": "Zapisy",
+    "de": "Anmeldung"
+  },
+  "bierzmowanie.adult.step1.body": {
+    "pl": "Informacja o zapisach będzie podawana na ogłoszeniach duszpasterskich. Wymagane dokumenty:",
+    "de": "Informationen zur Anmeldung werden in den Pfarrnachrichten bekannt gegeben. Erforderliche Unterlagen:"
+  },
+  "bierzmowanie.adult.step1.list": {
+    "pl": "<li>Formularz zgłoszeniowy</li><li>Akt Chrztu</li>",
+    "de": "<li>Anmeldeformular</li><li>Taufschein</li>"
+  },
+  "bierzmowanie.adult.step1.hint": {
+    "pl": "Kandydat musi być zapisany do Kościoła katolickiego",
+    "de": "Der Kandidat muss Mitglied der katholischen Kirche sein"
+  },
+  "bierzmowanie.adult.step2.title": {
+    "pl": "Cotygodniowa katecheza",
+    "de": "Wöchentliche Katechese"
+  },
+  "bierzmowanie.adult.step2.body": {
+    "pl": "Przygotowanie rozpoczyna się w I Niedzielę Wielkiego Postu i kończy się w Niedzielę Palmową.",
+    "de": "Die Vorbereitung beginnt am 1. Fastensonntag und endet am Palmsonntag."
+  },
+  "bierzmowanie.adult.step3.title": {
+    "pl": "Miejsce katechez",
+    "de": "Ort der Katechese"
+  },
+  "bierzmowanie.adult.step3.body": {
+    "pl": "Niedziela o godz. 19:00 (po Mszy Św. wieczornej) w Domu Jana Pawła II za Bazyliką.",
+    "de": "Sonntag um 19:00 Uhr (nach der Abendmesse) im Johannes-Paul-II.-Haus hinter der Basilika."
+  },
+  "bierzmowanie.witness.title": {
+    "pl": "Świadek do Bierzmowania",
+    "de": "Firmpate"
+  },
+  "bierzmowanie.witness.intro": {
+    "pl": "Wymagania wobec świadka:",
+    "de": "Anforderungen an den Firmpaten:"
+  },
+  "bierzmowanie.witness.list": {
+    "pl": "<li>Musi należeć do Kościoła katolickiego</li><li>Musi być osobą wierzącą, praktykującą swoją wiarę i żyjącą zgodnie z nauką Kościoła (w związku sakramentalnym)</li><li>Musi być osobą już bierzmowaną</li><li>Nie może być rodzicem bierzmowanego</li>",
+    "de": "<li>Muss der katholischen Kirche angehören</li><li>Muss gläubig sein, den Glauben praktizieren und gemäß der Lehre der Kirche leben (in einer sakramentalen Ehe, falls verheiratet)</li><li>Muss selbst gefirmt sein</li><li>Darf nicht Elternteil des Firmlings sein</li>"
+  },
+  "bierzmowanie.cta.title": {
+    "pl": "Zapisz się na Bierzmowanie",
+    "de": "Zur Firmung anmelden"
+  },
+  "bierzmowanie.cta.body": {
+    "pl": "Młodzież: zapisy maj–czerwiec. Dorośli: informacja na ogłoszeniach duszpasterskich. Formularz + Akt Chrztu.",
+    "de": "Jugendliche: Anmeldung Mai–Juni. Erwachsene: Informationen in den Pfarrnachrichten. Formular + Taufschein."
+  },
+  "bierzmowanie.cta.form": {
+    "pl": "Wypełnij formularz",
+    "de": "Formular ausfüllen"
+  },
+  "bierzmowanie.cta.call": {
+    "pl": "Zadzwoń",
+    "de": "Anrufen"
+  },
+  "bierzmowanie.cta.email": {
+    "pl": "Napisz e-mail",
+    "de": "E-Mail schreiben"
+  },
+  "bierzmowanie.back": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  },
+  "namaszczenie.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "namaszczenie.breadcrumb.sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "namaszczenie.breadcrumb.current": {
+    "pl": "Namaszczenie Chorych",
+    "de": "Krankensalbung"
+  },
+  "namaszczenie.hero.title": {
+    "pl": "Namaszczenie <em>Chorych</em>",
+    "de": "<em>Krankensalbung</em>"
+  },
+  "namaszczenie.hero.lead": {
+    "pl": "Sakrament, który udziela specjalnej łaski chrześcijaninowi doświadczonemu ciężką chorobą lub starością. Sakrament umocnienia i uzdrowienia — nie zwlekaj z wezwaniem księdza.",
+    "de": "Ein Sakrament, das dem von schwerer Krankheit oder Alter geprüften Christen besondere Gnade schenkt. Ein Sakrament der Stärkung und Heilung — zögern Sie nicht, den Priester zu rufen."
+  },
+  "namaszczenie.quick.phone": {
+    "pl": "Telefon: <strong>+49 30 752 40 80</strong>",
+    "de": "Telefon: <strong>+49 30 752 40 80</strong>"
+  },
+  "namaszczenie.quick.emergency": {
+    "pl": "W nagłych przypadkach: <strong>po każdej Mszy Świętej</strong>",
+    "de": "In Notfällen: <strong>nach jeder Heiligen Messe</strong>"
+  },
+  "namaszczenie.quick.visits": {
+    "pl": "Odwiedziny chorych: <strong>I piątek miesiąca</strong>",
+    "de": "Krankenbesuche: <strong>1. Freitag im Monat</strong>"
+  },
+  "namaszczenie.steps.title": {
+    "pl": "Jak wezwać <em>księdza?</em>",
+    "de": "Wie ruft man den <em>Priester?</em>"
+  },
+  "namaszczenie.steps.subtitle": {
+    "pl": "Sakrament namaszczenia chorych jest sakramentem dla żywych — sakramentem umocnienia i uzdrowienia. Nie zwlekaj do „ostatniej minuty\".",
+    "de": "Die Krankensalbung ist ein Sakrament für die Lebenden — ein Sakrament der Stärkung und Heilung. Warten Sie nicht bis zur „letzten Minute\"."
+  },
+  "namaszczenie.step1.title": {
+    "pl": "W nagłych przypadkach",
+    "de": "In Notfällen"
+  },
+  "namaszczenie.step1.list": {
+    "pl": "<li>Poproś kapłana <strong>po każdej Mszy Świętej</strong></li><li>Poinformuj o stanie chorego</li><li>Przygotuj miejsce do sakramentu</li><li>Zadzwoń do kancelarii parafialnej: <strong>+49 30 752 40 80</strong></li>",
+    "de": "<li>Sprechen Sie den Priester <strong>nach jeder Heiligen Messe</strong> an</li><li>Informieren Sie über den Zustand des Kranken</li><li>Bereiten Sie den Ort für das Sakrament vor</li><li>Rufen Sie das Pfarrbüro an: <strong>+49 30 752 40 80</strong></li>"
+  },
+  "namaszczenie.step1.hint": {
+    "pl": "Nie zwlekaj z wezwaniem księdza do ostatniej chwili",
+    "de": "Warten Sie mit dem Rufen des Priesters nicht bis zur letzten Minute"
+  },
+  "namaszczenie.step2.title": {
+    "pl": "Przygotuj miejsce",
+    "de": "Bereiten Sie den Ort vor"
+  },
+  "namaszczenie.step2.body": {
+    "pl": "Jeśli to możliwe, przed przyjściem kapłana przygotuj:",
+    "de": "Wenn möglich, bereiten Sie vor der Ankunft des Priesters Folgendes vor:"
+  },
+  "namaszczenie.step2.list": {
+    "pl": "<li>Stolik przykryty białym obrusem</li><li>Zapalone świece i krzyż</li><li>Wodę i trochę waty</li>",
+    "de": "<li>Einen Tisch mit weißem Tuch</li><li>Angezündete Kerzen und ein Kreuz</li><li>Wasser und etwas Watte</li>"
+  },
+  "namaszczenie.step2.footer": {
+    "pl": "Na tak przygotowanym stoliku kapłan kładzie Najświętszy Sakrament oraz oleje.",
+    "de": "Auf diesen vorbereiteten Tisch legt der Priester das Allerheiligste Sakrament und die heiligen Öle."
+  },
+  "namaszczenie.step3.title": {
+    "pl": "Sakrament",
+    "de": "Das Sakrament"
+  },
+  "namaszczenie.step3.body": {
+    "pl": "Kapłan udziela sakramentu namaszczenia chorych. Bądźmy wspólnie z naszymi chorymi podczas przyjmowania przez nich tego sakramentu. Sakrament ten udzielany jest na każde wezwanie.",
+    "de": "Der Priester spendet das Sakrament der Krankensalbung. Bleiben wir bei unseren Kranken, während sie dieses Sakrament empfangen. Das Sakrament wird auf jede Bitte hin gespendet."
+  },
+  "namaszczenie.who.title": {
+    "pl": "Kto może <em>przyjąć?</em>",
+    "de": "Wer kann es <em>empfangen?</em>"
+  },
+  "namaszczenie.who.subtitle": {
+    "pl": "Sakrament namaszczenia chorych jest przeznaczony dla wiernych, których zdrowie jest poważnie zagrożone.",
+    "de": "Die Krankensalbung ist für Gläubige bestimmt, deren Gesundheit ernsthaft gefährdet ist."
+  },
+  "namaszczenie.who.card1": {
+    "pl": "Osoby ciężko chore",
+    "de": "Schwer Kranke"
+  },
+  "namaszczenie.who.card2": {
+    "pl": "Osoby w podeszłym wieku",
+    "de": "Ältere Menschen"
+  },
+  "namaszczenie.who.card3": {
+    "pl": "Przed poważną operacją",
+    "de": "Vor einer ernsten Operation"
+  },
+  "namaszczenie.who.card4": {
+    "pl": "W niebezpieczeństwie śmierci",
+    "de": "In Todesgefahr"
+  },
+  "namaszczenie.who.note": {
+    "pl": "<strong>Sakrament dla żywych</strong> — namaszczenie chorych jest sakramentem umocnienia i uzdrowienia, nie tylko „ostatnim namaszczeniem\". Można go przyjąć wielokrotnie, gdy stan zdrowia znów się pogarsza.",
+    "de": "<strong>Sakrament für die Lebenden</strong> — die Krankensalbung ist ein Sakrament der Stärkung und Heilung, nicht nur die „letzte Ölung\". Sie kann mehrfach empfangen werden, wenn sich der Gesundheitszustand erneut verschlechtert."
+  },
+  "namaszczenie.cta.title": {
+    "pl": "Potrzebujesz księdza dla chorego?",
+    "de": "Brauchen Sie einen Priester für einen Kranken?"
+  },
+  "namaszczenie.cta.body": {
+    "pl": "W nagłych przypadkach zadzwoń — sakrament udzielany jest na każde wezwanie. Można również zgłosić się przez biuro parafialne lub po każdej Mszy Świętej.",
+    "de": "In Notfällen rufen Sie an — das Sakrament wird auf jede Bitte hin gespendet. Man kann sich auch an das Pfarrbüro oder nach jeder Heiligen Messe wenden."
+  },
+  "namaszczenie.cta.call": {
+    "pl": "Zadzwoń teraz",
+    "de": "Jetzt anrufen"
+  },
+  "namaszczenie.cta.email": {
+    "pl": "Napisz e-mail",
+    "de": "E-Mail schreiben"
+  },
+  "namaszczenie.back": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  },
+  "chrzest.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "chrzest.breadcrumb.sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "chrzest.breadcrumb.current": {
+    "pl": "Chrzest",
+    "de": "Taufe"
+  },
+  "chrzest.hero.title": {
+    "pl": "Chrzest <em>Święty</em>",
+    "de": "Heilige <em>Taufe</em>"
+  },
+  "chrzest.hero.lead": {
+    "pl": "Sakrament inicjacji chrześcijańskiej — brama do życia nadprzyrodzonego i do innych sakramentów. Rodzice dziecka (przynajmniej jedno z nich) musi należeć do Kościoła katolickiego.",
+    "de": "Sakrament der christlichen Initiation — Tor zum übernatürlichen Leben und zu den weiteren Sakramenten. Mindestens ein Elternteil des Kindes muss der katholischen Kirche angehören."
+  },
+  "chrzest.quick.dates": {
+    "pl": "Terminy: <strong>2. i 4. sobota miesiąca, godz. 16:00</strong>",
+    "de": "Termine: <strong>2. und 4. Samstag im Monat, 16:00 Uhr</strong>"
+  },
+  "chrzest.quick.place": {
+    "pl": "Miejsce: <strong>Johannes-Basilika</strong>",
+    "de": "Ort: <strong>Johannes-Basilika</strong>"
+  },
+  "chrzest.quick.signup": {
+    "pl": "Zgłoszenie: <strong>4 tygodnie wcześniej</strong>",
+    "de": "Anmeldung: <strong>4 Wochen im Voraus</strong>"
+  },
+  "chrzest.steps.title": {
+    "pl": "Krok po <em>kroku</em>",
+    "de": "Schritt für <em>Schritt</em>"
+  },
+  "chrzest.steps.subtitle": {
+    "pl": "Jak wygląda przygotowanie do chrztu Twojego dziecka.",
+    "de": "So läuft die Vorbereitung auf die Taufe Ihres Kindes ab."
+  },
+  "chrzest.step1.title": {
+    "pl": "Zgłoszenie w kancelarii parafialnej",
+    "de": "Anmeldung im Pfarrbüro"
+  },
+  "chrzest.step1.body": {
+    "pl": "4 tygodnie przed planowanym chrztem zgłoś się osobiście do biura parafialnego z kompletem dokumentów.",
+    "de": "Melden Sie sich 4 Wochen vor dem geplanten Tauftermin persönlich im Pfarrbüro mit allen Unterlagen."
+  },
+  "chrzest.step2.title": {
+    "pl": "Wydrukuj i wypełnij formularz",
+    "de": "Formular drucken und ausfüllen"
+  },
+  "chrzest.step2.body": {
+    "pl": "Pobierz formularz zgłoszeniowy, wydrukuj go i wypełnij przed wizytą w biurze.",
+    "de": "Laden Sie das Anmeldeformular herunter, drucken Sie es aus und füllen Sie es vor Ihrem Besuch im Büro aus."
+  },
+  "chrzest.step2.download": {
+    "pl": "Pobierz formularz (PDF)",
+    "de": "Formular herunterladen (PDF)"
+  },
+  "chrzest.step3.title": {
+    "pl": "Przygotuj dokumenty",
+    "de": "Bereiten Sie die Unterlagen vor"
+  },
+  "chrzest.step3.body": {
+    "pl": "Do biura zabierz ze sobą:",
+    "de": "Bringen Sie ins Büro mit:"
+  },
+  "chrzest.step3.list": {
+    "pl": "<li>Dowody osobiste rodziców</li><li>Akt urodzenia dziecka (Geburtsurkunde lub Geburtsbescheinigung für religiöse Zwecke)</li><li>Dokładne dane rodziców chrzestnych (adres zamieszkania, datę urodzenia)</li>",
+    "de": "<li>Ausweise beider Eltern</li><li>Geburtsurkunde des Kindes (oder Geburtsbescheinigung für religiöse Zwecke)</li><li>Genaue Daten beider Taufpaten (Wohnadresse, Geburtsdatum)</li>"
+  },
+  "chrzest.step4.title": {
+    "pl": "Spotkanie z duszpasterzem",
+    "de": "Gespräch mit dem Seelsorger"
+  },
+  "chrzest.step4.body": {
+    "pl": "Po zgłoszeniu umówisz się na spotkanie z duszpasterzem, który omówi z Wami przygotowanie do chrztu.",
+    "de": "Nach der Anmeldung vereinbaren Sie ein Gespräch mit dem Seelsorger, der mit Ihnen die Vorbereitung auf die Taufe bespricht."
+  },
+  "chrzest.step5.title": {
+    "pl": "Konferencja przedchrzcielna dla rodziców",
+    "de": "Taufkatechese für Eltern und Paten"
+  },
+  "chrzest.step5.body": {
+    "pl": "W piątek przed Chrztem Świętym o 18:00 będzie Msza Święta, a bezpośrednio po niej odbędą się nauki dla rodziców i chrzestnych.",
+    "de": "Am Freitag vor der Taufe findet um 18:00 Uhr die Heilige Messe statt, unmittelbar danach die Katechese für Eltern und Paten."
+  },
+  "chrzest.step6.title": {
+    "pl": "Warunki dla chrzestnych",
+    "de": "Voraussetzungen für die Taufpaten"
+  },
+  "chrzest.step6.body": {
+    "pl": "Chrzestny musi spełniać następujące warunki:",
+    "de": "Der Taufpate muss folgende Voraussetzungen erfüllen:"
+  },
+  "chrzest.step6.list": {
+    "pl": "<li>Należy do Kościoła, jest katolikiem, bierzmowanym i przyjął już sakrament Komunii Świętej</li><li>Prowadzi życie zgodne z wiarą i odpowiadające funkcji, jaką ma pełnić</li><li>Ukończył 16 lat (chyba że biskup diecezjalny określił inny wiek lub proboszcz dopuścił wyjątek)</li><li>Jest wolny od jakiejkolwiek kary kanonicznej</li><li>Nie jest ojcem lub matką przyjmującego chrzest</li><li>Jest wyznaczony przez przyjmującego chrzest, jego rodziców lub ich zastępców</li>",
+    "de": "<li>Gehört der Kirche an, ist Katholik, gefirmt und hat die Erstkommunion empfangen</li><li>Lebt im Einklang mit dem Glauben und entsprechend der Aufgabe, die er übernehmen soll</li><li>Hat das 16. Lebensjahr vollendet (sofern der Diözesanbischof kein anderes Alter festgelegt oder der Pfarrer eine Ausnahme zugelassen hat)</li><li>Ist frei von jeder kirchenrechtlichen Strafe</li><li>Ist nicht Vater oder Mutter des Täuflings</li><li>Wird vom Täufling, dessen Eltern oder deren Vertretern bestimmt</li>"
+  },
+  "chrzest.step7.title": {
+    "pl": "Zaświadczenia chrzestnych",
+    "de": "Patenscheine der Taufpaten"
+  },
+  "chrzest.step7.body": {
+    "pl": "Rodzice chrzestni muszą dostarczyć zaświadczenie:",
+    "de": "Die Taufpaten müssen eine Bescheinigung vorlegen:"
+  },
+  "chrzest.step7.list": {
+    "pl": "<li>Mieszkający w Niemczech: Patenschein — że należą do Kościoła katolickiego</li><li>Mieszkający w Polsce: Zaświadczenie, że mogą pełnić funkcję chrzestnego zgodnie z wymogami Prawa Kanonicznego</li>",
+    "de": "<li>Wohnhaft in Deutschland: Patenschein — der die Zugehörigkeit zur katholischen Kirche bestätigt</li><li>Wohnhaft in Polen: Bescheinigung, dass sie das Patenamt nach den Vorgaben des Kirchenrechts ausüben können</li>"
+  },
+  "chrzest.step8.title": {
+    "pl": "Ustalenie terminu chrztu",
+    "de": "Festlegung des Tauftermins"
+  },
+  "chrzest.step8.body": {
+    "pl": "Chrzty odbywają się w 2. i 4. sobotę miesiąca o godz. 16:00. W dniu chrztu należy być minimum 15 minut wcześniej. Przynieście świecę chrzcielną oraz białą szatę dla dziecka.",
+    "de": "Taufen finden am 2. und 4. Samstag im Monat um 16:00 Uhr statt. Am Tauftag bitte mindestens 15 Minuten vorher da sein. Bringen Sie die Taufkerze und das weiße Taufkleid für das Kind mit."
+  },
+  "chrzest.emergency.title": {
+    "pl": "W przypadku zagrożenia życia!",
+    "de": "Bei Lebensgefahr!"
+  },
+  "chrzest.emergency.intro": {
+    "pl": "Każdy człowiek może udzielić chrztu świętego pod warunkiem, że ma intencję uczynienia tego, co czyni Kościół.",
+    "de": "Jeder Mensch darf die Taufe spenden, vorausgesetzt er hat die Absicht zu tun, was die Kirche tut."
+  },
+  "chrzest.emergency.howto": {
+    "pl": "Należy 3 razy polać głowę kandydata zwykłą wodą, wypowiadając jego imię oraz słowa:",
+    "de": "Gießen Sie dreimal Wasser über den Kopf des Täuflings und sprechen Sie dabei seinen Namen und die Worte:"
+  },
+  "chrzest.emergency.formula": {
+    "pl": "„Ja ciebie chrzczę w imię Ojca i Syna, i Ducha Świętego\"",
+    "de": "„Ich taufe dich im Namen des Vaters und des Sohnes und des Heiligen Geistes\""
+  },
+  "chrzest.emergency.after": {
+    "pl": "a następnie modlitwę:",
+    "de": "und anschließend das Gebet:"
+  },
+  "chrzest.emergency.gloria": {
+    "pl": "„Chwała Ojcu i Synowi i Duchowi Świętemu...\"",
+    "de": "„Ehre sei dem Vater und dem Sohn und dem Heiligen Geist...\""
+  },
+  "chrzest.cta.title": {
+    "pl": "Zgłoś dziecko do chrztu",
+    "de": "Melden Sie Ihr Kind zur Taufe an"
+  },
+  "chrzest.cta.body": {
+    "pl": "Przyjdź osobiście do biura parafialnego lub napisz do nas, aby ustalić termin. Chrzty: 2. i 4. sobota miesiąca o 16:00.",
+    "de": "Kommen Sie persönlich ins Pfarrbüro oder schreiben Sie uns, um einen Termin zu vereinbaren. Taufen: 2. und 4. Samstag im Monat um 16:00 Uhr."
+  },
+  "chrzest.cta.download": {
+    "pl": "Pobierz formularz (PDF)",
+    "de": "Formular herunterladen (PDF)"
+  },
+  "chrzest.cta.call": {
+    "pl": "Zadzwoń",
+    "de": "Anrufen"
+  },
+  "chrzest.cta.email": {
+    "pl": "Napisz e-mail",
+    "de": "E-Mail schreiben"
+  },
+  "chrzest.back": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  },
+  "malzenstwo.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "malzenstwo.breadcrumb.sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "malzenstwo.breadcrumb.current": {
+    "pl": "Małżeństwo",
+    "de": "Ehe"
+  },
+  "malzenstwo.hero.title": {
+    "pl": "Sakrament <em>Małżeństwa</em>",
+    "de": "Sakrament der <em>Ehe</em>"
+  },
+  "malzenstwo.hero.lead": {
+    "pl": "Przymierze, przez które mężczyzna i kobieta tworzą wspólnotę całego życia, podniesione przez Chrystusa do godności sakramentu. Zgłoś się do biura parafialnego minimum 3 miesiące przed planowanym ślubem.",
+    "de": "Der Bund, durch den ein Mann und eine Frau eine Lebensgemeinschaft begründen, von Christus zur Würde eines Sakraments erhoben. Melden Sie sich mindestens 3 Monate vor dem geplanten Hochzeitstermin im Pfarrbüro."
+  },
+  "malzenstwo.quick.signup": {
+    "pl": "Zgłoszenie: <strong>min. 3 miesiące wcześniej</strong>",
+    "de": "Anmeldung: <strong>mind. 3 Monate im Voraus</strong>"
+  },
+  "malzenstwo.quick.course": {
+    "pl": "Kurs przedmałżeński: <strong>2 razy w roku (jesień i wiosna)</strong>",
+    "de": "Ehevorbereitungskurs: <strong>2-mal jährlich (Herbst und Frühjahr)</strong>"
+  },
+  "malzenstwo.steps.title": {
+    "pl": "Krok po <em>kroku</em>",
+    "de": "Schritt für <em>Schritt</em>"
+  },
+  "malzenstwo.steps.subtitle": {
+    "pl": "Jak wygląda droga do ślubu kościelnego w naszej parafii.",
+    "de": "So sieht der Weg zur kirchlichen Trauung in unserer Gemeinde aus."
+  },
+  "malzenstwo.step1.title": {
+    "pl": "Zgłoś się do biura parafialnego",
+    "de": "Anmeldung im Pfarrbüro"
+  },
+  "malzenstwo.step1.body": {
+    "pl": "Przyjdźcie co najmniej 3 miesiące przed planowanym ślubem — to czas niezbędny do wypełnienia wszelkich formalności. Oboje narzeczeni muszą należeć do Kościoła katolickiego (nie mogą być wypisani).",
+    "de": "Kommen Sie mindestens 3 Monate vor dem geplanten Hochzeitstermin — diese Zeit ist für alle Formalitäten notwendig. Beide Verlobten müssen der katholischen Kirche angehören (kein Kirchenaustritt)."
+  },
+  "malzenstwo.step2.title": {
+    "pl": "Przygotuj dokumenty",
+    "de": "Bereiten Sie die Unterlagen vor"
+  },
+  "malzenstwo.step2.body": {
+    "pl": "Na spotkanie w biurze zabierzcie:",
+    "de": "Bringen Sie zum Termin im Büro mit:"
+  },
+  "malzenstwo.step2.list": {
+    "pl": "<li>Dowód tożsamości (dowód osobisty lub paszport)</li><li>Aktualne świadectwo chrztu świętego (nie starsze niż pół roku — 6 miesięcy)</li><li>Na świadectwie chrztu powinna znajdować się adnotacja o braku przeszkód do zawarcia małżeństwa oraz adnotacja o przyjęciu sakramentu bierzmowania (jeśli jej brak, należy uzyskać świadectwo z parafii, w której przyjęto sakrament bierzmowania)</li><li>Świadectwo zawarcia małżeństwa cywilnego (Bescheinigung über die Eheschließung) lub — jeśli ślubu cywilnego nie było — zaświadczenie o planowanym terminie ślubu cywilnego (Anmeldung der Eheschließung und Terminbestätigung)</li><li>Świadectwo ukończenia kursu przedmałżeńskiego</li><li>Ślub konkordatowy: zaświadczenie stwierdzające brak okoliczności wyłączających zawarcie małżeństwa (z Urzędu Stanu Cywilnego)</li>",
+    "de": "<li>Ausweisdokument (Personalausweis oder Reisepass)</li><li>Aktueller Taufschein (nicht älter als sechs Monate)</li><li>Auf dem Taufschein muss der Vermerk „Frei von Ehehindernissen\" sowie der Firmvermerk stehen (sonst separater Nachweis von der Firmpfarrei einholen)</li><li>Eheschließungsurkunde des Standesamts (Bescheinigung über die Eheschließung) oder — falls noch keine standesamtliche Trauung — Anmeldung der Eheschließung und Terminbestätigung</li><li>Bescheinigung über den Ehevorbereitungskurs</li><li>Konkordatstrauung: Bescheinigung des Standesamts über das Fehlen von Eheschließungshindernissen</li>"
+  },
+  "malzenstwo.step3.title": {
+    "pl": "Kurs przedmałżeński",
+    "de": "Ehevorbereitungskurs"
+  },
+  "malzenstwo.step3.body": {
+    "pl": "Kurs w naszej Misji organizowany jest 2 razy w roku: jesienią i wiosną. O terminie informujemy w ogłoszeniach parafialnych. Prosimy wziąć to pod uwagę przy planowaniu.",
+    "de": "Der Kurs in unserer Mission wird 2-mal im Jahr angeboten: im Herbst und im Frühjahr. Den Termin geben wir in den Pfarrnachrichten bekannt. Bitte berücksichtigen Sie dies bei Ihrer Planung."
+  },
+  "malzenstwo.step4.title": {
+    "pl": "Protokół przedślubny",
+    "de": "Ehevorbereitungsprotokoll"
+  },
+  "malzenstwo.step4.body": {
+    "pl": "Na podstawie dostarczonych dokumentów duszpasterz spisuje z Wami protokół przedślubny (Ehevorbereitungsprotokoll).",
+    "de": "Auf Grundlage der vorgelegten Unterlagen erstellt der Seelsorger mit Ihnen das Ehevorbereitungsprotokoll."
+  },
+  "malzenstwo.step5.title": {
+    "pl": "Sakrament Małżeństwa",
+    "de": "Sakrament der Ehe"
+  },
+  "malzenstwo.step5.body": {
+    "pl": "Przed ślubem przystępujecie do spowiedzi. Sakrament małżeństwa przyjmuje się w parafii narzeczonej lub narzeczonego.",
+    "de": "Vor der Trauung empfangen Sie das Bußsakrament. Die kirchliche Trauung findet in der Pfarrei der Braut oder des Bräutigams statt."
+  },
+  "malzenstwo.special1.title": {
+    "pl": "Jedno z narzeczonych nie jest katolikiem?",
+    "de": "Ein Partner ist nicht katholisch?"
+  },
+  "malzenstwo.special1.body": {
+    "pl": "Wymagania dla strony katolickiej pozostają te same. Odmienne są dla strony niekatolickiej — w zależności od religii bądź wyznania. Prosimy wówczas o indywidualny kontakt z biurem parafialnym.",
+    "de": "Für den katholischen Teil bleiben die Anforderungen gleich. Für den nicht-katholischen Teil gelten je nach Religion oder Konfession andere Regeln. Bitte nehmen Sie in diesem Fall individuellen Kontakt mit dem Pfarrbüro auf."
+  },
+  "malzenstwo.special2.title": {
+    "pl": "Ślub w Polsce? Ważna informacja",
+    "de": "Trauung in Polen? Wichtige Information"
+  },
+  "malzenstwo.special2.body": {
+    "pl": "Wszyscy zameldowani i mieszkający na terenie Niemiec, chcąc zawrzeć sakramentalny związek małżeński w Polsce, potrzebują zgodę arcybiskupa archidiecezji Berlin. Zgoda ta jest niezbędna do ważnego i godziwego zawarcia małżeństwa poza granicami Niemiec. Należy zgłosić się do biura PMK w Berlinie i tutaj — a nie gdzie indziej — dopełnić wszelkich formalności (protokół przedmałżeński). Dopiero na podstawie wystawionej licencji i dyspensy od ślubu poza granicami można przyjąć sakrament w Polsce lub innym wybranym kraju.",
+    "de": "Alle in Deutschland gemeldeten und wohnhaften Personen, die in Polen kirchlich heiraten möchten, benötigen die Zustimmung des Erzbischofs von Berlin. Diese Zustimmung ist Voraussetzung für die gültige und erlaubte Eheschließung außerhalb Deutschlands. Bitte melden Sie sich im PMK-Pfarrbüro in Berlin und erledigen Sie hier — nicht andernorts — alle Formalitäten (Ehevorbereitungsprotokoll). Erst auf Grundlage der ausgestellten Lizenz und Dispens für eine Trauung im Ausland kann das Sakrament in Polen oder einem anderen Land gespendet werden."
+  },
+  "malzenstwo.special2.note": {
+    "pl": "<em>Jeżeli w Polsce ma być zawierany tzw. ślub konkordatowy, można pominąć dokument z punktu 4.</em>",
+    "de": "<em>Falls in Polen eine sogenannte Konkordatstrauung erfolgt, entfällt das Dokument aus Punkt 4.</em>"
+  },
+  "malzenstwo.cta.title": {
+    "pl": "Planujecie ślub?",
+    "de": "Planen Sie Ihre Trauung?"
+  },
+  "malzenstwo.cta.body": {
+    "pl": "Zgłoście się do biura parafialnego minimum 3 miesiące wcześniej. Pomożemy Wam przejść przez wszystkie formalności.",
+    "de": "Melden Sie sich mindestens 3 Monate im Voraus im Pfarrbüro an. Wir helfen Ihnen durch alle Formalitäten."
+  },
+  "malzenstwo.cta.email": {
+    "pl": "Napisz e-mail",
+    "de": "E-Mail schreiben"
+  },
+  "malzenstwo.cta.call": {
+    "pl": "Zadzwoń",
+    "de": "Anrufen"
+  },
+  "malzenstwo.links.title": {
+    "pl": "Przydatne <em>linki</em>",
+    "de": "Nützliche <em>Links</em>"
+  },
+  "malzenstwo.links.body": {
+    "pl": "Dodatkowe informacje i możliwość odbycia kursu przedmałżeńskiego online.",
+    "de": "Zusätzliche Informationen und die Möglichkeit, den Ehevorbereitungskurs online zu absolvieren."
+  },
+  "malzenstwo.back": {
     "pl": "Wszystkie sakramenty",
     "de": "Alle Sakramente"
   }
