@@ -2455,11 +2455,11 @@ em {
   padding: 0.25rem;
 }
 
-/* Logos with lots of intrinsic whitespace (round emblems on transparent canvas) get scaled up */
+/* Logos with lots of intrinsic whitespace (round emblems on transparent canvas)
+   get zero padding so they fill the container — no transform overscale (causes edge-clipping) */
 .community-image--logo-tight img {
   object-fit: contain;
   padding: 0;
-  transform: scale(1.15);
 }
 
 .community-image-placeholder {
