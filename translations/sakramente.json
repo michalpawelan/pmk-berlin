@@ -1,0 +1,77 @@
+{
+  "sakramente.hero.label": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "sakramente.hero.title": {
+    "pl": "Życie <em>sakramentalne</em>",
+    "de": "<em>Sakramentales</em> Leben"
+  },
+  "sakramente.hero.lead": {
+    "pl": "Sakramenty są znakami łaski Bożej, przez które Chrystus udziela nam zbawienia. Towarzyszymy wiernym na każdym etapie ich duchowej drogi.",
+    "de": "Die Sakramente sind Zeichen der Gnade Gottes, durch die Christus uns das Heil schenkt. Wir begleiten die Gläubigen auf jeder Etappe ihres geistlichen Weges."
+  },
+
+  "sakramente.card.chrzest.name": {
+    "pl": "Chrzest Święty",
+    "de": "Taufe"
+  },
+  "sakramente.card.chrzest.desc": {
+    "pl": "Brama do życia nadprzyrodzonego i do innych sakramentów. Chrzty: 2. i 4. sobota miesiąca.",
+    "de": "Tor zum übernatürlichen Leben und zu den weiteren Sakramenten. Tauftermine: 2. und 4. Samstag im Monat."
+  },
+
+  "sakramente.card.komunia.name": {
+    "pl": "Pierwsza Komunia",
+    "de": "Erstkommunion"
+  },
+  "sakramente.card.komunia.desc": {
+    "pl": "Spotkanie z Chrystusem obecnym w Eucharystii. Dwuletni cykl katechezy dla dzieci od 3. klasy.",
+    "de": "Begegnung mit Christus in der Eucharistie. Zweijährige Katechese für Kinder ab der 3. Klasse."
+  },
+
+  "sakramente.card.bierzmowanie.name": {
+    "pl": "Bierzmowanie",
+    "de": "Firmung"
+  },
+  "sakramente.card.bierzmowanie.desc": {
+    "pl": "Umocnienie darami Ducha Świętego. Roczny kurs przygotowawczy dla młodzieży od 14. roku życia.",
+    "de": "Stärkung durch die Gaben des Heiligen Geistes. Einjähriger Vorbereitungskurs für Jugendliche ab 14 Jahren."
+  },
+
+  "sakramente.card.malzenstwo.name": {
+    "pl": "Małżeństwo",
+    "de": "Ehe"
+  },
+  "sakramente.card.malzenstwo.desc": {
+    "pl": "Sakrament miłości i jedności. Zgłoszenie minimum 3 miesiące przed planowanym terminem ślubu.",
+    "de": "Sakrament der Liebe und Einheit. Anmeldung mindestens 3 Monate vor dem geplanten Hochzeitstermin."
+  },
+
+  "sakramente.card.spowiedz.name": {
+    "pl": "Spowiedź",
+    "de": "Beichte"
+  },
+  "sakramente.card.spowiedz.desc": {
+    "pl": "Spotkanie z miłosiernym Bogiem. Pon.–Sob. podczas Mszy wieczornej, niedziela przed i podczas każdej Mszy Św., I piątek miesiąca od 17:00.",
+    "de": "Begegnung mit dem barmherzigen Gott. Mo.–Sa. während der Abendmesse, sonntags vor und während jeder Hl. Messe, 1. Freitag im Monat ab 17:00."
+  },
+
+  "sakramente.card.namaszczenie.name": {
+    "pl": "Namaszczenie Chorych",
+    "de": "Krankensalbung"
+  },
+  "sakramente.card.namaszczenie.desc": {
+    "pl": "Sakrament umocnienia w chorobie. Odwiedziny chorych: pierwszy piątek miesiąca oraz na wezwanie.",
+    "de": "Sakrament der Stärkung in der Krankheit. Krankenbesuche: jeden 1. Freitag im Monat sowie auf Wunsch."
+  },
+
+  "sakramente.badge.info": {
+    "pl": "Więcej informacji <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
+    "de": "Mehr Informationen <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
+  },
+  "sakramente.badge.register": {
+    "pl": "Zapisz online <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
+    "de": "Online anmelden <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
+  }
+}
