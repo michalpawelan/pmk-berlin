@@ -1,0 +1,116 @@
+{
+  "wesprzyj.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "wesprzyj.breadcrumb.current": {
+    "pl": "Wesprzyj parafię",
+    "de": "Gemeinde unterstützen"
+  },
+  "wesprzyj.hero.title": {
+    "pl": "Wesprzyj <em>naszą parafię</em>",
+    "de": "Unterstützen Sie <em>unsere Gemeinde</em>"
+  },
+  "wesprzyj.hero.lead": {
+    "pl": "Twoja ofiara pomaga utrzymać Bazylikę św. Jana Chrzciciela i wspierać życie duchowe naszej polskiej wspólnoty w Berlinie. Bóg zapłać za każde wsparcie.",
+    "de": "Ihre Spende hilft, die Johannes-Basilika zu erhalten und das geistliche Leben unserer polnischen Gemeinde in Berlin zu unterstützen. Vergelt's Gott für jede Gabe."
+  },
+
+  "wesprzyj.bank.title": {
+    "pl": "Konto bankowe parafii",
+    "de": "Bankverbindung der Gemeinde"
+  },
+  "wesprzyj.bank.subtitle": {
+    "pl": "Bankverbindung der Pfarrei",
+    "de": "Konto bankowe parafii"
+  },
+  "wesprzyj.bank.holder_label": {
+    "pl": "Odbiorca",
+    "de": "Kontoinhaber"
+  },
+  "wesprzyj.bank.bic_placeholder": {
+    "pl": "[BIC z Biura Parafialnego]",
+    "de": "[BIC vom Pfarrbüro]"
+  },
+  "wesprzyj.bank.bank_label": {
+    "pl": "Bank",
+    "de": "Bank"
+  },
+  "wesprzyj.bank.bank_placeholder": {
+    "pl": "[Nazwa banku]",
+    "de": "[Bankname]"
+  },
+  "wesprzyj.bank.note": {
+    "pl": "<strong>Ważne:</strong> w polu „Tytuł przelewu\" prosimy wpisać <strong>cel ofiary</strong> oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić zaświadczenia (Spendenquittung).",
+    "de": "<strong>Wichtig:</strong> Bitte tragen Sie im Feld „Verwendungszweck\" den <strong>Spendenzweck</strong> ein und — falls Sie eine Spendenquittung wünschen — <strong>Vor- und Nachname sowie Anschrift</strong>. Ohne diese Angaben können wir keine Spendenquittung ausstellen."
+  },
+
+  "wesprzyj.purposes.title": {
+    "pl": "Cele <em>ofiary</em>",
+    "de": "<em>Spenden</em>zwecke"
+  },
+  "wesprzyj.purposes.lead": {
+    "pl": "Możesz wskazać konkretny cel w tytule przelewu lub zostawić puste pole — wtedy ofiara trafia na cele ogólne parafii.",
+    "de": "Sie können einen konkreten Zweck im Verwendungszweck angeben oder das Feld leer lassen — dann fließt Ihre Spende in die allgemeinen Aufgaben der Gemeinde."
+  },
+
+  "wesprzyj.purpose1.title": {
+    "pl": "Bazylika — utrzymanie",
+    "de": "Basilika — Erhaltung"
+  },
+  "wesprzyj.purpose1.desc": {
+    "pl": "Renowacja, ogrzewanie, sprzątanie Bazyliki św. Jana Chrzciciela",
+    "de": "Renovierung, Heizung, Reinigung der Johannes-Basilika"
+  },
+  "wesprzyj.purpose2.title": {
+    "pl": "Życie duchowe i liturgia",
+    "de": "Geistliches Leben und Liturgie"
+  },
+  "wesprzyj.purpose2.desc": {
+    "pl": "Organy, śpiew, świece, sprzęt liturgiczny",
+    "de": "Orgel, Gesang, Kerzen, liturgisches Material"
+  },
+  "wesprzyj.purpose3.title": {
+    "pl": "Dzieci i młodzież",
+    "de": "Kinder und Jugend"
+  },
+  "wesprzyj.purpose3.desc": {
+    "pl": "Katechezy, schola, ministranci, rekolekcje, obozy",
+    "de": "Katechese, Schola, Ministranten, Einkehrtage, Sommerlager"
+  },
+  "wesprzyj.purpose4.title": {
+    "pl": "Cele ogólne parafii",
+    "de": "Allgemeine Zwecke der Gemeinde"
+  },
+  "wesprzyj.purpose4.desc": {
+    "pl": "Zostaw pole puste, abyśmy mogli skierować ofiarę tam, gdzie jest najpotrzebniejsza",
+    "de": "Lassen Sie das Feld leer, damit wir Ihre Spende dorthin lenken können, wo sie am dringendsten benötigt wird"
+  },
+
+  "wesprzyj.receipt.title": {
+    "pl": "Zaświadczenie o darowiźnie",
+    "de": "Spendenquittung"
+  },
+  "wesprzyj.receipt.body": {
+    "pl": "Wystawiamy zaświadczenia o darowiźnie do celów podatkowych. Aby je otrzymać, podaj w tytule przelewu swoje <strong>imię, nazwisko i adres</strong>. Zaświadczenie wyślemy pocztą lub e&#8209;mailem.",
+    "de": "Wir stellen Spendenquittungen für steuerliche Zwecke aus. Um sie zu erhalten, geben Sie im Verwendungszweck <strong>Vor- und Nachname sowie Anschrift</strong> an. Wir senden die Quittung per Post oder E&#8209;Mail zu."
+  },
+
+  "wesprzyj.quote.text": {
+    "pl": "„Każdy niech przeto postąpi tak, jak mu nakazuje jego własne serce, nie żałując i nie czując się przymuszonym, albowiem radosnego dawcę miłuje Bóg.\"",
+    "de": "„Jeder gebe, wie er es sich in seinem Herzen vorgenommen hat, nicht verdrossen und nicht aus Zwang; denn Gott liebt einen fröhlichen Geber.\""
+  },
+  "wesprzyj.quote.cite": {
+    "pl": "— 2 Kor 9, 7",
+    "de": "— 2 Kor 9, 7"
+  },
+
+  "wesprzyj.cta.contact": {
+    "pl": "Masz pytania? Napisz do nas",
+    "de": "Haben Sie Fragen? Schreiben Sie uns"
+  },
+  "wesprzyj.cta.home": {
+    "pl": "Powrót na stronę główną",
+    "de": "Zurück zur Startseite"
+  }
+}
