@@ -25,6 +25,7 @@
     const path = window.location.pathname;
     const file = path.split('/').pop().replace('.html', '') || 'index';
     if (file.startsWith('wspolnota-')) return 'wspolnoty';
+    if (file.startsWith('sakrament-')) return 'sakramenty';
     return file;
   }
 

@@ -1,0 +1,106 @@
+{
+  "spowiedz.breadcrumb.home": {
+    "pl": "Strona główna",
+    "de": "Startseite"
+  },
+  "spowiedz.breadcrumb.sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "spowiedz.breadcrumb.current": {
+    "pl": "Spowiedź",
+    "de": "Beichte"
+  },
+  "spowiedz.hero.title": {
+    "pl": "Sakrament <em>Spowiedzi</em>",
+    "de": "Sakrament der <em>Beichte</em>"
+  },
+  "spowiedz.hero.lead": {
+    "pl": "Spotkanie z miłosiernym Bogiem, który przebacza grzechy. Nie potrzebujesz umówienia — przyjdź na Mszę Świętą.",
+    "de": "Begegnung mit dem barmherzigen Gott, der Sünden vergibt. Sie brauchen keinen Termin — kommen Sie einfach zur Heiligen Messe."
+  },
+
+  "spowiedz.quick.weekdays": {
+    "pl": "Pon.–Sob.: <strong>podczas Mszy wieczornej</strong>",
+    "de": "Mo.–Sa.: <strong>während der Abendmesse</strong>"
+  },
+  "spowiedz.quick.sunday": {
+    "pl": "Niedziela: <strong>przed i podczas każdej Mszy Św.</strong>",
+    "de": "Sonntag: <strong>vor und während jeder Heiligen Messe</strong>"
+  },
+  "spowiedz.quick.first_friday": {
+    "pl": "I piątek miesiąca: <strong>od 17:00</strong>",
+    "de": "1. Freitag im Monat: <strong>ab 17:00 Uhr</strong>"
+  },
+  "spowiedz.quick.place": {
+    "pl": "Miejsce: <strong>Johannes-Basilika</strong>",
+    "de": "Ort: <strong>Johannes-Basilika</strong>"
+  },
+
+  "spowiedz.steps.title": {
+    "pl": "Jak się <em>przygotować?</em>",
+    "de": "Wie bereitet man sich <em>vor?</em>"
+  },
+  "spowiedz.steps.subtitle": {
+    "pl": "Nie byłeś dawno u spowiedzi? Nic się nie martw — kapłan Ci pomoże.",
+    "de": "Schon lange nicht mehr gebeichtet? Keine Sorge — der Priester hilft Ihnen weiter."
+  },
+
+  "spowiedz.step1.title": {
+    "pl": "Rachunek sumienia",
+    "de": "Gewissenserforschung"
+  },
+  "spowiedz.step1.body": {
+    "pl": "Przed spowiedzią poświęć chwilę na ciszę i refleksję. Przypomnij sobie, co wydarzyło się od ostatniej spowiedzi — czego żałujesz, co chciałbyś zmienić.",
+    "de": "Nehmen Sie sich vor der Beichte einen Moment der Stille und Besinnung. Rufen Sie sich in Erinnerung, was seit der letzten Beichte geschehen ist — was Sie bereuen, was Sie ändern möchten."
+  },
+  "spowiedz.step2.title": {
+    "pl": "Żal za grzechy",
+    "de": "Reue über die Sünden"
+  },
+  "spowiedz.step2.body": {
+    "pl": "Wzbudź w sobie szczery żal — nie ze strachu, ale z miłości do Boga. Mocne postanowienie poprawy jest ważną częścią sakramentu.",
+    "de": "Wecken Sie aufrichtige Reue in sich — nicht aus Angst, sondern aus Liebe zu Gott. Der feste Vorsatz zur Besserung ist ein wichtiger Teil des Sakraments."
+  },
+  "spowiedz.step3.title": {
+    "pl": "Przyjdź do konfesjonału",
+    "de": "Gang zum Beichtstuhl"
+  },
+  "spowiedz.step3.body": {
+    "pl": "Powiedz ile czasu minęło od ostatniej spowiedzi. Nie musisz znać idealnej „formuły\" — kapłan Cię poprowadzi. Wyznaj swoje grzechy szczerze.",
+    "de": "Sagen Sie, wie lange Ihre letzte Beichte her ist. Sie müssen keine perfekte „Formel\" kennen — der Priester führt Sie. Bekennen Sie Ihre Sünden ehrlich."
+  },
+  "spowiedz.step3.hint": {
+    "pl": "Spowiedź odbywa się po polsku",
+    "de": "Die Beichte findet auf Polnisch statt"
+  },
+  "spowiedz.step4.title": {
+    "pl": "Rozgrzeszenie i pokuta",
+    "de": "Lossprechung und Buße"
+  },
+  "spowiedz.step4.body": {
+    "pl": "Kapłan udziela Ci rozgrzeszenia w imię Chrystusa. Wypełnij pokutę, którą Ci zadał — to Twój krok ku przemianie.",
+    "de": "Der Priester spricht Sie im Namen Christi los. Verrichten Sie die Buße, die Ihnen aufgetragen wurde — sie ist Ihr Schritt zur Umkehr."
+  },
+
+  "spowiedz.cta.title": {
+    "pl": "Kiedy przyjść?",
+    "de": "Wann kommen?"
+  },
+  "spowiedz.cta.body": {
+    "pl": "Pon.–Sob. podczas Mszy wieczornej. Niedziela przed i podczas każdej Mszy Św. I piątek miesiąca od 17:00.",
+    "de": "Mo.–Sa. während der Abendmesse. Sonntags vor und während jeder Heiligen Messe. 1. Freitag im Monat ab 17:00 Uhr."
+  },
+  "spowiedz.cta.email": {
+    "pl": "Napisz e-mail",
+    "de": "E-Mail schreiben"
+  },
+  "spowiedz.cta.call": {
+    "pl": "Zadzwoń",
+    "de": "Anrufen"
+  },
+  "spowiedz.back": {
+    "pl": "Wszystkie sakramenty",
+    "de": "Alle Sakramente"
+  }
+}
