@@ -1,0 +1,122 @@
+{
+  "grupy.hero.label": {
+    "pl": "Wspólnoty",
+    "de": "Gemeinschaften"
+  },
+  "grupy.hero.title": {
+    "pl": "Grupy <em>parafialne</em>",
+    "de": "Gemeinde<em>gruppen</em>"
+  },
+  "grupy.hero.lead": {
+    "pl": "Nasza parafia żyje dzięki wspólnotom. Znajdź grupę, która odpowiada Twojemu powołaniu i dołącz do nas.",
+    "de": "Unsere Gemeinde lebt durch ihre Gruppen. Finden Sie die Gemeinschaft, die zu Ihrer Berufung passt, und schließen Sie sich uns an."
+  },
+
+  "grupy.card.sne.name": {
+    "pl": "Szkoła Nowej Ewangelizacji",
+    "de": "Schule der Neuevangelisierung"
+  },
+  "grupy.card.sne.tagline": {
+    "pl": "Formacja i pogłębianie wiary przez studium Pisma Świętego",
+    "de": "Glaubensbildung und -vertiefung durch das Studium der Heiligen Schrift"
+  },
+
+  "grupy.card.domowy.name": {
+    "pl": "Domowy Kościół",
+    "de": "Hauskirche"
+  },
+  "grupy.card.domowy.tagline": {
+    "pl": "Wspólnota małżeństw budujących Kościół w swoich domach",
+    "de": "Gemeinschaft von Ehepaaren, die Kirche in ihrem Zuhause leben"
+  },
+
+  "grupy.card.schola.name": {
+    "pl": "Schola „Marana Tha\"",
+    "de": "Schola „Marana Tha\""
+  },
+  "grupy.card.schola.tagline": {
+    "pl": "Wzbogacanie liturgii współczesnymi śpiewami religijnymi",
+    "de": "Bereicherung der Liturgie mit zeitgenössischen religiösen Gesängen"
+  },
+
+  "grupy.card.oaza.name": {
+    "pl": "Ruch Światło-Życie",
+    "de": "Licht-Leben-Bewegung (Oaza)"
+  },
+  "grupy.card.oaza.tagline": {
+    "pl": "Formacja chrześcijańska prowadząca do dojrzałej wiary",
+    "de": "Christliche Formation auf dem Weg zum reifen Glauben"
+  },
+
+  "grupy.card.szensztacki.name": {
+    "pl": "Ruch Szensztacki",
+    "de": "Schönstatt-Bewegung"
+  },
+  "grupy.card.szensztacki.tagline": {
+    "pl": "Oddanie się Matce Bożej i apostolstwo w codzienności",
+    "de": "Hingabe an die Gottesmutter und Apostolat im Alltag"
+  },
+
+  "grupy.card.rozaniec.name": {
+    "pl": "Koło Żywego Różańca",
+    "de": "Lebendiger Rosenkranz"
+  },
+  "grupy.card.rozaniec.tagline": {
+    "pl": "Modlitwa różańcowa łącząca wiernych na całym świecie",
+    "de": "Rosenkranzgebet, das Gläubige in aller Welt verbindet"
+  },
+
+  "grupy.card.dzieci_maryi.name": {
+    "pl": "Grono Dzieci Maryi",
+    "de": "Gemeinschaft der Marienkinder"
+  },
+  "grupy.card.dzieci_maryi.tagline": {
+    "pl": "Wspólnota młodych oddanych Matce Bożej",
+    "de": "Gemeinschaft junger Menschen, die sich der Gottesmutter weihen"
+  },
+
+  "grupy.card.radio.name": {
+    "pl": "Koło Przyjaciół Radia Maryja",
+    "de": "Freunde von Radio Maryja"
+  },
+  "grupy.card.radio.tagline": {
+    "pl": "Wspólnota modlitwy i wsparcia dla mediów katolickich",
+    "de": "Gemeinschaft des Gebets und der Unterstützung katholischer Medien"
+  },
+
+  "grupy.card.apostolstwo.name": {
+    "pl": "Apostolstwo Dobrej Śmierci",
+    "de": "Apostolat des guten Todes"
+  },
+  "grupy.card.apostolstwo.tagline": {
+    "pl": "Modlitwa o łaskę dobrego przejścia do wieczności",
+    "de": "Gebet um die Gnade eines guten Übergangs in die Ewigkeit"
+  },
+
+  "grupy.card.meska.name": {
+    "pl": "Grupa Męska",
+    "de": "Männergruppe"
+  },
+  "grupy.card.meska.tagline": {
+    "pl": "Braterstwo mężczyzn wspierających się w wierze i życiu",
+    "de": "Brüderschaft von Männern, die sich gegenseitig im Glauben und Leben stärken"
+  },
+
+  "grupy.card.kobiet.name": {
+    "pl": "Grupa Kobiet Empatycznych",
+    "de": "Gruppe der empathischen Frauen"
+  },
+  "grupy.card.kobiet.tagline": {
+    "pl": "Siostrzana wspólnota kobiet dzielących się wiarą i życiem",
+    "de": "Schwesterliche Gemeinschaft von Frauen, die Glauben und Leben teilen"
+  },
+
+  "grupy.card.ministranci.name": {
+    "pl": "Ministranci – Służba Liturgiczna",
+    "de": "Ministranten – Liturgischer Dienst"
+  },
+  "grupy.card.ministranci.tagline": {
+    "pl": "Dzieci i młodzież służąca przy ołtarzu z radością i wiarą",
+    "de": "Kinder und Jugendliche, die mit Freude und Glauben am Altar dienen"
+  }
+}
