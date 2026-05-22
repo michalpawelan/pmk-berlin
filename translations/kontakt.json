@@ -1,0 +1,176 @@
+{
+  "kontakt.hero.label": {
+    "pl": "Kontakt",
+    "de": "Kontakt"
+  },
+  "kontakt.hero.title": {
+    "pl": "Skontaktuj się <em>z nami</em>",
+    "de": "Kontaktieren Sie <em>uns</em>"
+  },
+  "kontakt.hero.lead": {
+    "pl": "Jesteśmy do Twojej dyspozycji. Napisz, zadzwoń lub odwiedź nas osobiście.",
+    "de": "Wir sind für Sie da. Schreiben Sie uns, rufen Sie an oder besuchen Sie uns persönlich."
+  },
+
+  "kontakt.address.title": {
+    "pl": "Adres",
+    "de": "Adresse"
+  },
+  "kontakt.address.body": {
+    "pl": "<strong>Johannes-Basilika</strong><br>Lilienthalstr. 5<br>10965 Berlin-Kreuzberg",
+    "de": "<strong>Johannes-Basilika</strong><br>Lilienthalstr. 5<br>10965 Berlin-Kreuzberg"
+  },
+  "kontakt.address.map_link": {
+    "pl": "Pokaż na mapie",
+    "de": "Auf der Karte anzeigen"
+  },
+
+  "kontakt.phone.title": {
+    "pl": "Telefon",
+    "de": "Telefon"
+  },
+  "kontakt.phone.note": {
+    "pl": "Telefon czynny w godzinach urzędowania",
+    "de": "Telefonisch erreichbar während der Bürozeiten"
+  },
+
+  "kontakt.email.title": {
+    "pl": "E-mail",
+    "de": "E-Mail"
+  },
+  "kontakt.email.note": {
+    "pl": "Odpowiadamy najszybciej jak to możliwe",
+    "de": "Wir antworten so schnell wie möglich"
+  },
+
+  "kontakt.hours.title": {
+    "pl": "Godziny urzędowania",
+    "de": "Bürozeiten"
+  },
+  "kontakt.hours.days": {
+    "pl": "Poniedziałek i Środa",
+    "de": "Montag und Mittwoch"
+  },
+
+  "kontakt.form.title": {
+    "pl": "Napisz do nas",
+    "de": "Schreiben Sie uns"
+  },
+  "kontakt.form.intro": {
+    "pl": "Wypełnij formularz, a odpowiemy najszybciej jak to możliwe.",
+    "de": "Füllen Sie das Formular aus — wir antworten so schnell wie möglich."
+  },
+  "kontakt.form.name_label": {
+    "pl": "Imię i nazwisko",
+    "de": "Vor- und Nachname"
+  },
+  "kontakt.form.name_placeholder": {
+    "pl": "Jan Kowalski",
+    "de": "Max Mustermann"
+  },
+  "kontakt.form.email_label": {
+    "pl": "E-mail",
+    "de": "E-Mail"
+  },
+  "kontakt.form.email_placeholder": {
+    "pl": "jan@email.pl",
+    "de": "max@email.de"
+  },
+  "kontakt.form.phone_label": {
+    "pl": "Telefon (opcjonalnie)",
+    "de": "Telefon (optional)"
+  },
+  "kontakt.form.subject_label": {
+    "pl": "Temat",
+    "de": "Betreff"
+  },
+  "kontakt.form.subject_placeholder": {
+    "pl": "Wybierz temat...",
+    "de": "Betreff auswählen..."
+  },
+  "kontakt.form.optgroup_sacraments": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "kontakt.form.opt_chrzest": {
+    "pl": "Chrzest",
+    "de": "Taufe"
+  },
+  "kontakt.form.opt_komunia": {
+    "pl": "Pierwsza Komunia",
+    "de": "Erstkommunion"
+  },
+  "kontakt.form.opt_bierzmowanie": {
+    "pl": "Bierzmowanie",
+    "de": "Firmung"
+  },
+  "kontakt.form.opt_spowiedz": {
+    "pl": "Spowiedź",
+    "de": "Beichte"
+  },
+  "kontakt.form.opt_slub": {
+    "pl": "Ślub kościelny",
+    "de": "Kirchliche Trauung"
+  },
+  "kontakt.form.opt_namaszczenie": {
+    "pl": "Namaszczenie chorych",
+    "de": "Krankensalbung"
+  },
+  "kontakt.form.optgroup_communities": {
+    "pl": "Wspólnoty",
+    "de": "Gemeinschaften"
+  },
+  "kontakt.form.optgroup_other": {
+    "pl": "Inne",
+    "de": "Sonstiges"
+  },
+  "kontakt.form.opt_intencja": {
+    "pl": "Intencja Mszalna",
+    "de": "Messintention"
+  },
+  "kontakt.form.opt_other": {
+    "pl": "Inne pytanie",
+    "de": "Andere Frage"
+  },
+  "kontakt.form.message_label": {
+    "pl": "Wiadomość",
+    "de": "Nachricht"
+  },
+  "kontakt.form.message_placeholder": {
+    "pl": "Twoja wiadomość...",
+    "de": "Ihre Nachricht..."
+  },
+  "kontakt.form.submit": {
+    "pl": "Wyślij wiadomość",
+    "de": "Nachricht senden"
+  },
+  "kontakt.form.note": {
+    "pl": "Odpowiemy najszybciej, jak to możliwe — zwykle w ciągu 1–2 dni roboczych.",
+    "de": "Wir antworten so schnell wie möglich — meist innerhalb von 1–2 Werktagen."
+  },
+  "kontakt.form.success_title": {
+    "pl": "Dziękujemy!",
+    "de": "Vielen Dank!"
+  },
+  "kontakt.form.success_body": {
+    "pl": "Twoja wiadomość została wysłana. Odpowiemy najszybciej, jak to możliwe.",
+    "de": "Ihre Nachricht wurde gesendet. Wir antworten so schnell wie möglich."
+  },
+  "kontakt.form.send_another": {
+    "pl": "Wyślij kolejną wiadomość",
+    "de": "Weitere Nachricht senden"
+  },
+
+  "kontakt.churches.label": {
+    "pl": "Inne lokalizacje",
+    "de": "Weitere Standorte"
+  },
+  "kontakt.churches.title": {
+    "pl": "Nasze <em>kościoły</em>",
+    "de": "Unsere <em>Kirchen</em>"
+  },
+  "kontakt.churches.map_link": {
+    "pl": "Mapa",
+    "de": "Karte"
+  }
+}

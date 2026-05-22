@@ -140,9 +140,9 @@
 <!-- Page Hero -->
 <section id="main-content" class="page-hero page-hero-compact">
   <div class="page-hero-content">
-    <span class="section-label">Kontakt</span>
-    <h1 class="page-hero-title">Skontaktuj się <em>z nami</em></h1>
-    <p class="page-hero-lead">Jesteśmy do Twojej dyspozycji. Napisz, zadzwoń lub odwiedź nas osobiście.</p>
+    <span class="section-label" data-i18n="kontakt.hero.label">Kontakt</span>
+    <h1 class="page-hero-title" data-i18n-html="kontakt.hero.title">Skontaktuj się <em>z nami</em></h1>
+    <p class="page-hero-lead" data-i18n="kontakt.hero.lead">Jesteśmy do Twojej dyspozycji. Napisz, zadzwoń lub odwiedź nas osobiście.</p>
   </div>
 </section>
 
@@ -157,14 +157,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div class="contact-card-content">
-            <h3>Adres</h3>
-            <p>
+            <h3 data-i18n="kontakt.address.title">Adres</h3>
+            <p data-i18n-html="kontakt.address.body">
               <strong>Johannes-Basilika</strong><br>
               Lilienthalstr. 5<br>
               10965 Berlin-Kreuzberg
             </p>
             <a href="https://maps.app.goo.gl/Rz8zAVkuQMXwTXtr8" target="_blank" rel="noopener" class="contact-card-link">
-              Pokaż na mapie
+              <span data-i18n="kontakt.address.map_link">Pokaż na mapie</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </a>
           </div>
@@ -175,9 +175,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
           <div class="contact-card-content">
-            <h3>Telefon</h3>
+            <h3 data-i18n="kontakt.phone.title">Telefon</h3>
             <a href="tel:+49307524080" class="contact-phone">+49 30 752 40 80</a>
-            <p class="contact-note">Telefon czynny w godzinach urzędowania</p>
+            <p class="contact-note" data-i18n="kontakt.phone.note">Telefon czynny w godzinach urzędowania</p>
           </div>
         </div>
 
@@ -186,9 +186,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
           </div>
           <div class="contact-card-content">
-            <h3>E-mail</h3>
+            <h3 data-i18n="kontakt.email.title">E-mail</h3>
             <a href="mailto:pmk@pmk-berlin.de" class="contact-email">pmk@pmk-berlin.de</a>
-            <p class="contact-note">Odpowiadamy najszybciej jak to możliwe</p>
+            <p class="contact-note" data-i18n="kontakt.email.note">Odpowiadamy najszybciej jak to możliwe</p>
           </div>
         </div>
 
@@ -197,14 +197,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           </div>
           <div class="contact-card-content">
-            <h3>Godziny urzędowania</h3>
+            <h3 data-i18n="kontakt.hours.title">Godziny urzędowania</h3>
             <div class="office-hours-list">
               <div class="office-hours-item">
-                <span>Poniedziałek i Środa</span>
+                <span data-i18n="kontakt.hours.days">Poniedziałek i Środa</span>
                 <strong>10:00 - 13:00</strong>
               </div>
               <div class="office-hours-item">
-                <span>Poniedziałek i Środa</span>
+                <span data-i18n="kontakt.hours.days">Poniedziałek i Środa</span>
                 <strong>15:00 - 17:30</strong>
               </div>
             </div>
@@ -215,8 +215,8 @@
       <!-- Contact Form Column -->
       <div class="contact-form-column">
         <div class="contact-form-card reveal">
-          <h2>Napisz do nas</h2>
-          <p class="form-intro">Wypełnij formularz, a odpowiemy najszybciej jak to możliwe.</p>
+          <h2 data-i18n="kontakt.form.title">Napisz do nas</h2>
+          <p class="form-intro" data-i18n="kontakt.form.intro">Wypełnij formularz, a odpowiemy najszybciej jak to możliwe.</p>
 
           <form class="contact-form" id="contactForm" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="website">
             <input type="hidden" name="form-name" value="kontakt">
@@ -225,31 +225,31 @@
             </div>
             <div class="form-row form-row-half">
               <div class="form-group">
-                <label for="name">Imię i nazwisko</label>
-                <input type="text" id="name" name="name" placeholder="Jan Kowalski" required>
+                <label for="name" data-i18n="kontakt.form.name_label">Imię i nazwisko</label>
+                <input type="text" id="name" name="name" placeholder="Jan Kowalski" data-i18n-attr="placeholder:kontakt.form.name_placeholder" required>
               </div>
               <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="jan@email.pl" required>
+                <label for="email" data-i18n="kontakt.form.email_label">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="jan@email.pl" data-i18n-attr="placeholder:kontakt.form.email_placeholder" required>
               </div>
             </div>
             <div class="form-group">
-              <label for="phone">Telefon (opcjonalnie)</label>
+              <label for="phone" data-i18n="kontakt.form.phone_label">Telefon (opcjonalnie)</label>
               <input type="tel" id="phone" name="phone" placeholder="+49 123 456 789">
             </div>
             <div class="form-group">
-              <label for="subject">Temat</label>
+              <label for="subject" data-i18n="kontakt.form.subject_label">Temat</label>
               <select id="subject" name="subject" required>
-                <option value="">Wybierz temat...</option>
-                <optgroup label="Sakramenty">
-                  <option value="Chrzest">Chrzest</option>
-                  <option value="Pierwsza Komunia">Pierwsza Komunia</option>
-                  <option value="Bierzmowanie">Bierzmowanie</option>
-                  <option value="Spowiedź">Spowiedź</option>
-                  <option value="Ślub">Ślub kościelny</option>
-                  <option value="Namaszczenie">Namaszczenie chorych</option>
+                <option value="" data-i18n="kontakt.form.subject_placeholder">Wybierz temat...</option>
+                <optgroup label="Sakramenty" data-i18n-attr="label:kontakt.form.optgroup_sacraments">
+                  <option value="Chrzest" data-i18n="kontakt.form.opt_chrzest">Chrzest</option>
+                  <option value="Pierwsza Komunia" data-i18n="kontakt.form.opt_komunia">Pierwsza Komunia</option>
+                  <option value="Bierzmowanie" data-i18n="kontakt.form.opt_bierzmowanie">Bierzmowanie</option>
+                  <option value="Spowiedź" data-i18n="kontakt.form.opt_spowiedz">Spowiedź</option>
+                  <option value="Ślub" data-i18n="kontakt.form.opt_slub">Ślub kościelny</option>
+                  <option value="Namaszczenie" data-i18n="kontakt.form.opt_namaszczenie">Namaszczenie chorych</option>
                 </optgroup>
-                <optgroup label="Wspólnoty">
+                <optgroup label="Wspólnoty" data-i18n-attr="label:kontakt.form.optgroup_communities">
                   <option value="Wspólnota: Apostolstwo Dobrej Śmierci">Apostolstwo Dobrej Śmierci</option>
                   <option value="Wspólnota: Caritas">Caritas</option>
                   <option value="Wspólnota: Domowy Kościół">Domowy Kościół</option>
@@ -268,18 +268,18 @@
                   <option value="Wspólnota: Schola Marana Tha">Schola Marana Tha</option>
                   <option value="Wspólnota: Szkoła Nowej Ewangelizacji">Szkoła Nowej Ewangelizacji</option>
                 </optgroup>
-                <optgroup label="Inne">
-                  <option value="Intencja Mszalna">Intencja Mszalna</option>
-                  <option value="Inne">Inne pytanie</option>
+                <optgroup label="Inne" data-i18n-attr="label:kontakt.form.optgroup_other">
+                  <option value="Intencja Mszalna" data-i18n="kontakt.form.opt_intencja">Intencja Mszalna</option>
+                  <option value="Inne" data-i18n="kontakt.form.opt_other">Inne pytanie</option>
                 </optgroup>
               </select>
             </div>
             <div class="form-group">
-              <label for="message">Wiadomość</label>
-              <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość..." required></textarea>
+              <label for="message" data-i18n="kontakt.form.message_label">Wiadomość</label>
+              <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość..." data-i18n-attr="placeholder:kontakt.form.message_placeholder" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-full" id="contactSubmit">Wyślij wiadomość</button>
-            <p class="form-note">Odpowiemy najszybciej, jak to możliwe — zwykle w ciągu 1–2 dni roboczych.</p>
+            <button type="submit" class="btn btn-primary btn-full" id="contactSubmit" data-i18n="kontakt.form.submit">Wyślij wiadomość</button>
+            <p class="form-note" data-i18n="kontakt.form.note">Odpowiemy najszybciej, jak to możliwe — zwykle w ciągu 1–2 dni roboczych.</p>
           </form>
 
           <div class="contact-success" id="contactSuccess" hidden>
@@ -287,9 +287,9 @@
               <circle cx="12" cy="12" r="10"/>
               <path d="M8 12l3 3 5-6"/>
             </svg>
-            <h3>Dziękujemy!</h3>
-            <p>Twoja wiadomość została wysłana. Odpowiemy najszybciej, jak to możliwe.</p>
-            <button type="button" class="btn btn-secondary" id="contactReset">Wyślij kolejną wiadomość</button>
+            <h3 data-i18n="kontakt.form.success_title">Dziękujemy!</h3>
+            <p data-i18n="kontakt.form.success_body">Twoja wiadomość została wysłana. Odpowiemy najszybciej, jak to możliwe.</p>
+            <button type="button" class="btn btn-secondary" id="contactReset" data-i18n="kontakt.form.send_another">Wyślij kolejną wiadomość</button>
           </div>
         </div>
       </div>
@@ -317,8 +317,8 @@
 <section class="section section-alt">
   <div class="section-container">
     <header class="section-header">
-      <span class="section-label">Inne lokalizacje</span>
-      <h2 class="section-title">Nasze <em>koscioly</em></h2>
+      <span class="section-label" data-i18n="kontakt.churches.label">Inne lokalizacje</span>
+      <h2 class="section-title" data-i18n-html="kontakt.churches.title">Nasze <em>koscioly</em></h2>
     </header>
 
     <div class="churches-list">
@@ -328,7 +328,7 @@
           <p>Wedding</p>
         </div>
         <address>Müllerstraße 161, 13353 Berlin</address>
-        <a href="https://maps.app.goo.gl/T5US2kgZrmV7AZfB9" target="_blank" rel="noopener" class="church-list-link">Mapa</a>
+        <a href="https://maps.app.goo.gl/T5US2kgZrmV7AZfB9" target="_blank" rel="noopener" class="church-list-link" data-i18n="kontakt.churches.map_link">Mapa</a>
       </div>
 
       <div class="church-list-item reveal">
@@ -337,7 +337,7 @@
           <p>Spandau</p>
         </div>
         <address>Flankenschanze 43, 13585 Berlin</address>
-        <a href="https://maps.app.goo.gl/op47upC6SL5v1TPz5" target="_blank" rel="noopener" class="church-list-link">Mapa</a>
+        <a href="https://maps.app.goo.gl/op47upC6SL5v1TPz5" target="_blank" rel="noopener" class="church-list-link" data-i18n="kontakt.churches.map_link">Mapa</a>
       </div>
 
       <div class="church-list-item reveal">
@@ -346,7 +346,7 @@
           <p>Karlshorst</p>
         </div>
         <address>Gundelfinger Straße 36, 10318 Berlin</address>
-        <a href="https://maps.app.goo.gl/SPNaz3PtLYxbeVCv8" target="_blank" rel="noopener" class="church-list-link">Mapa</a>
+        <a href="https://maps.app.goo.gl/SPNaz3PtLYxbeVCv8" target="_blank" rel="noopener" class="church-list-link" data-i18n="kontakt.churches.map_link">Mapa</a>
       </div>
     </div>
   </div>
@@ -408,6 +408,7 @@
     </div>
   </div>
 </footer>
+<script src="js/i18n.js" defer></script>
 <script src="main.js" defer></script>
 <script type="module" src="js/pmk-chat.js"></script>
 <script>
