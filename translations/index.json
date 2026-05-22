@@ -346,5 +346,161 @@
   "index.footer.motto": {
     "pl": "\"Niech będzie pochwalony Jezus Chrystus\"",
     "de": "\"Gelobt sei Jesus Christus\""
+  },
+  "index.skip_nav": {
+    "pl": "Przejdź do treści",
+    "de": "Zum Inhalt springen"
+  },
+  "index.mass.confession_sunday": {
+    "pl": "przed i podczas każdej Mszy Św.",
+    "de": "vor und während jeder Heiligen Messe"
+  },
+  "index.mass.confession_first_friday_label": {
+    "pl": "I piątek miesiąca",
+    "de": "1. Freitag im Monat"
+  },
+  "index.sacraments.badge_info": {
+    "pl": "Więcej informacji <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
+    "de": "Mehr Informationen <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
+  },
+  "index.sacraments.badge_register": {
+    "pl": "Zapisz online <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
+    "de": "Online anmelden <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
+  },
+  "index.communities.sne.name": {
+    "pl": "Szkoła Nowej Ewangelizacji",
+    "de": "Schule der Neuevangelisierung"
+  },
+  "index.communities.sne.tagline": {
+    "pl": "Formacja i pogłębianie wiary przez studium Pisma Świętego",
+    "de": "Glaubensbildung und -vertiefung durch das Studium der Heiligen Schrift"
+  },
+  "index.communities.domowy.name": {
+    "pl": "Domowy Kościół",
+    "de": "Hauskirche"
+  },
+  "index.communities.domowy.tagline": {
+    "pl": "Wspólnota małżeństw budujących Kościół w swoich domach",
+    "de": "Gemeinschaft von Ehepaaren, die Kirche in ihrem Zuhause leben"
+  },
+  "index.communities.schola.name": {
+    "pl": "Schola „Marana Tha\"",
+    "de": "Schola „Marana Tha\""
+  },
+  "index.communities.schola.tagline": {
+    "pl": "Wzbogacanie liturgii współczesnymi śpiewami religijnymi",
+    "de": "Bereicherung der Liturgie mit zeitgenössischen religiösen Gesängen"
+  },
+  "index.communities.oaza.name": {
+    "pl": "Ruch Światło-Życie",
+    "de": "Licht-Leben-Bewegung (Oaza)"
+  },
+  "index.communities.oaza.tagline": {
+    "pl": "Formacja chrześcijańska prowadząca do dojrzałej wiary",
+    "de": "Christliche Formation auf dem Weg zum reifen Glauben"
+  },
+  "index.communities.szensztacki.name": {
+    "pl": "Ruch Szensztacki",
+    "de": "Schönstatt-Bewegung"
+  },
+  "index.communities.szensztacki.tagline": {
+    "pl": "Oddanie się Matce Bożej i apostolstwo w codzienności",
+    "de": "Hingabe an die Gottesmutter und Apostolat im Alltag"
+  },
+  "index.communities.rozaniec.name": {
+    "pl": "Koło Żywego Różańca",
+    "de": "Lebendiger Rosenkranz"
+  },
+  "index.communities.rozaniec.tagline": {
+    "pl": "Modlitwa różańcowa łącząca wiernych na całym świecie",
+    "de": "Rosenkranzgebet, das Gläubige in aller Welt verbindet"
+  },
+  "index.communities.dzieci_maryi.name": {
+    "pl": "Grono Dzieci Maryi",
+    "de": "Gemeinschaft der Marienkinder"
+  },
+  "index.communities.dzieci_maryi.tagline": {
+    "pl": "Wspólnota młodych oddanych Matce Bożej",
+    "de": "Gemeinschaft junger Menschen, die sich der Gottesmutter weihen"
+  },
+  "index.communities.radio.name": {
+    "pl": "Koło Przyjaciół Radia Maryja",
+    "de": "Freunde von Radio Maryja"
+  },
+  "index.communities.radio.tagline": {
+    "pl": "Wspólnota modlitwy i wsparcia dla mediów katolickich",
+    "de": "Gemeinschaft des Gebets und der Unterstützung katholischer Medien"
+  },
+  "index.communities.apostolstwo.name": {
+    "pl": "Apostolstwo Dobrej Śmierci",
+    "de": "Apostolat des guten Todes"
+  },
+  "index.communities.apostolstwo.tagline": {
+    "pl": "Modlitwa o łaskę dobrego przejścia do wieczności",
+    "de": "Gebet um die Gnade eines guten Übergangs in die Ewigkeit"
+  },
+  "index.communities.meska.name": {
+    "pl": "Grupa Męska",
+    "de": "Männergruppe"
+  },
+  "index.communities.meska.tagline": {
+    "pl": "Braterstwo mężczyzn wspierających się w wierze i życiu",
+    "de": "Brüderschaft von Männern, die sich gegenseitig im Glauben und Leben stärken"
+  },
+  "index.communities.kobiet.name": {
+    "pl": "Grupa Kobiet Empatycznych",
+    "de": "Gruppe der empathischen Frauen"
+  },
+  "index.communities.kobiet.tagline": {
+    "pl": "Siostrzana wspólnota kobiet dzielących się wiarą i życiem",
+    "de": "Schwesterliche Gemeinschaft von Frauen, die Glauben und Leben teilen"
+  },
+  "index.contact.email_label": {
+    "pl": "E-mail",
+    "de": "E-Mail"
+  },
+  "index.contact.office_hours_days": {
+    "pl": "Poniedziałek i Środa",
+    "de": "Montag und Mittwoch"
+  },
+  "index.contact.opt_chrzest": {
+    "pl": "Chrzest",
+    "de": "Taufe"
+  },
+  "index.contact.opt_komunia": {
+    "pl": "Pierwsza Komunia",
+    "de": "Erstkommunion"
+  },
+  "index.contact.opt_bierzmowanie": {
+    "pl": "Bierzmowanie",
+    "de": "Firmung"
+  },
+  "index.contact.opt_slub": {
+    "pl": "Ślub kościelny",
+    "de": "Kirchliche Trauung"
+  },
+  "index.contact.opt_namaszczenie": {
+    "pl": "Namaszczenie chorych",
+    "de": "Krankensalbung"
+  },
+  "index.contact.opt_intencja": {
+    "pl": "Intencja Mszalna",
+    "de": "Messintention"
+  },
+  "index.contact.opt_inne": {
+    "pl": "Inne pytanie",
+    "de": "Andere Frage"
+  },
+  "index.contact.optgroup_sakramenty": {
+    "pl": "Sakramenty",
+    "de": "Sakramente"
+  },
+  "index.contact.optgroup_wspolnoty": {
+    "pl": "Wspólnoty",
+    "de": "Gemeinschaften"
+  },
+  "index.contact.optgroup_inne": {
+    "pl": "Inne",
+    "de": "Sonstiges"
   }
 }
