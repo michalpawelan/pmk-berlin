@@ -135,6 +135,13 @@
 
   // Main entry: switch language
   async function setLanguage(lang) {
+    // Persist FIRST so any synchronous downstream code (e.g., page-specific
+    // setLang wrappers that re-render dynamic content) sees the new lang
+    // before the async translation work resolves.
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch (e) { /* private browsing */ }
+
     snapshotOriginals();
 
     var pageId = getPageId();
@@ -145,11 +152,6 @@
 
     var translations = mergeTranslations(sources);
     applyTranslations(lang, translations);
-
-    // Persist choice
-    try {
-      localStorage.setItem(STORAGE_KEY, lang);
-    } catch (e) { /* private browsing */ }
   }
 
   // Expose globally — replaces the stub in main.js
