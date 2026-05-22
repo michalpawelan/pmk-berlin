@@ -455,6 +455,14 @@
     "pl": "Siostrzana wspólnota kobiet dzielących się wiarą i życiem",
     "de": "Schwesterliche Gemeinschaft von Frauen, die Glauben und Leben teilen"
   },
+  "index.communities.ministranci.name": {
+    "pl": "Ministranci – Służba Liturgiczna",
+    "de": "Ministranten – Liturgischer Dienst"
+  },
+  "index.communities.ministranci.tagline": {
+    "pl": "Dzieci i młodzież służąca przy ołtarzu z radością i wiarą",
+    "de": "Kinder und Jugendliche, die mit Freude und Glauben am Altar dienen"
+  },
   "index.contact.email_label": {
     "pl": "E-mail",
     "de": "E-Mail"
