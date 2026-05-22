@@ -1,0 +1,42 @@
+{
+  "event.loading": {
+    "pl": "Ładowanie wydarzenia...",
+    "de": "Veranstaltung wird geladen..."
+  },
+  "event.error.title": {
+    "pl": "Wydarzenie nie znalezione",
+    "de": "Veranstaltung nicht gefunden"
+  },
+  "event.error.body": {
+    "pl": "Przepraszamy, nie udało się znaleźć tego wydarzenia.",
+    "de": "Wir konnten diese Veranstaltung leider nicht finden."
+  },
+  "event.error.back": {
+    "pl": "Wróć do kalendarza",
+    "de": "Zurück zum Kalender"
+  },
+  "event.back": {
+    "pl": "Wróć do wydarzeń",
+    "de": "Zurück zu den Veranstaltungen"
+  },
+  "event.maps_link": {
+    "pl": "Otwórz w Google Maps ↗",
+    "de": "In Google Maps öffnen ↗"
+  },
+  "event.about": {
+    "pl": "O wydarzeniu",
+    "de": "Über die Veranstaltung"
+  },
+  "event.copy_link": {
+    "pl": "Kopiuj link",
+    "de": "Link kopieren"
+  },
+  "event.location_heading": {
+    "pl": "Lokalizacja",
+    "de": "Standort"
+  },
+  "event.map_click": {
+    "pl": "Kliknij, aby zobaczyć mapę",
+    "de": "Zum Anzeigen der Karte klicken"
+  }
+}

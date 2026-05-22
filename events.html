@@ -104,9 +104,9 @@
 <!-- Page Hero -->
 <section id="main-content" class="page-hero page-hero-compact">
   <div class="page-hero-content">
-    <span class="section-label">Wydarzenia</span>
-    <h1 class="page-hero-title">Co <em>nadchodzi?</em></h1>
-    <p class="page-hero-lead">Aktualne wydarzenia w naszej parafii</p>
+    <span class="section-label" data-i18n="events.hero.label">Wydarzenia</span>
+    <h1 class="page-hero-title" data-i18n-html="events.hero.title">Co <em>nadchodzi?</em></h1>
+    <p class="page-hero-lead" data-i18n="events.hero.lead">Aktualne wydarzenia w naszej parafii</p>
   </div>
 </section>
 
@@ -124,13 +124,13 @@
   <div class="section-container">
     <div class="quick-schedule">
       <header class="section-header section-header-left">
-        <span class="section-label section-label-light">Nabozenstwa</span>
-        <h2 class="section-title section-title-light">Staly rozklad <em>Mszy</em></h2>
+        <span class="section-label section-label-light" data-i18n="events.schedule.label">Nabożeństwa</span>
+        <h2 class="section-title section-title-light" data-i18n-html="events.schedule.title">Stały rozkład <em>Mszy</em></h2>
       </header>
 
       <div class="schedule-grid">
         <div class="schedule-item reveal">
-          <h3>Niedziela i Święta</h3>
+          <h3 data-i18n="events.schedule.sunday">Niedziela i Święta</h3>
           <div class="schedule-times">
             <span>10:15</span>
             <span>12:00</span>
@@ -138,15 +138,15 @@
           </div>
         </div>
         <div class="schedule-item reveal">
-          <h3>Poniedziałek - Sobota</h3>
+          <h3 data-i18n="events.schedule.weekdays">Poniedziałek - Sobota</h3>
           <div class="schedule-times">
             <span>07:00</span>
             <span>18:00</span>
           </div>
         </div>
         <div class="schedule-item reveal">
-          <h3>Spowiedź</h3>
-          <p class="schedule-note">Pon.–Sob. podczas Mszy wieczornej<br>Niedziela przed i podczas każdej Mszy Św.<br>I piątek miesiąca od 17:00</p>
+          <h3 data-i18n="events.schedule.confession">Spowiedź</h3>
+          <p class="schedule-note" data-i18n-html="events.schedule.confession_note">Pon.–Sob. podczas Mszy wieczornej<br>Niedziela przed i podczas każdej Mszy Św.<br>I piątek miesiąca od 17:00</p>
         </div>
       </div>
     </div>
@@ -216,6 +216,38 @@
 <script>
 document.addEventListener('DOMContentLoaded', loadEvents);
 
+// Lang-aware strings for dynamically-rendered content
+const EVENTS_I18N = {
+  pl: {
+    this_week:     'W tym tygodniu',
+    next_week:     'W przyszłym tygodniu',
+    later:         'Wkrótce',
+    empty_title:   'Aktualnie brak zaplanowanych wydarzeń.',
+    empty_sub:     'Sprawdź ponownie później!',
+    load_error:    'Nie udało się załadować wydarzeń.'
+  },
+  de: {
+    this_week:     'Diese Woche',
+    next_week:     'Nächste Woche',
+    later:         'Demnächst',
+    empty_title:   'Aktuell sind keine Veranstaltungen geplant.',
+    empty_sub:     'Schauen Sie später wieder vorbei!',
+    load_error:    'Veranstaltungen konnten nicht geladen werden.'
+  }
+};
+
+function getEventsLang() {
+  try {
+    const saved = localStorage.getItem('pmk-lang') || 'pl';
+    return EVENTS_I18N[saved] ? saved : 'pl';
+  } catch (e) { return 'pl'; }
+}
+
+function tEvents(key) {
+  const lang = getEventsLang();
+  return (EVENTS_I18N[lang] && EVENTS_I18N[lang][key]) || EVENTS_I18N.pl[key] || key;
+}
+
 async function loadEvents() {
   const container = document.getElementById('events-container');
 
@@ -225,8 +257,8 @@ async function loadEvents() {
     if (events.length === 0) {
       container.innerHTML = `
         <div class="events-empty">
-          <p>Aktualnie brak zaplanowanych wydarzen.</p>
-          <p>Sprawdz ponownie pozniej!</p>
+          <p>${tEvents('empty_title')}</p>
+          <p>${tEvents('empty_sub')}</p>
         </div>
       `;
       return;
@@ -255,15 +287,15 @@ async function loadEvents() {
     let html = '';
 
     if (thisWeek.length > 0) {
-      html += renderSection('W tym tygodniu', thisWeek);
+      html += renderSection(tEvents('this_week'), thisWeek);
     }
 
     if (nextWeek.length > 0) {
-      html += renderSection('W przyszlym tygodniu', nextWeek);
+      html += renderSection(tEvents('next_week'), nextWeek);
     }
 
     if (later.length > 0) {
-      html += renderSection('Wkrotce', later);
+      html += renderSection(tEvents('later'), later);
     }
 
     container.innerHTML = html;
@@ -271,9 +303,22 @@ async function loadEvents() {
 
   } catch (error) {
     console.error('Error:', error);
-    container.innerHTML = '<p class="events-empty">Nie udało się załadować wydarzeń.</p>';
+    container.innerHTML = `<p class="events-empty">${tEvents('load_error')}</p>`;
   }
 }
+
+// Re-render events when language switches mid-session
+document.addEventListener('DOMContentLoaded', function() {
+  // Wrap window.setLang after i18n.js (deferred) has installed it
+  const orig = window.setLang;
+  if (typeof orig === 'function') {
+    window.setLang = function(lang) { orig(lang); loadEvents(); };
+  }
+});
+// Cross-tab sync
+window.addEventListener('storage', function(e) {
+  if (e.key === 'pmk-lang') loadEvents();
+});
 
 function renderSection(title, events) {
   let html = `<div class="events-section"><h2 class="events-section-title">${title}</h2>`;

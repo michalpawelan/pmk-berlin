@@ -1,0 +1,39 @@
+{
+  "events.hero.label": {
+    "pl": "Wydarzenia",
+    "de": "Veranstaltungen"
+  },
+  "events.hero.title": {
+    "pl": "Co <em>nadchodzi?</em>",
+    "de": "Was steht <em>an?</em>"
+  },
+  "events.hero.lead": {
+    "pl": "Aktualne wydarzenia w naszej parafii",
+    "de": "Aktuelle Veranstaltungen in unserer Gemeinde"
+  },
+
+  "events.schedule.label": {
+    "pl": "Nabożeństwa",
+    "de": "Gottesdienste"
+  },
+  "events.schedule.title": {
+    "pl": "Stały rozkład <em>Mszy</em>",
+    "de": "Regelmäßige <em>Messzeiten</em>"
+  },
+  "events.schedule.sunday": {
+    "pl": "Niedziela i Święta",
+    "de": "Sonntag und Feiertage"
+  },
+  "events.schedule.weekdays": {
+    "pl": "Poniedziałek - Sobota",
+    "de": "Montag - Samstag"
+  },
+  "events.schedule.confession": {
+    "pl": "Spowiedź",
+    "de": "Beichte"
+  },
+  "events.schedule.confession_note": {
+    "pl": "Pon.–Sob. podczas Mszy wieczornej<br>Niedziela przed i podczas każdej Mszy Św.<br>I piątek miesiąca od 17:00",
+    "de": "Mo.–Sa. während der Abendmesse<br>Sonntag vor und während jeder Heiligen Messe<br>1. Freitag im Monat ab 17:00 Uhr"
+  }
+}

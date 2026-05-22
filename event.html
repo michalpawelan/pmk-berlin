@@ -98,7 +98,7 @@
   <!-- Loading State -->
   <div class="event-loading" id="event-loading">
     <div class="loading-spinner"></div>
-    <p>Ladowanie wydarzenia...</p>
+    <p data-i18n="event.loading">Ladowanie wydarzenia...</p>
   </div>
 
   <!-- Error State -->
@@ -109,9 +109,9 @@
         <path d="M12 8v4m0 4h.01"/>
       </svg>
     </div>
-    <h2>Wydarzenie nie znalezione</h2>
-    <p>Przepraszamy, nie udało się znaleźć tego wydarzenia.</p>
-    <a href="events.html" class="btn btn-primary">Wróc do kalendarza</a>
+    <h2 data-i18n="event.error.title">Wydarzenie nie znalezione</h2>
+    <p data-i18n="event.error.body">Przepraszamy, nie udało się znaleźć tego wydarzenia.</p>
+    <a href="events.html" class="btn btn-primary" data-i18n="event.error.back">Wróc do kalendarza</a>
   </div>
 
   <!-- Event Content (Luma-style, filled by JavaScript) -->
@@ -122,7 +122,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M19 12H5m0 0l7 7m-7-7l7-7"/>
       </svg>
-      Wróc do wydarzen
+      <span data-i18n="event.back">Wróc do wydarzen</span>
     </a>
 
     <!-- Top: Image + Title/Info side by side -->
@@ -167,7 +167,7 @@
             <div class="event-info-text">
               <strong id="event-location"></strong>
               <span id="event-address"></span>
-              <a id="event-map-link" href="#" target="_blank" rel="noopener">Otwórz w Google Maps ↗</a>
+              <a id="event-map-link" href="#" target="_blank" rel="noopener" data-i18n="event.maps_link">Otwórz w Google Maps ↗</a>
             </div>
           </div>
         </div>
@@ -176,7 +176,7 @@
 
     <!-- About Section -->
     <div class="event-about">
-      <h2>O wydarzeniu</h2>
+      <h2 data-i18n="event.about">O wydarzeniu</h2>
       <div class="event-description" id="event-description">
         <!-- Filled by JavaScript -->
       </div>
@@ -193,12 +193,12 @@
         </svg>
         Google Calendar
       </a>
-      <button class="action-btn" id="btn-copy-link" title="Kopiuj link">
+      <button class="action-btn" id="btn-copy-link" title="Kopiuj link" data-i18n-attr="title:event.copy_link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
           <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
         </svg>
-        Kopiuj link
+        <span data-i18n="event.copy_link">Kopiuj link</span>
       </button>
       <a class="action-btn" id="btn-share-whatsapp" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
@@ -210,7 +210,7 @@
 
     <!-- Location + Map -->
     <div class="event-location-section">
-      <h2>Lokalizacja</h2>
+      <h2 data-i18n="event.location_heading">Lokalizacja</h2>
       <div class="location-info">
         <div class="location-info-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -229,7 +229,7 @@
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
-          <p>Kliknij aby zobaczyc mape</p>
+          <p data-i18n="event.map_click">Kliknij aby zobaczyc mape</p>
         </div>
       </div>
     </div>
@@ -403,10 +403,11 @@ function renderEvent(event) {
       await navigator.clipboard.writeText(pageUrl);
       const btn = document.getElementById('btn-copy-link');
       const original = btn.innerHTML;
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Skopiowano!';
+      const copiedLabel = tEvent('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> ' + copiedLabel;
       setTimeout(() => btn.innerHTML = original, 2000);
     } catch (e) {
-      prompt('Skopiuj link:', pageUrl);
+      prompt(tEvent('copy_prompt'), pageUrl);
     }
   });
 
@@ -414,9 +415,20 @@ function renderEvent(event) {
     `https://wa.me/?text=${encodeURIComponent(event.title + ' - ' + pageUrl)}`;
 }
 
+// Lang-aware strings for dynamically-rendered content
+const EVENT_I18N = {
+  pl: { copied: 'Skopiowano!', copy_prompt: 'Skopiuj link:', default_desc: 'Wydarzenie parafialne w Polskiej Misji Katolickiej w Berlinie.' },
+  de: { copied: 'Kopiert!', copy_prompt: 'Link kopieren:', default_desc: 'Gemeindeveranstaltung der Polnischen Katholischen Mission in Berlin.' }
+};
+function tEvent(key) {
+  let lang = 'pl';
+  try { lang = localStorage.getItem('pmk-lang') || 'pl'; } catch (e) {}
+  return (EVENT_I18N[lang] && EVENT_I18N[lang][key]) || EVENT_I18N.pl[key] || key;
+}
+
 function updateEventSeo(event) {
   const canonicalUrl = `https://www.pmk-berlin.de/event.html?id=${encodeURIComponent(event.id || '')}`;
-  const desc = (event.shortDesc || event.fullDesc || 'Wydarzenie parafialne w Polskiej Misji Katolickiej w Berlinie.').replace(/\s+/g, ' ').trim().slice(0, 300);
+  const desc = (event.shortDesc || event.fullDesc || tEvent('default_desc')).replace(/\s+/g, ' ').trim().slice(0, 300);
   const image = event.imageUrl || 'https://www.pmk-berlin.de/images/basilika-fassade.webp';
 
   const setMeta = (selector, attr, value) => {
