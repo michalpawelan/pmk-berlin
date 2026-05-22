@@ -54,5 +54,17 @@
   "footer.donate_cta": {
     "pl": "Wesprzyj parafię",
     "de": "Jetzt spenden"
+  },
+  "nav.groups": {
+    "pl": "Grupy parafialne",
+    "de": "Gemeindegruppen"
+  },
+  "footer.nav_title": {
+    "pl": "Nawigacja",
+    "de": "Navigation"
+  },
+  "footer.info_title": {
+    "pl": "Informacje",
+    "de": "Informationen"
   }
 }
