@@ -177,99 +177,24 @@
     .sacr-step-hint svg { width: 14px; height: 14px; }
 
     /* CTA block */
-    .sacr-cta {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 0 var(--space-6) var(--space-12);
-    }
-
-    .sacr-cta-card {
-      background: var(--color-warm-950);
-      color: white;
-      border-radius: var(--radius-2xl, 1.5rem);
-      padding: var(--space-10);
-      text-align: center;
-    }
-
-    .sacr-cta-card h2 {
-      font-family: var(--font-serif);
-      font-size: var(--text-2xl);
-      font-weight: 500;
-      margin-bottom: var(--space-3);
-    }
-
-    .sacr-cta-card p {
-      font-size: var(--text-base);
-      opacity: 0.75;
-      margin-bottom: var(--space-6);
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .sacr-cta-buttons {
-      display: flex;
-      gap: var(--space-3);
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .sacr-cta-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5em;
-      padding: var(--space-4) var(--space-8);
-      background: var(--color-accent);
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: var(--text-base);
-      border-radius: var(--radius-lg);
-      transition: all 0.2s;
-    }
-    .sacr-cta-primary:hover { background: var(--color-accent-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(166,139,91,0.4); }
-    .sacr-cta-primary svg { width: 18px; height: 18px; transition: transform 0.2s; }
-    .sacr-cta-primary:hover svg { transform: translateX(3px); }
-
-    .sacr-cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5em;
-      padding: var(--space-4) var(--space-8);
-      background: transparent;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: var(--text-base);
-      border-radius: var(--radius-lg);
-      border: 1.5px solid rgba(255,255,255,0.3);
-      transition: all 0.2s;
-    }
-    .sacr-cta-secondary:hover { border-color: white; background: rgba(255,255,255,0.08); }
+    .sacr-cta { max-width: 720px; margin: 0 auto; padding: 0 var(--space-6) var(--space-12); }
+    .sacr-cta-card { background: radial-gradient(ellipse 80% 70% at center, rgba(166,139,91,0.10) 0%, rgba(166,139,91,0.04) 50%, rgba(166,139,91,0) 80%); padding: var(--space-12) var(--space-8) var(--space-10); text-align: center; }
+    .sacr-cta-card h2 { font-family: var(--font-serif); font-size: var(--text-2xl); font-weight: 500; margin-bottom: var(--space-3); letter-spacing: -0.01em; color: var(--color-text-primary); }
+    .sacr-cta-card p { font-size: var(--text-base); color: var(--color-text-secondary); margin-bottom: var(--space-6); max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.65; }
+    .sacr-cta-buttons { display: flex; gap: var(--space-3); justify-content: center; align-items: center; flex-wrap: wrap; }
+    .sacr-cta-primary, .sacr-cta-secondary { display: inline-flex; align-items: center; gap: 0.5em; padding: var(--space-3) var(--space-5); font-weight: 600; font-size: var(--text-sm); border-radius: 9999px; text-decoration: none; white-space: nowrap; transition: all 0.2s ease; }
+    .sacr-cta-primary { background: var(--color-accent); color: white; box-shadow: 0 2px 10px rgba(166,139,91,0.3); }
+    .sacr-cta-primary:hover { background: var(--color-accent-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(166,139,91,0.4); }
+    .sacr-cta-secondary { background: var(--color-warm-50, #faf6ef); color: var(--color-text-primary); }
+    .sacr-cta-secondary:hover { background: var(--color-warm-100); color: var(--color-accent); transform: translateY(-1px); }
+    .sacr-cta-primary svg, .sacr-cta-secondary svg { width: 14px; height: 14px; flex-shrink: 0; opacity: 0.85; }
 
     /* Back link */
-    .sacr-back {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 0 var(--space-6) var(--space-16);
-      text-align: center;
-    }
-
-    .sacr-back a {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      font-size: var(--text-sm);
-      font-weight: 500;
-      padding: var(--space-3) var(--space-5);
-      border: 1px solid var(--color-border);
-      border-radius: 9999px;
-      transition: all 0.2s;
-    }
-    .sacr-back a:hover { color: var(--color-accent); border-color: var(--color-accent); }
-    .sacr-back a svg { width: 16px; height: 16px; }
+    .sacr-back { max-width: 780px; margin: 0 auto; padding: 0 var(--space-6) var(--space-16); text-align: center; }
+    .sacr-back a { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-secondary); text-decoration: none; font-size: var(--text-sm); font-weight: 500; padding: var(--space-2) var(--space-3); transition: all 0.2s; }
+    .sacr-back a:hover { color: var(--color-accent); gap: var(--space-3); }
+    .sacr-back a svg { width: 14px; height: 14px; transition: transform 0.2s; }
+    .sacr-back a:hover svg { transform: translateX(-3px); }
 
     @media (max-width: 640px) { .sacr-hero-quick { flex-direction: column; gap: var(--space-2); } .sacr-step { grid-template-columns: 44px 1fr; gap: var(--space-4); } .sacr-step-number { width: 44px; height: 44px; font-size: var(--text-base); } .sacr-step-content { padding: var(--space-5) var(--space-5); } .sacr-step:hover .sacr-step-content { transform: none; } .sacr-cta-card { padding: var(--space-8) var(--space-6); } }
   </style>
@@ -401,15 +326,16 @@
     <p data-i18n="komunia.cta.body">Zapisy: maj–czerwiec. Wypełnij formularz zgłoszeniowy i dostarcz go razem z Aktem Chrztu do Biura Parafialnego.</p>
     <div class="sacr-cta-buttons">
       <a href="zgloszenie-komunia.html" class="sacr-cta-primary">
-        <span data-i18n="komunia.cta.form">Wypełnij formularz</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+        <span data-i18n="komunia.cta.form">Formularz</span>
       </a>
       <a href="tel:+49307524080" class="sacr-cta-secondary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         <span data-i18n="komunia.cta.call">Zadzwoń</span>
       </a>
-      <a href="kontakt.html?temat=Pierwsza%20Komunia" class="sacr-cta-secondary" data-i18n="komunia.cta.email">
-        Napisz e-mail
+      <a href="kontakt.html?temat=Pierwsza%20Komunia" class="sacr-cta-secondary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span data-i18n="komunia.cta.email">E-mail</span>
       </a>
     </div>
   </div>
