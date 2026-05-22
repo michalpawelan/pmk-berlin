@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Wesprzyj naszą parafię | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Wesprzyj Polską Misję Katolicką w Berlinie — informacje o koncie bankowym, celach ofiar i zaświadczeniach o darowiznach.">
+  <link rel="canonical" href="https://www.pmk-berlin.de/wesprzyj.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wesprzyj.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wesprzyj.html">
+
+  <meta property="og:title" content="Wesprzyj naszą parafię | Polska Misja Katolicka Berlin">
+  <meta property="og:description" content="Twoja ofiara pomaga utrzymać Bazylikę i wspierać życie duchowe naszej wspólnoty. Bóg zapłać za każde wsparcie.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.pmk-berlin.de/wesprzyj.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Johannes-Basilika - Polska Misja Katolicka w Berlinie">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wesprzyj naszą parafię | PMK Berlin">
+  <meta name="twitter:description" content="Twoja ofiara pomaga utrzymać Bazylikę i wspierać życie duchowe naszej wspólnoty.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Kreuzberg">
+  <meta name="geo.position" content="52.4870;13.3950">
+  <meta name="ICBM" content="52.4870, 13.3950">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://www.pmk-berlin.de/" },
+      { "@type": "ListItem", "position": 2, "name": "Wesprzyj parafię", "item": "https://www.pmk-berlin.de/wesprzyj.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Wesprzyj naszą parafię — PMK Berlin",
+    "url": "https://www.pmk-berlin.de/wesprzyj.html",
+    "inLanguage": "pl",
+    "about": { "@id": "https://www.pmk-berlin.de/#church" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ===== Donate Page Styles ===== */
+    .donate-hero {
+      padding: calc(var(--nav-height, 80px) + var(--space-12)) 0 var(--space-12);
+      background: var(--color-warm-100);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .donate-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%; height: 100%;
+      background: linear-gradient(135deg, transparent 40%, var(--color-accent-light));
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .donate-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      text-align: center;
+    }
+
+    .donate-breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+    }
+    .donate-breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+    .donate-breadcrumb a:hover { color: var(--color-accent); }
+    .donate-breadcrumb svg { width: 14px; height: 14px; opacity: 0.4; }
+
+    .donate-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px; height: 64px;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 18px;
+      margin-bottom: var(--space-5);
+    }
+    .donate-icon-badge svg { width: 30px; height: 30px; }
+
+    .donate-hero h1 {
+      font-family: var(--font-serif);
+      font-size: var(--text-5xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .donate-hero h1 em { color: var(--color-accent); font-style: italic; }
+
+    .donate-hero-lead {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .donate-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-6);
+    }
+
+    .donate-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .donate-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Bank info card — primary */
+    .donate-bank-card {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-2xl, 1.5rem);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+
+    .donate-bank-header {
+      background: var(--color-warm-950);
+      color: white;
+      padding: var(--space-6);
+      text-align: center;
+    }
+    .donate-bank-header h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+      margin: 0 0 var(--space-1);
+    }
+    .donate-bank-header p {
+      font-size: var(--text-sm);
+      color: var(--color-warm-300);
+      margin: 0;
+    }
+
+    .donate-bank-body { padding: var(--space-6); }
+
+    .donate-bank-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .donate-bank-row:last-child { border-bottom: none; }
+
+    .donate-bank-row .label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .donate-bank-row .value {
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: var(--text-base);
+      color: var(--color-text-primary);
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .donate-bank-row .value.placeholder {
+      color: var(--color-warm-500);
+      font-style: italic;
+    }
+
+    .donate-bank-copy-btn {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--text-xs);
+      color: var(--color-accent);
+      cursor: pointer;
+      margin-left: var(--space-2);
+      transition: all 0.2s;
+    }
+    .donate-bank-copy-btn:hover {
+      background: var(--color-accent);
+      color: white;
+      border-color: var(--color-accent);
+    }
+
+    .donate-bank-note {
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-warm-100);
+      border-left: 3px solid var(--color-accent);
+      margin: var(--space-4) 0 0;
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Right column: purposes + receipt + transparency */
+    .donate-side h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-4);
+    }
+    .donate-side h3 em { color: var(--color-accent); font-style: italic; }
+
+    .donate-side p {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin: 0 0 var(--space-4);
+    }
+
+    .donate-purposes {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-8);
+    }
+
+    .donate-purposes li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: var(--text-base);
+      color: var(--color-text-primary);
+    }
+    .donate-purposes li:last-child { border-bottom: none; }
+
+    .donate-purposes li svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .donate-purposes li strong {
+      color: var(--color-text-primary);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .donate-purposes li span.desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      font-weight: 400;
+      display: block;
+    }
+
+    .donate-receipt-box {
+      background: var(--color-warm-100);
+      border-radius: var(--radius-xl, 1rem);
+      padding: var(--space-5);
+      margin-top: var(--space-6);
+    }
+
+    .donate-receipt-box h4 {
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-2);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .donate-receipt-box h4 svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent);
+    }
+
+    .donate-receipt-box p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Bottom: contact / questions */
+    .donate-cta-row {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-16);
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .donate-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-full, 9999px);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+    .donate-cta:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    .donate-cta svg { width: 16px; height: 16px; }
+
+    .donate-quote {
+      max-width: 720px;
+      margin: var(--space-12) auto 0;
+      padding: var(--space-6) var(--space-8);
+      border-left: 3px solid var(--color-accent);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .donate-quote cite {
+      display: block;
+      margin-top: var(--space-3);
+      font-size: var(--text-sm);
+      font-style: normal;
+      color: var(--color-text-secondary);
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Strona główna</a></li>
+      <li><a href="sakramente.html">Sakramenty</a></li>
+      <li><a href="events.html">Wydarzenia</a></li>
+      <li><a href="grupy.html">Grupy parafialne</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section id="main-content" class="donate-hero">
+  <div class="donate-hero-inner">
+    <nav class="donate-breadcrumb">
+      <a href="index.html">Strona główna</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span>Wesprzyj parafię</span>
+    </nav>
+
+    <div class="donate-icon-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+    </div>
+    <h1>Wesprzyj <em>naszą parafię</em></h1>
+    <p class="donate-hero-lead">
+      Twoja ofiara pomaga utrzymać Bazylikę św. Jana Chrzciciela i wspierać życie duchowe naszej polskiej wspólnoty w&nbsp;Berlinie. Bóg zapłać za każde wsparcie.
+    </p>
+  </div>
+</section>
+
+<!-- Content -->
+<section class="donate-content">
+  <div class="donate-grid">
+
+    <!-- LEFT: Bank account card -->
+    <div class="donate-bank-card">
+      <div class="donate-bank-header">
+        <h2>Konto bankowe parafii</h2>
+        <p>Bankverbindung der Pfarrei</p>
+      </div>
+      <div class="donate-bank-body">
+        <!-- TODO: nach Erhalt der Konto-Daten vom Pfarramt eintragen -->
+        <div class="donate-bank-row">
+          <span class="label">Odbiorca / Kontoinhaber</span>
+          <span class="value">Polska Misja Katolicka w&nbsp;Berlinie</span>
+        </div>
+        <div class="donate-bank-row">
+          <span class="label">IBAN</span>
+          <span class="value placeholder" id="iban-value">DE.. .... .... .... .... ..</span>
+        </div>
+        <div class="donate-bank-row">
+          <span class="label">BIC</span>
+          <span class="value placeholder">[BIC vom Pfarramt]</span>
+        </div>
+        <div class="donate-bank-row">
+          <span class="label">Bank</span>
+          <span class="value placeholder">[Nazwa banku / Bankname]</span>
+        </div>
+
+        <div class="donate-bank-note">
+          <strong>Ważne / Wichtig:</strong> w polu „Tytuł przelewu" / „Verwendungszweck" prosimy wpisać <strong>cel ofiary</strong> oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić Spendenquittung.
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Purposes + receipt info -->
+    <div class="donate-side">
+      <h3>Cele <em>ofiary</em></h3>
+      <p>Możesz wskazać konkretny cel w&nbsp;tytule przelewu (Verwendungszweck) lub zostawić puste pole — wtedy ofiara trafia na cele ogólne parafii.</p>
+
+      <ul class="donate-purposes">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <div>
+            <strong>Bazylika — utrzymanie</strong>
+            <span class="desc">Erhaltung der Johannes-Basilika (Renovacja, ogrzewanie, sprzątanie)</span>
+          </div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v8m-4-4h8m-4 4v10m-6 0h12"/></svg>
+          <div>
+            <strong>Życie duchowe i&nbsp;liturgia</strong>
+            <span class="desc">Spirituelles Leben &amp; Liturgie (organy, śpiew, świece)</span>
+          </div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+          <div>
+            <strong>Dzieci i&nbsp;młodzież</strong>
+            <span class="desc">Kinder &amp; Jugend (katechezy, scholii, ministranci, rekolekcje)</span>
+          </div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+          <div>
+            <strong>Cele ogólne parafii</strong>
+            <span class="desc">Allgemeine Zwecke der Pfarrei (zostaw pole puste, abyśmy mogli skierować ofiarę tam, gdzie jest najpotrzebniejsza)</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="donate-receipt-box">
+        <h4>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Zaświadczenie o&nbsp;darowiźnie / Spendenquittung
+        </h4>
+        <p>Wystawiamy zaświadczenia o&nbsp;darowiźnie do&nbsp;celów podatkowych. Aby je otrzymać, podaj w&nbsp;tytule przelewu swoje <strong>imię, nazwisko i&nbsp;adres</strong>. Zaświadczenie wyślemy pocztą lub e&#8209;mailem.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Quote -->
+<div class="donate-quote">
+  „Każdy niech przeto postąpi tak, jak mu nakazuje jego własne serce, nie&nbsp;żałując i&nbsp;nie&nbsp;czując się przymuszonym, albowiem radosnego dawcę miłuje Bóg."
+  <cite>— 2 Kor 9, 7</cite>
+</div>
+
+<!-- Bottom CTAs -->
+<div class="donate-cta-row" style="margin-top: var(--space-12);">
+  <a href="kontakt.html?temat=Wsparcie%20parafii" class="donate-cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    Masz pytania? Napisz do nas
+  </a>
+  <a href="index.html" class="donate-cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Powrót na stronę główną
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Nawigacja</h4>
+          <a href="index.html">Strona główna</a>
+          <a href="sakramente.html">Sakramenty</a>
+          <a href="events.html">Wydarzenia</a>
+          <a href="grupy.html">Grupy parafialne</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+<script>
+  // Copy IBAN to clipboard helper
+  document.addEventListener('DOMContentLoaded', function() {
+    var ibanRow = document.querySelector('#iban-value');
+    if (!ibanRow) return;
+    var btn = document.createElement('button');
+    btn.className = 'donate-bank-copy-btn';
+    btn.type = 'button';
+    btn.textContent = 'Kopiuj';
+    btn.setAttribute('aria-label', 'Kopiuj IBAN do schowka');
+    ibanRow.parentNode.appendChild(btn);
+    btn.addEventListener('click', function() {
+      var iban = ibanRow.textContent.replace(/\s+/g,'').trim();
+      navigator.clipboard.writeText(iban).then(function() {
+        var orig = btn.textContent;
+        btn.textContent = 'Skopiowano!';
+        setTimeout(function() { btn.textContent = orig; }, 1800);
+      });
+    });
+  });
+</script>
+</body>
+</html>
