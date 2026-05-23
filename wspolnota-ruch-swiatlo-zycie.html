@@ -199,18 +199,19 @@
       border-radius: var(--radius-2xl, 1.5rem);
       overflow: hidden;
       aspect-ratio: 4/3;
-      background: var(--color-warm-200);
+      background: #f5f1ea;
     }
 
     .group-hero-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      padding: 1.25rem;
     }
 
     /* Logo variant: contain + matching background so the square logo looks intentional */
     .group-hero-image--logo {
-      background: #3a2618;
+      background: #f5f1ea;
     }
 
     .group-hero-image--logo img {
