@@ -280,6 +280,28 @@ const CSS = `
   .pmk-chip:focus-visible { outline: 2px solid var(--pmk-gold); outline-offset: 2px; }
   .pmk-chip-icon { font-size: 1rem; line-height: 1; }
 
+  /* Follow-up chips after an agent reply */
+  .pmk-followups {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin: 2px 0 4px 36px;
+    animation: pmk-msg-in 320ms ease;
+  }
+  .pmk-followup {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 11px;
+    background: transparent;
+    border: 1px solid var(--pmk-border);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    color: var(--pmk-ink-soft);
+    cursor: pointer;
+    transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+  .pmk-followup:hover { background: #ffffff; border-color: var(--pmk-gold); color: var(--pmk-ink); transform: translateY(-1px); }
+  .pmk-followup:focus-visible { outline: 2px solid var(--pmk-gold); outline-offset: 2px; }
+  .pmk-followup-icon { font-size: 0.9rem; line-height: 1; }
+
   /* Messages */
   .pmk-msg {
     display: flex; gap: 8px;
@@ -304,13 +326,12 @@ const CSS = `
   .pmk-msg-user .pmk-msg-avatar { display: none; }
 
   .pmk-msg-bubble {
-    padding: 10px 14px;
+    padding: 9px 13px;
     border-radius: 16px;
     font-size: 0.94rem;
-    line-height: 1.5;
+    line-height: 1.42;
     max-width: 84%;
     word-wrap: break-word;
-    white-space: pre-wrap;
   }
   .pmk-msg-agent .pmk-msg-bubble {
     background: #ffffff;
@@ -424,13 +445,16 @@ function escapeHTML(str) {
   return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// Light markdown: **bold**, *italic*, [text](url), newlines
+// Light markdown: **bold**, *italic*, [text](url), newlines.
+// Multi-newlines are capped at a single line break to keep numbered lists tight.
 function renderRich(text) {
-  let html = escapeHTML(text);
+  let html = escapeHTML(String(text || '').trim());
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
   html = html.replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:|tel:)[^)]+)\)/g,
     '<a href="$2" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">$1</a>');
+  // Collapse two-or-more newlines to a single newline so numbered lists don't get blown apart.
+  html = html.replace(/\n{2,}/g, '\n');
   html = html.replace(/\n/g, '<br>');
   return html;
 }
@@ -443,7 +467,8 @@ const state = {
   conversation: null,
   connecting: false,
   messages: [],
-  pendingAgentEventId: null
+  pendingAgentEventId: null,
+  usedChipIdx: new Set()
 };
 const els = {};
 
@@ -521,12 +546,13 @@ function buildPanel() {
 
   // Render chips
   const chips = t('chips');
-  chips.forEach(c => {
+  chips.forEach((c, idx) => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'pmk-chip';
     btn.innerHTML = '<span class="pmk-chip-icon">' + escapeHTML(c.icon) + '</span> ' + escapeHTML(c.label);
     btn.addEventListener('click', () => {
+      state.usedChipIdx.add(idx);
       sendMessage(c.text);
     });
     els.chips.appendChild(btn);
@@ -567,7 +593,10 @@ async function ensureConversation() {
       connectionType: 'websocket',
       textOnly: true,
       overrides: {
-        agent: { language: currentLang() }
+        // Suppress the agent's configured first_message in chat — the widget already shows
+        // a written greeting in the empty state, so a re-greeting from the agent reads as
+        // a doppelbegrüßung. The phone channel keeps the configured first_message.
+        agent: { language: currentLang(), firstMessage: '' }
       },
       onConnect: () => { hideStatus(); },
       onDisconnect: () => {
@@ -602,6 +631,7 @@ async function ensureConversation() {
 
 async function sendMessage(text) {
   if (!text) return;
+  removeFollowups();
   appendMessage('user', text);
   els.input.value = '';
   els.input.style.height = 'auto';
@@ -638,6 +668,7 @@ function showEmpty() {
 
 function appendMessage(role, text) {
   state.messages.push({ role, text });
+  removeFollowups();
   const div = document.createElement('div');
   div.className = 'pmk-msg pmk-msg-' + role;
   const avatarSrc = role === 'agent' ? AVATAR_URL : '';
@@ -645,7 +676,44 @@ function appendMessage(role, text) {
     (role === 'agent' ? '<span class="pmk-msg-avatar"><img src="' + avatarSrc + '" alt=""></span>' : '') +
     '<div class="pmk-msg-bubble">' + renderRich(text) + '</div>';
   els.body.appendChild(div);
+  if (role === 'agent') renderFollowups();
   scrollToBottom();
+}
+
+function removeFollowups() {
+  const f = document.getElementById('pmkFollowups');
+  if (f) f.remove();
+}
+
+function renderFollowups() {
+  removeFollowups();
+  const chips = t('chips');
+  if (!chips || !chips.length) return;
+  // Pick up to 3 chips the user hasn't already clicked.
+  let pool = chips.map((c, idx) => ({ c, idx })).filter(x => !state.usedChipIdx.has(x.idx));
+  if (pool.length === 0) {
+    // All used — recycle, but skip whatever matches the most recent user message.
+    const lastUser = [...state.messages].reverse().find(m => m.role === 'user');
+    const lastText = lastUser ? lastUser.text : '';
+    pool = chips.map((c, idx) => ({ c, idx })).filter(x => x.c.text !== lastText);
+  }
+  const picks = pool.slice(0, 3);
+  if (!picks.length) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'pmk-followups';
+  wrap.id = 'pmkFollowups';
+  picks.forEach(({ c, idx }) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pmk-followup';
+    b.innerHTML = '<span class="pmk-followup-icon">' + escapeHTML(c.icon) + '</span> ' + escapeHTML(c.label);
+    b.addEventListener('click', () => {
+      state.usedChipIdx.add(idx);
+      sendMessage(c.text);
+    });
+    wrap.appendChild(b);
+  });
+  els.body.appendChild(wrap);
 }
 
 function showTyping() {
@@ -708,6 +776,8 @@ async function closeChat() {
   }
   // Reset state for next open
   state.messages = [];
+  state.usedChipIdx = new Set();
+  removeFollowups();
   if (els.body) {
     // Remove all message nodes but keep empty state markup
     Array.from(els.body.children).forEach(c => {
