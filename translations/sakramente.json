@@ -8,8 +8,8 @@
     "de": "<em>Sakramentales</em> Leben"
   },
   "sakramente.hero.lead": {
-    "pl": "Sakramenty są znakami łaski Bożej, przez które Chrystus udziela nam zbawienia. Towarzyszymy wiernym na każdym etapie ich duchowej drogi.",
-    "de": "Die Sakramente sind Zeichen der Gnade Gottes, durch die Christus uns das Heil schenkt. Wir begleiten die Gläubigen auf jeder Etappe ihres geistlichen Weges."
+    "pl": "Sakramenty są widzialnymi znakami łaski Bożej, przez które Chrystus uświęca człowieka.",
+    "de": "Die Sakramente sind sichtbare Zeichen der Gnade Gottes, durch die Christus den Menschen heiligt."
   },
 
   "sakramente.card.chrzest.name": {
@@ -17,8 +17,8 @@
     "de": "Taufe"
   },
   "sakramente.card.chrzest.desc": {
-    "pl": "Brama do życia nadprzyrodzonego i do innych sakramentów. Chrzty: 2. i 4. sobota miesiąca.",
-    "de": "Tor zum übernatürlichen Leben und zu den weiteren Sakramenten. Tauftermine: 2. und 4. Samstag im Monat."
+    "pl": "Brama do życia chrześcijańskiego i innych sakramentów. Chrztu udzielamy w 2. i 4. sobotę miesiąca.",
+    "de": "Pforte zum christlichen Leben und zu den anderen Sakramenten. Taufen spenden wir am 2. und 4. Samstag im Monat."
   },
 
   "sakramente.card.komunia.name": {
@@ -26,8 +26,8 @@
     "de": "Erstkommunion"
   },
   "sakramente.card.komunia.desc": {
-    "pl": "Spotkanie z Chrystusem obecnym w Eucharystii. Dwuletni cykl katechezy dla dzieci od 3. klasy.",
-    "de": "Begegnung mit Christus in der Eucharistie. Zweijährige Katechese für Kinder ab der 3. Klasse."
+    "pl": "Przygotowanie do spotkania z Chrystusem obecnym w Eucharystii — roczny kurs katechetyczny dla dzieci od 3. klasy.",
+    "de": "Vorbereitung auf die Begegnung mit Christus in der Eucharistie — einjähriger Katechesekurs für Kinder ab der 3. Klasse."
   },
 
   "sakramente.card.bierzmowanie.name": {
@@ -35,8 +35,8 @@
     "de": "Firmung"
   },
   "sakramente.card.bierzmowanie.desc": {
-    "pl": "Umocnienie darami Ducha Świętego. Roczny kurs przygotowawczy dla młodzieży od 14. roku życia.",
-    "de": "Stärkung durch die Gaben des Heiligen Geistes. Einjähriger Vorbereitungskurs für Jugendliche ab 14 Jahren."
+    "pl": "Sakrament, w którym Duch Święty umacnia naszą wiarę — roczny kurs katechetyczny dla młodzieży od 15. roku życia.",
+    "de": "Das Sakrament, in dem der Heilige Geist unseren Glauben stärkt — einjähriger Katechesekurs für Jugendliche ab dem 15. Lebensjahr."
   },
 
   "sakramente.card.malzenstwo.name": {
