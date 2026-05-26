@@ -236,16 +236,16 @@
     "de": "<em>Firmung</em>"
   },
   "bierzmowanie.hero.lead": {
-    "pl": "Sakrament dojrzałości chrześcijańskiej — umocnienie darami Ducha Świętego do świadczenia o Chrystusie.",
-    "de": "Sakrament der christlichen Reife — Stärkung durch die Gaben des Heiligen Geistes für das Zeugnis von Christus."
+    "pl": "Sakrament, w którym Duch Święty umacnia naszą wiarę — roczny kurs katechetyczny dla młodzieży od 15. roku życia.",
+    "de": "Das Sakrament, in dem der Heilige Geist unseren Glauben stärkt — einjähriger Katechesekurs für Jugendliche ab dem 15. Lebensjahr."
   },
   "bierzmowanie.quick.age": {
-    "pl": "Młodzież: <strong>od 14 lat</strong>",
-    "de": "Jugendliche: <strong>ab 14 Jahren</strong>"
+    "pl": "Młodzież: <strong>od 15 lat</strong>",
+    "de": "Jugendliche: <strong>ab 15 Jahren</strong>"
   },
   "bierzmowanie.quick.signup": {
-    "pl": "Zapisy: <strong>maj–czerwiec</strong>",
-    "de": "Anmeldung: <strong>Mai–Juni</strong>"
+    "pl": "Zapisy: <strong>Wrzesień</strong>",
+    "de": "Anmeldung: <strong>September</strong>"
   },
   "bierzmowanie.quick.ceremony": {
     "pl": "Bierzmowanie: <strong>maj/czerwiec</strong>",
@@ -256,24 +256,24 @@
     "de": "Vorbereitung für <em>Jugendliche</em>"
   },
   "bierzmowanie.youth.subtitle": {
-    "pl": "Dla kandydatów od 14. roku życia. Zapisy: maj–czerwiec.",
-    "de": "Für Kandidaten ab 14 Jahren. Anmeldung: Mai–Juni."
+    "pl": "Dla kandydatów od 15. roku życia. Zapisy: wrzesień.",
+    "de": "Für Kandidaten ab dem 15. Lebensjahr. Anmeldung: September."
   },
   "bierzmowanie.youth.step1.title": {
     "pl": "Zapisy",
     "de": "Anmeldung"
   },
   "bierzmowanie.youth.step1.body": {
-    "pl": "Zapisy odbywają się w maju–czerwcu. Wymagane dokumenty:",
-    "de": "Die Anmeldung findet im Mai und Juni statt. Erforderliche Unterlagen:"
+    "pl": "Zapisy odbywają się we wrześniu. Wymagane dokumenty:",
+    "de": "Die Anmeldung erfolgt im September. Erforderliche Unterlagen:"
   },
   "bierzmowanie.youth.step1.list": {
     "pl": "<li>Formularz zgłoszeniowy</li><li>Akt Chrztu</li>",
     "de": "<li>Anmeldeformular</li><li>Taufschein</li>"
   },
   "bierzmowanie.youth.step1.hint": {
-    "pl": "Wiek: skończone 14 lat",
-    "de": "Alter: vollendetes 14. Lebensjahr"
+    "pl": "Wiek: skończone 15 lat",
+    "de": "Alter: vollendetes 15. Lebensjahr"
   },
   "bierzmowanie.youth.step2.title": {
     "pl": "Cotygodniowa katecheza",
@@ -348,8 +348,8 @@
     "de": "Zur Firmung anmelden"
   },
   "bierzmowanie.cta.body": {
-    "pl": "Młodzież: zapisy maj–czerwiec. Dorośli: informacja na ogłoszeniach duszpasterskich. Formularz + Akt Chrztu.",
-    "de": "Jugendliche: Anmeldung Mai–Juni. Erwachsene: Informationen in den Pfarrnachrichten. Formular + Taufschein."
+    "pl": "Młodzież: zapisy wrzesień. Dorośli: informacja na ogłoszeniach duszpasterskich. Formularz + Akt Chrztu.",
+    "de": "Jugendliche: Anmeldung September. Erwachsene: Informationen in den Pfarrnachrichten. Formular + Taufschein."
   },
   "bierzmowanie.cta.form": {
     "pl": "Wypełnij formularz",
