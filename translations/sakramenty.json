@@ -16,16 +16,16 @@
     "de": "Sakrament der <em>Beichte</em>"
   },
   "spowiedz.hero.lead": {
-    "pl": "Spotkanie z miłosiernym Bogiem, który przebacza grzechy. Nie potrzebujesz umówienia — przyjdź na Mszę Świętą.",
-    "de": "Begegnung mit dem barmherzigen Gott, der Sünden vergibt. Sie brauchen keinen Termin — kommen Sie einfach zur Heiligen Messe."
+    "pl": "Spotkanie z miłosiernym Bogiem, który przebacza grzechy i daje nowe życie.",
+    "de": "Begegnung mit dem barmherzigen Gott, der die Sünden vergibt und neues Leben schenkt."
   },
   "spowiedz.quick.weekdays": {
-    "pl": "Pon.–Sob.: <strong>podczas Mszy wieczornej</strong>",
-    "de": "Mo.–Sa.: <strong>während der Abendmesse</strong>"
+    "pl": "Pon.–Sob.: <strong>od 17:30</strong>",
+    "de": "Mo.–Sa.: <strong>ab 17:30 Uhr</strong>"
   },
   "spowiedz.quick.sunday": {
-    "pl": "Niedziela: <strong>przed i podczas każdej Mszy Św.</strong>",
-    "de": "Sonntag: <strong>vor und während jeder Heiligen Messe</strong>"
+    "pl": "Niedziela: <strong>pół godziny przed każdą Mszą św.</strong> (z wyjątkiem lipca i sierpnia)",
+    "de": "Sonntag: <strong>eine halbe Stunde vor jeder hl. Messe</strong> (außer Juli und August)"
   },
   "spowiedz.quick.first_friday": {
     "pl": "I piątek miesiąca: <strong>od 17:00</strong>",
@@ -84,8 +84,8 @@
     "de": "Wann kommen?"
   },
   "spowiedz.cta.body": {
-    "pl": "Pon.–Sob. podczas Mszy wieczornej. Niedziela przed i podczas każdej Mszy Św. I piątek miesiąca od 17:00.",
-    "de": "Mo.–Sa. während der Abendmesse. Sonntags vor und während jeder Heiligen Messe. 1. Freitag im Monat ab 17:00 Uhr."
+    "pl": "Pon.–Sob. od 17:30. Niedziela: pół godziny przed każdą Mszą św. (z wyjątkiem lipca i sierpnia). I piątek miesiąca od 17:00.",
+    "de": "Mo.–Sa. ab 17:30 Uhr. Sonntag: eine halbe Stunde vor jeder hl. Messe (außer Juli und August). 1. Freitag im Monat ab 17:00 Uhr."
   },
   "spowiedz.cta.email": {
     "pl": "Napisz e-mail",
