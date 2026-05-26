@@ -29,7 +29,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Wesprzyj naszą Misję | PMK Berlin">
-  <meta name="twitter:description" content="Twoja ofiara pomaga utrzymać Bazylikę i wspierać życie duchowe naszej wspólnoty.">
+  <meta name="twitter:description" content="Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.">
   <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
 
   <meta name="geo.region" content="DE-BE">
@@ -254,45 +254,6 @@
       margin: 0 0 var(--space-4);
     }
 
-    .donate-purposes {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 var(--space-8);
-    }
-
-    .donate-purposes li {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--space-3);
-      padding: var(--space-3) 0;
-      border-bottom: 1px solid var(--color-border);
-      font-size: var(--text-base);
-      color: var(--color-text-primary);
-    }
-    .donate-purposes li:last-child { border-bottom: none; }
-
-    .donate-purposes li svg {
-      width: 18px;
-      height: 18px;
-      color: var(--color-accent);
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-
-    .donate-purposes li strong {
-      color: var(--color-text-primary);
-      font-weight: 600;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .donate-purposes li span.desc {
-      font-size: var(--text-sm);
-      color: var(--color-text-secondary);
-      font-weight: 400;
-      display: block;
-    }
-
     .donate-receipt-box {
       background: var(--color-warm-100);
       border-radius: var(--radius-xl, 1rem);
@@ -418,9 +379,9 @@
     <div class="donate-icon-badge">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
     </div>
-    <h1 data-i18n-html="wesprzyj.hero.title">Wesprzyj <em>naszą parafię</em></h1>
+    <h1 data-i18n-html="wesprzyj.hero.title">Wesprzyj <em>naszą Misję</em></h1>
     <p class="donate-hero-lead" data-i18n="wesprzyj.hero.lead">
-      Twoja ofiara pomaga utrzymać Bazylikę św. Jana Chrzciciela i wspierać życie duchowe naszej polskiej wspólnoty w&nbsp;Berlinie. Bóg zapłać za każde wsparcie.
+      Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.
     </p>
   </div>
 </section>
@@ -460,42 +421,8 @@
       </div>
     </div>
 
-    <!-- RIGHT: Purposes + receipt info -->
+    <!-- RIGHT: Receipt info -->
     <div class="donate-side">
-      <h3 data-i18n-html="wesprzyj.purposes.title">Cele <em>ofiary</em></h3>
-      <p data-i18n="wesprzyj.purposes.lead">Możesz wskazać konkretny cel w&nbsp;tytule przelewu (Verwendungszweck) lub zostawić puste pole — wtedy ofiara trafia na cele ogólne parafii.</p>
-
-      <ul class="donate-purposes">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <div>
-            <strong data-i18n="wesprzyj.purpose1.title">Bazylika — utrzymanie</strong>
-            <span class="desc" data-i18n="wesprzyj.purpose1.desc">Erhaltung der Johannes-Basilika (Renovacja, ogrzewanie, sprzątanie)</span>
-          </div>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v8m-4-4h8m-4 4v10m-6 0h12"/></svg>
-          <div>
-            <strong data-i18n-html="wesprzyj.purpose2.title">Życie duchowe i&nbsp;liturgia</strong>
-            <span class="desc" data-i18n="wesprzyj.purpose2.desc">Spirituelles Leben &amp; Liturgie (organy, śpiew, świece)</span>
-          </div>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
-          <div>
-            <strong data-i18n-html="wesprzyj.purpose3.title">Dzieci i&nbsp;młodzież</strong>
-            <span class="desc" data-i18n="wesprzyj.purpose3.desc">Kinder &amp; Jugend (katechezy, scholii, ministranci, rekolekcje)</span>
-          </div>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
-          <div>
-            <strong data-i18n="wesprzyj.purpose4.title">Cele ogólne parafii</strong>
-            <span class="desc" data-i18n="wesprzyj.purpose4.desc">Allgemeine Zwecke der Pfarrei (zostaw pole puste, abyśmy mogli skierować ofiarę tam, gdzie jest najpotrzebniejsza)</span>
-          </div>
-        </li>
-      </ul>
-
       <div class="donate-receipt-box">
         <h4>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>

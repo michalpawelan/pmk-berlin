@@ -8,12 +8,12 @@
     "de": "Gemeinde unterstützen"
   },
   "wesprzyj.hero.title": {
-    "pl": "Wesprzyj <em>naszą parafię</em>",
-    "de": "Unterstützen Sie <em>unsere Gemeinde</em>"
+    "pl": "Wesprzyj <em>naszą Misję</em>",
+    "de": "Unterstützen Sie <em>unsere Mission</em>"
   },
   "wesprzyj.hero.lead": {
-    "pl": "Twoja ofiara pomaga utrzymać Bazylikę św. Jana Chrzciciela i wspierać życie duchowe naszej polskiej wspólnoty w Berlinie. Bóg zapłać za każde wsparcie.",
-    "de": "Ihre Spende hilft, die Johannes-Basilika zu erhalten und das geistliche Leben unserer polnischen Gemeinde in Berlin zu unterstützen. Vergelt's Gott für jede Gabe."
+    "pl": "Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.",
+    "de": "Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung."
   },
 
   "wesprzyj.bank.title": {
@@ -43,48 +43,6 @@
   "wesprzyj.bank.note": {
     "pl": "<strong>Ważne:</strong> w polu „Tytuł przelewu\" prosimy wpisać <strong>cel ofiary</strong> oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić zaświadczenia (Spendenquittung).",
     "de": "<strong>Wichtig:</strong> Bitte tragen Sie im Feld „Verwendungszweck\" den <strong>Spendenzweck</strong> ein und — falls Sie eine Spendenquittung wünschen — <strong>Vor- und Nachname sowie Anschrift</strong>. Ohne diese Angaben können wir keine Spendenquittung ausstellen."
-  },
-
-  "wesprzyj.purposes.title": {
-    "pl": "Cele <em>ofiary</em>",
-    "de": "<em>Spenden</em>zwecke"
-  },
-  "wesprzyj.purposes.lead": {
-    "pl": "Możesz wskazać konkretny cel w tytule przelewu lub zostawić puste pole — wtedy ofiara trafia na cele ogólne parafii.",
-    "de": "Sie können einen konkreten Zweck im Verwendungszweck angeben oder das Feld leer lassen — dann fließt Ihre Spende in die allgemeinen Aufgaben der Gemeinde."
-  },
-
-  "wesprzyj.purpose1.title": {
-    "pl": "Bazylika — utrzymanie",
-    "de": "Basilika — Erhaltung"
-  },
-  "wesprzyj.purpose1.desc": {
-    "pl": "Renowacja, ogrzewanie, sprzątanie Bazyliki św. Jana Chrzciciela",
-    "de": "Renovierung, Heizung, Reinigung der Johannes-Basilika"
-  },
-  "wesprzyj.purpose2.title": {
-    "pl": "Życie duchowe i liturgia",
-    "de": "Geistliches Leben und Liturgie"
-  },
-  "wesprzyj.purpose2.desc": {
-    "pl": "Organy, śpiew, świece, sprzęt liturgiczny",
-    "de": "Orgel, Gesang, Kerzen, liturgisches Material"
-  },
-  "wesprzyj.purpose3.title": {
-    "pl": "Dzieci i młodzież",
-    "de": "Kinder und Jugend"
-  },
-  "wesprzyj.purpose3.desc": {
-    "pl": "Katechezy, schola, ministranci, rekolekcje, obozy",
-    "de": "Katechese, Schola, Ministranten, Einkehrtage, Sommerlager"
-  },
-  "wesprzyj.purpose4.title": {
-    "pl": "Cele ogólne parafii",
-    "de": "Allgemeine Zwecke der Gemeinde"
-  },
-  "wesprzyj.purpose4.desc": {
-    "pl": "Zostaw pole puste, abyśmy mogli skierować ofiarę tam, gdzie jest najpotrzebniejsza",
-    "de": "Lassen Sie das Feld leer, damit wir Ihre Spende dorthin lenken können, wo sie am dringendsten benötigt wird"
   },
 
   "wesprzyj.receipt.title": {
