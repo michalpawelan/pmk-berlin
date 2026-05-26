@@ -120,16 +120,16 @@
     "de": "Erste <em>Heilige Kommunion</em>"
   },
   "komunia.hero.lead": {
-    "pl": "Pierwsze pełne uczestnictwo w Eucharystii — spotkanie z Chrystusem obecnym w Najświętszym Sakramencie.",
-    "de": "Erste volle Teilnahme an der Eucharistie — die Begegnung mit Christus im Allerheiligsten Sakrament."
+    "pl": "Przygotowanie do spotkania z Chrystusem obecnym w Eucharystii — roczny kurs katechetyczny dla dzieci od 3. klasy.",
+    "de": "Vorbereitung auf die Begegnung mit Christus in der Eucharistie — einjähriger Katechesekurs für Kinder ab der 3. Klasse."
   },
   "komunia.quick.age": {
     "pl": "Wiek: <strong>od 3. klasy szkoły podstawowej</strong>",
     "de": "Alter: <strong>ab der 3. Grundschulklasse</strong>"
   },
   "komunia.quick.signup": {
-    "pl": "Zapisy: <strong>maj–czerwiec</strong>",
-    "de": "Anmeldung: <strong>Mai–Juni</strong>"
+    "pl": "Zapisy: <strong>Wrzesień</strong>",
+    "de": "Anmeldung: <strong>September</strong>"
   },
   "komunia.quick.ceremony": {
     "pl": "Uroczystość: <strong>maj następnego roku</strong>",
@@ -148,8 +148,8 @@
     "de": "Kind anmelden"
   },
   "komunia.step1.body": {
-    "pl": "Zapisy odbywają się w maju–czerwcu. Dziecko musi mieć ukończoną min. 3. klasę szkoły podstawowej.",
-    "de": "Die Anmeldung findet im Mai und Juni statt. Das Kind muss mindestens die 3. Grundschulklasse abgeschlossen haben."
+    "pl": "Zapisy odbywają się we wrześniu. Dziecko musi mieć ukończoną min. 3. klasę szkoły podstawowej.",
+    "de": "Die Anmeldung erfolgt im September. Das Kind muss mindestens die 3. Klasse der Grundschule abgeschlossen haben."
   },
   "komunia.step1.docs_label": {
     "pl": "Wymagane dokumenty:",
@@ -196,8 +196,8 @@
     "de": "Melden Sie Ihr Kind zur Erstkommunion an"
   },
   "komunia.cta.body": {
-    "pl": "Zapisy: maj–czerwiec. Wypełnij formularz zgłoszeniowy i dostarcz go razem z Aktem Chrztu do Biura Parafialnego.",
-    "de": "Anmeldung: Mai–Juni. Füllen Sie das Anmeldeformular aus und reichen Sie es zusammen mit dem Taufschein im Pfarrbüro ein."
+    "pl": "Zapisy: wrzesień. Wypełnij formularz zgłoszeniowy i dostarcz go razem z Aktem Chrztu do Biura Parafialnego.",
+    "de": "Anmeldung: September. Füllen Sie das Anmeldeformular aus und reichen Sie es zusammen mit der Taufurkunde im Pfarrbüro ein."
   },
   "komunia.cta.form": {
     "pl": "Wypełnij formularz",
