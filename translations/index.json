@@ -95,6 +95,10 @@
     "pl": "Niedziela i Święta",
     "de": "Sonn- und Feiertage"
   },
+  "index.mass.weekdays_summer_note": {
+    "pl": "Lipiec – Sierpień: tylko 18:00",
+    "de": "Juli – August: nur 18:00"
+  },
   "index.communities.label": {
     "pl": "Wspólnoty",
     "de": "Gemeinschaften"
