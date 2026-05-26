@@ -384,8 +384,8 @@
     "de": "<em>Krankensalbung</em>"
   },
   "namaszczenie.hero.lead": {
-    "pl": "Sakrament, który udziela specjalnej łaski chrześcijaninowi doświadczonemu ciężką chorobą lub starością. Sakrament umocnienia i uzdrowienia — nie zwlekaj z wezwaniem księdza.",
-    "de": "Ein Sakrament, das dem von schwerer Krankheit oder Alter geprüften Christen besondere Gnade schenkt. Ein Sakrament der Stärkung und Heilung — zögern Sie nicht, den Priester zu rufen."
+    "pl": "Sakrament umocnienia w chorobie i cierpieniu — znak obecności Boga, który daje pokój, nadzieję i siłę.",
+    "de": "Sakrament der Stärkung in Krankheit und Leiden — Zeichen der Gegenwart Gottes, der Frieden, Hoffnung und Kraft schenkt."
   },
   "namaszczenie.quick.phone": {
     "pl": "Telefon: <strong>+49 30 752 40 80</strong>",
@@ -396,8 +396,8 @@
     "de": "In Notfällen: <strong>nach jeder Heiligen Messe</strong>"
   },
   "namaszczenie.quick.visits": {
-    "pl": "Odwiedziny chorych: <strong>I piątek miesiąca</strong>",
-    "de": "Krankenbesuche: <strong>1. Freitag im Monat</strong>"
+    "pl": "Odwiedziny chorych: <strong>po wcześniejszym umówieniu</strong>",
+    "de": "Krankenbesuche: <strong>nach vorheriger Vereinbarung</strong>"
   },
   "namaszczenie.steps.title": {
     "pl": "Jak wezwać <em>księdza?</em>",
@@ -486,6 +486,10 @@
   "namaszczenie.cta.email": {
     "pl": "Napisz e-mail",
     "de": "E-Mail schreiben"
+  },
+  "namaszczenie.cta.hours": {
+    "pl": "Biuro: poniedziałek i środa, 10:00–13:00 oraz 15:00–17:30",
+    "de": "Büro: Montag und Mittwoch, 10:00–13:00 und 15:00–17:30"
   },
   "namaszczenie.back": {
     "pl": "Wszystkie sakramenty",
