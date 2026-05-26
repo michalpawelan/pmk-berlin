@@ -948,8 +948,8 @@
     "de": "Gebetsgruppe, die für die Gläubigen die Gnade des Ausharrens, für die Sünder die Bekehrung und für alle die Vorbereitung auf die letzte Begegnung mit Gott erbittet."
   },
   "wspolnota_apostolstwo.hero_meta_meetings": {
-    "pl": "Spotkania: <strong>Ostatnia środa miesiąca, po Mszy Św. o 18:00</strong>",
-    "de": "Treffen: <strong>Letzter Mittwoch im Monat, nach der Heiligen Messe um 18:00 Uhr</strong>"
+    "pl": "Spotkania: <strong>Ostatni wtorek miesiąca, po Mszy Św. o 18:00</strong>",
+    "de": "Treffen: <strong>Letzter Dienstag im Monat, nach der Heiligen Messe um 18:00 Uhr</strong>"
   },
   "wspolnota_apostolstwo.hero_meta_place": {
     "pl": "Miejsce: <strong>Bazylika</strong>",
@@ -1028,8 +1028,8 @@
     "de": "Treffen"
   },
   "wspolnota_apostolstwo.contact_meetings_value": {
-    "pl": "Ostatnia środa miesiąca, po Mszy Św. o 18:00<br>Bazylika",
-    "de": "Letzter Mittwoch im Monat, nach der Heiligen Messe um 18:00 Uhr<br>Basilika"
+    "pl": "Ostatni wtorek miesiąca, po Mszy Św. o 18:00<br>Bazylika",
+    "de": "Letzter Dienstag im Monat, nach der Heiligen Messe um 18:00 Uhr<br>Basilika"
   },
   "wspolnota_apostolstwo.contact_cta": {
     "pl": "Napisz do nas",
