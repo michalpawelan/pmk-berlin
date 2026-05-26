@@ -676,8 +676,8 @@
     "de": "Anmeldung: <strong>mind. 3 Monate im Voraus</strong>"
   },
   "malzenstwo.quick.course": {
-    "pl": "Kurs przedmałżeński: <strong>2 razy w roku (jesień i wiosna)</strong>",
-    "de": "Ehevorbereitungskurs: <strong>2-mal jährlich (Herbst und Frühjahr)</strong>"
+    "pl": "Kurs przedmałżeński: <strong>1 raz w roku (jesień)</strong>",
+    "de": "Ehevorbereitungskurs: <strong>1-mal jährlich (Herbst)</strong>"
   },
   "malzenstwo.steps.title": {
     "pl": "Krok po <em>kroku</em>",
@@ -692,8 +692,8 @@
     "de": "Anmeldung im Pfarrbüro"
   },
   "malzenstwo.step1.body": {
-    "pl": "Przyjdźcie co najmniej 3 miesiące przed planowanym ślubem — to czas niezbędny do wypełnienia wszelkich formalności. Oboje narzeczeni muszą należeć do Kościoła katolickiego (nie mogą być wypisani).",
-    "de": "Kommen Sie mindestens 3 Monate vor dem geplanten Hochzeitstermin — diese Zeit ist für alle Formalitäten notwendig. Beide Verlobten müssen der katholischen Kirche angehören (kein Kirchenaustritt)."
+    "pl": "Prosimy o zgłoszenie się 3 miesiące przed planowaną datą ślubu — jest to czas niezbędny do dopełnienia wszystkich formalności. Osoba pragnąca zawrzeć ślub jako katolik musi odprowadzać podatek kościelny.",
+    "de": "Bitte melden Sie sich 3 Monate vor dem geplanten Trauungstermin — diese Zeit ist erforderlich, um alle Formalitäten zu erledigen. Eine Person, die als Katholik heiraten möchte, muss Kirchensteuer entrichten."
   },
   "malzenstwo.step2.title": {
     "pl": "Przygotuj dokumenty",
@@ -712,8 +712,8 @@
     "de": "Ehevorbereitungskurs"
   },
   "malzenstwo.step3.body": {
-    "pl": "Kurs w naszej Misji organizowany jest 2 razy w roku: jesienią i wiosną. O terminie informujemy w ogłoszeniach parafialnych. Prosimy wziąć to pod uwagę przy planowaniu.",
-    "de": "Der Kurs in unserer Mission wird 2-mal im Jahr angeboten: im Herbst und im Frühjahr. Den Termin geben wir in den Pfarrnachrichten bekannt. Bitte berücksichtigen Sie dies bei Ihrer Planung."
+    "pl": "Kurs w naszej Misji organizowany jest raz w roku — jesienią. O terminie informujemy w ogłoszeniach parafialnych. Prosimy uwzględnić to przy planowaniu ślubu.",
+    "de": "Der Kurs in unserer Mission findet einmal im Jahr — im Herbst statt. Den Termin geben wir in den pfarrlichen Bekanntmachungen bekannt. Bitte berücksichtigen Sie dies bei der Planung der Trauung."
   },
   "malzenstwo.step4.title": {
     "pl": "Protokół przedślubny",
@@ -743,9 +743,17 @@
     "pl": "Ślub w Polsce? Ważna informacja",
     "de": "Trauung in Polen? Wichtige Information"
   },
-  "malzenstwo.special2.body": {
-    "pl": "Wszyscy zameldowani i mieszkający na terenie Niemiec, chcąc zawrzeć sakramentalny związek małżeński w Polsce, potrzebują zgodę arcybiskupa archidiecezji Berlin. Zgoda ta jest niezbędna do ważnego i godziwego zawarcia małżeństwa poza granicami Niemiec. Należy zgłosić się do biura PMK w Berlinie i tutaj — a nie gdzie indziej — dopełnić wszelkich formalności (protokół przedmałżeński). Dopiero na podstawie wystawionej licencji i dyspensy od ślubu poza granicami można przyjąć sakrament w Polsce lub innym wybranym kraju.",
-    "de": "Alle in Deutschland gemeldeten und wohnhaften Personen, die in Polen kirchlich heiraten möchten, benötigen die Zustimmung des Erzbischofs von Berlin. Diese Zustimmung ist Voraussetzung für die gültige und erlaubte Eheschließung außerhalb Deutschlands. Bitte melden Sie sich im PMK-Pfarrbüro in Berlin und erledigen Sie hier — nicht andernorts — alle Formalitäten (Ehevorbereitungsprotokoll). Erst auf Grundlage der ausgestellten Lizenz und Dispens für eine Trauung im Ausland kann das Sakrament in Polen oder einem anderen Land gespendet werden."
+  "malzenstwo.special2.body1": {
+    "pl": "Wszyscy wierni naszej Misji, zameldowani i mieszkający na terenie Niemiec, którzy pragną zawrzeć sakramentalny związek małżeński w Polsce, potrzebują zgody (dyspensy) biskupa Archidiecezji Berlińskiej. Zgoda ta jest niezbędna do ważnego i godziwego zawarcia małżeństwa poza granicami Niemiec.",
+    "de": "Alle Gläubigen unserer Mission, die in Deutschland gemeldet sind und dort leben und die das Ehesakrament in Polen schließen möchten, benötigen die Zustimmung (Dispens) des Bischofs der Erzdiözese Berlin. Diese Zustimmung ist notwendig für die gültige und erlaubte Eheschließung außerhalb Deutschlands."
+  },
+  "malzenstwo.special2.body2": {
+    "pl": "W celu dopełnienia formalności należy zgłosić się do biura Polskiej Misji Katolickiej w Berlinie, gdzie spisywany jest protokół przedmałżeński.",
+    "de": "Zur Erledigung der Formalitäten ist eine persönliche Anmeldung im Büro der Polnischen Katholischen Mission in Berlin erforderlich, wo das Ehevorbereitungsprotokoll erstellt wird."
+  },
+  "malzenstwo.special2.body3": {
+    "pl": "Na podstawie wystawionej licencji oraz zgody biskupa Archidiecezji Berlińskiej możliwe jest zawarcie sakramentu małżeństwa w Polsce lub innym wybranym kraju.",
+    "de": "Auf Grundlage der ausgestellten Lizenz und der Zustimmung des Bischofs der Erzdiözese Berlin ist es möglich, das Ehesakrament in Polen oder einem anderen gewählten Land zu empfangen."
   },
   "malzenstwo.special2.note": {
     "pl": "<em>Jeżeli w Polsce ma być zawierany tzw. ślub konkordatowy, można pominąć dokument z punktu 4.</em>",
