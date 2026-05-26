@@ -508,8 +508,8 @@
     "de": "Heilige <em>Taufe</em>"
   },
   "chrzest.hero.lead": {
-    "pl": "Sakrament inicjacji chrześcijańskiej — brama do życia nadprzyrodzonego i do innych sakramentów. Rodzice dziecka (przynajmniej jedno z nich) musi należeć do Kościoła katolickiego.",
-    "de": "Sakrament der christlichen Initiation — Tor zum übernatürlichen Leben und zu den weiteren Sakramenten. Mindestens ein Elternteil des Kindes muss der katholischen Kirche angehören."
+    "pl": "Chrzest jest bramą życia w Duchu i bramą otwierającą dostęp do innych sakramentów. Do chrztu wymaga się, aby przynajmniej jedno z rodziców należało do Kościoła katolickiego.",
+    "de": "Die Taufe ist die Pforte zum Leben im Geist und der Zugang zu den anderen Sakramenten. Für die Taufe ist erforderlich, dass mindestens ein Elternteil der katholischen Kirche angehört."
   },
   "chrzest.quick.dates": {
     "pl": "Terminy: <strong>2. i 4. sobota miesiąca, godz. 16:00</strong>",
@@ -564,50 +564,42 @@
     "de": "<li>Ausweise beider Eltern</li><li>Geburtsurkunde des Kindes (oder Geburtsbescheinigung für religiöse Zwecke)</li><li>Genaue Daten beider Taufpaten (Wohnadresse, Geburtsdatum)</li>"
   },
   "chrzest.step4.title": {
-    "pl": "Spotkanie z duszpasterzem",
-    "de": "Gespräch mit dem Seelsorger"
-  },
-  "chrzest.step4.body": {
-    "pl": "Po zgłoszeniu umówisz się na spotkanie z duszpasterzem, który omówi z Wami przygotowanie do chrztu.",
-    "de": "Nach der Anmeldung vereinbaren Sie ein Gespräch mit dem Seelsorger, der mit Ihnen die Vorbereitung auf die Taufe bespricht."
-  },
-  "chrzest.step5.title": {
     "pl": "Konferencja przedchrzcielna dla rodziców",
     "de": "Taufkatechese für Eltern und Paten"
   },
-  "chrzest.step5.body": {
+  "chrzest.step4.body": {
     "pl": "W piątek przed Chrztem Świętym o 18:00 będzie Msza Święta, a bezpośrednio po niej odbędą się nauki dla rodziców i chrzestnych.",
     "de": "Am Freitag vor der Taufe findet um 18:00 Uhr die Heilige Messe statt, unmittelbar danach die Katechese für Eltern und Paten."
   },
+  "chrzest.step5.title": {
+    "pl": "Warunki dla rodziców chrzestnych",
+    "de": "Voraussetzungen für die Paten"
+  },
+  "chrzest.step5.body": {
+    "pl": "Chrzestny lub chrzestna powinien:",
+    "de": "Der Pate oder die Patin sollte:"
+  },
+  "chrzest.step5.list": {
+    "pl": "<li>należeć do Kościoła katolickiego,</li><li>być bierzmowanym i po przyjęciu sakramentu Eucharystii,</li><li>prowadzić życie zgodne z wiarą i odpowiadające funkcji chrzestnego,</li><li>mieć ukończone 16 lat (chyba że biskup diecezjalny określił inny wiek lub proboszcz dopuścił wyjątek),</li><li>być wolnym od kar kanonicznych,</li><li>nie być ojcem ani matką dziecka przyjmującego chrzest,</li><li>zostać wyznaczonym przez rodziców dziecka lub prawnych opiekunów.</li>",
+    "de": "<li>der katholischen Kirche angehören,</li><li>gefirmt sein und die heilige Kommunion empfangen haben,</li><li>ein Leben führen, das dem Glauben und der Funktion des Paten entspricht,</li><li>das 16. Lebensjahr vollendet haben (es sei denn, der Diözesanbischof hat ein anderes Alter festgelegt oder der Pfarrer macht eine Ausnahme),</li><li>frei von kanonischen Strafen sein,</li><li>nicht Vater oder Mutter des Kindes sein, das die Taufe empfängt,</li><li>von den Eltern oder gesetzlichen Vertretern des Kindes bestimmt sein.</li>"
+  },
   "chrzest.step6.title": {
-    "pl": "Warunki dla chrzestnych",
-    "de": "Voraussetzungen für die Taufpaten"
-  },
-  "chrzest.step6.body": {
-    "pl": "Chrzestny musi spełniać następujące warunki:",
-    "de": "Der Taufpate muss folgende Voraussetzungen erfüllen:"
-  },
-  "chrzest.step6.list": {
-    "pl": "<li>Należy do Kościoła, jest katolikiem, bierzmowanym i przyjął już sakrament Komunii Świętej</li><li>Prowadzi życie zgodne z wiarą i odpowiadające funkcji, jaką ma pełnić</li><li>Ukończył 16 lat (chyba że biskup diecezjalny określił inny wiek lub proboszcz dopuścił wyjątek)</li><li>Jest wolny od jakiejkolwiek kary kanonicznej</li><li>Nie jest ojcem lub matką przyjmującego chrzest</li><li>Jest wyznaczony przez przyjmującego chrzest, jego rodziców lub ich zastępców</li>",
-    "de": "<li>Gehört der Kirche an, ist Katholik, gefirmt und hat die Erstkommunion empfangen</li><li>Lebt im Einklang mit dem Glauben und entsprechend der Aufgabe, die er übernehmen soll</li><li>Hat das 16. Lebensjahr vollendet (sofern der Diözesanbischof kein anderes Alter festgelegt oder der Pfarrer eine Ausnahme zugelassen hat)</li><li>Ist frei von jeder kirchenrechtlichen Strafe</li><li>Ist nicht Vater oder Mutter des Täuflings</li><li>Wird vom Täufling, dessen Eltern oder deren Vertretern bestimmt</li>"
-  },
-  "chrzest.step7.title": {
     "pl": "Zaświadczenia chrzestnych",
     "de": "Patenscheine der Taufpaten"
   },
-  "chrzest.step7.body": {
+  "chrzest.step6.body": {
     "pl": "Rodzice chrzestni muszą dostarczyć zaświadczenie:",
     "de": "Die Taufpaten müssen eine Bescheinigung vorlegen:"
   },
-  "chrzest.step7.list": {
+  "chrzest.step6.list": {
     "pl": "<li>Mieszkający w Niemczech: Patenschein — że należą do Kościoła katolickiego</li><li>Mieszkający w Polsce: Zaświadczenie, że mogą pełnić funkcję chrzestnego zgodnie z wymogami Prawa Kanonicznego</li>",
     "de": "<li>Wohnhaft in Deutschland: Patenschein — der die Zugehörigkeit zur katholischen Kirche bestätigt</li><li>Wohnhaft in Polen: Bescheinigung, dass sie das Patenamt nach den Vorgaben des Kirchenrechts ausüben können</li>"
   },
-  "chrzest.step8.title": {
+  "chrzest.step7.title": {
     "pl": "Ustalenie terminu chrztu",
     "de": "Festlegung des Tauftermins"
   },
-  "chrzest.step8.body": {
+  "chrzest.step7.body": {
     "pl": "Chrzty odbywają się w 2. i 4. sobotę miesiąca o godz. 16:00. W dniu chrztu należy być minimum 15 minut wcześniej. Przynieście świecę chrzcielną oraz białą szatę dla dziecka.",
     "de": "Taufen finden am 2. und 4. Samstag im Monat um 16:00 Uhr statt. Am Tauftag bitte mindestens 15 Minuten vorher da sein. Bringen Sie die Taufkerze und das weiße Taufkleid für das Kind mit."
   },
