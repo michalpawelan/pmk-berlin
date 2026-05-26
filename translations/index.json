@@ -359,6 +359,14 @@
     "pl": "I piątek miesiąca",
     "de": "1. Freitag im Monat"
   },
+  "index.mass.confession_weekdays": {
+    "pl": "od 17:30",
+    "de": "ab 17:30"
+  },
+  "index.mass.spandau_wednesday_seasonal": {
+    "pl": "Środa (Październik – Maj)",
+    "de": "Mittwoch (Oktober – Mai)"
+  },
   "index.sacraments.badge_info": {
     "pl": "Więcej informacji <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
     "de": "Mehr Informationen <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
