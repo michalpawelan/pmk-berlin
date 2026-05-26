@@ -1,15 +1,15 @@
 {
   "index.hero.badge": {
-    "pl": "Od 1945 roku w Berlinie",
-    "de": "Seit 1945 in Berlin"
+    "pl": "Od 1982 roku w Berlinie",
+    "de": "Seit 1982 in Berlin"
   },
   "index.hero.title": {
     "pl": "Polska Misja <em>Katolicka</em>",
     "de": "Polnische Katholische <em>Mission</em>"
   },
   "index.hero.subtitle": {
-    "pl": "Johannes-Basilika w sercu Kreuzbergu",
-    "de": "Johannes-Basilika im Herzen von Kreuzberg"
+    "pl": "Bazylika św. Jana Chrzciciela w sercu Kreuzbergu",
+    "de": "St. Johannes-Basilika im Herzen Kreuzbergs"
   },
   "index.hero.verse": {
     "pl": "Błogosławieni, którzy wprowadzają pokój, albowiem oni będą nazwani synami Bożymi.",
@@ -228,16 +228,16 @@
     "de": "Unsere <em>Geschichte</em>"
   },
   "index.about.lead": {
-    "pl": "Polska Misja Katolicka w Berlinie istnieje od 1945 roku i jest duchowym domem dla polskojęzycznych katolików w stolicy Niemiec.",
-    "de": "Die Polnische Katholische Mission in Berlin besteht seit 1945 und ist die geistliche Heimat für polnischsprachige Katholiken in der deutschen Hauptstadt."
+    "pl": "1 stycznia 1982 roku decyzją ordynariusza Berlina, ks. bpa Joachima Meissnera, został erygowany Polski Ośrodek Katolicki w Berlinie. „Polski Kościół\" bardzo szybko stał się miejscem spotkania Polaków mieszkających w Berlinie oraz tych, którzy coraz liczniej przybywali do miasta. Wspólnota wielokrotnie zmieniała swoją siedzibę, rozwijając jednocześnie działalność duszpasterską i integrując polskojęzycznych wiernych. Od początku duszpasterstwem polonijnym w Berlinie zajmują się Salezjanie Księdza Bosko.",
+    "de": "Am 1. Januar 1982 wurde durch Entscheidung des Berliner Diözesanbischofs, Erzbischof Joachim Meissner, das Polnische Katholische Zentrum in Berlin errichtet. Die „Polnische Kirche\" wurde schnell zum Treffpunkt der in Berlin lebenden Polen und derer, die immer zahlreicher in die Stadt kamen. Die Gemeinde wechselte mehrfach ihren Sitz und entwickelte gleichzeitig ihre seelsorgerische Tätigkeit, integrierte die polnischsprachigen Gläubigen. Seit Anfang an wird die Polnische Seelsorge in Berlin von den Salesianern Don Boscos geleitet."
   },
   "index.about.text1": {
-    "pl": "Nasza wspólnota gromadzi się w zabytkowej Johannes-Basilice w sercu Kreuzbergu. Pielęgnujemy polską tradycję, kulturę i wiarę - otwierając nasze drzwi dla wszystkich, którzy szukają wspólnoty modlitwy w języku polskim.",
-    "de": "Unsere Gemeinschaft versammelt sich in der historischen Johannes-Basilika im Herzen von Kreuzberg. Wir pflegen polnische Tradition, Kultur und Glauben — und öffnen unsere Türen für alle, die eine Gebetsgemeinschaft in polnischer Sprache suchen."
+    "pl": "Od 1 stycznia 1997 roku Polskie Duszpasterstwo otrzymało nazwę Polska Misja Katolicka w Berlinie. Dziś jest to największa wspólnota misyjna Archidiecezji Berlińskiej. Z jej posługi duszpasterskiej korzystają tysiące Polaków i polskojęzycznych katolików z Berlina oraz okolic.",
+    "de": "Seit dem 1. Januar 1997 trägt die Polnische Seelsorge den Namen Polnische Katholische Mission in Berlin. Sie ist heute die größte Missionsgemeinde der Erzdiözese Berlin. Ihre seelsorgerischen Dienste nutzen Tausende Polen und polnischsprachige Katholiken aus Berlin und Umgebung."
   },
   "index.about.text2": {
-    "pl": "Zapraszamy do uczestnictwa w naszych nabożeństwach, sakramentach i życiu parafialnym. Jesteśmy wspólnotą otwartą, gotową służyć każdemu, kto szuka Boga.",
-    "de": "Wir laden Sie herzlich ein, an unseren Gottesdiensten, Sakramenten und dem Pfarrleben teilzunehmen. Wir sind eine offene Gemeinschaft, bereit, jedem zu dienen, der Gott sucht."
+    "pl": "Polska Misja Katolicka pełni również ważną rolę w życiu kulturalnym Polonii, będąc miejscem koncertów, spotkań, wykładów oraz wydarzeń artystycznych. W nowym podziale administracyjnym Archidiecezji Berlińskiej, od 2021 roku, Polska Misja Katolicka należy do Okręgu Duszpasterskiego Berlin-Mitte pw. bł. Bernarda Lichtenberga.",
+    "de": "Die Polnische Katholische Mission spielt auch eine wichtige Rolle im kulturellen Leben der Polonia und ist Ort von Konzerten, Begegnungen, Vorträgen und künstlerischen Veranstaltungen. In der neuen Verwaltungsgliederung der Erzdiözese Berlin gehört die Polnische Katholische Mission seit 2021 zum Seelsorgebereich Berlin-Mitte unter dem Patronat des Sel. Bernhard Lichtenberg."
   },
   "index.about.stat_years": {
     "pl": "lat w Berlinie",
@@ -248,8 +248,8 @@
     "de": "Kirchen"
   },
   "index.about.stat_community": {
-    "pl": "wspólnota",
-    "de": "Gemeinschaft"
+    "pl": "Misja",
+    "de": "Mission"
   },
   "index.pastors.label": {
     "pl": "Duszpasterze",
@@ -268,8 +268,8 @@
     "de": "Pfarrer der Polnischen Katholischen Mission in Berlin"
   },
   "index.pastors.pastor_bio": {
-    "pl": "Serdecznie zaprasza wszystkich Polaków i osoby niemieckojęzyczne do uczestnictwa w naszych nabożeństwach i życiu parafialnym.",
-    "de": "Lädt alle Polen und Deutschsprachigen herzlich ein, an unseren Gottesdiensten und dem Pfarrleben teilzunehmen."
+    "pl": "Serdecznie zapraszamy wszystkich Polaków oraz osoby posługujące się językiem polskim do uczestnictwa w naszych nabożeństwach i życiu parafialnym.",
+    "de": "Wir laden alle Polen und alle, die polnisch sprechen, herzlich ein, an unseren Gottesdiensten und am Pfarrleben teilzunehmen."
   },
   "index.pastors.vicar_title": {
     "pl": "Wikariusze",
