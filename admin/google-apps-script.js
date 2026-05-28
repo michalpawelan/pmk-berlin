@@ -114,6 +114,9 @@ function handleRequest(e) {
       case 'list':
         result = listEvents();
         break;
+      case 'list_subscribers':
+        result = listSubscribers();
+        break;
       case 'add':
         result = addEvent(params);
         break;
@@ -305,6 +308,33 @@ function subscribeNewsletter(params) {
   SpreadsheetApp.flush();
 
   return { success: true, message: 'subscribed' };
+}
+
+/**
+ * Alle Newsletter-Abonnenten auflisten.
+ * Output: { success: true, subscribers: [{email, lang, source, created_at}, ...] }
+ *
+ * Spaltenreihenfolge im Sheet (wie subscribeNewsletter schreibt):
+ *   A (0): Email  |  B (1): Data (created_at)  |  C (2): Jezyk (lang)  |  D (3): Zrodlo (source)
+ */
+function listSubscribers() {
+  const sheet = getNewsletterSheet();
+  if (!sheet) return { success: true, subscribers: [] };
+  const data = sheet.getDataRange().getValues();
+  const out = [];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    if (!row[0]) continue;
+    out.push({
+      email: String(row[0]),
+      lang: String(row[2] || ''),
+      source: String(row[3] || ''),
+      created_at: row[1] instanceof Date ? row[1].toISOString() : String(row[1] || '')
+    });
+  }
+  // Neueste zuerst
+  out.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+  return { success: true, subscribers: out };
 }
 
 /**
