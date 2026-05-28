@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="admin.css">
+  <script src="auth.js" defer></script>
 </head>
 <body>
 
@@ -269,14 +270,9 @@
   // KONFIGURATION - HIER ANPASSEN
   // ============================================
 
-  // Die URL deines Google Apps Script Web-App:
-  // (Siehe admin/google-apps-script.js fuer Anleitung)
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwr6u5qQRUuQ37gIaczdCG0DmfQRlazDGYUbQOC2CaSCy_tJBywwwChXwtAS8Ivqe9HPw/exec';
-
   // ============================================
   // State
   // ============================================
-  let currentPin = '';
   let allEvents = [];
   let filteredEvents = [];
   let editingRow = null;
@@ -290,64 +286,60 @@
     e.preventDefault();
     const pin = document.getElementById('pinInput').value.trim();
     const btn = document.getElementById('loginBtn');
-    const error = document.getElementById('loginError');
-
+    const err = document.getElementById('loginError');
     if (!pin) return false;
-    error.classList.remove('visible');
+    err.classList.remove('visible');
     btn.classList.add('loading');
     btn.disabled = true;
-
     try {
-      const result = await apiCall('list', { pin });
-
-      if (result.success) {
-        currentPin = pin;
-        sessionStorage.setItem('pmk_admin_pin', pin);
+      const result = await Auth.verify(pin);
+      if (result.ok) {
+        Auth.setPin(pin);
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('adminApp').classList.add('active');
         allEvents = result.events || [];
         renderEvents();
         updateStats();
       } else {
-        error.classList.add('visible');
+        err.textContent = result.error;
+        err.classList.add('visible');
         document.getElementById('pinInput').value = '';
         document.getElementById('pinInput').focus();
       }
-    } catch (err) {
-      error.textContent = 'Błąd połączenia. Spróbuj ponownie.';
-      error.classList.add('visible');
+    } catch (e) {
+      err.textContent = 'Błąd połączenia. Spróbuj ponownie.';
+      err.classList.add('visible');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
     }
-
-    btn.classList.remove('loading');
-    btn.disabled = false;
     return false;
   };
 
   window.handleLogout = function() {
-    currentPin = '';
-    sessionStorage.removeItem('pmk_admin_pin');
+    Auth.clear();
     document.getElementById('adminApp').classList.remove('active');
     document.getElementById('loginScreen').style.display = '';
     document.getElementById('pinInput').value = '';
     document.getElementById('pinInput').focus();
   };
 
-  // Auto-login from session
-  (function checkSession() {
-    const savedPin = sessionStorage.getItem('pmk_admin_pin');
+  // Auto-login bei sessionStorage-Hit
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedPin = Auth.getPin();
     if (savedPin) {
       document.getElementById('pinInput').value = savedPin;
       document.getElementById('loginForm').requestSubmit();
     }
-  })();
+  });
 
   // ============================================
   // API
   // ============================================
   async function apiCall(action, params = {}) {
-    const url = new URL(APPS_SCRIPT_URL);
+    const url = new URL(Auth.url);
     url.searchParams.set('action', action);
-    url.searchParams.set('pin', params.pin || currentPin);
+    url.searchParams.set('pin', params.pin || Auth.getPin());
 
     Object.entries(params).forEach(([key, val]) => {
       if (key !== 'pin') url.searchParams.set(key, val);
@@ -812,7 +804,7 @@
 
       const result = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', APPS_SCRIPT_URL + '?action=upload&pin=' + encodeURIComponent(currentPin));
+        xhr.open('POST', Auth.url + '?action=upload&pin=' + encodeURIComponent(Auth.getPin()));
         xhr.setRequestHeader('Content-Type', 'text/plain');
         xhr.onload = function() {
           try { resolve(JSON.parse(xhr.responseText)); }
