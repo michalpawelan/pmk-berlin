@@ -348,6 +348,32 @@
   });
 
 })();
+
+// ============================================
+// Hash-Router: #events | #ki | #newsletter
+// ============================================
+const TABS = ['events', 'ki', 'newsletter'];
+
+function currentTab() {
+  const h = (location.hash || '').replace('#', '');
+  return TABS.includes(h) ? h : 'events';
+}
+
+function switchTab(name) {
+  TABS.forEach(t => {
+    const section = document.getElementById('tab-' + t);
+    if (section) section.hidden = (t !== name);
+  });
+  document.querySelectorAll('.admin-nav-item[data-tab]').forEach(el => {
+    el.classList.toggle('active', el.dataset.tab === name);
+  });
+  if (location.hash !== '#' + name) {
+    history.replaceState(null, '', '#' + name);
+  }
+}
+
+window.addEventListener('hashchange', () => switchTab(currentTab()));
+window.addEventListener('DOMContentLoaded', () => switchTab(currentTab()));
 </script>
 
 </body>
