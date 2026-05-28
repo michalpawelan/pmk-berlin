@@ -322,6 +322,9 @@
         Events.setEvents(result.events || []);
         Events.render();
         Events.updateStats();
+        // Trigger tab-specific load if user landed on a non-default tab pre-login
+        if (location.hash === '#ki' && window.KI) KI.load();
+        if (location.hash === '#newsletter' && window.Newsletter) Newsletter.load();
       } else {
         err.textContent = result.error;
         err.classList.add('visible');
