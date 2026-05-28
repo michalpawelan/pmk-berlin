@@ -27,6 +27,7 @@ const Events = (function() {
   let editingRow = null;
   let pendingConfirmCallback = null;
   let activeFilter = 'upcoming';
+  let communityFilter = 'all';
 
   // ============================================
   // API
@@ -88,6 +89,19 @@ const Events = (function() {
   // ============================================
   // Render Events Table
   // ============================================
+  function populateCommunityFilter() {
+    const sel = document.getElementById('evCommunityFilter');
+    if (!sel || sel.dataset.populated === '1') return;
+    for (const c of COMMUNITIES) {
+      const opt = document.createElement('option');
+      opt.value = c.slug;
+      opt.textContent = c.name;
+      sel.appendChild(opt);
+    }
+    sel.dataset.populated = '1';
+    sel.addEventListener('change', e => { communityFilter = e.target.value; renderEvents(); });
+  }
+
   function renderEvents() {
     const container = document.getElementById('eventsTableContainer');
     const search = (document.getElementById('searchInput').value || '').toLowerCase();
@@ -103,10 +117,14 @@ const Events = (function() {
     document.getElementById('countUpcoming').textContent = upcomingCount;
     document.getElementById('countPast').textContent = pastCount;
 
+    // Populate community dropdown (once, idempotent)
+    populateCommunityFilter();
+
     // Apply filter
     filteredEvents = allEvents.filter(ev => {
       if (activeFilter === 'upcoming' && ev.date < today) return false;
       if (activeFilter === 'past' && ev.date >= today) return false;
+      if (communityFilter !== 'all' && ev.community !== communityFilter) return false;
       if (search) {
         return (ev.title || '').toLowerCase().includes(search) ||
                (ev.description || '').toLowerCase().includes(search) ||

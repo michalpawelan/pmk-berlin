@@ -1123,3 +1123,8 @@ textarea.form-input {
 .ki-flag-btn.active { background: var(--color-accent); color: white; border-color: var(--color-accent); }
 .ki-note { width: 100%; padding: 0.6rem 0.9rem; border: 1.5px solid var(--color-warm-200); border-radius: var(--radius-md); font-family: inherit; font-size: var(--text-sm); margin-bottom: 0.75rem; }
 
+/* Events toolbar: search + community filter */
+.ev-toolbar { display: flex; gap: 0.75rem; align-items: center; }
+.ev-toolbar #searchInput { flex: 1; }
+.ev-community-filter { padding: 0.55rem 0.9rem; border: 1.5px solid var(--color-warm-200); border-radius: var(--radius-md); background: white; font-size: var(--text-sm); }
+
