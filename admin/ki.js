@@ -91,14 +91,29 @@ const KI = (function() {
     render();
   }
 
+  const ONBOARDING_KEY = 'pmk_ki_onboarded';
+
   function render() {
     const root = document.getElementById('tab-ki');
     if (!root) return;
 
     const rows = filtered();
     const selected = selectedId ? convos.find(c => c.conversation_id === selectedId) : null;
+    const showOnboarding = !localStorage.getItem(ONBOARDING_KEY);
 
     root.innerHTML = `
+      ${showOnboarding ? `
+      <div class="ki-onboarding">
+        <button class="ki-onboarding-close" aria-label="Zamknij">&times;</button>
+        <h3>Jak korzystać z KI-Czatu</h3>
+        <ul>
+          <li><strong>Czerwone wiersze</strong> oznaczają pilne sprawy (namaszczenie, pogrzeb, śmierć).</li>
+          <li><strong>Zaznacz pole</strong> z lewej, aby szybko oznaczyć rozmowę jako <em>załatwioną</em>.</li>
+          <li><strong>Kliknij wiersz</strong>, aby otworzyć panel z transkryptem i notatką.</li>
+          <li>Zmień <strong>Zakres</strong> (7/30/90 dni) z prawej, aby zobaczyć starsze rozmowy.</li>
+        </ul>
+      </div>
+      ` : ''}
       <div class="ki-head">
         <h1>KI-Czat</h1>
         <div class="ki-range">
@@ -124,6 +139,13 @@ const KI = (function() {
           <option value="bad_answer"${filterStatus === 'bad_answer' ? 'selected' : ''}>Zła odpowiedź</option>
           <option value="spam"      ${filterStatus === 'spam'       ? 'selected' : ''}>Spam</option>
         </select>
+      </div>
+      <div class="ki-legend">
+        <span class="ki-legend-item"><span class="ki-status ki-status-unhandled">Otwarte</span> — czeka na decyzję</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-done">Załatwione</span> — zrobione</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-followup">Follow-up</span> — wymaga oddzwonienia / maila</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-bad_answer">Zła odpowiedź</span> — bot błędnie odpowiedział</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-spam">Spam</span> — ignorować</span>
       </div>
       <table class="ki-table">
         <thead><tr>
@@ -178,6 +200,12 @@ const KI = (function() {
       </aside>
       ` : ''}
     `;
+
+    const closeBtn = root.querySelector('.ki-onboarding-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => {
+      localStorage.setItem(ONBOARDING_KEY, '1');
+      render();
+    });
 
     root.querySelector('.ki-search').addEventListener('input', e => { searchTerm = e.target.value; render(); });
     root.querySelector('.ki-ch').addEventListener('change', e => { filterChannel = e.target.value; render(); });

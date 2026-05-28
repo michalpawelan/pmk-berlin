@@ -83,10 +83,13 @@ const Newsletter = (function() {
     URL.revokeObjectURL(url);
   }
 
+  const NL_ONBOARDING_KEY = 'pmk_nl_onboarded';
+
   function render() {
     const root = document.getElementById('tab-newsletter');
     if (!root) return;
     const rows = filtered();
+    const showNlOnboarding = !localStorage.getItem(NL_ONBOARDING_KEY);
     root.innerHTML = `
       <div class="news-head">
         <h1>Newsletter</h1>
@@ -95,6 +98,12 @@ const Newsletter = (function() {
           <span class="news-stat-delta">+${statsLast7()} w ciągu 7 dni</span>
         </div>
       </div>
+      ${showNlOnboarding ? `
+      <div class="ki-onboarding">
+        <button class="ki-onboarding-close" aria-label="Zamknij">&times;</button>
+        <p><strong>Kolumna „Źródło"</strong> pokazuje, na której podstronie ktoś się zapisał. <strong>„Eksportuj CSV"</strong> pobiera listę jako plik do otwarcia w Excelu lub do importu do narzędzia mailingowego.</p>
+      </div>
+      ` : ''}
       <div class="news-toolbar">
         <input class="news-search" placeholder="Szukaj po e-mailu…" value="${escapeHtml(searchTerm)}">
         <select class="news-filter">
@@ -118,6 +127,12 @@ const Newsletter = (function() {
         </tbody>
       </table>
     `;
+    const nlClose = root.querySelector('.ki-onboarding-close');
+    if (nlClose) nlClose.addEventListener('click', () => {
+      localStorage.setItem(NL_ONBOARDING_KEY, '1');
+      render();
+    });
+
     root.querySelector('.news-search').addEventListener('input', e => { searchTerm = e.target.value; render(); });
     root.querySelector('.news-filter').addEventListener('change', e => { filterLang = e.target.value; render(); });
     root.querySelector('.news-export').addEventListener('click', exportCsv);
