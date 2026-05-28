@@ -33,7 +33,7 @@ const ADMIN_PIN = 'pmk2026';
 // Google Drive Ordner fuer Bilder (wird automatisch erstellt)
 const DRIVE_FOLDER_NAME = 'PMK_Events_Bilder';
 
-// Spalten: A:Tytul  B:Data  C:Godzina  D:Opis  E:Zdjecie  F:Miejsce  G:Adres  H:Opublikowane
+// Spalten: A:Tytul  B:Data  C:Godzina  D:Opis  E:Zdjecie  F:Miejsce  G:Adres  H:Opublikowane  I:Wspolnota
 // Newsletter-Tab Spalten: A:Email  B:Data  C:Jezyk  D:Zrodlo
 
 function getSheet() {
@@ -176,7 +176,8 @@ function listEvents() {
       image: String(row[4] || ''),
       location: String(row[5] || ''),
       address: String(row[6] || ''),
-      published: String(row[7] || 'TAK').toUpperCase()
+      published: String(row[7] || 'TAK').toUpperCase(),
+      community: String(row[8] || '')   // NEW
     });
   }
 
@@ -200,7 +201,8 @@ function addEvent(params) {
     params.image || '',
     params.location || '',
     params.address || '',
-    params.published || 'TAK'
+    params.published || 'TAK',
+    params.community || ''   // NEW
   ];
 
   sheet.appendRow(newRow);
@@ -220,7 +222,7 @@ function updateEvent(params) {
     return { success: false, error: 'Nieprawidlowy wiersz' };
   }
 
-  const range = sheet.getRange(row, 1, 1, 8);
+  const range = sheet.getRange(row, 1, 1, 9);
   range.setValues([[
     params.title || '',
     params.date || '',
@@ -229,7 +231,8 @@ function updateEvent(params) {
     params.image || '',
     params.location || '',
     params.address || '',
-    params.published || 'TAK'
+    params.published || 'TAK',
+    params.community || ''   // NEW
   ]]);
   SpreadsheetApp.flush();
 
@@ -248,7 +251,7 @@ function deleteEvent(params) {
   }
 
   // Zeile leeren statt loeschen (sicherer, listEvents ueberspringt leere Zeilen)
-  sheet.getRange(row, 1, 1, 8).clearContent();
+  sheet.getRange(row, 1, 1, 9).clearContent();
   SpreadsheetApp.flush();
 
   return { success: true, message: 'Wydarzenie usuniete' };

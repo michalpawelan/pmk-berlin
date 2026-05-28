@@ -89,6 +89,20 @@ const Events = (function() {
   // ============================================
   // Render Events Table
   // ============================================
+  function populateModalCommunitySelect(currentSlug) {
+    const sel = document.getElementById('evCommunity');
+    if (!sel) return;
+    // Reset options except the placeholder
+    while (sel.options.length > 1) sel.remove(1);
+    for (const c of COMMUNITIES) {
+      const opt = document.createElement('option');
+      opt.value = c.slug;
+      opt.textContent = c.name;
+      if (c.slug === currentSlug) opt.selected = true;
+      sel.appendChild(opt);
+    }
+  }
+
   function populateCommunityFilter() {
     const sel = document.getElementById('evCommunityFilter');
     if (!sel || sel.dataset.populated === '1') return;
@@ -313,6 +327,8 @@ const Events = (function() {
       loadTimeFromValue('');
     }
 
+    populateModalCommunitySelect(editingRow ? (allEvents.find(e => e.row === editingRow) || {}).community || '' : '');
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     setTimeout(() => document.getElementById('eventTitle').focus(), 100);
@@ -409,7 +425,8 @@ const Events = (function() {
       image: document.getElementById('eventImage').value.trim(),
       location: document.getElementById('eventLocation').value.trim(),
       address: document.getElementById('eventAddress').value.trim(),
-      published: document.getElementById('eventPublished').checked ? 'TAK' : 'NIE'
+      published: document.getElementById('eventPublished').checked ? 'TAK' : 'NIE',
+      community: document.getElementById('evCommunity').value
     };
 
     if (!params.title.trim() || !params.date) {
