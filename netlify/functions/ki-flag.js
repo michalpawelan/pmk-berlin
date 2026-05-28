@@ -43,15 +43,29 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ success: false, error: 'invalid_status' }) };
   }
 
-  const store = getStore('ki-flags');
+  let store;
+  try {
+    store = getStore('ki-flags');
+  } catch (err) {
+    return {
+      statusCode: 503,
+      body: JSON.stringify({ success: false, error: 'blobs_not_configured', detail: err.message })
+    };
+  }
   const entry = {
     status,
     note: String(note || '').slice(0, 1000),
     flagged_by: 'pin',
     flagged_at: new Date().toISOString()
   };
-  await store.setJSON(conversation_id, entry);
-
+  try {
+    await store.setJSON(conversation_id, entry);
+  } catch (err) {
+    return {
+      statusCode: 502,
+      body: JSON.stringify({ success: false, error: 'blobs_write_failed', detail: err.message })
+    };
+  }
   return {
     statusCode: 200,
     body: JSON.stringify({ success: true, flag: entry })

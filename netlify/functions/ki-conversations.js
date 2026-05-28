@@ -69,15 +69,25 @@ exports.handler = async (event) => {
       status: c.status || ''
     }));
 
-  // Flags aus Blobs mergen
-  const store = getStore('ki-flags');
-  await Promise.all(conversations.map(async (c) => {
-    try {
-      const flag = await store.get(c.conversation_id, { type: 'json' });
-      if (flag) c.flag = flag;
-      else c.flag = { status: 'unhandled' };
-    } catch (_) { c.flag = { status: 'unhandled' }; }
-  }));
+  // Try to merge flags from Blobs. If Blobs isn't configured (file-based deploys),
+  // gracefully degrade to all conversations as unflagged.
+  let store;
+  try {
+    store = getStore('ki-flags');
+  } catch (err) {
+    console.warn('Blobs unavailable, returning conversations without flags:', err.message);
+    store = null;
+  }
+  if (store) {
+    await Promise.all(conversations.map(async (c) => {
+      try {
+        const flag = await store.get(c.conversation_id, { type: 'json' });
+        c.flag = flag || { status: 'unhandled' };
+      } catch (_) { c.flag = { status: 'unhandled' }; }
+    }));
+  } else {
+    conversations.forEach(c => { c.flag = { status: 'unhandled' }; });
+  }
 
   conversations.sort((a, b) => (b.started_at || '').localeCompare(a.started_at || ''));
 
