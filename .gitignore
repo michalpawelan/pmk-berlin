@@ -10,3 +10,4 @@ node_modules/
 # Lokales Quellmaterial / Working drafts (nicht ins Repo)
 neu/
 .gstack/
+.superpowers/
