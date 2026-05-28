@@ -102,6 +102,28 @@ const Events = (function() {
     sel.addEventListener('change', e => { communityFilter = e.target.value; renderEvents(); });
   }
 
+  function communityBySlug(slug) {
+    return COMMUNITIES.find(c => c.slug === slug);
+  }
+
+  function statusTag(date) {
+    if (!date) return '';
+    const now = new Date(); now.setHours(0, 0, 0, 0);
+    const target = new Date(date); target.setHours(0, 0, 0, 0);
+    const diff = Math.round((target - now) / 86400000);
+    if (diff < 0) return '';
+    if (diff === 0) return '<span class="ev-status ev-status-today">Dziś</span>';
+    if (diff === 1) return '<span class="ev-status ev-status-tmr">Jutro</span>';
+    if (diff <= 7)  return `<span class="ev-status ev-status-soon">Za ${diff} dni</span>`;
+    return '';
+  }
+
+  function badgeHtml(slug) {
+    const c = communityBySlug(slug);
+    if (!c) return '';
+    return `<span class="ev-badge" style="background:${c.color}22;color:${c.color}">● ${c.name}</span>`;
+  }
+
   function renderEvents() {
     const container = document.getElementById('eventsTableContainer');
     const search = (document.getElementById('searchInput').value || '').toLowerCase();
@@ -187,6 +209,7 @@ const Events = (function() {
           <td>
             <div class="event-row-title">${escapeHtml(ev.title)}</div>
             <div class="event-row-desc">${escapeHtml(shortDesc)}</div>
+            <div class="event-row-meta">${badgeHtml(ev.community)}${statusTag(ev.date)}</div>
           </td>
           <td>
             <div class="event-row-date">${dateFormatted}</div>
