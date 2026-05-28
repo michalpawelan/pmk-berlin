@@ -37,6 +37,31 @@ const Newsletter = (function() {
     return subs.filter(s => new Date(s.created_at).getTime() >= cutoff).length;
   }
 
+  function friendlySource(path) {
+    if (!path || path === '/') return 'Strona główna';
+    const map = {
+      '/sakramente.html': 'Sakramenty',
+      '/events.html': 'Wydarzenia',
+      '/grupy.html': 'Wspólnoty',
+      '/kontakt.html': 'Kontakt',
+      '/wesprzyj.html': 'Wesprzyj',
+      '/de/index.html': 'Strona DE',
+      '/de/sakramente.html': 'Sakramenty DE',
+      '/de/events.html': 'Wydarzenia DE',
+      '/de/grupy.html': 'Wspólnoty DE',
+      '/de/kontakt.html': 'Kontakt DE'
+    };
+    if (map[path]) return map[path];
+    // Wspolnota detail pages: wspolnota-apostolstwo.html → "Apostolstwo"
+    const m = path.match(/wspolnota-([a-z-]+)\.html/);
+    if (m) return 'Wspólnota: ' + m[1].replace(/-/g, ' ');
+    // Sakrament detail pages: sakrament-chrzest.html → "Sakrament: chrzest"
+    const s = path.match(/sakrament-([a-z-]+)\.html/);
+    if (s) return 'Sakrament: ' + s[1].replace(/-/g, ' ');
+    // Fallback: show the path
+    return path;
+  }
+
   function fmtDate(iso) {
     if (!iso) return '';
     const d = new Date(iso);
@@ -86,7 +111,7 @@ const Newsletter = (function() {
             <tr>
               <td>${escapeHtml(r.email)}</td>
               <td><span class="news-lang-badge news-lang-${escapeHtml(r.lang)}">${escapeHtml(r.lang.toUpperCase())}</span></td>
-              <td class="news-src">${escapeHtml(r.source || '—')}</td>
+              <td class="news-src">${escapeHtml(friendlySource(r.source))}</td>
               <td>${fmtDate(r.created_at)}</td>
             </tr>
           `).join('') || '<tr><td colspan="4" class="news-empty">Brak zapisów</td></tr>'}

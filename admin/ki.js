@@ -7,6 +7,7 @@ const KI = (function() {
   let searchTerm = '';
   let rangeDays = 7;
   let selectedId = null;
+  let loading = false;
 
   function escapeHtml(s) {
     return String(s == null ? '' : s)
@@ -19,12 +20,20 @@ const KI = (function() {
 
   async function load() {
     const pin = Auth.getPin();
-    if (!pin) return;
-    const url = `/.netlify/functions/ki-conversations?pin=${encodeURIComponent(pin)}&days=${rangeDays}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    convos = (data && Array.isArray(data.conversations)) ? data.conversations : [];
+    if (!pin) { render(); return; }   // render even without PIN — shows empty state
+    loading = true;
     render();
+    try {
+      const url = `/.netlify/functions/ki-conversations?pin=${encodeURIComponent(pin)}&days=${rangeDays}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      convos = (data && Array.isArray(data.conversations)) ? data.conversations : [];
+    } catch (e) {
+      convos = [];
+    } finally {
+      loading = false;
+      render();
+    }
   }
 
   function filtered() {
@@ -94,7 +103,7 @@ const KI = (function() {
         <select class="ki-ch">
           <option value="all">Wszystkie kanały</option>
           <option value="chat"  ${filterChannel === 'chat'  ? 'selected' : ''}>💬 Czat</option>
-          <option value="phone" ${filterChannel === 'phone' ? 'selected' : ''}>☎️ Telefon</option>
+          <option value="phone" ${filterChannel === 'phone' ? 'selected' : ''}>📞 Telefon</option>
         </select>
         <select class="ki-st">
           <option value="all">Wszystkie statusy</option>
@@ -108,15 +117,17 @@ const KI = (function() {
       <table class="ki-table">
         <thead><tr><th>Czas</th><th>Kanał</th><th>Język</th><th>Pierwsze pytanie</th><th>Status</th></tr></thead>
         <tbody>
-          ${rows.map(c => `
+          ${rows.length === 0 ? `
+            <tr><td colspan="5" class="ki-empty">${loading ? 'Wczytywanie…' : 'Brak rozmów w tym okresie'}</td></tr>
+          ` : rows.map(c => `
             <tr data-id="${escapeHtml(c.conversation_id)}" class="ki-row">
               <td>${escapeHtml(fmtTime(c.started_at))}</td>
-              <td>${c.channel === 'phone' ? '☎️' : '💬'}</td>
+              <td>${c.channel === 'phone' ? '📞 Telefon' : '💬 Czat'}</td>
               <td>${escapeHtml((c.language || '').toUpperCase())}</td>
               <td class="ki-msg">${escapeHtml((c.first_user_message || '').slice(0, 80)) || '<em>—</em>'}</td>
               <td><span class="ki-status ki-status-${c.flag?.status || 'unhandled'}">${statusLabel(c.flag?.status || 'unhandled')}</span></td>
             </tr>
-          `).join('') || '<tr><td colspan="5" class="ki-empty">Brak rozmów</td></tr>'}
+          `).join('')}
         </tbody>
       </table>
 
@@ -126,7 +137,7 @@ const KI = (function() {
           <h2>Rozmowa</h2>
           <button class="btn btn-ghost btn-sm ki-close">Zamknij</button>
         </header>
-        <p class="ki-meta">${escapeHtml(fmtTime(selected.started_at))} · ${selected.channel === 'phone' ? '☎️ Telefon' : '💬 Czat'} · ${escapeHtml((selected.language || '').toUpperCase())}</p>
+        <p class="ki-meta">${escapeHtml(fmtTime(selected.started_at))} · ${selected.channel === 'phone' ? '📞 Telefon' : '💬 Czat'} · ${escapeHtml((selected.language || '').toUpperCase())}</p>
         <div class="ki-transcript">
           <em>Transkrypt ładuje się asynchronicznie z ElevenLabs (V2). Na razie wyświetlamy pierwszą wiadomość:</em>
           <p>${escapeHtml(selected.first_user_message) || '<em>—</em>'}</p>
@@ -170,5 +181,5 @@ const KI = (function() {
 })();
 
 window.KI = KI;
-window.addEventListener('hashchange', () => { if (location.hash === '#ki') KI.load(); });
-window.addEventListener('DOMContentLoaded', () => { if (location.hash === '#ki') KI.load(); });
+window.addEventListener('hashchange', () => { if (location.hash === '#ki') { KI.render(); KI.load(); } });
+window.addEventListener('DOMContentLoaded', () => { if (location.hash === '#ki') { KI.render(); KI.load(); } });
