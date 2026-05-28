@@ -23,7 +23,7 @@
      LOGIN SCREEN
      ============================================ -->
 <div class="login-screen" id="loginScreen">
-  <div class="login-card">
+  <div class="login-card" id="loginCard">
     <img src="../images/pmk-logo.png" alt="PMK" class="login-logo">
     <h1 class="login-title">Panel <em>Wydarzeń</em></h1>
     <p class="login-subtitle">Zarządzaj wydarzeniami parafii</p>
@@ -36,6 +36,9 @@
       <p class="login-error" id="loginError">Nieprawidłowy PIN. Spróbuj ponownie.</p>
       <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Zaloguj się</button>
     </form>
+  </div>
+  <div class="login-autoloader" id="loginAutoloader" hidden>
+    <div class="ki-spinner"></div>
   </div>
 </div>
 
@@ -345,6 +348,8 @@
     Auth.clear();
     document.getElementById('adminApp').classList.remove('active');
     document.getElementById('loginScreen').style.display = '';
+    document.getElementById('loginCard').style.display = '';
+    document.getElementById('loginAutoloader').hidden = true;
     document.getElementById('pinInput').value = '';
     document.getElementById('pinInput').focus();
   };
@@ -353,6 +358,8 @@
   window.addEventListener('DOMContentLoaded', () => {
     const savedPin = Auth.getPin();
     if (savedPin) {
+      document.getElementById('loginCard').style.display = 'none';
+      document.getElementById('loginAutoloader').hidden = false;
       document.getElementById('pinInput').value = savedPin;
       document.getElementById('loginForm').requestSubmit();
     }

@@ -85,6 +85,7 @@ exports.handler = async (event) => {
       first_user_message: c.call_summary_title || c.transcript_summary || '',
       duration_secs: c.call_duration_secs || 0,
       message_count: c.message_count || 0,
+      call_successful: c.call_successful || 'unknown',
       status: c.status || ''
     }));
 

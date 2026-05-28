@@ -5,6 +5,7 @@ const Newsletter = (function() {
   let subs = [];
   let filterLang = 'all';
   let searchTerm = '';
+  let loading = false;
 
   function escapeHtml(str) {
     return String(str)
@@ -17,11 +18,19 @@ const Newsletter = (function() {
 
   async function load() {
     const pin = Auth.getPin();
-    if (!pin) return;
-    const res = await fetch('/.netlify/functions/newsletter-list?pin=' + encodeURIComponent(pin));
-    const data = await res.json();
-    subs = (data && Array.isArray(data.subscribers)) ? data.subscribers : [];
+    if (!pin) { render(); return; }
+    loading = true;
     render();
+    try {
+      const res = await fetch('/.netlify/functions/newsletter-list?pin=' + encodeURIComponent(pin));
+      const data = await res.json();
+      subs = (data && Array.isArray(data.subscribers)) ? data.subscribers : [];
+    } catch (e) {
+      subs = [];
+    } finally {
+      loading = false;
+      render();
+    }
   }
 
   function filtered() {
@@ -116,14 +125,21 @@ const Newsletter = (function() {
       <table class="news-table">
         <thead><tr><th>E-mail</th><th>Język</th><th>Źródło</th><th>Zapisano</th></tr></thead>
         <tbody>
-          ${rows.map(r => `
+          ${rows.length === 0 ? (loading ? `
+            <tr><td colspan="4" class="ki-loading">
+              <div class="ki-spinner"></div>
+              <span>Wczytywanie zapisów…</span>
+            </td></tr>
+          ` : `
+            <tr><td colspan="4" class="news-empty">Brak zapisów</td></tr>
+          `) : rows.map(r => `
             <tr>
               <td>${escapeHtml(r.email)}</td>
               <td><span class="news-lang-badge news-lang-${escapeHtml(r.lang)}">${escapeHtml(r.lang.toUpperCase())}</span></td>
               <td class="news-src">${escapeHtml(friendlySource(r.source))}</td>
               <td>${fmtDate(r.created_at)}</td>
             </tr>
-          `).join('') || '<tr><td colspan="4" class="news-empty">Brak zapisów</td></tr>'}
+          `).join('')}
         </tbody>
       </table>
     `;

@@ -20,6 +20,16 @@ const KI = (function() {
     return URGENT_KEYWORDS.some(k => text.includes(k));
   }
 
+  function effectiveStatus(c) {
+    const flagStatus = c.flag?.status;
+    const hasManualFlag = flagStatus && flagStatus !== 'unhandled';
+    if (hasManualFlag) return flagStatus;
+    if (isUrgent(c)) return 'unhandled';
+    if (c.call_successful === 'success') return 'auto_ok';
+    if (c.call_successful === 'failure') return 'check';
+    return 'unhandled';
+  }
+
   function escapeHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;')
@@ -50,7 +60,12 @@ const KI = (function() {
   function filtered() {
     return convos.filter(c => {
       if (filterChannel !== 'all' && c.channel !== filterChannel) return false;
-      if (filterStatus !== 'all' && (c.flag?.status || 'unhandled') !== filterStatus) return false;
+      if (filterStatus !== 'all') {
+        const eff = effectiveStatus(c);
+        // "unhandled" filter = needs attention → includes both 'unhandled' and 'check'
+        if (filterStatus === 'unhandled' && eff !== 'unhandled' && eff !== 'check') return false;
+        if (filterStatus !== 'unhandled' && filterStatus !== eff) return false;
+      }
       if (searchTerm && !(c.first_user_message || '').toLowerCase().includes(searchTerm.toLowerCase())) return false;
       return true;
     });
@@ -62,7 +77,15 @@ const KI = (function() {
   }
 
   function statusLabel(s) {
-    return { unhandled: 'Otwarte', done: 'Załatwione', followup: 'Follow-up', bad_answer: 'Zła odpowiedź', spam: 'Spam' }[s] || s;
+    return {
+      unhandled: 'Otwarte',
+      done: 'Załatwione',
+      followup: 'Follow-up',
+      bad_answer: 'Zła odpowiedź',
+      spam: 'Spam',
+      auto_ok: '✓ Auto',
+      check: '⚠ Sprawdź'
+    }[s] || s;
   }
 
   async function saveFlag(conversationId, status, note) {
@@ -134,6 +157,8 @@ const KI = (function() {
         <select class="ki-st">
           <option value="all">Wszystkie statusy</option>
           <option value="unhandled" ${filterStatus === 'unhandled'  ? 'selected' : ''}>Otwarte</option>
+          <option value="auto_ok"   ${filterStatus === 'auto_ok'    ? 'selected' : ''}>✓ Auto</option>
+          <option value="check"     ${filterStatus === 'check'      ? 'selected' : ''}>⚠ Sprawdź</option>
           <option value="done"      ${filterStatus === 'done'       ? 'selected' : ''}>Załatwione</option>
           <option value="followup"  ${filterStatus === 'followup'   ? 'selected' : ''}>Follow-up</option>
           <option value="bad_answer"${filterStatus === 'bad_answer' ? 'selected' : ''}>Zła odpowiedź</option>
@@ -141,10 +166,12 @@ const KI = (function() {
         </select>
       </div>
       <div class="ki-legend">
-        <span class="ki-legend-item"><span class="ki-status ki-status-unhandled">Otwarte</span> — czeka na decyzję</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-auto_ok">✓ Auto</span> — bot załatwił sam</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-unhandled">Otwarte</span> — wymaga uwagi</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-check">⚠ Sprawdź</span> — bot nie odpowiedział</span>
         <span class="ki-legend-item"><span class="ki-status ki-status-done">Załatwione</span> — zrobione</span>
-        <span class="ki-legend-item"><span class="ki-status ki-status-followup">Follow-up</span> — wymaga oddzwonienia / maila</span>
-        <span class="ki-legend-item"><span class="ki-status ki-status-bad_answer">Zła odpowiedź</span> — bot błędnie odpowiedział</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-followup">Follow-up</span> — oddzwonić / mail</span>
+        <span class="ki-legend-item"><span class="ki-status ki-status-bad_answer">Zła odpowiedź</span> — bot zły</span>
         <span class="ki-legend-item"><span class="ki-status ki-status-spam">Spam</span> — ignorować</span>
       </div>
       <table class="ki-table">
@@ -162,6 +189,7 @@ const KI = (function() {
             <tr><td colspan="6" class="ki-empty">Brak rozmów w tym okresie</td></tr>
           `) : rows.map(c => {
             const urgent = isUrgent(c);
+            const eff = effectiveStatus(c);
             return `
               <tr data-id="${escapeHtml(c.conversation_id)}" class="ki-row ${urgent ? 'ki-row-urgent' : ''}">
                 <td class="ki-check-cell">
@@ -171,7 +199,7 @@ const KI = (function() {
                 <td>${c.channel === 'phone' ? '📞 Telefon' : '💬 Czat'}</td>
                 <td>${escapeHtml((c.language || '').toUpperCase())}</td>
                 <td class="ki-msg">${urgent ? '<span class="ki-urgent">🔴</span> ' : ''}${escapeHtml((c.first_user_message || '').slice(0, 80) || '—')}</td>
-                <td><span class="ki-status ki-status-${c.flag?.status || 'unhandled'}">${statusLabel(c.flag?.status || 'unhandled')}</span></td>
+                <td><span class="ki-status ki-status-${eff}">${statusLabel(eff)}</span></td>
               </tr>
             `;
           }).join('')}
