@@ -237,6 +237,24 @@
       line-height: 1.6;
     }
 
+    .donate-bank-pending {
+      padding: var(--space-5) var(--space-5);
+      background: var(--color-warm-100);
+      border-left: 3px solid var(--color-accent);
+      margin: var(--space-4) 0 0;
+      font-size: var(--text-base);
+      color: var(--color-text-primary);
+      line-height: 1.65;
+    }
+    .donate-bank-pending strong { color: var(--color-text-primary); }
+    .donate-bank-pending a {
+      color: var(--color-accent);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+    .donate-bank-pending a:hover { color: var(--color-text-primary); }
+
     /* Right column: purposes + receipt + transparency */
     .donate-side h3 {
       font-family: var(--font-serif);
@@ -402,21 +420,10 @@
           <span class="label" data-i18n="wesprzyj.bank.holder_label">Odbiorca / Kontoinhaber</span>
           <span class="value">Polska Misja Katolicka w&nbsp;Berlinie</span>
         </div>
-        <div class="donate-bank-row">
-          <span class="label">IBAN</span>
-          <span class="value placeholder" id="iban-value">DE.. .... .... .... .... ..</span>
-        </div>
-        <div class="donate-bank-row">
-          <span class="label">BIC</span>
-          <span class="value placeholder" data-i18n="wesprzyj.bank.bic_placeholder">[BIC vom Pfarramt]</span>
-        </div>
-        <div class="donate-bank-row">
-          <span class="label" data-i18n="wesprzyj.bank.bank_label">Bank</span>
-          <span class="value placeholder" data-i18n="wesprzyj.bank.bank_placeholder">[Nazwa banku / Bankname]</span>
-        </div>
 
-        <div class="donate-bank-note" data-i18n-html="wesprzyj.bank.note">
-          <strong>Ważne / Wichtig:</strong> w polu „Tytuł przelewu" / „Verwendungszweck" prosimy wpisać <strong>cel ofiary</strong> oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić Spendenquittung.
+        <div class="donate-bank-pending" data-i18n-html="wesprzyj.bank.pending">
+          <strong>Pełne dane bankowe wkrótce dostępne.</strong><br>
+          Bankdaten in Kürze verfügbar — w międzyczasie zapraszamy do kontaktu z biurem parafialnym pod numerem <a href="tel:+49307524080">+49 30 752 40 80</a> lub mailem <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>.
         </div>
       </div>
     </div>

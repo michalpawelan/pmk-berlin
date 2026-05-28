@@ -44,6 +44,10 @@
     "pl": "<strong>Ważne:</strong> w polu „Tytuł przelewu\" prosimy wpisać <strong>cel ofiary</strong> oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić zaświadczenia (Spendenquittung).",
     "de": "<strong>Wichtig:</strong> Bitte tragen Sie im Feld „Verwendungszweck\" den <strong>Spendenzweck</strong> ein und — falls Sie eine Spendenquittung wünschen — <strong>Vor- und Nachname sowie Anschrift</strong>. Ohne diese Angaben können wir keine Spendenquittung ausstellen."
   },
+  "wesprzyj.bank.pending": {
+    "pl": "<strong>Pełne dane bankowe wkrótce dostępne.</strong><br>W międzyczasie zapraszamy do kontaktu z biurem parafialnym pod numerem <a href=\"tel:+49307524080\">+49 30 752 40 80</a> lub mailem <a href=\"mailto:pmk@pmk-berlin.de\">pmk@pmk-berlin.de</a>.",
+    "de": "<strong>Bankdaten in Kürze verfügbar.</strong><br>In der Zwischenzeit erreichen Sie uns telefonisch unter <a href=\"tel:+49307524080\">+49 30 752 40 80</a> oder per E-Mail <a href=\"mailto:pmk@pmk-berlin.de\">pmk@pmk-berlin.de</a>."
+  },
 
   "wesprzyj.receipt.title": {
     "pl": "Zaświadczenie o darowiźnie",
