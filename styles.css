@@ -4827,3 +4827,32 @@ a.event-card-full:hover {
 .toast-info {
   background: var(--color-warm-700, #5a4a3a);
 }
+
+/* ============================================
+   Newsletter Footer Form
+   ============================================ */
+.footer-newsletter {
+  margin-top: 2rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 480px;
+}
+.footer-newsletter h4 { color: rgba(255, 255, 255, 0.95); margin-bottom: 0.25rem; }
+.footer-newsletter p { color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin-bottom: 0.85rem; }
+.footer-newsletter-form { display: flex; gap: 0.5rem; flex-wrap: wrap; position: relative; }
+.footer-newsletter-input {
+  flex: 1 1 240px; padding: 0.6rem 0.9rem;
+  border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08); color: white; font-size: 0.9rem;
+}
+.footer-newsletter-input::placeholder { color: rgba(255, 255, 255, 0.55); }
+.footer-newsletter-btn {
+  padding: 0.6rem 1.25rem; border: 0; border-radius: 8px;
+  background: rgba(166, 139, 91, 1); color: white; font-weight: 500; cursor: pointer;
+}
+.footer-newsletter-btn:hover { background: rgba(140, 115, 75, 1); }
+.footer-newsletter-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.footer-newsletter-msg { width: 100%; margin-top: 0.5rem; font-size: 0.85rem; }
+.footer-newsletter-msg-ok { color: rgba(180, 230, 180, 1); }
+.footer-newsletter-msg-err { color: rgba(255, 180, 180, 1); }
+.footer-newsletter-legal { font-size: 0.75rem; margin-top: 0.6rem; }
+.footer-newsletter-legal a { color: rgba(255, 255, 255, 0.55); text-decoration: underline; }

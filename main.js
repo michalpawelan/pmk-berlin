@@ -602,3 +602,46 @@
   }
 
 })();
+
+// ============================================
+// Newsletter-Footer-Formular
+// ============================================
+window.PmkNewsletter = {
+  submit: function(e, form) {
+    e.preventDefault();
+    const btn = form.querySelector('.footer-newsletter-btn');
+    const msg = form.querySelector('.footer-newsletter-msg');
+    const data = {
+      email: form.email.value.trim(),
+      website: form.website.value,
+      lang: (document.documentElement.lang || 'pl').slice(0, 2),
+      source: location.pathname
+    };
+    btn.disabled = true;
+    msg.hidden = true;
+    fetch('/.netlify/functions/newsletter-subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(r => r.json())
+      .then(res => {
+        if (res && res.success) {
+          msg.textContent = (data.lang === 'de') ? 'Danke — du bist eingetragen.' : 'Dziękujemy — Twój e-mail został zapisany.';
+          msg.className = 'footer-newsletter-msg footer-newsletter-msg-ok';
+          form.reset();
+        } else {
+          msg.textContent = (data.lang === 'de') ? 'E-Mail ungültig oder Fehler.' : 'Nieprawidłowy e-mail lub błąd.';
+          msg.className = 'footer-newsletter-msg footer-newsletter-msg-err';
+        }
+        msg.hidden = false;
+      })
+      .catch(() => {
+        msg.textContent = (data.lang === 'de') ? 'Verbindung fehlgeschlagen.' : 'Błąd połączenia.';
+        msg.className = 'footer-newsletter-msg footer-newsletter-msg-err';
+        msg.hidden = false;
+      })
+      .finally(() => { btn.disabled = false; });
+    return false;
+  }
+};

@@ -66,5 +66,25 @@
   "footer.info_title": {
     "pl": "Informacje",
     "de": "Informationen"
+  },
+  "footer.newsletter_title": {
+    "pl": "Bądź na bieżąco",
+    "de": "Bleib auf dem Laufenden"
+  },
+  "footer.newsletter_desc": {
+    "pl": "Newsletter parafii — informacje o wydarzeniach, ogłoszenia.",
+    "de": "Pfarr-Newsletter — Veranstaltungen, Ankündigungen."
+  },
+  "footer.newsletter_placeholder": {
+    "pl": "twój e-mail",
+    "de": "deine E-Mail"
+  },
+  "footer.newsletter_submit": {
+    "pl": "Zapisz mnie",
+    "de": "Anmelden"
+  },
+  "footer.newsletter_legal": {
+    "pl": "Informacja o ochronie danych",
+    "de": "Datenschutzhinweis"
   }
 }
