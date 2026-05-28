@@ -23,6 +23,17 @@ async function verifyPin(pin) {
   } catch (_) { return false; }
 }
 
+function getKiStore() {
+  const siteID = process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN;
+  if (siteID && token) {
+    // Explicit auth — works for file-based deploys
+    return getStore({ name: 'ki-flags', siteID, token, consistency: 'strong' });
+  }
+  // Fallback — works for build-from-source deploys where context is auto-injected
+  return getStore('ki-flags');
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ success: false, error: 'method_not_allowed' }) };
@@ -45,7 +56,7 @@ exports.handler = async (event) => {
 
   let store;
   try {
-    store = getStore('ki-flags');
+    store = getKiStore();
   } catch (err) {
     return {
       statusCode: 503,

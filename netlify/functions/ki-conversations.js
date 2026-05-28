@@ -24,6 +24,23 @@ async function verifyPin(pin) {
   } catch (_) { return false; }
 }
 
+function inferChannel(c) {
+  const src = String(c.conversation_initiation_source || '').toLowerCase();
+  if (src.startsWith('phone') || src.includes('twilio') || src.includes('call')) return 'phone';
+  return 'chat';
+}
+
+function getKiStore() {
+  const siteID = process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN;
+  if (siteID && token) {
+    // Explicit auth — works for file-based deploys
+    return getStore({ name: 'ki-flags', siteID, token, consistency: 'strong' });
+  }
+  // Fallback — works for build-from-source deploys where context is auto-injected
+  return getStore('ki-flags');
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') {
     return { statusCode: 405, body: JSON.stringify({ success: false, error: 'method_not_allowed' }) };
@@ -63,9 +80,11 @@ exports.handler = async (event) => {
     .map(c => ({
       conversation_id: c.conversation_id,
       started_at: c.start_time_unix_secs ? new Date(c.start_time_unix_secs * 1000).toISOString() : null,
-      channel: (c.metadata && c.metadata.channel) || (c.call_summary ? 'phone' : 'chat'),
-      language: (c.metadata && c.metadata.language) || '',
-      first_user_message: c.first_user_message || c.transcript_summary || '',
+      channel: inferChannel(c),
+      language: c.main_language || '',
+      first_user_message: c.call_summary_title || c.transcript_summary || '',
+      duration_secs: c.call_duration_secs || 0,
+      message_count: c.message_count || 0,
       status: c.status || ''
     }));
 
@@ -73,7 +92,7 @@ exports.handler = async (event) => {
   // gracefully degrade to all conversations as unflagged.
   let store;
   try {
-    store = getStore('ki-flags');
+    store = getKiStore();
   } catch (err) {
     console.warn('Blobs unavailable, returning conversations without flags:', err.message);
     store = null;
