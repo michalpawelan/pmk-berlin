@@ -19,8 +19,9 @@
   // ============================================
   const CONFIG = {
     scrollThreshold: 50,
-    revealThreshold: 0.1,
-    revealMargin: '0px 0px -50px 0px',
+    revealThreshold: 0.01,
+    revealMargin: '0px 0px 1500px 0px',
+    revealInitialBuffer: 1200,
     animationDelay: 100
   };
 
@@ -103,10 +104,13 @@
     if (!reveals.length) return;
 
     // Elements already in viewport on page load: show instantly (no animation)
+    // Buffer reveals just-below-the-fold content so card grids (sakramenty,
+    // grupy, kontakt churches) don't appear empty if the visitor never scrolls.
     const viewportHeight = window.innerHeight;
+    const buffer = CONFIG.revealInitialBuffer;
     reveals.forEach(el => {
       const rect = el.getBoundingClientRect();
-      if (rect.top < viewportHeight && rect.bottom > 0) {
+      if (rect.top < viewportHeight + buffer && rect.bottom > -buffer) {
         el.classList.add('visible', 'no-transition');
         // Remove no-transition after a frame so future hover/state transitions still work
         requestAnimationFrame(() => {
@@ -137,6 +141,14 @@
     });
 
     remaining.forEach(el => observer.observe(el));
+
+    // Safety net: reveal anything still hidden after 4s so content is never
+    // permanently invisible if the observer mis-fires or the user never scrolls.
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        el.classList.add('visible');
+      });
+    }, 4000);
   }
 
   // ============================================
