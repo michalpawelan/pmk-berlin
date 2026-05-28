@@ -9,6 +9,17 @@ const KI = (function() {
   let selectedId = null;
   let loading = false;
 
+  const URGENT_KEYWORDS = [
+    'namaszczenie', 'umiera', 'umrzeć', 'umrzec', 'śmierc', 'smierc', 'śmierć', 'smierci',
+    'pogrzeb', 'pilne', 'pilny', 'pilna', 'nagła', 'naglą', 'szpital', 'umar', 'zmarł', 'zmarl',
+    'krwotok', 'wypadek', 'umarł'
+  ];
+
+  function isUrgent(c) {
+    const text = ((c.first_user_message || '') + ' ' + (c.call_summary_title || '')).toLowerCase();
+    return URGENT_KEYWORDS.some(k => text.includes(k));
+  }
+
   function escapeHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;')
@@ -115,19 +126,33 @@ const KI = (function() {
         </select>
       </div>
       <table class="ki-table">
-        <thead><tr><th>Czas</th><th>Kanał</th><th>Język</th><th>Pierwsze pytanie</th><th>Status</th></tr></thead>
+        <thead><tr>
+          <th class="ki-check-col"></th>
+          <th>Czas</th><th>Kanał</th><th>Język</th><th>Pierwsze pytanie</th><th>Status</th>
+        </tr></thead>
         <tbody>
-          ${rows.length === 0 ? `
-            <tr><td colspan="5" class="ki-empty">${loading ? 'Wczytywanie…' : 'Brak rozmów w tym okresie'}</td></tr>
-          ` : rows.map(c => `
-            <tr data-id="${escapeHtml(c.conversation_id)}" class="ki-row">
-              <td>${escapeHtml(fmtTime(c.started_at))}</td>
-              <td>${c.channel === 'phone' ? '📞 Telefon' : '💬 Czat'}</td>
-              <td>${escapeHtml((c.language || '').toUpperCase())}</td>
-              <td class="ki-msg">${escapeHtml((c.first_user_message || '').slice(0, 80)) || '<em>—</em>'}</td>
-              <td><span class="ki-status ki-status-${c.flag?.status || 'unhandled'}">${statusLabel(c.flag?.status || 'unhandled')}</span></td>
-            </tr>
-          `).join('')}
+          ${rows.length === 0 ? (loading ? `
+            <tr><td colspan="6" class="ki-loading">
+              <div class="ki-spinner"></div>
+              <span>Wczytywanie rozmów…</span>
+            </td></tr>
+          ` : `
+            <tr><td colspan="6" class="ki-empty">Brak rozmów w tym okresie</td></tr>
+          `) : rows.map(c => {
+            const urgent = isUrgent(c);
+            return `
+              <tr data-id="${escapeHtml(c.conversation_id)}" class="ki-row ${urgent ? 'ki-row-urgent' : ''}">
+                <td class="ki-check-cell">
+                  <input type="checkbox" class="ki-row-check" data-id="${escapeHtml(c.conversation_id)}" ${c.flag?.status === 'done' ? 'checked' : ''}>
+                </td>
+                <td>${escapeHtml(fmtTime(c.started_at))}</td>
+                <td>${c.channel === 'phone' ? '📞 Telefon' : '💬 Czat'}</td>
+                <td>${escapeHtml((c.language || '').toUpperCase())}</td>
+                <td class="ki-msg">${urgent ? '<span class="ki-urgent">🔴</span> ' : ''}${escapeHtml((c.first_user_message || '').slice(0, 80) || '—')}</td>
+                <td><span class="ki-status ki-status-${c.flag?.status || 'unhandled'}">${statusLabel(c.flag?.status || 'unhandled')}</span></td>
+              </tr>
+            `;
+          }).join('')}
         </tbody>
       </table>
 
@@ -158,7 +183,20 @@ const KI = (function() {
     root.querySelector('.ki-ch').addEventListener('change', e => { filterChannel = e.target.value; render(); });
     root.querySelector('.ki-st').addEventListener('change', e => { filterStatus = e.target.value; render(); });
     root.querySelector('.ki-days').addEventListener('change', e => { rangeDays = parseInt(e.target.value, 10); load(); });
-    root.querySelectorAll('.ki-row').forEach(r => r.addEventListener('click', () => openPanel(r.dataset.id)));
+    root.querySelectorAll('.ki-row').forEach(r => r.addEventListener('click', (e) => {
+      if (e.target.closest('.ki-check-cell')) return;   // checkbox click — ignore
+      openPanel(r.dataset.id);
+    }));
+    root.querySelectorAll('.ki-row-check').forEach(cb => {
+      cb.addEventListener('click', async (e) => {
+        e.stopPropagation();   // don't open side panel
+        const id = cb.dataset.id;
+        const newStatus = cb.checked ? 'done' : 'unhandled';
+        const ok = await saveFlag(id, newStatus, '');
+        if (!ok) cb.checked = !cb.checked;   // revert on failure
+        else render();   // re-render to update status badge
+      });
+    });
 
     const panel = root.querySelector('.ki-panel');
     if (panel) {
