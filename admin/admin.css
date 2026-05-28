@@ -249,62 +249,6 @@ ul { list-style: none; }
 .admin-app { display: none; flex-direction: column; min-height: 100dvh; background: var(--color-cream); }
 .admin-app.active { display: flex; }
 
-.admin-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-warm-200);
-}
-
-.admin-header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.admin-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.admin-brand img {
-  height: 36px;
-  width: auto;
-  filter: none;
-}
-
-.admin-brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.admin-brand-name {
-  font-weight: 600;
-  font-size: var(--text-sm);
-}
-
-.admin-brand-label {
-  font-size: var(--text-xs);
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 500;
-}
-
-.admin-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
 
 /* ============================================
    Main Content
@@ -1026,7 +970,6 @@ textarea.form-input {
    Responsive
    ============================================ */
 @media (max-width: 768px) {
-  .admin-header-inner { padding: 0.875rem 1.25rem; }
   .admin-main { padding: 1.25rem; }
   .events-table { table-layout: auto; }
   .events-table th:nth-child(4),
@@ -1062,7 +1005,7 @@ textarea.form-input {
   padding: 0.75rem 1.5rem;
   background: white;
   border-bottom: 1px solid var(--color-warm-200);
-  position: sticky; top: 0; z-index: 10;
+  position: sticky; top: 0; z-index: 50;
 }
 .admin-brand { display: flex; align-items: center; gap: 0.75rem; font-weight: 600; color: var(--color-warm-900); }
 .admin-brand-logo { width: 32px; height: 32px; object-fit: contain; }
@@ -1092,7 +1035,7 @@ textarea.form-input {
 .admin-nav-soon { opacity: 0.45; cursor: default; pointer-events: none; }
 .admin-nav-icon { font-size: 1.05em; }
 
-.admin-tab { animation: fadeUp 0.3s var(--ease-out); }
+.admin-tab { max-width: 1200px; margin: 0 auto; width: 100%; animation: fadeUp 0.3s var(--ease-out); }
 .admin-tab[hidden] { display: none; }
 
 .admin-empty {
