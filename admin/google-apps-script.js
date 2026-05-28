@@ -17,8 +17,8 @@
  *    - Ausfuehren als: "Ich" (dein Google-Account)
  *    - Zugriff: "Jeder" (damit die Admin-Seite darauf zugreifen kann)
  *
- * 5. Kopiere die Web-App-URL und trage sie in admin/events.html ein
- *    (Variable APPS_SCRIPT_URL ganz oben im Script-Bereich)
+ * 5. Kopiere die Web-App-URL und trage sie in admin/auth.js ein
+ *    (Konstante APPS_SCRIPT_URL ganz oben in der Datei)
  *
  * 6. Aendere den ADMIN_PIN unten, wenn gewuenscht
  *
