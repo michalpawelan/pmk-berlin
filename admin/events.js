@@ -4,6 +4,21 @@
 const Events = (function() {
   'use strict';
 
+  const COMMUNITIES = [
+    { slug: 'apostolstwo',         name: 'Apostolstwo',           color: '#c97a3f' },
+    { slug: 'domowy-kosciol',      name: 'Domowy Kościół',        color: '#5a7691' },
+    { slug: 'grono-dzieci-maryi',  name: 'Grono Dzieci Maryi',    color: '#a06593' },
+    { slug: 'grupa-kobiet',        name: 'Grupa kobiet',          color: '#b86b8a' },
+    { slug: 'grupa-meska',         name: 'Grupa męska',           color: '#4f7a5a' },
+    { slug: 'ministranci',         name: 'Ministranci',           color: '#5a8a4a' },
+    { slug: 'radio-maryja',        name: 'Radio Maryja',          color: '#7a5fbf' },
+    { slug: 'ruch-swiatlo-zycie',  name: 'Ruch Światło-Życie',    color: '#bfa340' },
+    { slug: 'ruch-szensztacki',    name: 'Ruch Szensztacki',      color: '#c98a7b' },
+    { slug: 'schola',              name: 'Schola',                color: '#9a7fb8' },
+    { slug: 'sne',                 name: 'SNE',                   color: '#b88a47' },
+    { slug: 'zywy-rozaniec',       name: 'Żywy Różaniec',         color: '#8c4f6f' }
+  ];
+
   // ============================================
   // State
   // ============================================
