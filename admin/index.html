@@ -42,96 +42,122 @@
      ============================================ -->
 <div class="admin-app" id="adminApp">
 
-  <!-- Header -->
-  <header class="admin-header">
-    <div class="admin-header-inner">
-      <div class="admin-brand">
-        <img src="../images/pmk-logo.png" alt="PMK">
-        <div class="admin-brand-text">
-          <span class="admin-brand-name">PMK Berlin</span>
-          <span class="admin-brand-label">Panel Wydarzeń</span>
-        </div>
-      </div>
-      <div class="admin-header-actions">
-        <a href="../events.html" class="btn btn-ghost btn-sm" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Strona
-        </a>
-        <button class="btn btn-ghost btn-sm" onclick="handleLogout()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Wyloguj
-        </button>
-      </div>
+  <header class="admin-topbar">
+    <div class="admin-brand">
+      <img src="../images/pmk-logo.png" alt="PMK" class="admin-brand-logo">
+      <span>PMK Admin</span>
     </div>
+    <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Wyloguj</button>
   </header>
 
-  <!-- Main -->
-  <main class="admin-main">
+  <div class="admin-body">
+    <aside class="admin-sidebar">
+      <div class="admin-nav-label">Aktywne</div>
+      <a href="#events" class="admin-nav-item active" data-tab="events">
+        <span class="admin-nav-icon">📅</span> Wydarzenia
+      </a>
+      <a href="#ki" class="admin-nav-item" data-tab="ki">
+        <span class="admin-nav-icon">💬</span> KI-Czat
+      </a>
+      <a href="#newsletter" class="admin-nav-item" data-tab="newsletter">
+        <span class="admin-nav-icon">✉️</span> Newsletter
+      </a>
 
-    <!-- Stats -->
-    <div class="stats-row" id="statsRow">
-      <div class="stat-card">
-        <div class="stat-icon accent">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <div>
-          <div class="stat-value" id="statTotal">-</div>
-          <div class="stat-label">Wszystkie</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon success">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <div>
-          <div class="stat-value" id="statPublished">-</div>
-          <div class="stat-label">Opublikowane</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon warning">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        </div>
-        <div>
-          <div class="stat-value" id="statUpcoming">-</div>
-          <div class="stat-label">Nadchodzące</div>
-        </div>
-      </div>
-    </div>
+      <div class="admin-nav-label">Wkrótce</div>
+      <span class="admin-nav-item admin-nav-soon">
+        <span class="admin-nav-icon">🏠</span> Przegląd
+      </span>
+      <span class="admin-nav-item admin-nav-soon">
+        <span class="admin-nav-icon">📊</span> Statystyki
+      </span>
+    </aside>
 
-    <!-- Toolbar -->
-    <div class="admin-toolbar">
-      <div class="admin-toolbar-left">
-        <h1>Wszystkie <em>wydarzenia</em></h1>
-        <span class="event-count" id="eventCount">0</span>
-      </div>
-      <button class="btn btn-accent" onclick="openModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nowe wydarzenie
-      </button>
-    </div>
+    <main class="admin-main">
 
-    <!-- Events Panel -->
-    <div class="events-panel">
-      <div class="events-panel-header">
-        <span class="events-panel-title">Lista wydarzeń</span>
-        <input type="text" class="search-input" placeholder="Szukaj..." id="searchInput" oninput="filterEvents()" aria-label="Szukaj wydarzeń">
-      </div>
+      <section id="tab-events" class="admin-tab" data-tab="events">
 
-      <div class="filter-tabs" id="filterTabs">
-        <button class="filter-tab" data-filter="all" onclick="setFilter('all')">Wszystkie <span class="tab-count" id="countAll">0</span></button>
-        <button class="filter-tab active" data-filter="upcoming" onclick="setFilter('upcoming')">Nadchodzące <span class="tab-count" id="countUpcoming">0</span></button>
-        <button class="filter-tab" data-filter="past" onclick="setFilter('past')">Przeszłe <span class="tab-count" id="countPast">0</span></button>
-      </div>
-
-      <div id="eventsTableContainer">
-        <div class="table-loading">
-          <div class="loader"></div>
-          <p style="color: var(--color-warm-500); font-size: var(--text-sm);">Ładowanie wydarzeń...</p>
+        <!-- Stats -->
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card">
+            <div class="stat-icon accent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statTotal">-</div>
+              <div class="stat-label">Wszystkie</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statPublished">-</div>
+              <div class="stat-label">Opublikowane</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon warning">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statUpcoming">-</div>
+              <div class="stat-label">Nadchodzące</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </main>
+
+        <!-- Toolbar -->
+        <div class="admin-toolbar">
+          <div class="admin-toolbar-left">
+            <h1>Wszystkie <em>wydarzenia</em></h1>
+            <span class="event-count" id="eventCount">0</span>
+          </div>
+          <button class="btn btn-accent" onclick="openModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nowe wydarzenie
+          </button>
+        </div>
+
+        <!-- Events Panel -->
+        <div class="events-panel">
+          <div class="events-panel-header">
+            <span class="events-panel-title">Lista wydarzeń</span>
+            <input type="text" class="search-input" placeholder="Szukaj..." id="searchInput" oninput="filterEvents()" aria-label="Szukaj wydarzeń">
+          </div>
+
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab" data-filter="all" onclick="setFilter('all')">Wszystkie <span class="tab-count" id="countAll">0</span></button>
+            <button class="filter-tab active" data-filter="upcoming" onclick="setFilter('upcoming')">Nadchodzące <span class="tab-count" id="countUpcoming">0</span></button>
+            <button class="filter-tab" data-filter="past" onclick="setFilter('past')">Przeszłe <span class="tab-count" id="countPast">0</span></button>
+          </div>
+
+          <div id="eventsTableContainer">
+            <div class="table-loading">
+              <div class="loader"></div>
+              <p style="color: var(--color-warm-500); font-size: var(--text-sm);">Ładowanie wydarzeń...</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="tab-ki" class="admin-tab" data-tab="ki" hidden>
+        <div class="admin-empty">
+          <h2>KI-Czat</h2>
+          <p class="admin-empty-hint">Tutaj pojawią się rozmowy z chatbotem i agentem głosowym. Wkrótce.</p>
+        </div>
+      </section>
+
+      <section id="tab-newsletter" class="admin-tab" data-tab="newsletter" hidden>
+        <div class="admin-empty">
+          <h2>Newsletter</h2>
+          <p class="admin-empty-hint">Tutaj pojawi się lista zapisanych adresów. Wkrótce.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
 </div>
 
 <!-- ============================================
