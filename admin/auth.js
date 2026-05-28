@@ -21,17 +21,21 @@ const Auth = {
   // Prueft den PIN durch einen list-Aufruf gegen Apps Script.
   // Liefert { ok: true, events } oder { ok: false, error }.
   async verify(pin) {
-    const url = new URL(APPS_SCRIPT_URL);
-    url.searchParams.set('action', 'list');
-    url.searchParams.set('pin', pin);
-    const res = await fetch(url.toString(), { redirect: 'follow' });
-    const text = await res.text();
-    let data;
-    try { data = JSON.parse(text); } catch (e) { return { ok: false, error: 'Blad serwera' }; }
-    if (data && data.success !== false && Array.isArray(data.events)) {
-      return { ok: true, events: data.events };
+    try {
+      const url = new URL(this.url);
+      url.searchParams.set('action', 'list');
+      url.searchParams.set('pin', pin);
+      const res = await fetch(url.toString(), { redirect: 'follow' });
+      const text = await res.text();
+      let data;
+      try { data = JSON.parse(text); } catch (e) { return { ok: false, error: 'Blad serwera' }; }
+      if (data && data.success !== false && Array.isArray(data.events)) {
+        return { ok: true, events: data.events };
+      }
+      return { ok: false, error: (data && data.error) || 'PIN ungueltig' };
+    } catch (e) {
+      return { ok: false, error: 'Blad polaczenia' };
     }
-    return { ok: false, error: (data && data.error) || 'PIN ungueltig' };
   }
 };
 

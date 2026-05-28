@@ -267,10 +267,6 @@
   'use strict';
 
   // ============================================
-  // KONFIGURATION - HIER ANPASSEN
-  // ============================================
-
-  // ============================================
   // State
   // ============================================
   let allEvents = [];
@@ -336,6 +332,8 @@
   // ============================================
   // API
   // ============================================
+  // apiCall: returns the raw Apps Script response shape ({ success, error, ... }).
+  // Auth.verify() returns the normalized { ok, error, events } — do not conflate them.
   async function apiCall(action, params = {}) {
     const url = new URL(Auth.url);
     url.searchParams.set('action', action);
