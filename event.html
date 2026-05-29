@@ -398,7 +398,7 @@ function renderEvent(event) {
   document.getElementById('event-address-2').textContent = locationAddr;
 
   // Maps
-  const address = event.address || 'Lilienthalstrasse 5, 10965 Berlin';
+  const address = event.address || 'Lilienthalstraße 5, 10965 Berlin';
   document.getElementById('event-map-link').href = EventsManager.getGoogleMapsUrl(address);
 
   // Map embed (click to load)
