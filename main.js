@@ -264,10 +264,15 @@
       if (titleEl) titleEl.textContent = current.title; // safe
       if (dateEl) {
         const lang = getLang();
-        const d = current.publishedAt;
-        if (d && d.getTime() > 0) {
+        const start = current.publishedAt;
+        if (start && start.getTime() > 0) {
           const locale = lang === 'de' ? 'de-DE' : 'pl-PL';
-          dateEl.textContent = d.toLocaleDateString(locale, { day: '2-digit', month: 'long', year: 'numeric' });
+          const end = new Date(start.getTime());
+          end.setDate(end.getDate() + 6);
+          const startStr = start.toLocaleDateString(locale, { day: 'numeric', month: 'long' });
+          const endStr   = end.toLocaleDateString(locale,   { day: 'numeric', month: 'long', year: 'numeric' });
+          const label = lang === 'de' ? 'Woche' : 'Tydzień';
+          dateEl.textContent = label + ' · ' + startStr + ' – ' + endStr;
         } else {
           dateEl.textContent = '';
         }

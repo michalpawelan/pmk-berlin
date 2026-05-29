@@ -283,61 +283,82 @@
 <!-- Ogłoszenia duszpasterskie (parish announcements) Section -->
 <!-- Hidden by default; main.js unhides once a current (non-expired, published) ogłoszenie is fetched. -->
 <style>
-  .section-ogloszenia { padding: 4rem 0 2rem; background: var(--color-warm-50, #faf6f0); }
+  .section-ogloszenia { padding: 3rem 0 1.5rem; background: var(--color-warm-50, #faf6f0); }
+  .section-ogloszenia .section-header { margin-bottom: 1.5rem; }
+  .section-ogloszenia .section-title {
+    font-size: clamp(1.5rem, 2.6vw, 1.85rem);
+    margin-bottom: 0.15rem;
+  }
+  .section-ogloszenia .section-lead {
+    font-size: 0.95rem;
+    margin-top: 0;
+  }
   .ogloszenia-card {
-    max-width: 820px;
-    margin: 2rem auto 0;
+    max-width: 780px;
+    margin: 1.25rem auto 0;
     background: #fff;
     border: 1px solid var(--color-warm-200, #e8dfd1);
+    border-left: 3px solid var(--color-accent, #b4593e);
     border-radius: 10px;
-    padding: 2rem;
+    padding: 1.75rem 1.75rem 1.5rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .ogloszenia-card .ogloszenia-eyebrow {
+    font-family: var(--font-sans, Outfit), sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-accent, #b4593e);
+    margin: 0 0 0.4rem;
   }
   .ogloszenia-card .ogloszenia-image {
     width: 100%;
-    max-height: 320px;
+    max-height: 240px;
     object-fit: cover;
     border-radius: 6px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     display: block;
   }
   .ogloszenia-card .ogloszenia-title {
     font-family: 'Cormorant', serif;
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-style: italic;
+    font-size: 1.55rem;
+    font-weight: 500;
     color: var(--color-warm-900, #2a2520);
-    margin: 0 0 0.5rem;
-    line-height: 1.25;
+    margin: 0 0 0.85rem;
+    line-height: 1.2;
   }
   .ogloszenia-card .ogloszenia-meta {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--color-warm-500, #8a7a65);
-    margin: 0 0 1.25rem;
+    margin: 0 0 1rem;
     letter-spacing: 0.02em;
   }
   .ogloszenia-card .ogloszenia-body {
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: 0.95rem;
+    line-height: 1.65;
     color: var(--color-warm-800, #3a342d);
   }
-  .ogloszenia-card .ogloszenia-body p { margin: 0 0 0.85rem; }
+  .ogloszenia-card .ogloszenia-body p { margin: 0 0 0.75rem; }
   .ogloszenia-card .ogloszenia-body p:last-child { margin-bottom: 0; }
   .ogloszenia-card .ogloszenia-body a { color: var(--color-accent, #b4593e); text-decoration: underline; }
   .ogloszenia-card .ogloszenia-img-block {
     display: block;
     width: 100%;
-    max-height: 480px;
+    max-height: 280px;
     object-fit: cover;
-    border-radius: 8px;
-    margin: 1.25rem 0;
+    border-radius: 6px;
+    margin: 1rem 0;
   }
   .ogloszenia-card .ogloszenia-img-block:first-child { margin-top: 0; }
   .ogloszenia-card .ogloszenia-img-block:last-child  { margin-bottom: 0; }
   @media (max-width: 640px) {
-    .section-ogloszenia { padding: 2.5rem 0 1rem; }
-    .ogloszenia-card { padding: 1.25rem; margin-top: 1.25rem; border-radius: 8px; }
-    .ogloszenia-card .ogloszenia-title { font-size: 1.4rem; }
-    .ogloszenia-card .ogloszenia-image { max-height: 220px; margin-bottom: 1rem; }
+    .section-ogloszenia { padding: 2rem 0 1rem; }
+    .ogloszenia-card { padding: 1.25rem; margin-top: 1rem; border-radius: 8px; }
+    .ogloszenia-card .ogloszenia-title { font-size: 1.35rem; }
+    .ogloszenia-card .ogloszenia-image { max-height: 200px; margin-bottom: 1rem; }
+    .ogloszenia-card .ogloszenia-img-block { max-height: 220px; }
   }
 </style>
 <section class="section section-ogloszenia" id="ogloszenia" hidden>
@@ -348,12 +369,9 @@
     </header>
 
     <article class="ogloszenia-card">
+      <p class="ogloszenia-eyebrow" id="ogloszenia-date"></p>
       <img class="ogloszenia-image" id="ogloszenia-image" alt="" hidden>
       <h3 class="ogloszenia-title" id="ogloszenia-title"></h3>
-      <p class="ogloszenia-meta">
-        <span data-i18n="index.ogloszenia.published_label">Opublikowano:</span>
-        <span id="ogloszenia-date"></span>
-      </p>
       <!-- Body content is trusted-by-design: written by proboszcz via admin UI; may include <strong>, <a>, <br>. -->
       <div class="ogloszenia-body" id="ogloszenia-body"></div>
     </article>
