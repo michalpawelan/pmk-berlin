@@ -4,6 +4,55 @@
 const Events = (function() {
   'use strict';
 
+  // ============================================
+  // Smart defaults: placeholder rotation
+  // ============================================
+  const TITLE_PLACEHOLDERS = [
+    'np. Msza Św. z okazji Bożego Narodzenia',
+    'np. Spotkanie kręgu Domowego Kościoła',
+    'np. Próba Scholii parafialnej',
+    'np. Spotkanie ministrantów',
+    'np. Niedziela palmowa'
+  ];
+  function pickPlaceholder() {
+    return TITLE_PLACEHOLDERS[Math.floor(Math.random() * TITLE_PLACEHOLDERS.length)];
+  }
+
+  // ============================================
+  // Smart defaults: next Sunday
+  // ============================================
+  function nextSunday() {
+    const d = new Date();
+    const daysUntilSunday = (7 - d.getDay()) % 7 || 7;
+    d.setDate(d.getDate() + daysUntilSunday);
+    return d.toISOString().slice(0, 10);
+  }
+
+  // ============================================
+  // Community inference from title
+  // ============================================
+  const COMMUNITY_KEYWORDS = [
+    { kw: ['schola'],                                     slug: 'schola' },
+    { kw: ['ministranci', 'ministrant'],                  slug: 'ministranci' },
+    { kw: ['domowy', 'dk'],                               slug: 'domowy-kosciol' },
+    { kw: ['apostolstwo', 'apostol'],                     slug: 'apostolstwo' },
+    { kw: ['różaniec', 'rozaniec'],                       slug: 'zywy-rozaniec' },
+    { kw: ['szensztat', 'szensztacki'],                   slug: 'ruch-szensztacki' },
+    { kw: ['światło-życie', 'światło życie', 'swiatlo'],  slug: 'ruch-swiatlo-zycie' },
+    { kw: ['kobiet'],                                     slug: 'grupa-kobiet' },
+    { kw: ['męska', 'meska', 'męski', 'meski'],          slug: 'grupa-meska' },
+    { kw: ['radio maryja'],                               slug: 'radio-maryja' },
+    { kw: ['dzieci maryi', 'grono dzieci'],               slug: 'grono-dzieci-maryi' },
+    { kw: ['sne', 'nowa ewangelizacja'],                  slug: 'sne' }
+  ];
+  function inferCommunityFromTitle(title) {
+    const t = (title || '').toLowerCase();
+    for (const c of COMMUNITY_KEYWORDS) {
+      if (c.kw.some(k => t.includes(k.toLowerCase()))) return c.slug;
+    }
+    return null;
+  }
+
   const COMMUNITIES = [
     { slug: 'apostolstwo',         name: 'Apostolstwo',           color: '#c97a3f' },
     { slug: 'domowy-kosciol',      name: 'Domowy Kościół',        color: '#5a7691' },
@@ -290,6 +339,32 @@ const Events = (function() {
   // ============================================
   // Modal: Open / Close / Populate
   // ============================================
+
+  // Track initial field snapshot for cancel-confirmation dirty check
+  let _modalInitialSnapshot = null;
+
+  function _captureModalSnapshot() {
+    return {
+      title:     (document.getElementById('eventTitle').value   || ''),
+      date:      (document.getElementById('eventDate').value    || ''),
+      timeFrom:  (document.getElementById('eventTimeFrom').value || ''),
+      rangeFrom: (document.getElementById('eventTimeRangeFrom').value || ''),
+      rangeTo:   (document.getElementById('eventTimeRangeTo').value   || ''),
+      desc:      (document.getElementById('eventDesc').value    || ''),
+      location:  (document.getElementById('eventLocation').value || ''),
+      address:   (document.getElementById('eventAddress').value  || ''),
+      community: (document.getElementById('evCommunity').value   || ''),
+      image:     (document.getElementById('eventImage').value    || ''),
+      published: document.getElementById('eventPublished').checked
+    };
+  }
+
+  function _isModalDirty() {
+    if (!_modalInitialSnapshot) return false;
+    const current = _captureModalSnapshot();
+    return JSON.stringify(current) !== JSON.stringify(_modalInitialSnapshot);
+  }
+
   function openModal(row) {
     editingRow = row || null;
     const modal = document.getElementById('modalOverlay');
@@ -324,20 +399,105 @@ const Events = (function() {
       document.getElementById('eventPublished').checked = true;
       document.getElementById('fileInput').value = '';
       showExistingImage('');
-      loadTimeFromValue('');
+
+      // Smart defaults for new events
+      document.getElementById('eventDate').value = nextSunday();
+      loadTimeFromValue('10:00');
+      // Set Od-Do defaults while keeping exact mode active
+      document.getElementById('eventTimeRangeFrom').value = '10:00';
+      document.getElementById('eventTimeRangeTo').value = '11:00';
+
+      // Rotating placeholder
+      document.getElementById('eventTitle').placeholder = pickPlaceholder();
     }
 
     populateModalCommunitySelect(editingRow ? (allEvents.find(e => e.row === editingRow) || {}).community || '' : '');
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    setTimeout(() => document.getElementById('eventTitle').focus(), 100);
+
+    // Capture snapshot after all fields are set (for dirty-check)
+    setTimeout(() => {
+      _modalInitialSnapshot = _captureModalSnapshot();
+      document.getElementById('eventTitle').focus();
+
+      // Wire community inference on title blur (only once per open)
+      const titleEl = document.getElementById('eventTitle');
+      titleEl._inferHandler && titleEl.removeEventListener('blur', titleEl._inferHandler);
+      titleEl._debounceTimer && clearTimeout(titleEl._debounceTimer);
+
+      titleEl._inferHandler = function() {
+        const sel = document.getElementById('evCommunity');
+        if (sel && sel.value === '') {
+          const inferred = inferCommunityFromTitle(titleEl.value);
+          if (inferred) sel.value = inferred;
+        }
+      };
+      titleEl.addEventListener('blur', titleEl._inferHandler);
+
+      // Also debounce on input
+      titleEl.addEventListener('input', function() {
+        clearTimeout(titleEl._debounceTimer);
+        titleEl._debounceTimer = setTimeout(function() {
+          const sel = document.getElementById('evCommunity');
+          if (sel && sel.value === '') {
+            const inferred = inferCommunityFromTitle(titleEl.value);
+            if (inferred) sel.value = inferred;
+          }
+        }, 500);
+      });
+
+      // Inline past-date validation hint
+      const dateEl = document.getElementById('eventDate');
+      dateEl._dateHintHandler && dateEl.removeEventListener('change', dateEl._dateHintHandler);
+      dateEl._dateHintHandler = function() {
+        _updateDateHint();
+      };
+      dateEl.addEventListener('change', dateEl._dateHintHandler);
+    }, 0);
   }
 
-  function closeModal() {
+  function _updateDateHint() {
+    const dateEl = document.getElementById('eventDate');
+    let hint = document.getElementById('_evDateHint');
+    if (!hint) {
+      hint = document.createElement('div');
+      hint.id = '_evDateHint';
+      hint.style.cssText = 'font-size:0.78rem;color:#e07a3a;margin-top:0.25rem;display:none;';
+      dateEl.parentNode.appendChild(hint);
+    }
+    const val = dateEl.value;
+    const today = new Date().toISOString().slice(0, 10);
+    if (val && val < today) {
+      hint.textContent = 'Data nie może być w przeszłości';
+      hint.style.display = 'block';
+    } else {
+      hint.style.display = 'none';
+    }
+  }
+
+  function closeModal(force) {
+    if (!force && _isModalDirty()) {
+      showConfirm(
+        'Anulować zmiany?',
+        'Masz niezapisane zmiany. Na pewno chcesz zamknąć formularz?',
+        function() {
+          _doCloseModal();
+        }
+      );
+      return;
+    }
+    _doCloseModal();
+  }
+
+  function _doCloseModal() {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
     editingRow = null;
+    _modalInitialSnapshot = null;
+    // Remove date hint if present
+    const hint = document.getElementById('_evDateHint');
+    if (hint) hint.style.display = 'none';
   }
 
   function closeModalOutside(e) {
@@ -409,10 +569,15 @@ const Events = (function() {
   async function handleSaveEvent(e) {
     e.preventDefault();
     const btn = document.getElementById('saveBtn');
+
+    // Loading state
+    const _origInner = btn.innerHTML;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke-dasharray="31 10"/></svg> Zapisuję…';
     btn.classList.add('loading');
     btn.disabled = true;
 
     if (!syncTimeToHidden()) {
+      btn.innerHTML = _origInner;
       btn.classList.remove('loading');
       btn.disabled = false;
       return false;
@@ -429,8 +594,9 @@ const Events = (function() {
       community: document.getElementById('evCommunity').value
     };
 
-    if (!params.title.trim() || !params.date) {
+    if (!params.title || !params.date) {
       showToast('Tytuł i data są wymagane', 'error');
+      btn.innerHTML = _origInner;
       btn.classList.remove('loading');
       btn.disabled = false;
       return false;
@@ -448,8 +614,9 @@ const Events = (function() {
       }
 
       if (result.success) {
-        showToast(row ? 'Wydarzenie zaktualizowane' : 'Wydarzenie dodane', 'success');
-        closeModal();
+        // Success toast with event title
+        showToast('Zapisano: ' + params.title, 'success');
+        _doCloseModal();
         await refreshEvents();
       } else {
         showToast(result.error || 'Wystąpił błąd', 'error');
@@ -458,6 +625,7 @@ const Events = (function() {
       showToast('Błąd połączenia', 'error');
     }
 
+    btn.innerHTML = _origInner;
     btn.classList.remove('loading');
     btn.disabled = false;
     return false;
