@@ -272,14 +272,44 @@
           dateEl.textContent = '';
         }
       }
-      // Body field is trusted-by-design: the proboszcz writes it in the admin
-      // UI and may intentionally include <strong>, <a>, <br>, <em>, <p>.
-      // Anyone with admin PIN can write here; if abuse becomes a concern, swap
-      // to a sanitizer (DOMPurify) — but for a single trusted author, innerHTML
-      // is the documented choice.
-      if (bodyEl) bodyEl.innerHTML = current.body;
+      // Body may be:
+      //   - JSON array of blocks: [{t:'txt',c:'...'}, {t:'img',u:'...'}, ...]
+      //     written by the new block editor (admin/ogloszenia.js). Render
+      //     each block as <p> or <img>, images inline within the flow.
+      //   - Legacy HTML string (older rows). innerHTML it.
+      // Both cases are trusted-by-design: written by the proboszcz behind
+      // the admin PIN. If abuse becomes a concern, swap to a sanitizer.
+      let blocks = null;
+      if (typeof current.body === 'string' && current.body.trim().startsWith('[')) {
+        try {
+          const parsed = JSON.parse(current.body);
+          if (Array.isArray(parsed)) blocks = parsed;
+        } catch (e) { /* fall through to legacy */ }
+      }
+      if (bodyEl) {
+        if (blocks) {
+          bodyEl.innerHTML = blocks.map(b => {
+            if (b && b.t === 'img' && b.u) {
+              const raw = String(b.u);
+              const m = raw.match(/\/d\/([a-zA-Z0-9_-]+)/) || raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+              const url = m ? ('https://lh3.googleusercontent.com/d/' + m[1] + '=w1200') : raw;
+              return '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="" loading="lazy">';
+            }
+            if (b && b.t === 'txt' && b.c) {
+              return String(b.c)
+                .split(/\n{2,}/)
+                .map(par => '<p>' + escapeHTML(par).replace(/\n/g, '<br>') + '</p>')
+                .join('');
+            }
+            return '';
+          }).join('');
+        } else {
+          bodyEl.innerHTML = current.body;
+        }
+      }
+      // Hero image only when body is legacy HTML (images flow inside blocks otherwise).
       if (imgEl) {
-        if (resolvedImage) {
+        if (!blocks && resolvedImage) {
           imgEl.src = resolvedImage;
           imgEl.alt = current.title;
           imgEl.hidden = false;

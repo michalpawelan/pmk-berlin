@@ -151,7 +151,18 @@
     color: var(--color-warm-800, #3a342d);
   }
   .ogloszenia-card .ogloszenia-body p { margin: 0 0 0.85rem; }
+  .ogloszenia-card .ogloszenia-body p:last-child { margin-bottom: 0; }
   .ogloszenia-card .ogloszenia-body a { color: var(--color-accent, #b4593e); text-decoration: underline; }
+  .ogloszenia-card .ogloszenia-img-block {
+    display: block;
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1.25rem 0;
+  }
+  .ogloszenia-card .ogloszenia-img-block:first-child { margin-top: 0; }
+  .ogloszenia-card .ogloszenia-img-block:last-child  { margin-bottom: 0; }
   @media (max-width: 640px) {
     .section-ogloszenia { padding: 2rem 0 0.5rem; }
     .ogloszenia-card { padding: 1.25rem; margin-top: 1rem; border-radius: 8px; }
