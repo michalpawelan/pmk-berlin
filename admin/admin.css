@@ -1394,3 +1394,50 @@ textarea.form-input {
   .modal-footer { position: sticky; bottom: 0; background: white; z-index: 5; }
 }
 
+/* ============================================
+   Keyboard Shortcuts
+   ============================================ */
+.ki-row-focused, .ki-mobile-card.ki-row-focused {
+  box-shadow: inset 0 0 0 3px var(--color-accent), var(--shadow-sm);
+}
+
+.shortcuts-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; }
+.shortcuts-modal[hidden] { display: none; }
+.shortcuts-modal-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); }
+.shortcuts-modal-panel {
+  position: relative;
+  background: white; max-width: 520px; width: 90%;
+  border-radius: var(--radius-2xl); padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp 0.25s var(--ease-out);
+}
+.shortcuts-modal-panel header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.shortcuts-modal-panel h2 {
+  font-family: var(--font-serif); font-weight: 500;
+  margin: 0; font-size: 1.3rem;
+}
+.shortcuts-modal-close {
+  background: none; border: 0; cursor: pointer;
+  font-size: 1.6rem; line-height: 1;
+  color: var(--color-warm-500); width: 32px; height: 32px;
+}
+.shortcuts-table {
+  width: 100%; border-collapse: collapse; font-size: var(--text-sm);
+}
+.shortcuts-table td {
+  padding: 0.5rem 0.25rem; border-bottom: 1px solid var(--color-warm-100);
+  vertical-align: top;
+}
+.shortcuts-table td:first-child { white-space: nowrap; color: var(--color-warm-700); }
+.shortcuts-table kbd {
+  display: inline-block; padding: 0.1rem 0.5rem;
+  background: var(--color-warm-100); border-radius: 4px;
+  border-bottom: 2px solid var(--color-warm-200);
+  font-family: ui-monospace, "SF Mono", monospace;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--color-warm-900); margin: 0 0.1rem;
+}
+
