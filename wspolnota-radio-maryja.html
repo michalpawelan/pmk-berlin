@@ -637,6 +637,33 @@
   </div>
 </div>
 
+<!-- TODO J3: leader email pending — submissions currently go to pmk@pmk-berlin.de via Netlify Forms default -->
+<!-- Contact Form -->
+<section class="wspolnota-kontakt">
+  <h2>Skontaktuj się z grupą</h2>
+  <form name="kontakt-radio-maryja" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
+    <input type="hidden" name="form-name" value="kontakt-radio-maryja">
+    <input type="hidden" name="bot-field">
+    <input type="hidden" name="grupa" value="Radio Maryja">
+    <p>
+      <label>Imię i nazwisko<br>
+        <input type="text" name="name" required>
+      </label>
+    </p>
+    <p>
+      <label>E-mail<br>
+        <input type="email" name="email" required>
+      </label>
+    </p>
+    <p>
+      <label>Wiadomość<br>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+    </p>
+    <p><button type="submit">Wyślij</button></p>
+  </form>
+</section>
+
 <!-- Back to groups -->
 <div class="group-back-section">
   <a href="grupy.html" class="group-back-link">
