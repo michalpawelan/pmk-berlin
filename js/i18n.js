@@ -163,7 +163,11 @@
   document.addEventListener('DOMContentLoaded', function () {
     var saved = DEFAULT_LANG;
     try {
-      saved = localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
+      // Honor <html lang> as fallback when no preference is stored — lets
+      // static /de/*.html pages translate without requiring a localStorage hit.
+      saved = localStorage.getItem(STORAGE_KEY)
+        || (document.documentElement.lang || '').slice(0, 2).toLowerCase()
+        || DEFAULT_LANG;
     } catch (e) { /* private browsing */ }
 
     // Only run translation if non-default language was saved
