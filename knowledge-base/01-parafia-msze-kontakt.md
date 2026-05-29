@@ -125,6 +125,32 @@ Die Basilika wird **30 Minuten vor jedem Gottesdienst geöffnet** (Heilige Messe
 
 ---
 
+## Sprache / Język — wspólnota polskojęzyczna / polnischsprachige Gemeinde
+
+**PL — Język wspólnoty**
+
+Polska Misja Katolicka w Berlinie jest wspólnotą polskojęzyczną. Wszystkie sakramenty, grupy parafialne i nabożeństwa odbywają się po polsku. Osobom, które potrzebują posługi sakramentalnej po niemiecku lub angielsku, polecamy najbliższą niemiecką parafię.
+
+Dotyczy to także:
+- chrztu, pierwszej Komunii Świętej, bierzmowania, ślubu, namaszczenia chorych — wszystkie sakramenty udzielane są w języku polskim;
+- katechezy, spotkań grup parafialnych, Drogi Krzyżowej, Gorzkich Żali, nieszporów — wyłącznie po polsku;
+- spowiedzi — wyłącznie po polsku (jak opisano powyżej w sekcji o spowiedzi).
+
+Jeżeli ktoś dzwoni lub pisze po niemiecku z prośbą o Mszę, chrzest, ślub lub inny sakrament po niemiecku — uprzejmie wyjaśnij, że PMK jest wspólnotą polskojęzyczną, i poleć kontakt z najbliższą niemiecką parafią Archidiecezji Berlin (erzbistumberlin.de).
+
+**DE — Sprache der Gemeinde**
+
+Die Polnische Katholische Mission Berlin ist eine polnischsprachige Gemeinde. Alle Sakramente, Pfarrgruppen und Andachten finden auf Polnisch statt. Wenn Sie auf Deutsch oder Englisch ein sakramentales Anliegen haben, verweisen wir Sie an die benachbarte deutsche Pfarrei.
+
+Das gilt auch für:
+- Taufe, Erstkommunion, Firmung, Eheschließung, Krankensalbung — alle Sakramente werden auf Polnisch gespendet;
+- Katechese, Pfarrgruppen, Kreuzweg, Gorzkie Żale, Vesper — ausschließlich auf Polnisch;
+- Beichte — ausschließlich auf Polnisch (siehe Abschnitt Beichte oben).
+
+Wenn jemand auf Deutsch anruft oder schreibt und um eine Messe, Taufe, Trauung oder ein anderes Sakrament auf Deutsch bittet — bitte freundlich erklären, dass die PMK eine polnischsprachige Gemeinde ist, und auf die nächstgelegene deutsche Pfarrei des Erzbistums Berlin verweisen (erzbistumberlin.de).
+
+---
+
 ## EN — Quick reference
 
 - Main church: Johannes-Basilika, Lilienthalstraße 5, 10965 Berlin-Kreuzberg.
