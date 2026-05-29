@@ -104,16 +104,27 @@ const Ogloszenia = (function() {
   // ============================================
   async function callApi(action, params) {
     params = params || {};
-    const url = new URL(Auth.url);
+    let url;
+    try { url = new URL(Auth.url); }
+    catch (e) { return { success: false, error: 'Brak URL Apps Script (Auth.url)' }; }
     url.searchParams.set('action', action);
     url.searchParams.set('pin', Auth.getPin());
     Object.entries(params).forEach(([k, v]) => {
       if (v == null) return;
       url.searchParams.set(k, String(v));
     });
-    const res = await fetch(url.toString(), { redirect: 'follow' });
-    const text = await res.text();
-    try { return JSON.parse(text); } catch (e) { return { success: false, error: 'Blad serwera' }; }
+    try {
+      const res = await fetch(url.toString(), { redirect: 'follow' });
+      const text = await res.text();
+      try { return JSON.parse(text); }
+      catch (e) {
+        console.error('[ogloszenia] non-JSON response from Apps Script:', text.slice(0, 500));
+        return { success: false, error: 'Apps Script zwrócił nieoczekiwaną odpowiedź — zobacz konsolę' };
+      }
+    } catch (err) {
+      console.error('[ogloszenia] fetch failed:', err);
+      return { success: false, error: 'Sieć: ' + (err && err.message ? err.message : String(err)) };
+    }
   }
 
   async function load() {
@@ -460,8 +471,9 @@ const Ogloszenia = (function() {
         </div>`;
     } else if (state === 'has') {
       zoneInner = `
-        <div style="position:relative;">
-          <img src="${escapeHtml(previewSrc)}" alt="Podgląd" style="display:block;max-width:100%;border-radius:8px;">
+        <div style="position:relative;text-align:center;background:#fff;padding:0.5rem;border-radius:8px;">
+          <img src="${escapeHtml(previewSrc)}" alt="Podgląd" style="display:block;margin:0 auto;max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;border-radius:6px;">
+          <p style="margin:0.5rem 0 0;font-size:0.75rem;color:var(--color-warm-500);">Kliknij obrazek aby zmienić</p>
         </div>`;
     } else {
       zoneInner = `
