@@ -16,6 +16,8 @@
   <script src="events.js" defer></script>
   <script src="newsletter.js" defer></script>
   <script src="ki.js" defer></script>
+  <script src="przeglad.js" defer></script>
+  <script src="statystyki.js" defer></script>
 </head>
 <body>
 
@@ -58,7 +60,10 @@
   <div class="admin-body">
     <aside class="admin-sidebar">
       <div class="admin-nav-label">Aktywne</div>
-      <a href="#events" class="admin-nav-item active" data-tab="events">
+      <a href="#przeglad" class="admin-nav-item" data-tab="przeglad">
+        <span class="admin-nav-icon">🏠</span> Przegląd
+      </a>
+      <a href="#events" class="admin-nav-item" data-tab="events">
         <span class="admin-nav-icon">📅</span> Wydarzenia
       </a>
       <a href="#ki" class="admin-nav-item" data-tab="ki">
@@ -67,14 +72,9 @@
       <a href="#newsletter" class="admin-nav-item" data-tab="newsletter">
         <span class="admin-nav-icon">✉️</span> Newsletter
       </a>
-
-      <div class="admin-nav-label">Wkrótce</div>
-      <span class="admin-nav-item admin-nav-soon">
-        <span class="admin-nav-icon">🏠</span> Przegląd
-      </span>
-      <span class="admin-nav-item admin-nav-soon">
+      <a href="#statystyki" class="admin-nav-item" data-tab="statystyki">
         <span class="admin-nav-icon">📊</span> Statystyki
-      </span>
+      </a>
     </aside>
 
     <main class="admin-main">
@@ -158,6 +158,14 @@
 
       <section id="tab-newsletter" class="admin-tab" data-tab="newsletter" hidden>
         <!-- Inhalt wird von Newsletter.render() befüllt -->
+      </section>
+
+      <section id="tab-przeglad" class="admin-tab" data-tab="przeglad" hidden>
+        <!-- Inhalt von Przeglad.render() -->
+      </section>
+
+      <section id="tab-statystyki" class="admin-tab" data-tab="statystyki" hidden>
+        <!-- Inhalt von Statystyki.render() -->
       </section>
 
     </main>
@@ -328,6 +336,8 @@
         // Trigger tab-specific load if user landed on a non-default tab pre-login
         if (location.hash === '#ki' && window.KI) KI.load();
         if (location.hash === '#newsletter' && window.Newsletter) Newsletter.load();
+        if ((location.hash === '#przeglad' || location.hash === '') && window.Przeglad) Przeglad.load();
+        if (location.hash === '#statystyki' && window.Statystyki) Statystyki.load();
       } else {
         err.textContent = result.error;
         err.classList.add('visible');
@@ -370,11 +380,11 @@
 // ============================================
 // Hash-Router: #events | #ki | #newsletter
 // ============================================
-const TABS = ['events', 'ki', 'newsletter'];
+const TABS = ['events', 'ki', 'newsletter', 'przeglad', 'statystyki'];
 
 function currentTab() {
   const h = (location.hash || '').replace('#', '');
-  return TABS.includes(h) ? h : 'events';
+  return TABS.includes(h) ? h : 'przeglad';
 }
 
 function switchTab(name) {
