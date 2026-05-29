@@ -228,6 +228,31 @@ const KI = (function() {
         </tbody>
       </table>
 
+      <div class="ki-mobile-cards">
+        ${rows.length === 0 ? (loading ? `
+          <div class="ki-loading"><div class="ki-spinner"></div><span>Wczytywanie rozmów…</span></div>
+        ` : `
+          <div class="ki-empty">Brak rozmów w tym okresie</div>
+        `) : rows.map(c => {
+          const urgent = isUrgent(c);
+          const eff = effectiveStatus(c);
+          return `
+            <div class="ki-mobile-card ${urgent ? 'ki-row-urgent' : ''}" data-id="${escapeHtml(c.conversation_id)}">
+              <div class="ki-card-row1">
+                <input type="checkbox" class="ki-row-check" data-id="${escapeHtml(c.conversation_id)}" ${c.flag?.status === 'done' ? 'checked' : ''}>
+                <span>${escapeHtml(fmtTime(c.started_at))}</span>
+                <span>${c.channel === 'phone' ? '📞' : '💬'}</span>
+                <span>${escapeHtml((c.language || '').toUpperCase())}</span>
+                <span class="ki-status ki-status-${eff}">${statusLabel(eff)}</span>
+              </div>
+              <div class="ki-card-row2">
+                ${urgent ? '🔴 ' : ''}${escapeHtml((c.first_user_message || '').slice(0, 120) || '—')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
       ${selected ? `
       <aside class="ki-panel" role="dialog" aria-label="Szczegóły rozmowy">
         <header>
@@ -287,6 +312,12 @@ const KI = (function() {
         const ok = await saveFlag(id, newStatus, '');
         if (!ok) cb.checked = !cb.checked;   // revert on failure
         else render();   // re-render to update status badge
+      });
+    });
+    root.querySelectorAll('.ki-mobile-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('input[type=checkbox]')) return;
+        openPanel(card.dataset.id);
       });
     });
 
