@@ -1263,3 +1263,50 @@ textarea.form-input {
 .stat-hbar-bar { background: var(--color-accent); height: 18px; border-radius: 4px; opacity: 0.7; }
 .stat-hbar-val { font-weight: 600; color: var(--color-warm-900); text-align: right; }
 
+/* ============================================
+   KI Side-Panel — Transcript
+   ============================================ */
+.ki-transcript-toggle { margin: 0.75rem 0 1.25rem 0; }
+.ki-transcript-toggle summary {
+  cursor: pointer; padding: 0.5rem 0.75rem;
+  background: var(--color-warm-50); border-radius: var(--radius-md);
+  font-size: var(--text-sm); color: var(--color-warm-700);
+  list-style: none;
+}
+.ki-transcript-toggle summary::-webkit-details-marker { display: none; }
+.ki-transcript-toggle summary:hover { background: var(--color-warm-100); }
+.ki-transcript-toggle[open] summary { background: var(--color-warm-100); margin-bottom: 0.5rem; }
+
+.ki-transcript-content { padding: 0.5rem 0; }
+.ki-transcript-empty {
+  padding: 1rem; text-align: center;
+  color: var(--color-warm-500); font-size: var(--text-sm);
+}
+.ki-transcript-retry {
+  background: var(--color-accent); color: white;
+  border: 0; padding: 0.4rem 0.85rem; border-radius: var(--radius-md);
+  font-size: var(--text-xs); cursor: pointer; margin-left: 0.5rem;
+}
+
+.ki-msg-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.ki-msg {
+  padding: 0.6rem 0.85rem; border-radius: var(--radius-md);
+  font-size: var(--text-sm); line-height: 1.4;
+  max-width: 92%;
+}
+.ki-msg p { margin: 0.25rem 0 0 0; }
+.ki-msg-role {
+  font-size: var(--text-xs); font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em; opacity: 0.7;
+}
+.ki-msg-user {
+  background: var(--color-warm-50);
+  align-self: flex-start;
+}
+.ki-msg-agent {
+  background: rgba(166, 139, 91, 0.10);
+  align-self: flex-end;
+}
+.ki-msg-user .ki-msg-role { color: var(--color-warm-700); }
+.ki-msg-agent .ki-msg-role { color: var(--color-accent-dark); }
+
