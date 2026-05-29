@@ -3,7 +3,7 @@
 // Proxiert list_subscribers vom Apps Script, damit der PIN nicht client-side im Apps-Script-URL landet.
 
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbwr6u5qQRUuQ37gIaczdCG0DmfQRlazDGYUbQOC2CaSCy_tJBywwwChXwtAS8Ivqe9HPw/exec';
+  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') {

@@ -1,7 +1,7 @@
 // admin/auth.js — PIN-basierter Login fuer das Admin-Dashboard.
 // Spaeter erweiterbar um Rollen (Owner/Sekretarin/Pfarrer).
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwr6u5qQRUuQ37gIaczdCG0DmfQRlazDGYUbQOC2CaSCy_tJBywwwChXwtAS8Ivqe9HPw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
 
 const Auth = {
   url: APPS_SCRIPT_URL,

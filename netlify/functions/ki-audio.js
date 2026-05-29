@@ -3,7 +3,7 @@
 // Streams ElevenLabs conversation audio (MP3). Returns 413 if >5 MB.
 
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbwr6u5qQRUuQ37gIaczdCG0DmfQRlazDGYUbQOC2CaSCy_tJBywwwChXwtAS8Ivqe9HPw/exec';
+  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
 const ADMIN_PIN = process.env.ADMIN_PIN || '';
 const MAX_AUDIO_BYTES = 5 * 1024 * 1024;   // 5 MB
 
