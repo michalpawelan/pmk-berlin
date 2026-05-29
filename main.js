@@ -31,6 +31,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initScrollReveal();
+    loadOgloszenie();
     loadEvents();
     initSmoothScroll();
   });
@@ -149,6 +150,149 @@
         el.classList.add('visible');
       });
     }, 4000);
+  }
+
+  // ============================================
+  // Ogłoszenia duszpasterskie (parish announcements)
+  // ============================================
+  // Single-card widget above the events grid. Shows the most recent
+  // ogłoszenie where published === 'TAK' AND expires_at > now.
+  // Sheet columns: A=id, B=title, C=body, D=image_url, E=published_at,
+  //                F=expires_at, G=published (TAK/NIE).
+  // If no current ogłoszenie or fetch fails: section stays hidden, no flicker.
+  const OGLOSZENIA_API = '/.netlify/functions/ogloszenia-proxy';
+
+  function parseGvizDate(cell) {
+    // gviz dates come as "Date(YYYY,M,D,H,m,s)" (month 0-based) in cell.v,
+    // or sometimes as an ISO/locale string in cell.f.
+    if (!cell) return null;
+    const raw = cell.v;
+    const fmt = cell.f;
+    const m = String(raw || '').match(/Date\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+))?)?/);
+    if (m) {
+      return new Date(
+        parseInt(m[1], 10),
+        parseInt(m[2], 10),
+        parseInt(m[3], 10),
+        m[4] ? parseInt(m[4], 10) : 0,
+        m[5] ? parseInt(m[5], 10) : 0,
+        m[6] ? parseInt(m[6], 10) : 0
+      );
+    }
+    if (fmt) {
+      const d = new Date(fmt);
+      if (!isNaN(d.getTime())) return d;
+    }
+    if (raw) {
+      const d = new Date(raw);
+      if (!isNaN(d.getTime())) return d;
+    }
+    return null;
+  }
+
+  async function loadOgloszenie() {
+    const section = document.getElementById('ogloszenia');
+    if (!section) return;
+
+    try {
+      const response = await fetch(OGLOSZENIA_API);
+      if (!response.ok) return; // leave hidden
+      const text = await response.text();
+
+      const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
+      if (!jsonMatch || !jsonMatch[1]) return;
+
+      const data = JSON.parse(jsonMatch[1]);
+      const rows = (data.table && data.table.rows) || [];
+      if (!rows.length) return;
+
+      const now = new Date();
+      const items = [];
+
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        if (!row || !row.c) continue;
+
+        const val = (idx) => {
+          const cell = row.c[idx];
+          return cell ? (cell.v != null ? cell.v : (cell.f || '')) : '';
+        };
+
+        const id = val(0);
+        const title = val(1);
+        const body = val(2);
+        const imageUrl = val(3);
+        const publishedAt = parseGvizDate(row.c[4]);
+        const expiresAt = parseGvizDate(row.c[5]);
+        const published = String(val(6) || '').toUpperCase();
+
+        if (!title || !body) continue;
+        if (published !== 'TAK') continue;
+        if (!expiresAt || expiresAt <= now) continue;
+
+        items.push({
+          id,
+          title: String(title),
+          body: String(body),
+          imageUrl: imageUrl ? String(imageUrl) : '',
+          publishedAt: publishedAt || new Date(0)
+        });
+      }
+
+      if (!items.length) return;
+
+      // Most recent first
+      items.sort((a, b) => b.publishedAt - a.publishedAt);
+      const current = items[0];
+
+      // Resolve Google Drive image URL if needed (same idiom as events)
+      let resolvedImage = '';
+      if (current.imageUrl) {
+        const driveMatch = current.imageUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
+                           current.imageUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        resolvedImage = driveMatch
+          ? `https://lh3.googleusercontent.com/d/${driveMatch[1]}=w1200`
+          : current.imageUrl;
+      }
+
+      // Populate DOM
+      const titleEl = document.getElementById('ogloszenia-title');
+      const dateEl = document.getElementById('ogloszenia-date');
+      const bodyEl = document.getElementById('ogloszenia-body');
+      const imgEl = document.getElementById('ogloszenia-image');
+
+      if (titleEl) titleEl.textContent = current.title; // safe
+      if (dateEl) {
+        const lang = getLang();
+        const d = current.publishedAt;
+        if (d && d.getTime() > 0) {
+          const locale = lang === 'de' ? 'de-DE' : 'pl-PL';
+          dateEl.textContent = d.toLocaleDateString(locale, { day: '2-digit', month: 'long', year: 'numeric' });
+        } else {
+          dateEl.textContent = '';
+        }
+      }
+      // Body field is trusted-by-design: the proboszcz writes it in the admin
+      // UI and may intentionally include <strong>, <a>, <br>, <em>, <p>.
+      // Anyone with admin PIN can write here; if abuse becomes a concern, swap
+      // to a sanitizer (DOMPurify) — but for a single trusted author, innerHTML
+      // is the documented choice.
+      if (bodyEl) bodyEl.innerHTML = current.body;
+      if (imgEl) {
+        if (resolvedImage) {
+          imgEl.src = resolvedImage;
+          imgEl.alt = current.title;
+          imgEl.hidden = false;
+        } else {
+          imgEl.removeAttribute('src');
+          imgEl.hidden = true;
+        }
+      }
+
+      section.removeAttribute('hidden');
+    } catch (e) {
+      // Defensive: any failure leaves the section hidden
+    }
   }
 
   // ============================================
