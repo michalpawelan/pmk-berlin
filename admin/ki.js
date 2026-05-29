@@ -261,6 +261,11 @@ const KI = (function() {
           <button class="btn btn-ghost btn-sm ki-close">Zamknij</button>
         </header>
         <p class="ki-meta">${escapeHtml(fmtTime(selected.started_at))} · ${selected.channel === 'phone' ? '📞 Telefon' : '💬 Czat'} · ${escapeHtml((selected.language || '').toUpperCase())}</p>
+        ${selected.channel === 'phone' ? `
+          <div class="ki-audio">
+            <audio controls preload="none" src="/.netlify/functions/ki-audio?id=${encodeURIComponent(selected.conversation_id)}&pin=${encodeURIComponent(Auth.getPin())}"></audio>
+          </div>
+        ` : ''}
         <details class="ki-transcript-toggle" ${selected.__transcriptOpen ? 'open' : ''}>
           <summary>▸ Pokaż pełną rozmowę ${selected.message_count ? `(${selected.message_count} wiadomości)` : ''}</summary>
           <div class="ki-transcript-content">

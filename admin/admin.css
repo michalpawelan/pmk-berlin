@@ -1441,3 +1441,10 @@ textarea.form-input {
   color: var(--color-warm-900); margin: 0 0.1rem;
 }
 
+/* KI Audio Player */
+.ki-audio { margin: 0.5rem 0 1rem 0; }
+.ki-audio audio {
+  width: 100%; height: 38px;
+  border-radius: var(--radius-md);
+}
+
