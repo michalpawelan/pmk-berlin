@@ -334,14 +334,16 @@
       // Using hardcoded events
     }
 
-    // Filter & Render
+    // Filter & Render — group by timeframe
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const weekHorizon = new Date(today);
+    weekHorizon.setDate(today.getDate() + 7);
 
     const upcoming = events
       .filter(e => new Date(e.date) >= today)
       .sort((a, b) => new Date(a.date) - new Date(b.date))
-      .slice(0, 6);
+      .slice(0, 12);
 
     if (upcoming.length === 0) {
       const noEventsMsg = getLang() === 'de' ? 'Keine kommenden Veranstaltungen.' : 'Brak nadchodzących wydarzeń.';
@@ -349,15 +351,38 @@
       return;
     }
 
-    container.innerHTML = upcoming.map(ev => renderEventCard(ev)).join('');
+    const thisWeek = upcoming.filter(e => new Date(e.date) < weekHorizon);
+    const later = upcoming.filter(e => new Date(e.date) >= weekHorizon);
 
-    // Add count class for centering when few events
+    const lang = getLang();
+    const labels = {
+      this_week: lang === 'de' ? 'Diese Woche' : 'W tym tygodniu',
+      later: lang === 'de' ? 'Kommende' : 'Nadchodzące'
+    };
+    const i18nKeys = {
+      this_week: 'events.group.this_week',
+      later: 'events.group.later'
+    };
+
+    const groupHtml = (title, key, items) => {
+      if (!items.length) return '';
+      return (
+        '<h3 class="events-group-title" data-i18n="' + key + '">' + title + '</h3>' +
+        '<div class="events-group">' + items.map(renderEventCard).join('') + '</div>'
+      );
+    };
+
+    container.innerHTML =
+      groupHtml(labels.this_week, i18nKeys.this_week, thisWeek) +
+      groupHtml(labels.later, i18nKeys.later, later);
+
+    // Keep prior centering class behavior on the container as a whole
     container.classList.remove('events-count-1', 'events-count-2');
     if (upcoming.length <= 2) {
-      container.classList.add(`events-count-${upcoming.length}`);
+      container.classList.add('events-count-' + upcoming.length);
     }
 
-    // Inject Event structured data for SEO
+    // Inject Event structured data for SEO (covers both groups)
     injectEventSchema(upcoming);
 
     initScrollReveal();

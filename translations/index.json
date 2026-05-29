@@ -131,6 +131,14 @@
     "pl": "Brak nadchodzących wydarzeń.",
     "de": "Keine kommenden Veranstaltungen."
   },
+  "events.group.this_week": {
+    "pl": "W tym tygodniu",
+    "de": "Diese Woche"
+  },
+  "events.group.later": {
+    "pl": "Nadchodzące",
+    "de": "Kommende"
+  },
   "index.event_status.upcoming": {
     "pl": "Nadchodzi",
     "de": "Bevorstehend"
