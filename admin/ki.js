@@ -8,6 +8,7 @@ const KI = (function() {
   let rangeDays = 7;
   let selectedId = null;
   let loading = false;
+  let transcriptCache = {};           // key = conversation_id, value = {state, transcript, error}
 
   const URGENT_KEYWORDS = [
     'namaszczenie', 'umiera', 'umrzeć', 'umrzec', 'śmierc', 'smierc', 'śmierć', 'smierci',
@@ -116,6 +117,27 @@ const KI = (function() {
 
   const ONBOARDING_KEY = 'pmk_ki_onboarded';
 
+  async function fetchTranscript(conversationId) {
+    if (transcriptCache[conversationId]?.state === 'ready') return;
+    if (transcriptCache[conversationId]?.state === 'loading') return;
+    transcriptCache[conversationId] = { state: 'loading' };
+    render();
+    try {
+      const pin = Auth.getPin();
+      const url = `/.netlify/functions/ki-transcript?id=${encodeURIComponent(conversationId)}&pin=${encodeURIComponent(pin)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data.success && Array.isArray(data.transcript)) {
+        transcriptCache[conversationId] = { state: 'ready', transcript: data.transcript };
+      } else {
+        transcriptCache[conversationId] = { state: 'error', error: data?.error || 'unknown' };
+      }
+    } catch (e) {
+      transcriptCache[conversationId] = { state: 'error', error: 'network' };
+    }
+    render();
+  }
+
   function render() {
     const root = document.getElementById('tab-ki');
     if (!root) return;
@@ -213,10 +235,24 @@ const KI = (function() {
           <button class="btn btn-ghost btn-sm ki-close">Zamknij</button>
         </header>
         <p class="ki-meta">${escapeHtml(fmtTime(selected.started_at))} · ${selected.channel === 'phone' ? '📞 Telefon' : '💬 Czat'} · ${escapeHtml((selected.language || '').toUpperCase())}</p>
-        <div class="ki-transcript">
-          <em>Transkrypt ładuje się asynchronicznie z ElevenLabs (V2). Na razie wyświetlamy pierwszą wiadomość:</em>
-          <p>${escapeHtml(selected.first_user_message) || '<em>—</em>'}</p>
-        </div>
+        <details class="ki-transcript-toggle" ${selected.__transcriptOpen ? 'open' : ''}>
+          <summary>▸ Pokaż pełną rozmowę ${selected.message_count ? `(${selected.message_count} wiadomości)` : ''}</summary>
+          <div class="ki-transcript-content">
+            ${(() => {
+              const cache = transcriptCache[selected.conversation_id];
+              if (!cache || cache.state === 'idle') return '<div class="ki-transcript-empty">Kliknij powyżej, aby załadować transkrypt.</div>';
+              if (cache.state === 'loading') return '<div class="ki-loading"><div class="ki-spinner"></div><span>Wczytywanie transkryptu…</span></div>';
+              if (cache.state === 'error') return '<div class="ki-transcript-empty">Nie udało się pobrać transkryptu. <button class="ki-transcript-retry" data-id="' + escapeHtml(selected.conversation_id) + '">Spróbuj ponownie</button></div>';
+              if (cache.transcript.length === 0) return '<div class="ki-transcript-empty">Brak treści w tej rozmowie.</div>';
+              return '<ol class="ki-msg-list">' + cache.transcript.map(m => `
+                <li class="ki-msg ki-msg-${m.role === 'user' ? 'user' : 'agent'}">
+                  <span class="ki-msg-role">${m.role === 'user' ? 'Użytkownik' : 'Asystent'}</span>
+                  <p>${escapeHtml(m.text || '—')}</p>
+                </li>
+              `).join('') + '</ol>';
+            })()}
+          </div>
+        </details>
         <div class="ki-flags">
           <p class="ki-flags-label">Status:</p>
           ${['done', 'followup', 'bad_answer', 'spam'].map(st => `
@@ -257,6 +293,15 @@ const KI = (function() {
     const panel = root.querySelector('.ki-panel');
     if (panel) {
       panel.querySelector('.ki-close').addEventListener('click', closePanel);
+      const transcriptToggle = panel.querySelector('.ki-transcript-toggle');
+      if (transcriptToggle) {
+        transcriptToggle.addEventListener('toggle', () => {
+          selected.__transcriptOpen = transcriptToggle.open;
+          if (transcriptToggle.open) fetchTranscript(selected.conversation_id);
+        });
+        const retryBtn = panel.querySelector('.ki-transcript-retry');
+        if (retryBtn) retryBtn.addEventListener('click', () => fetchTranscript(retryBtn.dataset.id));
+      }
       let pendingStatus = selected.flag?.status || 'unhandled';
       panel.querySelectorAll('.ki-flag-btn').forEach(b => {
         b.addEventListener('click', () => {
