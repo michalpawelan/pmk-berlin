@@ -3714,13 +3714,13 @@ em {
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: var(--space-4);
 }
 
 @media (min-width: 640px) {
   .schedule-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -3753,8 +3753,9 @@ em {
 }
 
 .schedule-note {
-  font-size: var(--text-xs);
-  color: var(--color-warm-500);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-warm-300);
   margin-top: var(--space-2);
 }
 
