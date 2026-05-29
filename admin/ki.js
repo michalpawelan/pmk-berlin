@@ -275,5 +275,5 @@ const KI = (function() {
 })();
 
 window.KI = KI;
-window.addEventListener('hashchange', () => { if (location.hash === '#ki') { KI.render(); KI.load(); } });
-window.addEventListener('DOMContentLoaded', () => { if (location.hash === '#ki') { KI.render(); KI.load(); } });
+window.addEventListener('hashchange', () => { if (location.hash === '#ki') KI.load(); });
+window.addEventListener('DOMContentLoaded', () => { if (location.hash === '#ki') KI.load(); });

@@ -158,5 +158,5 @@ const Newsletter = (function() {
 })();
 
 window.Newsletter = Newsletter;
-window.addEventListener('hashchange', () => { if (location.hash === '#newsletter') Newsletter.load(); });
-window.addEventListener('DOMContentLoaded', () => { if (location.hash === '#newsletter') Newsletter.load(); });
+window.addEventListener('hashchange', () => { if (location.hash === '#newsletter') { Newsletter.render(); Newsletter.load(); } });
+window.addEventListener('DOMContentLoaded', () => { if (location.hash === '#newsletter') { Newsletter.render(); Newsletter.load(); } });
