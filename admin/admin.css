@@ -1384,9 +1384,14 @@ textarea.form-input {
   /* Events Modal Fullscreen */
   .modal-overlay { padding: 0; }
   .modal-panel {
-    width: 100vw; height: 100vh; max-width: none; max-height: none;
+    width: 100vw; height: 100dvh; max-width: none; max-height: none;
     border-radius: 0;
   }
+
+  /* Größere Tippflächen im Event-Modal (Touch) */
+  .time-mode-btn { padding: 0.5rem 1rem; }
+  .modal-header .btn-icon { width: 44px; height: 44px; }
+  .upload-remove { width: 40px; height: 40px; }
 }
 
 @media (max-width: 600px) {
