@@ -782,7 +782,10 @@ const Events = (function() {
         URL.revokeObjectURL(img.src);
         resolve({ base64, dataUrl, width: w, height: h });
       };
-      img.onerror = () => reject(new Error('Nie udało się załadować obrazu'));
+      img.onerror = () => {
+        console.error('[compressImage] img.onerror – plik:', file.name, file.type, file.size, 'src:', img.src);
+        reject(new Error('Nie udało się załadować obrazu'));
+      };
       img.src = URL.createObjectURL(file);
     });
   }
