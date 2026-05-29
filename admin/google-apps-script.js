@@ -22,12 +22,22 @@
  *
  * 6. Aendere den ADMIN_PIN unten, wenn gewuenscht
  *
+ * 7. NEUER TAB "Ogloszenia" (Ogloszenia duszpasterskie):
+ *    - Lege im gleichen Google Sheet einen neuen Tab namens "Ogloszenia" an
+ *    - Header in Zeile 1 (Spalten A-G):
+ *      id | title | body | image_url | published_at | expires_at | published
+ *    - id = UUID (Utilities.getUuid()), wird automatisch beim Einfuegen gesetzt
+ *    - published_at / expires_at = ISO 8601 Strings (UTC), expires_at = published_at + 7 Tage
+ *    - published = "TAK" / "NIE" (wie bei Wydarzenia)
+ *
  * =====================================================
  */
 
 const SHEET_ID = '1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w';
 const SHEET_NAME = 'Tabellenblatt1';
 const NEWSLETTER_SHEET_NAME = 'Newsletter';
+const OGLOSZENIA_SHEET_NAME = 'Ogloszenia';
+const OGLOSZENIA_TTL_DAYS = 7;
 const ADMIN_PIN = 'pmk2026';
 
 // Google Drive Ordner fuer Bilder (wird automatisch erstellt)
@@ -35,6 +45,7 @@ const DRIVE_FOLDER_NAME = 'PMK_Events_Bilder';
 
 // Spalten: A:Tytul  B:Data  C:Godzina  D:Opis  E:Zdjecie  F:Miejsce  G:Adres  H:Opublikowane  I:Wspolnota
 // Newsletter-Tab Spalten: A:Email  B:Data  C:Jezyk  D:Zrodlo
+// Ogloszenia-Tab Spalten: A:id  B:title  C:body  D:image_url  E:published_at  F:expires_at  G:published
 
 function getSheet() {
   return SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
@@ -42,6 +53,10 @@ function getSheet() {
 
 function getNewsletterSheet() {
   return SpreadsheetApp.openById(SHEET_ID).getSheetByName(NEWSLETTER_SHEET_NAME);
+}
+
+function getOgloszeniaSheet() {
+  return SpreadsheetApp.openById(SHEET_ID).getSheetByName(OGLOSZENIA_SHEET_NAME);
 }
 
 function jsonResponse(obj) {
@@ -131,6 +146,21 @@ function handleRequest(e) {
         break;
       case 'upload':
         result = uploadImage(params);
+        break;
+      case 'listOgloszenia':
+        result = listOgloszenia();
+        break;
+      case 'addOgloszenie':
+        result = addOgloszenie(params);
+        break;
+      case 'updateOgloszenie':
+        result = updateOgloszenie(params);
+        break;
+      case 'deleteOgloszenie':
+        result = deleteOgloszenie(params);
+        break;
+      case 'toggleOgloszeniePublish':
+        result = toggleOgloszeniePublish(params);
         break;
       default:
         result = { success: false, error: 'Nieznana akcja: ' + action };
@@ -378,4 +408,174 @@ function uploadImage(params) {
     fileId: fileId,
     imageUrl: imageUrl
   };
+}
+
+/* =====================================================
+ * OGLOSZENIA DUSZPASTERSKIE (wochentliche Bulletins)
+ * Spalten: A:id B:title C:body D:image_url E:published_at F:expires_at G:published
+ * TTL: 7 Tage (siehe OGLOSZENIA_TTL_DAYS). expires_at wird beim Insert berechnet
+ * und beim Update NICHT zurueckgesetzt.
+ * ===================================================== */
+
+/**
+ * Alle aktiven Ogloszenia auflisten.
+ * Filter: published === "TAK" UND expires_at > now.
+ * Sortierung: published_at DESC (neueste zuerst).
+ */
+function listOgloszenia() {
+  const sheet = getOgloszeniaSheet();
+  if (!sheet) return { success: true, ogloszenia: [] };
+  const data = sheet.getDataRange().getValues();
+  const now = new Date().toISOString();
+  const out = [];
+
+  // Erste Zeile = Header, ab Zeile 2
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    if (!row[0]) continue; // Leere Zeile (keine id) ueberspringen
+
+    const publishedAt = row[4] instanceof Date ? row[4].toISOString() : String(row[4] || '');
+    const expiresAt = row[5] instanceof Date ? row[5].toISOString() : String(row[5] || '');
+    const published = String(row[6] || 'TAK').toUpperCase();
+
+    if (published !== 'TAK') continue;
+    if (expiresAt && expiresAt <= now) continue;
+
+    out.push({
+      row: i + 1, // 1-basierte Zeilennummer (intern, fuer Debug)
+      id: String(row[0] || ''),
+      title: String(row[1] || ''),
+      body: String(row[2] || ''),
+      image_url: String(row[3] || ''),
+      published_at: publishedAt,
+      expires_at: expiresAt,
+      published: published
+    });
+  }
+
+  // Neueste zuerst
+  out.sort((a, b) => (b.published_at || '').localeCompare(a.published_at || ''));
+
+  return { success: true, ogloszenia: out };
+}
+
+/**
+ * Neue Ogloszenie hinzufuegen.
+ * Erwartet: params.title, params.body, params.image_url (optional),
+ *           params.draft === 'true' => published = 'NIE', sonst 'TAK'.
+ * Setzt automatisch: id (UUID), published_at (now), expires_at (now + 7d).
+ */
+function addOgloszenie(params) {
+  const sheet = getOgloszeniaSheet();
+  if (!sheet) return { success: false, error: 'Brak arkusza Ogloszenia' };
+
+  const id = Utilities.getUuid();
+  const now = new Date();
+  const publishedAt = now.toISOString();
+  const expiresAt = new Date(now.getTime() + OGLOSZENIA_TTL_DAYS * 24 * 60 * 60 * 1000).toISOString();
+  const published = (String(params.draft || '').toLowerCase() === 'true') ? 'NIE' : 'TAK';
+
+  const newRow = [
+    id,
+    params.title || '',
+    params.body || '',
+    params.image_url || '',
+    publishedAt,
+    expiresAt,
+    published
+  ];
+
+  sheet.appendRow(newRow);
+  SpreadsheetApp.flush();
+
+  return {
+    success: true,
+    message: 'Ogloszenie dodane',
+    id: id,
+    published_at: publishedAt,
+    expires_at: expiresAt,
+    published: published
+  };
+}
+
+/**
+ * Ogloszenie aktualisieren (Suche per id).
+ * Aktualisiert title, body, image_url, published.
+ * published_at und expires_at bleiben UNVERAENDERT (wer Sichtbarkeit verlaengern
+ * will, soll loeschen und neu anlegen).
+ */
+function updateOgloszenie(params) {
+  const sheet = getOgloszeniaSheet();
+  if (!sheet) return { success: false, error: 'Brak arkusza Ogloszenia' };
+
+  const id = String(params.id || '');
+  if (!id) return { success: false, error: 'Brak id' };
+
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][0] || '') === id) {
+      const row = i + 1; // 1-basiert
+      // Nur Spalten B,C,D,G aktualisieren; E,F unangetastet lassen
+      sheet.getRange(row, 2).setValue(params.title || '');
+      sheet.getRange(row, 3).setValue(params.body || '');
+      sheet.getRange(row, 4).setValue(params.image_url || '');
+      if (typeof params.published !== 'undefined') {
+        sheet.getRange(row, 7).setValue(params.published || 'TAK');
+      }
+      SpreadsheetApp.flush();
+      return { success: true, message: 'Ogloszenie zaktualizowane' };
+    }
+  }
+
+  return { success: false, error: 'Nie znaleziono ogloszenia o id: ' + id };
+}
+
+/**
+ * Ogloszenie loeschen (Suche per id).
+ * Inhalt der Zeile wird geleert (listOgloszenia ueberspringt leere id-Zellen).
+ */
+function deleteOgloszenie(params) {
+  const sheet = getOgloszeniaSheet();
+  if (!sheet) return { success: false, error: 'Brak arkusza Ogloszenia' };
+
+  const id = String(params.id || '');
+  if (!id) return { success: false, error: 'Brak id' };
+
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][0] || '') === id) {
+      const row = i + 1;
+      sheet.getRange(row, 1, 1, 7).clearContent();
+      SpreadsheetApp.flush();
+      return { success: true, message: 'Ogloszenie usuniete' };
+    }
+  }
+
+  return { success: false, error: 'Nie znaleziono ogloszenia o id: ' + id };
+}
+
+/**
+ * Veroeffentlichungsstatus eines Ogloszenia umschalten (Suche per id).
+ * Spiegelt togglePublish fuer Events.
+ */
+function toggleOgloszeniePublish(params) {
+  const sheet = getOgloszeniaSheet();
+  if (!sheet) return { success: false, error: 'Brak arkusza Ogloszenia' };
+
+  const id = String(params.id || '');
+  if (!id) return { success: false, error: 'Brak id' };
+
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][0] || '') === id) {
+      const row = i + 1;
+      const currentValue = String(sheet.getRange(row, 7).getValue() || 'TAK').toUpperCase();
+      const newValue = currentValue === 'TAK' ? 'NIE' : 'TAK';
+      sheet.getRange(row, 7).setValue(newValue);
+      SpreadsheetApp.flush();
+      return { success: true, message: 'Status zmieniony na: ' + newValue, published: newValue };
+    }
+  }
+
+  return { success: false, error: 'Nie znaleziono ogloszenia o id: ' + id };
 }
