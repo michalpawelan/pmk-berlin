@@ -706,15 +706,15 @@ const Events = (function() {
       // Bild komprimieren (max 1200px breit, JPEG 80%)
       const compressed = await compressImage(file, 1200, 0.8);
 
-      // Upload to Google Drive via Apps Script
+      // Upload via Netlify Function -> Google Drive (umgeht Apps-Script POST-Redirect-Problem)
       const base64Raw = compressed.base64;
       const base64 = 'data:image/jpeg;base64,' + base64Raw;
       const fileName = 'event-' + Date.now() + '.jpg';
 
       const result = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', Auth.url + '?action=upload&pin=' + encodeURIComponent(Auth.getPin()));
-        xhr.setRequestHeader('Content-Type', 'text/plain');
+        xhr.open('POST', '/.netlify/functions/upload');
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function() {
           try { resolve(JSON.parse(xhr.responseText)); }
           catch(e) { reject(new Error('Ungültige Antwort')); }
@@ -723,7 +723,8 @@ const Events = (function() {
         xhr.send(JSON.stringify({
           fileName: fileName,
           mimeType: 'image/jpeg',
-          data: base64Raw
+          data: base64Raw,
+          pin: Auth.getPin()
         }));
       });
 
