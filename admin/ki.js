@@ -156,6 +156,7 @@ const KI = (function() {
           <li><strong>Zaznacz pole</strong> z lewej, aby szybko oznaczyć rozmowę jako <em>załatwioną</em>.</li>
           <li><strong>Kliknij wiersz</strong>, aby otworzyć panel z transkryptem i notatką.</li>
           <li>Zmień <strong>Zakres</strong> (7/30/90 dni) z prawej, aby zobaczyć starsze rozmowy.</li>
+          <li>💡 Naciśnij <kbd>?</kbd>, aby zobaczyć skróty klawiszowe.</li>
         </ul>
       </div>
       ` : ''}
