@@ -1466,12 +1466,22 @@ em {
   margin-top: 0;
 }
 .events-group {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-4);
 }
 .events-group + .events-group-title {
   margin-top: var(--space-10);
+}
+/* When a grouped render lands inside the homepage events-grid container,
+   flatten the outer grid so each group's headline + cards behave as
+   block-level rows instead of fighting the 3-column parent grid. */
+.events-grid:has(.events-group-title) {
+  display: block;
+}
+.events-grid:has(.events-group-title) .events-count-1,
+.events-grid:has(.events-group-title) .events-count-2 {
+  display: block;
 }
 
 /* ============================================
