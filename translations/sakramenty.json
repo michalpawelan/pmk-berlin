@@ -16,8 +16,12 @@
     "de": "Sakrament der <em>Beichte</em>"
   },
   "spowiedz.hero.lead": {
-    "pl": "Spotkanie z miłosiernym Bogiem, który przebacza grzechy i daje nowe życie.",
-    "de": "Begegnung mit dem barmherzigen Gott, der die Sünden vergibt und neues Leben schenkt."
+    "pl": "Spotkanie z Miłosiernym Bogiem.",
+    "de": "Begegnung mit dem barmherzigen Gott."
+  },
+  "spowiedz.hero.hours": {
+    "pl": "Poniedziałek–sobota od 17:30",
+    "de": "Montag–Samstag ab 17:30 Uhr"
   },
   "spowiedz.quick.weekdays": {
     "pl": "Pon.–Sob.: <strong>od 17:30</strong>",
