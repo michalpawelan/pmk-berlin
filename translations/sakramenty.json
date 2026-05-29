@@ -187,6 +187,10 @@
     "pl": "<li>Poniedziałek — Wedding, godz. 17:00</li><li>Wtorek — Bazylika, godz. 16:00 lub 17:00</li><li>Środa — Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43), godz. 16:00</li>",
     "de": "<li>Montag — Wedding, 17:00 Uhr</li><li>Dienstag — Basilika, 16:00 oder 17:00 Uhr</li><li>Mittwoch — Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43), 16:00 Uhr</li>"
   },
+  "sakramenty.salka.entry_note": {
+    "pl": "<strong>Uwaga:</strong> wejście jest <em>nie</em> od strony Müllerstraße, tylko od Wildenower Straße 8 — przez bramę nr 8 na podwórze.",
+    "de": "<strong>Hinweis:</strong> Der Eingang ist <em>nicht</em> von der Müllerstraße, sondern von der Wildenower Straße 8 — durch Tor Nr. 8 in den Hof."
+  },
   "komunia.step4.title": {
     "pl": "Pierwsza Spowiedź i Komunia Święta",
     "de": "Erstbeichte und Erstkommunion"
