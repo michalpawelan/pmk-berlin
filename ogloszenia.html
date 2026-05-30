@@ -111,8 +111,8 @@
        Markup emitted by js/ogloszenia.js renderBlocks(). */
     .ogloszenia-article-body .ogloszenia-img-block {
       display: block;
-      max-width: min(100%, 600px);  /* cap width; never upscales small images past natural */
-      max-height: 82vh;             /* a very tall flyer can't dominate the viewport */
+      max-width: min(100%, 500px);  /* cap width; never upscales small images past natural */
+      max-height: 70vh;             /* a very tall flyer can't dominate the viewport */
       width: auto;
       height: auto;
       margin: 1.5rem auto;          /* centered in the reading column */
@@ -161,10 +161,14 @@
       .ogloszenia-eyebrow, .ogloszenia-article-meta { color: #555; }
       .ogloszenia-article-body { font-size: 0.95rem; line-height: 1.55; color: #000; }
       .ogloszenia-article-body p { page-break-inside: avoid; }
-      /* Print: whole image, natural aspect, no shadow/border tint, capped to the page. */
+      /* Print: whole image, natural aspect, no shadow/border tint. Capped in cm so the
+         header + image + text fit on ONE A4 page (no empty leading page). */
       .ogloszenia-article-body .ogloszenia-img-block {
-        max-height: none;
-        max-width: 100%;
+        max-width: 12cm;
+        max-height: 16cm;
+        width: auto;
+        height: auto;
+        margin: 0.6cm auto;
         box-shadow: none;
         border: none;
         background: none;
