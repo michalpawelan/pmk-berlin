@@ -8,17 +8,17 @@ require('./ogloszenia.js'); // IIFE runs on require, sets global.window.PMK_Oglo
 
 const { renderBlocks } = global.window.PMK_Ogloszenia;
 
-// 1. A Drive image block is wrapped in the ambient frame, with the URL in BOTH src and --img.
+// 1. A Drive image block renders as a plain <img> (natural aspect, no crop, no blur frame),
+//    with the resolved lh3 URL and perf attributes.
 const driveBody = JSON.stringify([
   { t: 'img', u: 'https://drive.google.com/file/d/ABC123_xyz-9/view' }
 ]);
 const driveOut = renderBlocks(driveBody);
 const resolved = 'https://lh3.googleusercontent.com/d/ABC123_xyz-9=w1200';
-assert(driveOut.includes('class="ogloszenia-img-frame"'), 'frame wrapper present');
-assert(driveOut.includes("--img:url('" + resolved + "')"), '--img custom property set to resolved url');
+assert(driveOut.includes('class="ogloszenia-img-block"'), 'img has ogloszenia-img-block class');
 assert(driveOut.includes('src="' + resolved + '"'), 'img src set to resolved url');
-assert(driveOut.includes('class="ogloszenia-img-block"'), 'inner img keeps its class');
 assert(driveOut.includes('loading="lazy"') && driveOut.includes('decoding="async"'), 'perf attrs present');
+assert(!driveOut.includes('ogloszenia-img-frame') && !driveOut.includes('--img'), 'no blur-frame wrapper');
 
 // 2. A text block still renders as <p> (unchanged behavior).
 const textOut = renderBlocks(JSON.stringify([{ t: 'txt', c: 'Hello\n\nWorld' }]));
@@ -27,19 +27,12 @@ assert(textOut.includes('<p>Hello</p>') && textOut.includes('<p>World</p>'), 'te
 // 3. Legacy non-JSON body is passed through untouched.
 assert(renderBlocks('<p>legacy</p>') === '<p>legacy</p>', 'legacy html passthrough');
 
-// 4. SECURITY: a hostile raw (non-Drive) url cannot break out of the CSS url('') or the style attribute.
-const evilBody = JSON.stringify([
-  { t: 'img', u: "http://x/a')}#bad{(\"q" }
-]);
-const evilOut = renderBlocks(evilBody);
-const styleMatch = evilOut.match(/style="([^"]*)"/);
-assert(styleMatch, 'style attribute present and not broken by a double-quote');
-const styleVal = styleMatch[1];                      // --img:url('....')
-// Extract the escaped URL sitting between the wrapper's  url('  and its final  ')
-const innerStart = styleVal.indexOf("url('") + 5;
-const innerEnd = styleVal.lastIndexOf("')");
-const inner = styleVal.slice(innerStart, innerEnd);
-assert(inner.length > 0, 'escaped url content present');
-assert(!/['"()<>]/.test(inner), 'all CSS/HTML-dangerous chars in the url are hex-escaped');
+// 4. SECURITY: a hostile raw (non-Drive) url is HTML-escaped in the src — it cannot break out
+//    of the double-quoted attribute or inject markup.
+const evilOut = renderBlocks(JSON.stringify([{ t: 'img', u: 'http://x/"><script>alert(1)</script>' }]));
+assert(!evilOut.includes('<script>'), 'raw <script> neutralized (no literal <script>)');
+assert(!evilOut.includes('"><'), 'attribute-break sequence "> neutralized');
+assert(evilOut.includes('&lt;script&gt;'), 'script tag is HTML-escaped in src');
+assert(evilOut.includes('&quot;'), 'double-quote in url is escaped to &quot;');
 
-console.log('ok - renderBlocks ambient-frame + escaping: all assertions passed');
+console.log('ok - renderBlocks plain-image + src escaping: all assertions passed');
