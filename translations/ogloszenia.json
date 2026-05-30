@@ -1,0 +1,18 @@
+{
+  "ogloszenia.page.eyebrow": {
+    "pl": "Ogłoszenia duszpasterskie",
+    "de": "Pfarrblatt"
+  },
+  "ogloszenia.page.print": {
+    "pl": "Drukuj",
+    "de": "Drucken"
+  },
+  "ogloszenia.page.back": {
+    "pl": "← Strona główna",
+    "de": "← Zur Startseite"
+  },
+  "ogloszenia.page.empty": {
+    "pl": "Aktualnie brak ogłoszeń.",
+    "de": "Aktuell keine Ankündigungen."
+  }
+}
