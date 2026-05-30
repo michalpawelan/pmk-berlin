@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Ogłoszenia duszpasterskie | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Aktualne ogłoszenia duszpasterskie Polskiej Misji Katolickiej w Berlinie — biuletyn parafialny tygodnia.">
+  <link rel="canonical" href="https://www.pmk-berlin.de/ogloszenia.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/ogloszenia.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/ogloszenia.html">
+
+  <meta property="og:title" content="Ogłoszenia duszpasterskie | Polska Misja Katolicka Berlin">
+  <meta property="og:description" content="Aktualne ogłoszenia duszpasterskie Polskiej Misji Katolickiej w Berlinie.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.pmk-berlin.de/ogloszenia.html">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:site_name" content="PMK Berlin">
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .ogloszenia-page { background: var(--color-warm-50, #faf6f0); padding: 3rem 0 4rem; min-height: 60vh; }
+    .ogloszenia-page-container { max-width: 720px; margin: 0 auto; padding: 0 1.25rem; }
+
+    .ogloszenia-back {
+      display: inline-block;
+      font-family: var(--font-sans, Outfit), sans-serif;
+      font-size: 0.85rem;
+      color: var(--color-accent, #b4593e);
+      text-decoration: none;
+      margin-bottom: 1.25rem;
+    }
+    .ogloszenia-back:hover { text-decoration: underline; }
+
+    .ogloszenia-article {
+      background: #fff;
+      border: 1px solid var(--color-warm-200, #e8dfd1);
+      border-left: 3px solid var(--color-accent, #b4593e);
+      border-radius: 10px;
+      padding: 2.5rem 2.5rem 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .ogloszenia-article-header { margin-bottom: 1.5rem; }
+    .ogloszenia-eyebrow {
+      font-family: var(--font-sans, Outfit), sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--color-accent, #b4593e);
+      margin: 0 0 0.5rem;
+    }
+    .ogloszenia-article-title {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: clamp(1.7rem, 3.5vw, 2.25rem);
+      font-weight: 500;
+      color: var(--color-warm-900, #2a2520);
+      margin: 0 0 0.6rem;
+      line-height: 1.2;
+    }
+    .ogloszenia-article-meta {
+      font-size: 0.85rem;
+      color: var(--color-warm-500, #8a7a65);
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+    .ogloszenia-print {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      font-family: var(--font-sans, Outfit), sans-serif;
+      font-size: 0.78rem;
+      padding: 0.45rem 0.85rem;
+      background: transparent;
+      border: 1px solid var(--color-warm-300, #d4c8b6);
+      border-radius: 999px;
+      color: var(--color-warm-700, #574c40);
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .ogloszenia-print:hover {
+      background: var(--color-accent, #b4593e);
+      color: #fff;
+      border-color: var(--color-accent, #b4593e);
+    }
+    .ogloszenia-article-body {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--color-warm-800, #3a342d);
+    }
+    .ogloszenia-article-body p { margin: 0 0 1rem; }
+    .ogloszenia-article-body p:last-child { margin-bottom: 0; }
+    .ogloszenia-article-body a { color: var(--color-accent, #b4593e); text-decoration: underline; }
+    .ogloszenia-article-body .ogloszenia-img-block {
+      display: block;
+      width: 100%;
+      max-height: 460px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin: 1.25rem 0;
+    }
+
+    .ogloszenia-empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--color-warm-500, #8a7a65);
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .ogloszenia-page { padding: 1.5rem 0 3rem; }
+      .ogloszenia-article { padding: 1.75rem 1.25rem 1.5rem; border-radius: 8px; }
+      .ogloszenia-print {
+        position: static;
+        margin-top: 1rem;
+        display: inline-block;
+      }
+    }
+
+    /* Print layout — A4-friendly, no chrome */
+    @media print {
+      @page { margin: 1.5cm; }
+      body { background: #fff; color: #000; }
+      .nav-header, .footer, .pmk-chatbot, #pmk-chatbot, .lang-switch, .skip-nav,
+      .ogloszenia-back, .ogloszenia-print { display: none !important; }
+      .ogloszenia-page { background: #fff; padding: 0; }
+      .ogloszenia-page-container { max-width: 100%; padding: 0; }
+      .ogloszenia-article {
+        background: #fff;
+        border: none;
+        border-left: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      .ogloszenia-article-title { font-size: 1.6rem; color: #000; }
+      .ogloszenia-eyebrow, .ogloszenia-article-meta { color: #555; }
+      .ogloszenia-article-body { font-size: 0.95rem; line-height: 1.55; color: #000; }
+      .ogloszenia-article-body p { page-break-inside: avoid; }
+      .ogloszenia-article-body .ogloszenia-img-block { page-break-inside: avoid; max-height: none; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-i18n="nav.home">Strona główna</a></li>
+      <li><a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a></li>
+      <li><a href="events.html" data-i18n="nav.events">Wydarzenia</a></li>
+      <li><a href="grupy.html" data-i18n="nav.groups">Grupy parafialne</a></li>
+      <li><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main-content" class="ogloszenia-page">
+  <div class="ogloszenia-page-container">
+    <a class="ogloszenia-back" href="/" data-i18n="ogloszenia.page.back">← Strona główna</a>
+
+    <article class="ogloszenia-article" id="ogloszenia-article" hidden>
+      <header class="ogloszenia-article-header">
+        <p class="ogloszenia-eyebrow" data-i18n="ogloszenia.page.eyebrow">Ogłoszenia duszpasterskie</p>
+        <h1 class="ogloszenia-article-title" id="ogloszenia-article-title"></h1>
+        <p class="ogloszenia-article-meta" id="ogloszenia-article-meta"></p>
+        <button type="button" class="ogloszenia-print" id="ogloszenia-print-btn" data-i18n="ogloszenia.page.print">Drukuj</button>
+      </header>
+      <div class="ogloszenia-article-body" id="ogloszenia-article-body"></div>
+    </article>
+
+    <div class="ogloszenia-empty" id="ogloszenia-empty" hidden>
+      <p data-i18n="ogloszenia.page.empty">Aktualnie brak ogłoszeń.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 10965 Berlin
+        </p>
+        <div class="footer-contact">
+          <a href="tel:+49307524080">+49 30 752 40 80</a>
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4 data-i18n="footer.nav_title">Nawigacja</h4>
+          <a href="index.html" data-i18n="nav.home">Strona główna</a>
+          <a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a>
+          <a href="events.html" data-i18n="nav.events">Wydarzenia</a>
+          <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4 data-i18n="footer.info_title">Informacje</h4>
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="schutzkonzept.html">Schutzkonzept</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4 data-i18n="footer.donate_title">Wesprzyj naszą Misję</h4>
+        <p data-i18n="footer.donate_desc">Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.</p>
+      </div>
+      <div class="footer-donate-cta-wrap">
+        <a href="wesprzyj.html" class="footer-donate-btn" data-i18n="footer.donate_cta">Wesprzyj Misję</a>
+      </div>
+    </div>
+
+    <!-- BEGIN newsletter-footer -->
+<div class="footer-newsletter" data-newsletter-form>
+  <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
+  <p data-i18n="footer.newsletter_desc">Newsletter parafii — informacje o wydarzeniach, ogłoszenia.</p>
+  <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
+    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
+    <p class="footer-newsletter-msg" hidden></p>
+  </form>
+  <p class="footer-newsletter-legal">
+    <a href="datenschutz.html" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
+  </p>
+</div>
+<!-- END newsletter-footer -->
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js" defer></script>
+<script src="js/ogloszenia.js" defer></script>
+<script src="main.js" defer></script>
+<script type="module" src="js/pmk-chat.js"></script>
+
+<script>
+  // Detail page loader — uses class-based selectors that DO NOT conflict with main.js
+  // (main.js's loadOgloszenie targets #ogloszenia, which doesn't exist on this page).
+  (function () {
+    'use strict';
+
+    function init() {
+      if (!window.PMK_Ogloszenia) {
+        // Module not loaded yet — retry once after a tick (defer ordering safety net)
+        setTimeout(init, 50);
+        return;
+      }
+
+      const article = document.getElementById('ogloszenia-article');
+      const empty = document.getElementById('ogloszenia-empty');
+      const titleEl = document.getElementById('ogloszenia-article-title');
+      const metaEl = document.getElementById('ogloszenia-article-meta');
+      const bodyEl = document.getElementById('ogloszenia-article-body');
+      const printBtn = document.getElementById('ogloszenia-print-btn');
+
+      window.PMK_Ogloszenia.fetchCurrent().then(function (data) {
+        if (!data) {
+          if (empty) empty.hidden = false;
+          return;
+        }
+        if (titleEl) titleEl.textContent = data.title;
+        if (metaEl) metaEl.textContent = window.PMK_Ogloszenia.formatWeekRange(data.publishedAt, window.PMK_Ogloszenia.getLang());
+        if (bodyEl) bodyEl.innerHTML = window.PMK_Ogloszenia.renderBlocks(data.body);
+        if (article) article.hidden = false;
+      }).catch(function () {
+        if (empty) empty.hidden = false;
+      });
+
+      if (printBtn) {
+        printBtn.addEventListener('click', function () { window.print(); });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>
