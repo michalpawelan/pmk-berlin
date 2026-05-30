@@ -170,15 +170,13 @@
 
     const titleEl = document.getElementById('ogloszenia-title');
     const dateEl = document.getElementById('ogloszenia-date');
-    const bodyEl = document.getElementById('ogloszenia-body');
-    const imgEl = document.getElementById('ogloszenia-image');
+    const linkEl = document.getElementById('ogloszenia-link');
 
     if (titleEl) titleEl.textContent = data.title;
     if (dateEl) dateEl.textContent = window.PMK_Ogloszenia.formatWeekRange(data.publishedAt, window.PMK_Ogloszenia.getLang());
-    if (bodyEl) bodyEl.innerHTML = window.PMK_Ogloszenia.renderBlocks(data.body);
-    if (imgEl) {
-      imgEl.removeAttribute('src');
-      imgEl.hidden = true;
+    if (linkEl) {
+      const langLabel = window.PMK_Ogloszenia.getLang() === 'de' ? 'Pfarrblatt — ' : 'Ogłoszenia duszpasterskie — ';
+      linkEl.setAttribute('aria-label', langLabel + data.title);
     }
 
     section.removeAttribute('hidden');
