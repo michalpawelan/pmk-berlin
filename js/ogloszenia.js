@@ -27,6 +27,16 @@
     });
   }
 
+  function escapeCssUrl(s) {
+    // Escape a URL for use inside CSS url('...') within an HTML style="" attribute.
+    // Hex-escape every char that could break out of the single-quoted CSS string,
+    // the url() function, or the double-quoted HTML attribute. Safe chars
+    // (alphanumerics, : / = . - _ ?) are left literal so the URL still works.
+    return String(s).replace(/[\\'"()<>&\s]/g, function (c) {
+      return '\\' + c.charCodeAt(0).toString(16) + ' ';
+    });
+  }
+
   function parseGvizDate(cell) {
     if (!cell) return null;
     const raw = cell.v;
@@ -122,7 +132,14 @@
         const raw = String(b.u);
         const m = raw.match(/\/d\/([a-zA-Z0-9_-]+)/) || raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
         const url = m ? ('https://lh3.googleusercontent.com/d/' + m[1] + '=w1200') : raw;
-        return '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="" loading="lazy">';
+        // Ambient blur-fill frame: the URL is referenced twice — as the sharp foreground
+        // <img> (object-fit:contain, never cropped) and as the --img custom property the
+        // CSS ::before uses for the blurred backdrop. See ogloszenia.html .ogloszenia-img-frame.
+        // escapeCssUrl hex-escapes anything that could break out of the single-quoted CSS
+        // string or the HTML style attribute; resolved Drive URLs pass through unchanged.
+        return '<div class="ogloszenia-img-frame" style="--img:url(\'' + escapeCssUrl(url) + '\')">' +
+               '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="" loading="lazy" decoding="async">' +
+               '</div>';
       }
       if (b && b.t === 'txt' && b.c) {
         return String(b.c)
