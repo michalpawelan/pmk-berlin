@@ -160,174 +160,28 @@
   // Sheet columns: A=id, B=title, C=body, D=image_url, E=published_at,
   //                F=expires_at, G=published (TAK/NIE).
   // If no current ogłoszenie or fetch fails: section stays hidden, no flicker.
-  const OGLOSZENIA_API = '/.netlify/functions/ogloszenia-proxy';
-
-  function parseGvizDate(cell) {
-    // gviz dates come as "Date(YYYY,M,D,H,m,s)" (month 0-based) in cell.v,
-    // or sometimes as an ISO/locale string in cell.f.
-    if (!cell) return null;
-    const raw = cell.v;
-    const fmt = cell.f;
-    const m = String(raw || '').match(/Date\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d+))?)?/);
-    if (m) {
-      return new Date(
-        parseInt(m[1], 10),
-        parseInt(m[2], 10),
-        parseInt(m[3], 10),
-        m[4] ? parseInt(m[4], 10) : 0,
-        m[5] ? parseInt(m[5], 10) : 0,
-        m[6] ? parseInt(m[6], 10) : 0
-      );
-    }
-    if (fmt) {
-      const d = new Date(fmt);
-      if (!isNaN(d.getTime())) return d;
-    }
-    if (raw) {
-      const d = new Date(raw);
-      if (!isNaN(d.getTime())) return d;
-    }
-    return null;
-  }
-
   async function loadOgloszenie() {
     const section = document.getElementById('ogloszenia');
     if (!section) return;
+    if (!window.PMK_Ogloszenia) return;
 
-    try {
-      const response = await fetch(OGLOSZENIA_API);
-      if (!response.ok) return; // leave hidden
-      const text = await response.text();
+    const data = await window.PMK_Ogloszenia.fetchCurrent();
+    if (!data) return;
 
-      const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
-      if (!jsonMatch || !jsonMatch[1]) return;
+    const titleEl = document.getElementById('ogloszenia-title');
+    const dateEl = document.getElementById('ogloszenia-date');
+    const bodyEl = document.getElementById('ogloszenia-body');
+    const imgEl = document.getElementById('ogloszenia-image');
 
-      const data = JSON.parse(jsonMatch[1]);
-      const rows = (data.table && data.table.rows) || [];
-      if (!rows.length) return;
-
-      const now = new Date();
-      const items = [];
-
-      for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
-        if (!row || !row.c) continue;
-
-        const val = (idx) => {
-          const cell = row.c[idx];
-          return cell ? (cell.v != null ? cell.v : (cell.f || '')) : '';
-        };
-
-        const id = val(0);
-        const title = val(1);
-        const body = val(2);
-        const imageUrl = val(3);
-        const publishedAt = parseGvizDate(row.c[4]);
-        const expiresAt = parseGvizDate(row.c[5]);
-        const published = String(val(6) || '').toUpperCase();
-
-        if (!title || !body) continue;
-        if (published !== 'TAK') continue;
-        if (!expiresAt || expiresAt <= now) continue;
-
-        items.push({
-          id,
-          title: String(title),
-          body: String(body),
-          imageUrl: imageUrl ? String(imageUrl) : '',
-          publishedAt: publishedAt || new Date(0)
-        });
-      }
-
-      if (!items.length) return;
-
-      // Most recent first
-      items.sort((a, b) => b.publishedAt - a.publishedAt);
-      const current = items[0];
-
-      // Resolve Google Drive image URL if needed (same idiom as events)
-      let resolvedImage = '';
-      if (current.imageUrl) {
-        const driveMatch = current.imageUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
-                           current.imageUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        resolvedImage = driveMatch
-          ? `https://lh3.googleusercontent.com/d/${driveMatch[1]}=w1200`
-          : current.imageUrl;
-      }
-
-      // Populate DOM
-      const titleEl = document.getElementById('ogloszenia-title');
-      const dateEl = document.getElementById('ogloszenia-date');
-      const bodyEl = document.getElementById('ogloszenia-body');
-      const imgEl = document.getElementById('ogloszenia-image');
-
-      if (titleEl) titleEl.textContent = current.title; // safe
-      if (dateEl) {
-        const lang = getLang();
-        const start = current.publishedAt;
-        if (start && start.getTime() > 0) {
-          const locale = lang === 'de' ? 'de-DE' : 'pl-PL';
-          const end = new Date(start.getTime());
-          end.setDate(end.getDate() + 6);
-          const startStr = start.toLocaleDateString(locale, { day: 'numeric', month: 'long' });
-          const endStr   = end.toLocaleDateString(locale,   { day: 'numeric', month: 'long', year: 'numeric' });
-          const label = lang === 'de' ? 'Woche' : 'Tydzień';
-          dateEl.textContent = label + ' · ' + startStr + ' – ' + endStr;
-        } else {
-          dateEl.textContent = '';
-        }
-      }
-      // Body may be:
-      //   - JSON array of blocks: [{t:'txt',c:'...'}, {t:'img',u:'...'}, ...]
-      //     written by the new block editor (admin/ogloszenia.js). Render
-      //     each block as <p> or <img>, images inline within the flow.
-      //   - Legacy HTML string (older rows). innerHTML it.
-      // Both cases are trusted-by-design: written by the proboszcz behind
-      // the admin PIN. If abuse becomes a concern, swap to a sanitizer.
-      let blocks = null;
-      if (typeof current.body === 'string' && current.body.trim().startsWith('[')) {
-        try {
-          const parsed = JSON.parse(current.body);
-          if (Array.isArray(parsed)) blocks = parsed;
-        } catch (e) { /* fall through to legacy */ }
-      }
-      if (bodyEl) {
-        if (blocks) {
-          bodyEl.innerHTML = blocks.map(b => {
-            if (b && b.t === 'img' && b.u) {
-              const raw = String(b.u);
-              const m = raw.match(/\/d\/([a-zA-Z0-9_-]+)/) || raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-              const url = m ? ('https://lh3.googleusercontent.com/d/' + m[1] + '=w1200') : raw;
-              return '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="" loading="lazy">';
-            }
-            if (b && b.t === 'txt' && b.c) {
-              return String(b.c)
-                .split(/\n{2,}/)
-                .map(par => '<p>' + escapeHTML(par).replace(/\n/g, '<br>') + '</p>')
-                .join('');
-            }
-            return '';
-          }).join('');
-        } else {
-          bodyEl.innerHTML = current.body;
-        }
-      }
-      // Hero image only when body is legacy HTML (images flow inside blocks otherwise).
-      if (imgEl) {
-        if (!blocks && resolvedImage) {
-          imgEl.src = resolvedImage;
-          imgEl.alt = current.title;
-          imgEl.hidden = false;
-        } else {
-          imgEl.removeAttribute('src');
-          imgEl.hidden = true;
-        }
-      }
-
-      section.removeAttribute('hidden');
-    } catch (e) {
-      // Defensive: any failure leaves the section hidden
+    if (titleEl) titleEl.textContent = data.title;
+    if (dateEl) dateEl.textContent = window.PMK_Ogloszenia.formatWeekRange(data.publishedAt, window.PMK_Ogloszenia.getLang());
+    if (bodyEl) bodyEl.innerHTML = window.PMK_Ogloszenia.renderBlocks(data.body);
+    if (imgEl) {
+      imgEl.removeAttribute('src');
+      imgEl.hidden = true;
     }
+
+    section.removeAttribute('hidden');
   }
 
   // ============================================
