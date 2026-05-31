@@ -1,5 +1,8 @@
 // admin/ogloszenia.js — Ogloszenia-Tab Logic.
-// Tygodniowy biuletyn parafialny: blockowy edytor (text + obraz) zamiast HTML-textarea.
+// Tygodniowy biuletyn parafialny: PROSTY formularz (tytuł + zdjęcie + treść).
+// Body jest zapisywany w tym samym formacie blokowym co wcześniej
+// ([{t:'img',u},{t:'txt',c}]), więc strona główna i /ogloszenia.html renderują bez zmian.
+// Ogłoszenie znika automatycznie po 7 dniach (TTL w Apps Script).
 // Backend: Apps Script actions listOgloszenia / addOgloszenie / updateOgloszenie /
 //          deleteOgloszenie / toggleOgloszeniePublish (siehe admin/google-apps-script.js).
 
@@ -8,9 +11,10 @@ const Ogloszenia = (function() {
 
   let list = [];
   let loading = false;
-  let editingId = null;     // null => formularz dla nowego ogloszenia
+  let editingId = null;     // null => nowe ogłoszenie
   let formOpen = false;
-  let blocks = [];          // [{id, t:'txt'|'img', c?:string, u?:string, p?:string, uploading?:bool}]
+  // Cały stan formularza w jednym miejscu (przeżywa re-render).
+  let form = { title: '', photoUrl: '', photoPreview: '', text: '', uploading: false };
   let blockCounter = 0;
 
   // ============================================
@@ -59,10 +63,10 @@ const Ogloszenia = (function() {
   }
 
   // ============================================
-  // Block helpers — JSON serialisation
+  // Block helpers — read existing body, build new body
   // ============================================
   // Parses item.body. If it's a JSON array of blocks → returns blocks.
-  // Otherwise → returns single text block with the raw content (legacy HTML rows).
+  // Otherwise → single text block with the raw content (legacy HTML rows).
   function parseBlocks(bodyStr) {
     if (!bodyStr) return [];
     const trimmed = String(bodyStr).trim();
@@ -74,29 +78,42 @@ const Ogloszenia = (function() {
             id: nextBlockId(),
             t: b.t === 'img' ? 'img' : 'txt',
             c: b.c || '',
-            u: b.u || '',
-            p: ''
+            u: b.u || ''
           }));
         }
       } catch (_) { /* fall through */ }
     }
-    // Legacy row: wrap whole body as single text block (strip basic HTML so it edits cleanly).
     const plain = trimmed.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?[^>]+>/g, '');
-    return [{ id: nextBlockId(), t: 'txt', c: plain, u: '', p: '' }];
+    return [{ id: nextBlockId(), t: 'txt', c: plain, u: '' }];
   }
 
-  // Strip transient fields (id, p, uploading) before saving — only the persistent
-  // shape goes into the Sheet body cell.
-  function serializeBlocks(arr) {
-    return JSON.stringify(arr.map(b => b.t === 'img'
-      ? { t: 'img', u: b.u || '' }
-      : { t: 'txt', c: b.c || '' }
-    ));
+  function emptyForm() {
+    return { title: '', photoUrl: '', photoPreview: '', text: '', uploading: false };
   }
 
-  function firstImageUrl(arr) {
-    const hit = arr.find(b => b.t === 'img' && b.u);
-    return hit ? hit.u : '';
+  // Existing ogłoszenie → simple-form state (photo = first image, text = all text blocks joined).
+  function formFromItem(item) {
+    const f = emptyForm();
+    f.title = item.title || '';
+    f.photoUrl = item.image_url || '';
+    const blocks = parseBlocks(item.body);
+    if (!f.photoUrl) {
+      const img = blocks.find(b => b.t === 'img' && b.u);
+      if (img) f.photoUrl = img.u;
+    }
+    f.text = blocks.filter(b => b.t === 'txt' && b.c).map(b => b.c).join('\n\n');
+    if (f.photoUrl) f.photoPreview = convertDriveUrl(f.photoUrl);
+    return f;
+  }
+
+  // Simple-form state → block-JSON body (image first, then text) — same shape the
+  // public renderer (js/ogloszenia.js renderBlocks) expects.
+  function formToBody() {
+    const blocks = [];
+    if (form.photoUrl) blocks.push({ t: 'img', u: form.photoUrl });
+    const text = String(form.text || '').trim();
+    if (text) blocks.push({ t: 'txt', c: text });
+    return JSON.stringify(blocks);
   }
 
   // ============================================
@@ -155,7 +172,7 @@ const Ogloszenia = (function() {
   }
 
   // ============================================
-  // Image upload (per-block; reuses /.netlify/functions/upload)
+  // Image upload (single photo; reuses /.netlify/functions/upload)
   // ============================================
   function compressImage(file, maxWidth, quality) {
     return new Promise((resolve, reject) => {
@@ -175,15 +192,14 @@ const Ogloszenia = (function() {
     });
   }
 
-  async function uploadBlockImage(blockId, files) {
-    const block = blocks.find(b => b.id === blockId);
-    if (!block) return;
+  async function uploadPhoto(files) {
     const file = files && files[0];
     if (!file || !file.type.startsWith('image/')) {
       toast('Tylko pliki graficzne (JPG, PNG, WebP)', 'error');
       return;
     }
-    block.uploading = true;
+    readFormInputs();        // keep title/text the user already typed
+    form.uploading = true;
     render();
 
     try {
@@ -204,8 +220,8 @@ const Ogloszenia = (function() {
       });
 
       if (result && result.success) {
-        block.u = result.imageUrl || '';
-        block.p = compressed.dataUrl;
+        form.photoUrl = result.imageUrl || '';
+        form.photoPreview = compressed.dataUrl;
         toast('Zdjęcie przesłane', 'success');
       } else {
         throw new Error((result && result.error) || 'Upload nie powiódł się');
@@ -213,80 +229,36 @@ const Ogloszenia = (function() {
     } catch (err) {
       toast('Błąd przesyłania: ' + err.message, 'error');
     } finally {
-      block.uploading = false;
+      form.uploading = false;
       render();
     }
   }
 
-  // ============================================
-  // Block manipulation
-  // ============================================
-  function addTextBlock() {
-    blocks.push({ id: nextBlockId(), t: 'txt', c: '', u: '', p: '' });
+  function removePhoto() {
+    if (form.photoUrl && !window.confirm('Usunąć zdjęcie z ogłoszenia?')) return;
+    readFormInputs();
+    form.photoUrl = '';
+    form.photoPreview = '';
     render();
-    // Focus the new textarea after render.
-    setTimeout(() => {
-      const ta = document.querySelectorAll('.oglBlock textarea');
-      const last = ta[ta.length - 1];
-      if (last) last.focus();
-    }, 0);
-  }
-
-  function addImageBlock() {
-    blocks.push({ id: nextBlockId(), t: 'img', c: '', u: '', p: '' });
-    render();
-  }
-
-  function moveBlock(id, direction) {
-    const idx = blocks.findIndex(b => b.id === id);
-    if (idx < 0) return;
-    const newIdx = idx + direction;
-    if (newIdx < 0 || newIdx >= blocks.length) return;
-    const [b] = blocks.splice(idx, 1);
-    blocks.splice(newIdx, 0, b);
-    render();
-  }
-
-  function deleteBlock(id) {
-    const block = blocks.find(b => b.id === id);
-    if (block && block.t === 'txt' && block.c.trim()) {
-      if (!window.confirm('Usunąć ten blok tekstu?')) return;
-    }
-    if (block && block.t === 'img' && block.u) {
-      if (!window.confirm('Usunąć to zdjęcie z ogłoszenia?')) return;
-    }
-    blocks = blocks.filter(b => b.id !== id);
-    render();
-  }
-
-  function readTextBlockValues() {
-    // Capture current textarea values back into state before re-render or save.
-    blocks.forEach(b => {
-      if (b.t !== 'txt') return;
-      const ta = document.querySelector('textarea[data-block-id="' + b.id + '"]');
-      if (ta) b.c = ta.value;
-    });
   }
 
   // ============================================
   // Form open / save
   // ============================================
+  function readFormInputs() {
+    const ti = document.getElementById('oglFormTitle');
+    if (ti) form.title = ti.value;
+    const ta = document.getElementById('oglFormText');
+    if (ta) form.text = ta.value;
+  }
+
   function openForm(item) {
     editingId = item ? item.id : null;
     formOpen = true;
-    if (item) {
-      blocks = parseBlocks(item.body);
-      // If the legacy image_url exists and isn't already represented in blocks, prepend it.
-      if (item.image_url && !blocks.some(b => b.t === 'img' && b.u === item.image_url)) {
-        blocks.unshift({ id: nextBlockId(), t: 'img', c: '', u: item.image_url, p: '' });
-      }
-    } else {
-      blocks = [{ id: nextBlockId(), t: 'txt', c: '', u: '', p: '' }];
-    }
+    form = item ? formFromItem(item) : emptyForm();
     render();
     setTimeout(() => {
       const t = document.getElementById('oglFormTitle');
-      if (t && item) t.value = item.title || '';
       if (t) t.focus();
     }, 0);
   }
@@ -294,32 +266,27 @@ const Ogloszenia = (function() {
   function closeForm() {
     formOpen = false;
     editingId = null;
-    blocks = [];
+    form = emptyForm();
     render();
   }
 
   async function saveForm() {
-    readTextBlockValues();
-    const titleEl = document.getElementById('oglFormTitle');
-    const title = titleEl ? titleEl.value.trim() : '';
-
+    readFormInputs();
+    const title = String(form.title || '').trim();
     if (!title) { toast('Tytuł jest wymagany', 'error'); return; }
-
-    // Drop empty blocks before saving.
-    const cleaned = blocks.filter(b => (b.t === 'txt' && b.c.trim()) || (b.t === 'img' && b.u));
-
-    if (!cleaned.length) {
-      toast('Dodaj przynajmniej jeden blok (tekst lub zdjęcie)', 'error');
+    if (!String(form.text || '').trim() && !form.photoUrl) {
+      toast('Dodaj treść lub zdjęcie', 'error');
       return;
     }
 
     const payload = {
       title: title,
-      body: serializeBlocks(cleaned),
-      image_url: firstImageUrl(cleaned) // legacy field — first image as thumbnail
+      body: formToBody(),
+      image_url: form.photoUrl || ''
     };
 
     const saveBtn = document.getElementById('oglFormSave');
+    const original = saveBtn ? saveBtn.textContent : '';
     if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Zapisywanie…'; }
 
     try {
@@ -332,19 +299,22 @@ const Ogloszenia = (function() {
         result = await add(payload);
       }
       if (result && result.success) {
-        toast(editingId ? 'Ogłoszenie zaktualizowane' : 'Ogłoszenie dodane', 'success');
+        toast(editingId ? 'Ogłoszenie zaktualizowane' : 'Ogłoszenie opublikowane', 'success');
         closeForm();
         await load();
       } else {
         toast((result && result.error) || 'Wystąpił błąd', 'error');
-        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Zapisz'; }
+        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = original; }
       }
     } catch (err) {
       toast('Błąd połączenia', 'error');
-      if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Zapisz'; }
+      if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = original; }
     }
   }
 
+  // ============================================
+  // List handlers
+  // ============================================
   async function handleDelete(id) {
     if (!window.confirm('Czy na pewno chcesz usunąć to ogłoszenie?')) return;
     try {
@@ -375,7 +345,7 @@ const Ogloszenia = (function() {
   }
 
   // ============================================
-  // Render — list view
+  // Render
   // ============================================
   function renderList() {
     if (loading) {
@@ -398,7 +368,6 @@ const Ogloszenia = (function() {
             ? `<img src="${escapeHtml(convertDriveUrl(item.image_url))}" alt="" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">`
             : '';
           const hidden = item.published !== 'TAK';
-          // For the list preview, show a short text summary regardless of whether body is blocks or HTML.
           let preview = '';
           if (item.body) {
             const trimmed = String(item.body).trim();
@@ -409,7 +378,7 @@ const Ogloszenia = (function() {
                 preview = escapeHtml(txt.slice(0, 220));
               } catch (e) { preview = escapeHtml(trimmed.slice(0, 220)); }
             } else {
-              preview = trimmed.slice(0, 220); // legacy HTML
+              preview = trimmed.slice(0, 220);
             }
           }
           return `
@@ -434,99 +403,64 @@ const Ogloszenia = (function() {
       </div>`;
   }
 
-  // ============================================
-  // Render — form (block editor)
-  // ============================================
-  function renderBlock(b, idx, total) {
-    const isFirst = idx === 0;
-    const isLast = idx === total - 1;
-    const moveUp = `<button type="button" class="btn-icon" data-block-action="up" data-block-id="${b.id}" ${isFirst ? 'disabled' : ''} title="Przesuń w górę" aria-label="Przesuń w górę">↑</button>`;
-    const moveDown = `<button type="button" class="btn-icon" data-block-action="down" data-block-id="${b.id}" ${isLast ? 'disabled' : ''} title="Przesuń w dół" aria-label="Przesuń w dół">↓</button>`;
-    const del = `<button type="button" class="btn-icon" data-block-action="delete" data-block-id="${b.id}" title="Usuń blok" aria-label="Usuń blok" style="color:var(--color-danger,#b94a3c);">🗑</button>`;
-    const controls = `<div class="oglBlockControls" style="display:flex;gap:0.25rem;align-items:center;">${moveUp}${moveDown}${del}</div>`;
-
-    const header = (label) => `
-      <div class="oglBlockHeader" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-        <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-warm-500);font-weight:600;">${label}</span>
-        ${controls}
-      </div>`;
-
-    if (b.t === 'txt') {
+  function renderPhotoZone() {
+    if (form.uploading) {
       return `
-        <div class="oglBlock" data-block-id="${b.id}" style="padding:1rem;background:#fff;border:1px solid var(--color-warm-200,#e8dfd0);border-radius:10px;">
-          ${header('Tekst')}
-          <textarea class="form-input" data-block-id="${b.id}" rows="4" placeholder="Napisz fragment ogłoszenia. Enter rozpoczyna nowy akapit." style="font-family:var(--font-sans,Outfit),sans-serif;line-height:1.6;resize:vertical;">${escapeHtml(b.c)}</textarea>
-        </div>`;
-    }
-
-    // Image block
-    const previewSrc = b.p ? b.p : (b.u ? convertDriveUrl(b.u) : '');
-    const state = b.uploading ? 'uploading' : (previewSrc ? 'has' : 'empty');
-    let zoneInner;
-    if (state === 'uploading') {
-      zoneInner = `
-        <div style="padding:1.5rem;text-align:center;">
+        <div class="oglPhotoZone" data-state="uploading" style="border:2px dashed var(--color-warm-300,#d6c9b3);border-radius:10px;background:var(--color-cream-50,#fdfaf4);padding:1.5rem;text-align:center;">
           <div class="loader" style="margin:0 auto 0.5rem;"></div>
           <p style="color:var(--color-warm-500);font-size:0.875rem;margin:0;">Przesyłanie zdjęcia…</p>
         </div>`;
-    } else if (state === 'has') {
-      zoneInner = `
-        <div style="position:relative;text-align:center;background:#fff;padding:0.5rem;border-radius:8px;">
-          <img src="${escapeHtml(previewSrc)}" alt="Podgląd" style="display:block;margin:0 auto;max-width:100%;max-height:220px;width:auto;height:auto;object-fit:contain;border-radius:6px;">
-          <p style="margin:0.5rem 0 0;font-size:0.75rem;color:var(--color-warm-500);">Kliknij obrazek aby zmienić</p>
-        </div>`;
-    } else {
-      zoneInner = `
-        <div class="upload-zone-content" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:1.5rem;cursor:pointer;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="color:var(--color-warm-500);"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <p style="margin:0;color:var(--color-warm-700);">Przeciągnij zdjęcie tutaj lub <strong>kliknij</strong></p>
-          <p style="margin:0;font-size:0.75rem;color:var(--color-warm-500);">JPG, PNG, WebP — automatycznie kompresowane</p>
+    }
+    const src = form.photoPreview || (form.photoUrl ? convertDriveUrl(form.photoUrl) : '');
+    if (src) {
+      return `
+        <div class="oglPhotoZone" data-state="has" style="display:flex;align-items:center;gap:1rem;border:1px solid var(--color-warm-200,#e8dfd0);border-radius:10px;background:#fff;padding:0.75rem;">
+          <img src="${escapeHtml(src)}" alt="" style="width:84px;height:108px;object-fit:contain;background:var(--color-cream-50,#fdfaf4);border-radius:8px;border:1px solid var(--color-warm-200,#e8dfd0);flex-shrink:0;">
+          <div style="flex:1;min-width:0;">
+            <strong style="display:block;color:var(--color-warm-800);font-size:0.9375rem;">Zdjęcie dodane</strong>
+            <span style="font-size:0.8125rem;color:var(--color-warm-500);">Możesz je zmienić lub usunąć</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;flex-shrink:0;">
+            <button type="button" class="btn btn-ghost btn-sm" id="oglPhotoChange">Zmień</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="oglPhotoRemove" style="color:var(--color-danger,#b94a3c);">Usuń</button>
+          </div>
         </div>`;
     }
     return `
-      <div class="oglBlock" data-block-id="${b.id}" style="padding:1rem;background:#fff;border:1px solid var(--color-warm-200,#e8dfd0);border-radius:10px;">
-        ${header('Zdjęcie')}
-        <div class="oglImgZone" data-block-id="${b.id}" data-state="${state}" style="border:1px dashed var(--color-warm-300,#d6c9b3);border-radius:8px;background:var(--color-cream-50,#fdfaf4);">
-          <input type="file" data-block-id="${b.id}" accept="image/*" style="display:none">
-          ${zoneInner}
-        </div>
+      <div class="oglPhotoZone" data-state="empty" style="border:2px dashed var(--color-warm-300,#d6c9b3);border-radius:10px;background:var(--color-cream-50,#fdfaf4);padding:1.75rem 1.5rem;text-align:center;cursor:pointer;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28" style="color:var(--color-accent,#a68b5b);margin-bottom:0.5rem;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <p style="margin:0 0 0.2rem;color:var(--color-warm-700);font-size:0.9375rem;">Przeciągnij zdjęcie tutaj lub kliknij, aby wybrać</p>
+        <p style="margin:0;color:var(--color-warm-500);font-size:0.8125rem;">JPG, PNG lub WebP — opcjonalnie</p>
       </div>`;
   }
 
   function renderForm() {
     if (!formOpen) return '';
-    const blocksHtml = blocks.map((b, i) => renderBlock(b, i, blocks.length)).join('');
-
     return `
-      <div class="ogl-form" style="margin-top:1.5rem;padding:1.5rem;background:var(--color-cream-50,#fdfaf4);border:1px solid var(--color-warm-200,#e8dfd0);border-radius:12px;">
-        <h2 style="margin:0 0 1rem;font-family:var(--font-serif,Cormorant),serif;">${editingId ? 'Edytuj ogłoszenie' : 'Nowe ogłoszenie'}</h2>
+      <div class="ogl-form" style="margin-top:1.5rem;padding:1.75rem;background:var(--color-cream-50,#fdfaf4);border:1px solid var(--color-warm-200,#e8dfd0);border-radius:14px;max-width:640px;">
+        <h2 style="margin:0 0 1.5rem;font-family:var(--font-serif,Cormorant),serif;font-style:italic;font-weight:500;">${editingId ? 'Edytuj ogłoszenie' : 'Nowe ogłoszenie na ten tydzień'}</h2>
 
         <div class="form-group">
           <label class="form-label" for="oglFormTitle">Tytuł *</label>
-          <input type="text" id="oglFormTitle" class="form-input" placeholder="np. Niedziela Palmowa — porządek nabożeństw" autocomplete="off">
+          <input type="text" id="oglFormTitle" class="form-input" value="${escapeHtml(form.title)}" placeholder="np. Uroczystość Najświętszego Serca Jezusa" autocomplete="off">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Treść ogłoszenia</label>
-          <p style="margin:0 0 0.75rem;color:var(--color-warm-500);font-size:0.8125rem;">Dodawaj bloki w kolejności, w jakiej mają się pokazać na stronie. Możesz mieszać tekst i zdjęcia.</p>
-          <div class="oglBlocks" style="display:flex;flex-direction:column;gap:0.75rem;">
-            ${blocksHtml}
-          </div>
-          <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
-            <button type="button" class="btn btn-ghost" id="oglAddText">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right:0.25rem;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Dodaj tekst
-            </button>
-            <button type="button" class="btn btn-ghost" id="oglAddImage">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="margin-right:0.25rem;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Dodaj zdjęcie
-            </button>
-          </div>
+          <label class="form-label">Zdjęcie / plakat <span style="font-weight:400;color:var(--color-warm-500);">— opcjonalnie</span></label>
+          <input type="file" id="oglPhotoInput" accept="image/*" style="display:none">
+          ${renderPhotoZone()}
         </div>
 
-        <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:1.5rem;">
+        <div class="form-group">
+          <label class="form-label" for="oglFormText">Treść ogłoszenia</label>
+          <textarea id="oglFormText" class="form-input" rows="8" placeholder="Wpisz ogłoszenia na ten tydzień…&#10;&#10;Pusta linia rozpoczyna nowy akapit." style="font-family:var(--font-sans,Outfit),sans-serif;line-height:1.65;resize:vertical;">${escapeHtml(form.text)}</textarea>
+        </div>
+
+        <p style="margin:0 0 1.25rem;color:var(--color-warm-500);font-size:0.8125rem;">Ogłoszenie pojawi się na stronie głównej i automatycznie zniknie po 7 dniach.</p>
+
+        <div style="display:flex;justify-content:flex-end;gap:0.5rem;">
           <button type="button" class="btn btn-ghost" id="oglFormCancel">Anuluj</button>
-          <button type="button" class="btn btn-accent" id="oglFormSave">Zapisz</button>
+          <button type="button" class="btn btn-accent" id="oglFormSave">${editingId ? 'Zapisz' : 'Opublikuj'}</button>
         </div>
       </div>`;
   }
@@ -538,43 +472,21 @@ const Ogloszenia = (function() {
     if (!formOpen) return;
 
     const cancel = document.getElementById('oglFormCancel');
-    if (cancel) cancel.addEventListener('click', () => { readTextBlockValues(); closeForm(); });
+    if (cancel) cancel.addEventListener('click', () => { readFormInputs(); closeForm(); });
 
     const save = document.getElementById('oglFormSave');
     if (save) save.addEventListener('click', saveForm);
 
-    const addTextBtn = document.getElementById('oglAddText');
-    if (addTextBtn) addTextBtn.addEventListener('click', () => { readTextBlockValues(); addTextBlock(); });
-
-    const addImageBtn = document.getElementById('oglAddImage');
-    if (addImageBtn) addImageBtn.addEventListener('click', () => { readTextBlockValues(); addImageBlock(); });
-
-    // Block-level action buttons (up / down / delete)
-    document.querySelectorAll('[data-block-action]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        readTextBlockValues();
-        const id = btn.dataset.blockId;
-        const action = btn.dataset.blockAction;
-        if (action === 'up') moveBlock(id, -1);
-        else if (action === 'down') moveBlock(id, 1);
-        else if (action === 'delete') deleteBlock(id);
+    const fileInput = document.getElementById('oglPhotoInput');
+    if (fileInput) {
+      fileInput.addEventListener('change', e => {
+        if (e.target.files && e.target.files.length) uploadPhoto(e.target.files);
       });
-    });
+    }
 
-    // Image upload zones — click to open file picker, drag-drop, file input change
-    document.querySelectorAll('.oglImgZone').forEach(zone => {
-      const id = zone.dataset.blockId;
-      const fileInput = zone.querySelector('input[type="file"]');
-      if (!fileInput) return;
-
-      zone.addEventListener('click', (e) => {
-        if (zone.dataset.state === 'uploading') return;
-        // Don't open picker when re-clicking the preview image (let user use delete button instead).
-        fileInput.click();
-      });
-      fileInput.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files.length) uploadBlockImage(id, e.target.files);
-      });
+    const zone = document.querySelector('.oglPhotoZone');
+    if (zone && zone.dataset.state === 'empty') {
+      zone.addEventListener('click', () => { if (fileInput) fileInput.click(); });
       ['dragover', 'dragenter'].forEach(ev =>
         zone.addEventListener(ev, e => { e.preventDefault(); zone.classList.add('dragover'); }));
       ['dragleave', 'dragend'].forEach(ev =>
@@ -582,9 +494,15 @@ const Ogloszenia = (function() {
       zone.addEventListener('drop', e => {
         e.preventDefault();
         zone.classList.remove('dragover');
-        if (e.dataTransfer && e.dataTransfer.files.length) uploadBlockImage(id, e.dataTransfer.files);
+        if (e.dataTransfer && e.dataTransfer.files.length) uploadPhoto(e.dataTransfer.files);
       });
-    });
+    }
+
+    const changeBtn = document.getElementById('oglPhotoChange');
+    if (changeBtn) changeBtn.addEventListener('click', () => { if (fileInput) fileInput.click(); });
+
+    const removeBtn = document.getElementById('oglPhotoRemove');
+    if (removeBtn) removeBtn.addEventListener('click', removePhoto);
   }
 
   function bindListHandlers(root) {
