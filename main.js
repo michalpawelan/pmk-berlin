@@ -187,7 +187,11 @@
 
     if (titleEl) titleEl.textContent = data.title;
     if (dateEl && window.PMK_Ogloszenia && publishedAt) {
-      dateEl.textContent = window.PMK_Ogloszenia.formatWeekRange(publishedAt, window.PMK_Ogloszenia.getLang());
+      // The "Biuletyn na ten tydzień" label is static markup; here we add only the
+      // date range (strip the "Tydzień ·"/"Woche ·" prefix that formatWeekRange adds).
+      const wr = window.PMK_Ogloszenia.formatWeekRange(publishedAt, window.PMK_Ogloszenia.getLang());
+      const sep = wr.indexOf(' · ');
+      dateEl.textContent = sep >= 0 ? wr.slice(sep + 3) : wr;
     }
     if (linkEl) {
       const langLabel = (window.PMK_Ogloszenia && window.PMK_Ogloszenia.getLang() === 'de')

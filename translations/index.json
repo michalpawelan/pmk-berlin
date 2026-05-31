@@ -75,6 +75,10 @@
     "pl": "Czytaj ogłoszenia",
     "de": "Pfarrblatt lesen"
   },
+  "index.ogloszenia.bulletin": {
+    "pl": "Biuletyn na ten tydzień",
+    "de": "Pfarrblatt dieser Woche"
+  },
   "index.mass.label": {
     "pl": "Nabożeństwa",
     "de": "Gottesdienste"
