@@ -435,42 +435,39 @@ window.addEventListener('storage', function(e) {
 });
 
 function renderSection(title, events) {
-  let html = `<div class="events-section"><h2 class="events-section-title">${title}</h2>`;
+  // Same clean card as the homepage (.event-card-new — styles live in styles.css):
+  // small poster thumb OR date badge, title leads, one meta line, visible "Szczegóły →".
+  const lang = getEventsLang();
+  const detailsLabel = lang === 'de' ? 'Details' : 'Szczegóły';
+  let html = `<div class="events-section"><h2 class="events-section-title">${title}</h2><div class="events-group">`;
 
   events.forEach(ev => {
     const dateInfo = EventsManager.formatDateShort(ev.date);
     const weekday = EventsManager.getWeekday(ev.date);
     const hasImage = ev.imageUrl && ev.imageUrl.length > 0;
-    const desc = ev.shortDesc || ev.description || '';
-
     const location = ev.location || 'Johannes-Basilika';
+    const timeDisplay = ev.time ? (ev.endTime ? ev.time + ' – ' + ev.endTime : ev.time) : '';
+    const metaLine = [timeDisplay, location].filter(Boolean).join(' · ');
 
-    const imageHtml = hasImage
-      ? `<div class="event-card-img"><img src="${ev.imageUrl}" alt="${ev.title}" loading="lazy"></div>`
-      : '';
+    const left = hasImage
+      ? `<span class="ev-thumb"><img src="${ev.imageUrl}" alt="" loading="lazy"></span>`
+      : `<span class="ev-date-badge"><span class="d">${dateInfo.day}</span><span class="m">${String(dateInfo.month).slice(0, 3)}</span></span>`;
+    const whenText = hasImage ? `${weekday} · ${dateInfo.day} ${dateInfo.month}` : weekday;
 
     html += `
-      <a href="event.html?id=${ev.id}" class="event-card-simple reveal ${hasImage ? 'has-image' : ''}">
-        ${imageHtml}
-        <div class="event-card-date">
-          <span class="day">${dateInfo.day}</span>
-          <span class="month">${dateInfo.month}</span>
-        </div>
-        <div class="event-card-body">
-          <p class="event-card-meta">${weekday}${ev.time ? ', ' + ev.time : ''}</p>
-          <h3>${ev.title}</h3>
-          <p class="event-card-location">${location}</p>
-        </div>
-        <span class="event-card-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14m0 0l-7-7m7 7l-7 7"/>
-          </svg>
+      <a href="event.html?id=${ev.id}" class="event-card-new reveal">
+        ${left}
+        <span class="ev-main">
+          <span class="ev-when"><span class="dot"></span>${whenText}</span>
+          <span class="ev-title">${ev.title}</span>
+          ${metaLine ? `<span class="ev-meta">${metaLine}</span>` : ''}
         </span>
+        <span class="ev-cta"><span class="txt">${detailsLabel}</span> <span class="arrow">→</span></span>
       </a>
     `;
   });
 
-  html += '</div>';
+  html += '</div></div>';
   return html;
 }
 
