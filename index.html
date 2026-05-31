@@ -364,6 +364,20 @@
     .ogloszenia-card-head { font-size: 1.25rem; }
     .ogloszenia-card-cta { width: 100%; text-align: center; }
   }
+  /* "Nadchodzące" = secondary outlook: a lighter, left-aligned heading above the
+     upcoming list, deliberately smaller than the centered "W tym tygodniu" header. */
+  .section-upcoming { padding-top: 1.25rem; }
+  .section-upcoming-header { margin-bottom: 1rem; }
+  .section-subtitle {
+    font-family: 'Cormorant', serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.4vw, 1.7rem);
+    color: var(--color-warm-700, #574c40);
+    margin: 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--color-warm-200, #e8dfd1);
+  }
+  .section-subtitle em { font-style: italic; color: var(--color-accent, #a68b5b); }
 </style>
 <!-- This week: weekly bulletin + this-week events under one roof -->
 <section class="section section-thisweek" id="aktualnosci">
@@ -396,13 +410,12 @@
   </div>
 </section>
 
-<!-- Upcoming events -->
-<section class="section section-events" id="wydarzenia">
+<!-- Upcoming events — secondary "what's coming" list, deliberately lighter than the
+     "W tym tygodniu" section above so it reads as an outlook, not a co-equal section. -->
+<section class="section section-events section-upcoming" id="wydarzenia">
   <div class="section-container">
-    <header class="section-header">
-      <span class="section-label" data-i18n="index.events.label">Wydarzenia</span>
-      <h2 class="section-title" data-i18n-html="index.events.title">Nadchodzące <em>wydarzenia</em></h2>
-      <p class="section-lead" data-i18n="index.events.lead">Co jeszcze przed nami w naszej parafii</p>
+    <header class="section-upcoming-header">
+      <h2 class="section-subtitle" data-i18n-html="index.events.title">Nadchodzące <em>wydarzenia</em></h2>
     </header>
 
     <div class="events-group" id="events-upcoming"><!-- upcoming events loaded dynamically --></div>
