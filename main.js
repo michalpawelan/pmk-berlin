@@ -501,41 +501,12 @@
     const day = String(d.getDate()).padStart(2, '0');
     const month = i18nLabels.months[lang][d.getMonth()];
     const weekday = i18nLabels.weekdays[lang][d.getDay()];
-
-    const mapsUrl = ev.address
-      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ev.address)}`
-      : '';
-
-    const calStart = formatGCalDate(ev.date, ev.time);
-    const calEnd = formatGCalDate(ev.date, ev.time, 2);
-    const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(ev.title)}&dates=${calStart}/${calEnd}&details=${encodeURIComponent(ev.shortDesc || '')}&location=${encodeURIComponent((ev.location || '') + ', ' + (ev.address || ''))}&ctz=Europe/Berlin`;
-
-    const fullDescHtml = ev.fullDesc
-      ? escapeHTML(ev.fullDesc).replace(/\n/g, '<br>')
-      : escapeHTML(ev.shortDesc || '');
-
     const eventUrl = `event.html?id=${ev.id}`;
 
-    // Status dot: green = upcoming, gray = past
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    const eventDate = new Date(ev.date);
-    eventDate.setHours(0, 0, 0, 0);
-    const diffDays = Math.round((eventDate - now) / (1000 * 60 * 60 * 24));
-
-    const statusLabels = i18nLabels.status[lang];
-    let statusClass = 'status-upcoming';
-    let statusText = statusLabels.upcoming;
-    if (diffDays === 0) {
-      statusClass = 'status-today';
-      statusText = statusLabels.today;
-    } else if (diffDays <= 3) {
-      statusClass = 'status-soon';
-      statusText = statusLabels.soon;
-    } else if (diffDays < 0) {
-      statusClass = 'status-past';
-      statusText = statusLabels.past;
-    }
+    // Past events get a muted dot (homepage only shows upcoming, but keep it correct).
+    const now = new Date(); now.setHours(0, 0, 0, 0);
+    const eventDate = new Date(ev.date); eventDate.setHours(0, 0, 0, 0);
+    const isPast = Math.round((eventDate - now) / (1000 * 60 * 60 * 24)) < 0;
 
     const safeTitle = escapeHTML(ev.title);
     const safeLocation = escapeHTML(ev.location);
@@ -543,39 +514,29 @@
     const safeEndTime = escapeHTML(ev.endTime);
     const safeImageUrl = escapeHTML(ev.imageUrl);
 
-    const statusDot = `<span class="event-status ${statusClass}"><span class="status-dot"></span>${escapeHTML(statusText)}</span>`;
+    const timeDisplay = safeTime ? (safeEndTime ? `${safeTime} – ${safeEndTime}` : safeTime) : '';
+    const metaLine = [timeDisplay, safeLocation].filter(Boolean).join(' · ');
+    const detailsLabel = lang === 'de' ? 'Details' : 'Szczegóły';
 
-    const timeDisplay = safeTime ? (safeEndTime ? `${safeTime} - ${safeEndTime}` : safeTime) : '';
-
+    // Left visual: poster thumbnail (with image) OR a date badge (without).
+    let left, whenText;
     if (ev.imageUrl) {
-      // Luma style: image left, text right
-      return `
-        <a href="${eventUrl}" class="event-card has-image reveal">
-          <div class="event-card-image"><img src="${safeImageUrl}" alt="${safeTitle}" loading="lazy"></div>
-          <div class="event-card-info">
-            ${statusDot}
-            <h3 class="event-title">${safeTitle}</h3>
-            <p class="event-meta">${weekday}${timeDisplay ? ', ' + timeDisplay : ''}${safeLocation ? ' · ' + safeLocation : ''}</p>
-          </div>
-        </a>
-      `;
+      left = `<span class="ev-thumb"><img src="${safeImageUrl}" alt="" loading="lazy"></span>`;
+      whenText = `${escapeHTML(weekday)} · ${day} ${escapeHTML(month)}`;
+    } else {
+      left = `<span class="ev-date-badge"><span class="d">${day}</span><span class="m">${escapeHTML(String(month).slice(0, 3))}</span></span>`;
+      whenText = escapeHTML(weekday);
     }
 
-    // No image: date box left, text right
     return `
-      <a href="${eventUrl}" class="event-card reveal">
-        <time class="event-date">
-          <span class="day">${day}</span>
-          <span class="month">${month}</span>
-        </time>
-        <div class="event-card-info">
-          ${statusDot}
-          <h3 class="event-title">${safeTitle}</h3>
-          <p class="event-meta">${weekday}${timeDisplay ? ' · ' + timeDisplay : ''}${safeLocation ? ' · ' + safeLocation : ''}</p>
-        </div>
-        <span class="event-expand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+      <a href="${eventUrl}" class="event-card-new${isPast ? ' is-past' : ''} reveal">
+        ${left}
+        <span class="ev-main">
+          <span class="ev-when"><span class="dot"></span>${whenText}</span>
+          <span class="ev-title">${safeTitle}</span>
+          ${metaLine ? `<span class="ev-meta">${metaLine}</span>` : ''}
         </span>
+        <span class="ev-cta"><span class="txt">${detailsLabel}</span> <span class="arrow">→</span></span>
       </a>
     `;
   }
