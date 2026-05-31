@@ -323,18 +323,29 @@ document.addEventListener('DOMContentLoaded', async function() {
     return;
   }
 
+  // 1. Instant paint from the homepage's shared events cache (pmk-events-v1).
+  //    The cached event objects have the exact same shape renderEvent expects,
+  //    so arriving from the homepage shows the event immediately — no long spinner.
+  let painted = false;
+  try {
+    const cached = JSON.parse(localStorage.getItem('pmk-events-v1') || 'null');
+    if (Array.isArray(cached)) {
+      const hit = cached.find(e => e && e.id === eventId);
+      if (hit) { renderEvent(hit); painted = true; }
+    }
+  } catch (e) { /* ignore — fall through to network */ }
+
+  // 2. Revalidate from the live source. Only render/error here if the cache
+  //    didn't already paint (avoids re-running renderEvent's one-time setup).
   try {
     const event = await EventsManager.getEventById(eventId);
-
-    if (!event) {
+    if (event) {
+      if (!painted) renderEvent(event);
+    } else if (!painted) {
       showError();
-      return;
     }
-
-    renderEvent(event);
   } catch (error) {
-    console.error('Fehler beim Laden:', error);
-    showError();
+    if (!painted) { console.error('Fehler beim Laden:', error); showError(); }
   }
 });
 
