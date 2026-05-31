@@ -36,15 +36,18 @@
   [headers.values]
     Cache-Control = "public, max-age=2592000, immutable"
 
+# JS/CSS are NOT content-hashed, so a long max-age serves stale code after a deploy.
+# max-age=0 + must-revalidate keeps them cached but forces a quick conditional check
+# (ETag → 304 if unchanged), so every deploy is picked up immediately by all visitors.
 [[headers]]
   for = "*.css"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "*.js"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "*.ico"
