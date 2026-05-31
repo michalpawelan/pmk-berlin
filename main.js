@@ -160,26 +160,65 @@
   // Sheet columns: A=id, B=title, C=body, D=image_url, E=published_at,
   //                F=expires_at, G=published (TAK/NIE).
   // If no current ogłoszenie or fetch fails: section stays hidden, no flicker.
+  // localStorage cache helpers — stale-while-revalidate. All wrapped so private
+  // mode / disabled storage never throws.
+  function readCache(key) {
+    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  }
+  function writeCache(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* ignore */ }
+  }
+  function removeCache(key) {
+    try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+  }
+  const OGLOSZENIE_CACHE_KEY = 'pmk-ogloszenie-v1';
+  const EVENTS_CACHE_KEY = 'pmk-events-v1';
+
+  // Populate + reveal the homepage strip from a plain { title, publishedAtISO } object.
+  // Used both for the instant cache paint and the fresh network result.
+  function applyOgloszenie(data) {
+    const section = document.getElementById('ogloszenia');
+    if (!section || !data || !data.title) return;
+    const titleEl = document.getElementById('ogloszenia-title');
+    const dateEl = document.getElementById('ogloszenia-date');
+    const linkEl = document.getElementById('ogloszenia-link');
+    const publishedAt = data.publishedAtISO ? new Date(data.publishedAtISO) : null;
+
+    if (titleEl) titleEl.textContent = data.title;
+    if (dateEl && window.PMK_Ogloszenia && publishedAt) {
+      dateEl.textContent = window.PMK_Ogloszenia.formatWeekRange(publishedAt, window.PMK_Ogloszenia.getLang());
+    }
+    if (linkEl) {
+      const langLabel = (window.PMK_Ogloszenia && window.PMK_Ogloszenia.getLang() === 'de')
+        ? 'Pfarrblatt — ' : 'Ogłoszenia duszpasterskie — ';
+      linkEl.setAttribute('aria-label', langLabel + data.title);
+    }
+    section.removeAttribute('hidden');
+  }
+
   async function loadOgloszenie() {
     const section = document.getElementById('ogloszenia');
     if (!section) return;
     if (!window.PMK_Ogloszenia) return;
 
+    // 1. Instant paint from cache — no pop-in on repeat visits.
+    const cached = readCache(OGLOSZENIE_CACHE_KEY);
+    if (cached && cached.title) applyOgloszenie(cached);
+
+    // 2. Revalidate against the live sheet.
     const data = await window.PMK_Ogloszenia.fetchCurrent();
-    if (!data) return;
-
-    const titleEl = document.getElementById('ogloszenia-title');
-    const dateEl = document.getElementById('ogloszenia-date');
-    const linkEl = document.getElementById('ogloszenia-link');
-
-    if (titleEl) titleEl.textContent = data.title;
-    if (dateEl) dateEl.textContent = window.PMK_Ogloszenia.formatWeekRange(data.publishedAt, window.PMK_Ogloszenia.getLang());
-    if (linkEl) {
-      const langLabel = window.PMK_Ogloszenia.getLang() === 'de' ? 'Pfarrblatt — ' : 'Ogłoszenia duszpasterskie — ';
-      linkEl.setAttribute('aria-label', langLabel + data.title);
+    if (!data) {
+      // No current ogłoszenie any more — hide a stale cached strip and forget it.
+      if (cached) { section.setAttribute('hidden', ''); removeCache(OGLOSZENIE_CACHE_KEY); }
+      return;
     }
-
-    section.removeAttribute('hidden');
+    const fresh = {
+      title: data.title,
+      publishedAtISO: (data.publishedAt && data.publishedAt.getTime() > 0) ? data.publishedAt.toISOString() : null
+    };
+    writeCache(OGLOSZENIE_CACHE_KEY, fresh);
+    applyOgloszenie(fresh);
   }
 
   // ============================================
@@ -188,40 +227,73 @@
   // Events API (proxied through Netlify Function)
   const EVENTS_API = '/.netlify/functions/events-proxy';
 
+  // Skeleton placeholder cards shown instantly while events load (no empty flash).
+  function eventsSkeletonHtml() {
+    const card =
+      '<div class="event-skeleton" aria-hidden="true">' +
+        '<div class="event-skeleton-img"></div>' +
+        '<div class="event-skeleton-lines">' +
+          '<span class="sk sk-dot"></span>' +
+          '<span class="sk sk-title"></span>' +
+          '<span class="sk sk-meta"></span>' +
+        '</div>' +
+      '</div>';
+    return '<div class="events-group">' + card + card + '</div>';
+  }
+
+  function upcomingCount(events) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return events.filter(function (e) { return new Date(e.date) >= today; }).length;
+  }
+
   async function loadEvents() {
     const container = document.getElementById('events-container');
     if (!container) return;
 
-    let events = [];
+    // 1. Instant paint: cached events if they still yield something upcoming,
+    //    otherwise skeleton placeholders — never an empty flash on (re)load.
+    let painted = false;
+    const cached = readCache(EVENTS_CACHE_KEY);
+    if (Array.isArray(cached) && cached.length && upcomingCount(cached) > 0) {
+      renderEvents(cached);
+      painted = true;
+    }
+    if (!painted) container.innerHTML = eventsSkeletonHtml();
 
-    // 1. Versuch: Google Sheets
+    // 2. Revalidate: Google Sheets → events.json → (hardcoded only if nothing else).
+    let events = [];
     try {
       events = await fetchFromGoogleSheets();
-      // Events loaded from Google Sheets
     } catch (e) {
       // Google Sheets fetch failed
     }
-
-    // 2. Versuch: Lokale JSON (nur wenn online/Server)
     if (events.length === 0) {
       try {
         const response = await fetch('events.json');
-        if (response.ok) {
-          events = await response.json();
-          // Events loaded from events.json
-        }
+        if (response.ok) events = await response.json();
       } catch (e) {
         // events.json fetch failed
       }
     }
 
-    // 3. Fallback: Hardcoded Events
-    if (events.length === 0) {
-      events = getHardcodedEvents();
-      // Using hardcoded events
+    if (events.length > 0) {
+      const freshStr = JSON.stringify(events);
+      writeCache(EVENTS_CACHE_KEY, events);
+      // Skip the re-render (and its reveal animation) when fresh === what we already painted.
+      if (!(painted && cached && freshStr === JSON.stringify(cached))) {
+        renderEvents(events);
+      }
+    } else if (!painted) {
+      renderEvents(getHardcodedEvents());
     }
+  }
 
-    // Filter & Render — group by timeframe
+  // Filter, group by timeframe, and render the events into #events-container.
+  function renderEvents(events) {
+    const container = document.getElementById('events-container');
+    if (!container) return;
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const weekHorizon = new Date(today);

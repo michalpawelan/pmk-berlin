@@ -1218,6 +1218,59 @@ em {
   transform: translateY(-2px);
 }
 
+/* --- Events skeleton: instant placeholder while events load (no empty flash) --- */
+.event-skeleton {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  min-height: 118px;
+}
+.event-skeleton-img {
+  flex-shrink: 0;
+  width: 140px;
+  align-self: stretch;
+}
+.event-skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: var(--space-4) var(--space-5);
+}
+.event-skeleton-img,
+.event-skeleton .sk {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-warm-100, #efe8db);
+  border-radius: 6px;
+}
+.event-skeleton-img { border-radius: 0; }
+.event-skeleton .sk-dot   { width: 5rem; height: 0.7rem; }
+.event-skeleton .sk-title { width: 72%;  height: 1.1rem; }
+.event-skeleton .sk-meta  { width: 48%;  height: 0.7rem; }
+.event-skeleton-img::after,
+.event-skeleton .sk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: sk-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes sk-shimmer { to { transform: translateX(100%); } }
+@media (max-width: 767px) {
+  .event-skeleton-img { width: 110px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-skeleton-img::after,
+  .event-skeleton .sk::after { animation: none; }
+}
+
 /* --- Cards WITH image: image left, text right (Luma style) --- */
 .event-card.has-image {
   padding: 0;
