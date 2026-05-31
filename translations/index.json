@@ -39,17 +39,29 @@
     "pl": "Lipiec–sierpień: w tygodniu tylko 18:00",
     "de": "Juli–August: werktags nur 18:00"
   },
+  "index.thisweek.label": {
+    "pl": "Aktualności",
+    "de": "Aktuelles"
+  },
+  "index.thisweek.title": {
+    "pl": "W tym <em>tygodniu</em>",
+    "de": "Diese <em>Woche</em>"
+  },
+  "index.thisweek.lead": {
+    "pl": "Biuletyn parafialny i wydarzenia tego tygodnia",
+    "de": "Pfarrblatt und Termine dieser Woche"
+  },
   "index.events.label": {
     "pl": "Wydarzenia",
     "de": "Veranstaltungen"
   },
   "index.events.title": {
-    "pl": "Nadchodzące <em>Wydarzenia</em>",
-    "de": "Kommende <em>Veranstaltungen</em>"
+    "pl": "Nadchodzące <em>wydarzenia</em>",
+    "de": "Kommende <em>Termine</em>"
   },
   "index.events.lead": {
-    "pl": "Ważne daty i uroczystości w naszej parafii",
-    "de": "Wichtige Termine und Feierlichkeiten in unserer Pfarrei"
+    "pl": "Co jeszcze przed nami w naszej parafii",
+    "de": "Was bei uns noch ansteht"
   },
   "index.events.whatsapp_title": {
     "pl": "Nie przegap żadnego wydarzenia!",

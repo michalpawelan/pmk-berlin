@@ -232,6 +232,7 @@
   const EVENTS_API = '/.netlify/functions/events-proxy';
 
   // Skeleton placeholder cards shown instantly while events load (no empty flash).
+  // Injected directly into a container that already has the .events-group flex layout.
   function eventsSkeletonHtml() {
     const card =
       '<div class="event-skeleton" aria-hidden="true">' +
@@ -242,7 +243,7 @@
           '<span class="sk sk-meta"></span>' +
         '</div>' +
       '</div>';
-    return '<div class="events-group">' + card + card + '</div>';
+    return card + card;
   }
 
   function upcomingCount(events) {
@@ -252,8 +253,8 @@
   }
 
   async function loadEvents() {
-    const container = document.getElementById('events-container');
-    if (!container) return;
+    const weekEl = document.getElementById('events-this-week');
+    if (!weekEl) return;
 
     // 1. Instant paint: cached events if they still yield something upcoming,
     //    otherwise skeleton placeholders — never an empty flash on (re)load.
@@ -263,7 +264,7 @@
       renderEvents(cached);
       painted = true;
     }
-    if (!painted) container.innerHTML = eventsSkeletonHtml();
+    if (!painted) weekEl.innerHTML = eventsSkeletonHtml();
 
     // 2. Revalidate: Google Sheets → events.json → (hardcoded only if nothing else).
     let events = [];
@@ -293,10 +294,13 @@
     }
   }
 
-  // Filter, group by timeframe, and render the events into #events-container.
+  // Split events by timeframe and render into the two homepage sections:
+  //   #events-this-week  (under the bulletin, in the "W tym tygodniu" section)
+  //   #events-upcoming   (the separate "Nadchodzące" section)
   function renderEvents(events) {
-    const container = document.getElementById('events-container');
-    if (!container) return;
+    const weekEl = document.getElementById('events-this-week');
+    const upcomingEl = document.getElementById('events-upcoming');
+    if (!weekEl) return;
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -308,41 +312,20 @@
       .sort((a, b) => new Date(a.date) - new Date(b.date))
       .slice(0, 12);
 
-    if (upcoming.length === 0) {
-      const noEventsMsg = getLang() === 'de' ? 'Keine kommenden Veranstaltungen.' : 'Brak nadchodzących wydarzeń.';
-      container.innerHTML = '<p class="no-events">' + noEventsMsg + '</p>';
-      return;
-    }
-
     const thisWeek = upcoming.filter(e => new Date(e.date) < weekHorizon);
     const later = upcoming.filter(e => new Date(e.date) >= weekHorizon);
-
     const lang = getLang();
-    const labels = {
-      this_week: lang === 'de' ? 'Diese Woche' : 'W tym tygodniu',
-      later: lang === 'de' ? 'Kommende' : 'Nadchodzące'
-    };
-    const i18nKeys = {
-      this_week: 'events.group.this_week',
-      later: 'events.group.later'
-    };
 
-    const groupHtml = (title, key, items) => {
-      if (!items.length) return '';
-      return (
-        '<h3 class="events-group-title" data-i18n="' + key + '">' + title + '</h3>' +
-        '<div class="events-group">' + items.map(renderEventCard).join('') + '</div>'
-      );
-    };
+    // This week (the section header already reads "W tym tygodniu").
+    weekEl.innerHTML = thisWeek.length
+      ? thisWeek.map(renderEventCard).join('')
+      : '<p class="no-events">' + (lang === 'de' ? 'Diese Woche keine Termine.' : 'W tym tygodniu brak wydarzeń.') + '</p>';
 
-    container.innerHTML =
-      groupHtml(labels.this_week, i18nKeys.this_week, thisWeek) +
-      groupHtml(labels.later, i18nKeys.later, later);
-
-    // Keep prior centering class behavior on the container as a whole
-    container.classList.remove('events-count-1', 'events-count-2');
-    if (upcoming.length <= 2) {
-      container.classList.add('events-count-' + upcoming.length);
+    // Upcoming (the separate "Nadchodzące" section).
+    if (upcomingEl) {
+      upcomingEl.innerHTML = later.length
+        ? later.map(renderEventCard).join('')
+        : '<p class="no-events">' + (lang === 'de' ? 'Keine weiteren Termine.' : 'Brak kolejnych wydarzeń.') + '</p>';
     }
 
     // Inject Event structured data for SEO (covers both groups)
