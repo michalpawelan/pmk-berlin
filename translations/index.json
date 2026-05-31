@@ -71,6 +71,10 @@
     "pl": "Aktualny tygodniowy biuletyn parafialny",
     "de": "Wöchentlicher Pfarrbrief"
   },
+  "index.ogloszenia.cta": {
+    "pl": "Czytaj ogłoszenia",
+    "de": "Pfarrblatt lesen"
+  },
   "index.mass.label": {
     "pl": "Nabożeństwa",
     "de": "Gottesdienste"
