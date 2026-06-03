@@ -20,7 +20,7 @@
  * 5. Kopiere die Web-App-URL und trage sie in admin/auth.js ein
  *    (Konstante APPS_SCRIPT_URL ganz oben in der Datei)
  *
- * 6. Aendere den ADMIN_PIN unten, wenn gewuenscht
+ * 6. Setze die Skript-Eigenschaft 'ADMIN_PIN' (Projekt-Einstellungen -> Skript-Eigenschaften) auf einen langen Zufallswert
  *
  * 7. NEUER TAB "Ogloszenia" (Ogloszenia duszpasterskie):
  *    - Lege im gleichen Google Sheet einen neuen Tab namens "Ogloszenia" an
@@ -36,9 +36,22 @@
 const SHEET_ID = '1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w';
 const SHEET_NAME = 'Tabellenblatt1';
 const NEWSLETTER_SHEET_NAME = 'Newsletter';
+// Basis-URL fuer Newsletter-Bestaetigungslinks (Double-Opt-in).
+// NACH DEM DNS-CUTOVER auf 'https://www.pmk-berlin.de' aendern.
+const SITE_BASE = 'https://pmk-berlinpl.netlify.app';
 const OGLOSZENIA_SHEET_NAME = 'Ogloszenia';
 const OGLOSZENIA_TTL_DAYS = 7;
-const ADMIN_PIN = 'pmk2026';
+// Admin-PIN wird NICHT mehr im Code gespeichert (der Quelltext liegt oeffentlich im Repo).
+// In Apps Script setzen: Projekt-Einstellungen -> Skript-Eigenschaften ->
+// Eigenschaft 'ADMIN_PIN' = <neuer, langer Zufallswert>.
+// Deny-by-default: ist die Eigenschaft NICHT gesetzt, wird JEDER Admin-Zugriff abgelehnt.
+function getAdminPin_() {
+  return PropertiesService.getScriptProperties().getProperty('ADMIN_PIN') || '';
+}
+function pinOk_(pin) {
+  const configured = getAdminPin_();
+  return configured !== '' && pin === configured;
+}
 
 // Google Drive Ordner fuer Bilder (wird automatisch erstellt)
 const DRIVE_FOLDER_NAME = 'PMK_Events_Bilder';
@@ -71,6 +84,9 @@ function doGet(e) {
   if (params.action === 'subscribe') {
     return jsonResponse(subscribeNewsletter(params));
   }
+  if (params.action === 'confirm') {
+    return jsonResponse(confirmNewsletter(params));
+  }
   return handleRequest(e);
 }
 
@@ -82,8 +98,13 @@ function doPost(e) {
     return jsonResponse(subscribeNewsletter(params));
   }
 
+  // Oeffentliche Sakrament-Anmeldung (kein PIN) — sendet E-Mails via MailApp
+  if (params.action === 'sacrament') {
+    return jsonResponse(registerSacrament(params));
+  }
+
   // PIN-Pruefung
-  if (params.pin !== ADMIN_PIN) {
+  if (!pinOk_(params.pin)) {
     const output = ContentService.createTextOutput();
     output.setMimeType(ContentService.MimeType.JSON);
     output.setContent(JSON.stringify({ success: false, error: 'Nieprawidlowy PIN' }));
@@ -117,7 +138,7 @@ function handleRequest(e) {
   output.setMimeType(ContentService.MimeType.JSON);
 
   // PIN-Pruefung
-  if (pin !== ADMIN_PIN) {
+  if (!pinOk_(pin)) {
     output.setContent(JSON.stringify({ success: false, error: 'Nieprawidlowy PIN' }));
     return output;
   }
@@ -329,18 +350,193 @@ function subscribeNewsletter(params) {
     return { success: false, error: 'sheet_missing' };
   }
 
-  // Duplikat-Check (Spalte A)
-  const values = sheet.getRange('A:A').getValues();
-  for (let i = 0; i < values.length; i++) {
-    if (String(values[i][0] || '').trim().toLowerCase() === rawEmail) {
-      return { success: true, message: 'already_subscribed', duplicate: true };
+  // Double-Opt-in. Spalten: A:Email B:Data C:Jezyk D:Zrodlo E:Status F:Token
+  const data = sheet.getDataRange().getValues();
+  const token = Utilities.getUuid();
+  let existingRow = 0;            // 1-basierte Zeilennummer, 0 = nicht vorhanden
+  let existingStatus = '';
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][0] || '').trim().toLowerCase() === rawEmail) {
+      existingRow = i + 1;
+      existingStatus = String(data[i][4] || '').toLowerCase();
+      break;
     }
   }
 
-  sheet.appendRow([rawEmail, new Date(), lang, source]);
+  // Bereits bestaetigt (oder Alt-Eintrag ohne Status) -> nichts senden
+  if (existingRow && (existingStatus === 'confirmed' || existingStatus === '')) {
+    return { success: true, message: 'already_subscribed', duplicate: true };
+  }
+
+  if (existingRow) {
+    // war "pending" -> Token auffrischen und Bestaetigung erneut senden
+    sheet.getRange(existingRow, 5).setValue('pending');
+    sheet.getRange(existingRow, 6).setValue(token);
+  } else {
+    sheet.appendRow([rawEmail, new Date(), lang, source, 'pending', token]);
+  }
   SpreadsheetApp.flush();
 
-  return { success: true, message: 'subscribed' };
+  sendNewsletterConfirmation(rawEmail, lang, token);
+  return { success: true, message: 'confirmation_sent' };
+}
+
+/**
+ * Sendet die Double-Opt-in-Bestaetigungsmail mit Aktivierungslink.
+ */
+function sendNewsletterConfirmation(email, lang, token) {
+  const link = SITE_BASE + '/.netlify/functions/newsletter-confirm?token=' + encodeURIComponent(token);
+  let subject, body;
+  if (lang === 'de') {
+    subject = 'Bitte bestätige deine Newsletter-Anmeldung — PMK Berlin';
+    body = 'Szczęść Boże!\n\n'
+      + 'Du (oder jemand mit deiner Adresse) hat den Newsletter der Polnischen Katholischen Mission in Berlin abonniert. '
+      + 'Bitte bestätige deine Anmeldung mit einem Klick auf den folgenden Link:\n\n'
+      + link + '\n\n'
+      + 'Erst nach dieser Bestätigung erhältst du unseren Newsletter. '
+      + 'Wenn du dich nicht angemeldet hast, ignoriere diese E-Mail einfach – es wird nichts gespeichert versendet.\n\n'
+      + 'Mit Gottes Segen\nPolska Misja Katolicka w Berlinie';
+  } else {
+    subject = 'Potwierdź subskrypcję newslettera — PMK Berlin';
+    body = 'Szczęść Boże!\n\n'
+      + 'Twój adres e-mail został zapisany do newslettera Polskiej Misji Katolickiej w Berlinie. '
+      + 'Prosimy o potwierdzenie subskrypcji, klikając w poniższy link:\n\n'
+      + link + '\n\n'
+      + 'Newsletter będziesz otrzymywać dopiero po tym potwierdzeniu. '
+      + 'Jeśli to nie Ty, po prostu zignoruj tę wiadomość.\n\n'
+      + 'Z Panem Bogiem\nPolska Misja Katolicka w Berlinie';
+  }
+  MailApp.sendEmail({ to: email, subject: subject, body: body });
+}
+
+/**
+ * Bestaetigt eine Newsletter-Anmeldung anhand des Tokens (Spalte F).
+ * Setzt Status (Spalte E) auf "confirmed".
+ */
+function confirmNewsletter(params) {
+  const token = String(params.token || '').trim();
+  if (!token) return { success: false, error: 'no_token' };
+
+  const sheet = getNewsletterSheet();
+  if (!sheet) return { success: false, error: 'sheet_missing' };
+
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][5] || '').trim() === token) {
+      const row = i + 1;
+      const status = String(data[i][4] || '').toLowerCase();
+      if (status === 'confirmed') {
+        return { success: true, message: 'already_confirmed' };
+      }
+      sheet.getRange(row, 5).setValue('confirmed');
+      SpreadsheetApp.flush();
+      return { success: true, message: 'confirmed' };
+    }
+  }
+  return { success: false, error: 'invalid_token' };
+}
+
+/**
+ * Oeffentliche Sakrament-Anmeldung (Erstkommunion / Firmung).
+ * Sendet zwei E-Mails per MailApp:
+ *   1) an die Pfarrei (pmk@pmk-berlin.de)
+ *   2) Bestaetigung an den Absender (Eltern / Kandidat)
+ * Kein PIN noetig. Daten werden NICHT im Sheet gespeichert (nur per E-Mail).
+ */
+function registerSacrament(params) {
+  const PARISH_EMAIL = 'pmk@pmk-berlin.de';
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const sakrament = String(params.sakrament || '').toLowerCase();
+  if (sakrament !== 'komunia' && sakrament !== 'bierzmowanie') {
+    return { success: false, error: 'bad_sacrament' };
+  }
+  const isKomunia = sakrament === 'komunia';
+  const sakramentName = isKomunia ? 'Pierwszej Komunii Świętej' : 'Sakramentu Bierzmowania';
+
+  const email = String(params.email || '').trim();
+  const childName = (String(params.imiona || '') + ' ' + String(params.nazwisko || '')).trim();
+
+  const LABELS = {
+    nazwisko: 'Nazwisko',
+    imiona: 'Imiona',
+    data_urodzenia: 'Data urodzenia',
+    miejsce_urodzenia: 'Miejsce urodzenia',
+    data_chrztu: 'Data chrztu',
+    miejsce_chrztu: 'Miejsce chrztu',
+    adres_parafii_chrztu: 'Adres parafii chrztu',
+    chrzest_pmk: 'Chrzest w PMK (rok/data)',
+    imie_ojca: 'Imię i nazwisko ojca',
+    imie_matki: 'Imię i nazwisko matki',
+    telefon: 'Telefon',
+    email: 'E-mail',
+    adres: 'Adres zamieszkania',
+    katecheza: 'Katecheza (miejsce i godzina)',
+    uwagi: 'Uwagi'
+  };
+  const SKIP = { action: 1, pin: 1, website: 1, datenschutz: 1, sakrament: 1, metryka_data: 1, metryka_name: 1, metryka_type: 1 };
+
+  const lines = [];
+  Object.keys(params).forEach(function (k) {
+    if (SKIP[k] || k.charAt(0) === '_') return;
+    const v = String(params[k] || '').trim();
+    if (!v) return;
+    lines.push((LABELS[k] || k) + ': ' + v);
+  });
+  const summary = lines.join('\n');
+
+  // Optionaler Datei-Anhang: Metryka chrztu (base64 -> Blob)
+  const attachments = [];
+  const fileData = String(params.metryka_data || '');
+  if (fileData) {
+    try {
+      let fileName = String(params.metryka_name || 'metryka-chrztu').replace(/[^\w.\- ]+/g, '_').slice(0, 120);
+      if (!fileName) fileName = 'metryka-chrztu';
+      const fileType = String(params.metryka_type || 'application/octet-stream');
+      attachments.push(Utilities.newBlob(Utilities.base64Decode(fileData), fileType, fileName));
+    } catch (e) { /* ungueltige Datei -> ohne Anhang weiter */ }
+  }
+
+  const teamSubject = isKomunia
+    ? 'Nowe zgłoszenie: I Komunia Święta'
+    : 'Nowe zgłoszenie: Bierzmowanie';
+  const teamBody =
+    'Nowe zgłoszenie do ' + sakramentName + ' (formularz na stronie pmk-berlin.de):\n\n' +
+    summary +
+    (attachments.length ? '\n\nW załączeniu: metryka chrztu.' : '\n\n(Bez załącznika — metryka chrztu zostanie dostarczona osobno.)') +
+    '\n\n— Wiadomość wygenerowana automatycznie przez formularz na pmk-berlin.de';
+
+  const parentBody =
+    'Szczęść Boże,\n\n' +
+    'dziękujemy za zgłoszenie ' + (childName ? ('„' + childName + '” ') : '') +
+    'do ' + sakramentName + ' w Polskiej Misji Katolickiej w Berlinie. ' +
+    'Zgłoszenie zostało przekazane do biura parafialnego.\n\n' +
+    'Podsumowanie zgłoszenia:\n' + summary + '\n\n' +
+    'W razie pytań prosimy o kontakt: ' + PARISH_EMAIL + '.\n\n' +
+    'Z Panem Bogiem!\nPolska Misja Katolicka w Berlinie';
+
+  try {
+    // 1) Benachrichtigung an die Pfarrei
+    MailApp.sendEmail({
+      to: PARISH_EMAIL,
+      subject: teamSubject,
+      body: teamBody,
+      replyTo: (email && EMAIL_RE.test(email)) ? email : PARISH_EMAIL,
+      attachments: attachments
+    });
+    // 2) Bestaetigung an den Absender
+    if (email && EMAIL_RE.test(email)) {
+      MailApp.sendEmail({
+        to: email,
+        subject: 'Potwierdzenie zgłoszenia — ' + sakramentName + ' (PMK Berlin)',
+        body: parentBody
+      });
+    }
+  } catch (err) {
+    return { success: false, error: String(err) };
+  }
+
+  return { success: true, message: 'sent' };
 }
 
 /**
@@ -358,10 +554,13 @@ function listSubscribers() {
   for (let i = 1; i < data.length; i++) {
     const row = data[i];
     if (!row[0]) continue;
+    const status = String(row[4] || '').toLowerCase();
+    if (status === 'pending') continue; // Double-Opt-in: nicht bestaetigte ausblenden
     out.push({
       email: String(row[0]),
       lang: String(row[2] || ''),
       source: String(row[3] || ''),
+      status: status || 'confirmed',
       created_at: row[1] instanceof Date ? row[1].toISOString() : String(row[1] || '')
     });
   }

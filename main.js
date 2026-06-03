@@ -47,6 +47,8 @@
     // Bind hamburger menu button
     const hamburger = document.getElementById('hamburger');
     if (hamburger) {
+      hamburger.setAttribute('aria-controls', 'navLinks');
+      hamburger.setAttribute('aria-expanded', 'false');
       hamburger.addEventListener('click', toggleMenu);
     }
 
@@ -92,8 +94,11 @@
     navLinks.classList.toggle('open');
     hamburger.classList.toggle('active');
 
+    const isOpen = navLinks.classList.contains('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+
     // Prevent body scroll when menu is open
-    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 
   // ============================================
@@ -703,7 +708,13 @@ window.PmkNewsletter = {
       .then(r => r.json())
       .then(res => {
         if (res && res.success) {
-          msg.textContent = (data.lang === 'de') ? 'Danke — du bist eingetragen.' : 'Dziękujemy — Twój e-mail został zapisany.';
+          if (res.message === 'already_subscribed') {
+            msg.textContent = (data.lang === 'de') ? 'Du bist bereits angemeldet.' : 'Już jesteś zapisany/a.';
+          } else {
+            msg.textContent = (data.lang === 'de')
+              ? 'Fast geschafft! Bitte bestätige die Anmeldung über den Link in deiner E-Mail.'
+              : 'Prawie gotowe! Potwierdź subskrypcję klikając w link w e-mailu.';
+          }
           msg.className = 'footer-newsletter-msg footer-newsletter-msg-ok';
           form.reset();
         } else {

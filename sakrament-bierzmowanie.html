@@ -13,6 +13,7 @@
   <meta name="author" content="Polska Misja Katolicka Berlin">
 
   <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-bierzmowanie.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/firmung.html">
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-bierzmowanie.html">
 
   <meta property="og:title" content="Bierzmowanie | Polska Misja Katolicka Berlin">
@@ -62,9 +63,7 @@
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
 
   <style>
@@ -145,7 +144,7 @@
       <li><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></li>
     </ul>
     <div class="nav-actions">
-      <div class="lang-switch"><button class="lang-btn active" data-lang="pl">PL</button><button class="lang-btn" data-lang="de">DE</button></div>
+      <div class="lang-switch"><a href="/sakrament-bierzmowanie.html" class="lang-btn active" data-lang="pl">PL</a><a href="/de/firmung.html" class="lang-btn" data-lang="de">DE</a></div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
@@ -198,6 +197,12 @@
     <div class="sacr-step-number">1</div>
     <div class="sacr-step-content">
       <h3 data-i18n="bierzmowanie.youth.step1.title">Zapisy</h3>
+      <div style="margin-bottom:var(--space-4)">
+        <a href="zgloszenie-bierzmowanie.html" class="sacr-cta-primary" style="display:inline-flex;align-items:center;gap:var(--space-2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+          <span data-i18n="bierzmowanie.cta.form">Formularz</span>
+        </a>
+      </div>
       <p data-i18n="bierzmowanie.youth.step1.body">Zapisy odbywają się we wrześniu. Wymagane dokumenty:</p>
       <ul data-i18n-html="bierzmowanie.youth.step1.list">
         <li>Formularz zgłoszeniowy</li>
@@ -206,12 +211,6 @@
       <div class="sacr-step-hint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
         <span data-i18n="bierzmowanie.youth.step1.hint">Wiek: skończone 15 lat</span>
-      </div>
-      <div style="margin-top:var(--space-4)">
-        <a href="zgloszenie-bierzmowanie.html" class="sacr-cta-primary" style="display:inline-flex;align-items:center;gap:var(--space-2)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
-          <span data-i18n="bierzmowanie.cta.form">Formularz</span>
-        </a>
       </div>
     </div>
   </div>
@@ -349,7 +348,7 @@
   <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
   <p data-i18n="footer.newsletter_desc">Newsletter parafii — informacje o wydarzeniach, ogłoszenia.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input">
+    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
@@ -369,5 +368,6 @@
 
 <script src="js/i18n.js" defer></script>
 <script src="main.js" defer></script>
+<script type="module" src="/js/pmk-chat.js"></script>
 </body>
 </html>

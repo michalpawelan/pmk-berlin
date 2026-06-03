@@ -124,7 +124,7 @@
         const url = m ? ('https://lh3.googleusercontent.com/d/' + m[1] + '=w1200') : raw;
         // The image is shown at its natural aspect ratio (never cropped), mounted on a
         // clean card (rounded + soft shadow) by .ogloszenia-img-block in ogloszenia.html.
-        return '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="" loading="lazy" decoding="async">';
+        return '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="Plakat ogłoszeń parafialnych" loading="lazy" decoding="async">';
       }
       if (b && b.t === 'txt' && b.c) {
         return String(b.c)

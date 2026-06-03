@@ -1,4 +1,8 @@
 {
+  "wedding.entry_note": {
+    "pl": "<strong>Uwaga:</strong> wejście od Wildenower Straße 8 — brama nr 8 (nie od strony Müllerstraße).",
+    "de": "<strong>Hinweis:</strong> Eingang über Wildenower Straße 8 — Tor Nr. 8 (nicht von der Müllerstraße)."
+  },
   "nav.home": {
     "pl": "Strona główna",
     "de": "Startseite"

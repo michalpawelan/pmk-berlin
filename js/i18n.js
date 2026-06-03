@@ -129,7 +129,9 @@
 
     // Update button states
     document.querySelectorAll('.lang-btn').forEach(function (btn) {
-      btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+      const isActive = btn.textContent.trim() === lang.toUpperCase();
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
     });
   }
 

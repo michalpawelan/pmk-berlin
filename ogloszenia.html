@@ -24,9 +24,7 @@
   <meta property="og:site_name" content="PMK Berlin">
 
   <!-- Premium Typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -202,7 +200,7 @@
     <div class="nav-actions">
       <div class="lang-switch">
         <button class="lang-btn active" data-lang="pl">PL</button>
-        <button class="lang-btn" data-lang="de">DE</button>
+        <a href="/de/index.html" class="lang-btn" data-lang="de">DE</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
@@ -288,7 +286,7 @@
   <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
   <p data-i18n="footer.newsletter_desc">Newsletter parafii — informacje o wydarzeniach, ogłoszenia.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input">
+    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>

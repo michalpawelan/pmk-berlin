@@ -13,6 +13,7 @@
   <meta name="author" content="Polska Misja Katolicka Berlin">
 
   <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/kontakt.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/kontakt.html">
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/kontakt.html">
 
   <meta property="og:title" content="Kontakt | Polska Misja Katolicka Berlin">
@@ -94,9 +95,7 @@
   </script>
 
   <!-- Premium Typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
 
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -124,8 +123,8 @@
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" data-lang="pl">PL</button>
-        <button class="lang-btn" data-lang="de">DE</button>
+        <a href="/kontakt.html" class="lang-btn active" data-lang="pl">PL</a>
+        <a href="/de/kontakt.html" class="lang-btn" data-lang="de">DE</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
@@ -299,16 +298,12 @@
 <!-- Map Section -->
 <section class="section section-map">
   <div class="map-container">
-    <iframe
-      src="https://maps.google.com/maps?q=Johannes-Basilika+Lilienthalstra%C3%9Fe+5+10965+Berlin&t=&z=16&ie=UTF8&iwloc=&output=embed"
-      width="100%"
-      height="450"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Mapa - Johannes-Basilika Berlin">
-    </iframe>
+    <button type="button" id="kontaktMap" class="map-consent"
+      style="width:100%;height:450px;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;background:#f0ebe4;color:#5a5147;font-family:inherit;text-align:center;padding:1.5rem;">
+      <strong style="font-family:'Cormorant',serif;font-size:1.35rem;">Pokaż mapę · Karte anzeigen</strong>
+      <span style="max-width:34rem;font-size:.85rem;line-height:1.55;">Po kliknięciu mapa Google Maps zostanie załadowana, a Twój adres IP zostanie przekazany do Google. · Beim Laden der Google-Maps-Karte wird Ihre IP-Adresse an Google übertragen.</span>
+      <span style="text-decoration:underline;font-weight:600;">Załaduj mapę / Karte laden ↗</span>
+    </button>
   </div>
 </section>
 
@@ -327,6 +322,7 @@
           <p>Wedding</p>
         </div>
         <address>Müllerstraße 161, 13353 Berlin</address>
+        <p class="church-entry-note" data-i18n-html="wedding.entry_note" style="margin:0.4rem 0 0;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.5;"><strong>Uwaga:</strong> wejście od Wildenower Straße 8 — brama nr 8 (nie od strony Müllerstraße).</p>
         <a href="https://maps.app.goo.gl/T5US2kgZrmV7AZfB9" target="_blank" rel="noopener" class="church-list-link" data-i18n="kontakt.churches.map_link">Mapa</a>
       </div>
 
@@ -406,7 +402,7 @@
   <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
   <p data-i18n="footer.newsletter_desc">Newsletter parafii — informacje o wydarzeniach, ogłoszenia.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input">
+    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
@@ -498,6 +494,16 @@
     });
   }
 })();
+</script>
+<script>
+  // Google Maps erst auf Klick laden (DSGVO: keine IP-Übermittlung an Google vor Einwilligung).
+  (function () {
+    var el = document.getElementById('kontaktMap');
+    if (!el) return;
+    el.addEventListener('click', function () {
+      el.parentNode.innerHTML = '<iframe src="https://maps.google.com/maps?q=Johannes-Basilika+Lilienthalstra%C3%9Fe+5+10965+Berlin&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa - Johannes-Basilika Berlin"></iframe>';
+    });
+  })();
 </script>
 </body>
 </html>

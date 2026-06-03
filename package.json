@@ -2,6 +2,9 @@
   "name": "pmk-redesign",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "test": "node js/ogloszenia.renderBlocks.test.js"
+  },
   "dependencies": {
     "@netlify/blobs": "^7.0.0"
   }

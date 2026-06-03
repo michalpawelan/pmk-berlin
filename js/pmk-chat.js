@@ -3,12 +3,23 @@
  * Full brand-styled floating launcher + chat panel, no native widget chrome.
  * The ElevenLabs agent (voice+text) runs unchanged — we only replace the UI.
  */
-import { Conversation } from 'https://esm.sh/@elevenlabs/client@1.2.1';
+// Das ElevenLabs-Client-SDK wird LAZY geladen — erst wenn der/die Besucher:in den Chat
+// wirklich startet. Dadurch geht beim reinen Seitenaufruf KEINE Anfrage an esm.sh /
+// ElevenLabs raus (DSGVO/TTDSG: keine Übermittlung vor aktiver Nutzung) und die 37
+// Seiten laden schneller.
+const ELEVENLABS_SDK_URL = 'https://esm.sh/@elevenlabs/client@1.2.1';
+let _ConversationCtor = null;
+async function loadConversationCtor() {
+  if (_ConversationCtor) return _ConversationCtor;
+  const mod = await import(ELEVENLABS_SDK_URL);
+  _ConversationCtor = mod.Conversation;
+  return _ConversationCtor;
+}
 
 const AGENT_ID = 'agent_4101kpbhjmptftzr7tscfxk639fq';
-const PHONE_NUMBER = '+493075938358';
-const PHONE_TEL = 'tel:+493075938358';
-const AVATAR_URL = 'images/apple-touch-icon.png';
+const PHONE_NUMBER = '+49 30 752 40 80';
+const PHONE_TEL = 'tel:+49307524080';
+const AVATAR_URL = '/images/apple-touch-icon.png';
 
 // -----------------------------------------------------------------------------
 // i18n
@@ -112,7 +123,7 @@ const CSS = `
     --pmk-gold-soft: #f5efe2;
     --pmk-ink: #3d3731;
     --pmk-ink-soft: #7a6d5c;
-    --pmk-ink-muted: #a59a8a;
+    --pmk-ink-muted: #7a6d5c;
     --pmk-shadow-sm: 0 4px 12px rgba(31, 28, 24, 0.06);
     --pmk-shadow-md: 0 12px 32px rgba(31, 28, 24, 0.10), 0 4px 8px rgba(31, 28, 24, 0.04);
     --pmk-shadow-lg: 0 24px 48px rgba(31, 28, 24, 0.14), 0 6px 12px rgba(31, 28, 24, 0.06);
@@ -519,7 +530,7 @@ function buildPanel() {
         '<button type="button" class="pmk-icon-btn" id="pmkClose" title="' + t('close') + '" aria-label="' + t('close') + '">' + ICON_CLOSE + '</button>' +
       '</span>' +
     '</header>' +
-    '<div class="pmk-body" id="pmkBody">' +
+    '<div class="pmk-body" id="pmkBody" role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false">' +
       '<div class="pmk-empty" id="pmkEmpty">' +
         '<p class="pmk-greeting">' + escapeHTML(t('greeting')) + '</p>' +
         '<div>' +
@@ -533,6 +544,7 @@ function buildPanel() {
       '<button type="submit" class="pmk-send-btn" id="pmkSend" aria-label="' + t('send') + '" disabled>' + ICON_SEND + '</button>' +
     '</form>';
   document.body.appendChild(panel);
+  panel.inert = true; // geschlossen: nicht fokussierbar / nicht im Tab-Fluss (a11y)
 
   els.panel = panel;
   els.body = panel.querySelector('#pmkBody');
@@ -588,6 +600,7 @@ async function ensureConversation() {
   state.connecting = true;
   showStatus(t('connecting'));
   try {
+    const Conversation = await loadConversationCtor();
     state.conversation = await Conversation.startSession({
       agentId: AGENT_ID,
       connectionType: 'websocket',
@@ -721,6 +734,7 @@ function showTyping() {
   const div = document.createElement('div');
   div.className = 'pmk-msg pmk-msg-agent pmk-msg-typing';
   div.id = 'pmkTyping';
+  div.setAttribute('aria-hidden', 'true'); // Tipp-Punkte nicht vom Screenreader vorlesen
   div.innerHTML =
     '<span class="pmk-msg-avatar"><img src="' + AVATAR_URL + '" alt=""></span>' +
     '<div class="pmk-msg-bubble"><span class="pmk-dot"></span><span class="pmk-dot"></span><span class="pmk-dot"></span></div>';
@@ -738,6 +752,7 @@ function showStatus(text, isError) {
     s = document.createElement('div');
     s.id = 'pmkStatus';
     s.className = 'pmk-status';
+    s.setAttribute('role', 'status');
     els.body.appendChild(s);
   }
   s.textContent = text;
@@ -760,8 +775,11 @@ function scrollToBottom() {
 function openChat() {
   if (state.isOpen) return;
   state.isOpen = true;
+  state.prevFocus = document.activeElement;
   els.launcher.classList.add('is-hidden');
+  els.launcher.inert = true;
   els.panel.classList.add('is-open');
+  els.panel.inert = false;
   setTimeout(() => { els.input.focus(); }, 250);
 }
 
@@ -769,7 +787,10 @@ async function closeChat() {
   if (!state.isOpen) return;
   state.isOpen = false;
   els.panel.classList.remove('is-open');
+  els.panel.inert = true;
   els.launcher.classList.remove('is-hidden');
+  els.launcher.inert = false;
+  if (els.launcher && els.launcher.focus) els.launcher.focus(); // Fokus zurück zum Launcher (a11y)
   if (state.conversation) {
     try { await state.conversation.endSession(); } catch (e) {}
     state.conversation = null;
@@ -816,6 +837,10 @@ function init() {
   els.launcher = buildLauncher();
   buildPanel();
   handleLanguageChange();
+  // Escape schließt den geöffneten Chat (a11y)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state.isOpen) closeChat();
+  });
 }
 
 if (document.readyState === 'loading') {

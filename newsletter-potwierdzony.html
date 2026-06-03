@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <title>Potwierdzenie subskrypcji | Polska Misja Katolicka Berlin</title>
+  <meta name="description" content="Potwierdzenie subskrypcji newslettera Polskiej Misji Katolickiej w Berlinie.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://www.pmk-berlin.de/newsletter-potwierdzony.html">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-i18n="nav.home">Strona główna</a></li>
+      <li><a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a></li>
+      <li><a href="events.html" data-i18n="nav.events">Wydarzenia</a></li>
+      <li><a href="grupy.html" data-i18n="nav.groups">Grupy parafialne</a></li>
+      <li><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="pl">PL</button>
+        <a href="/de/index.html" class="lang-btn" data-lang="de">DE</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<section id="main-content" class="page-hero page-hero-compact">
+  <div class="page-hero-content" style="text-align:center;">
+    <span class="section-label" id="nlIcon">✓</span>
+    <h1 class="page-hero-title" id="nlTitle">Dziękujemy!</h1>
+    <p class="page-hero-lead" id="nlText" style="max-width:40rem;margin:0 auto;">Twoja subskrypcja newslettera została potwierdzona.</p>
+    <p style="margin-top:2rem;"><a href="index.html" class="btn btn-primary" id="nlHome">Wróć na stronę główną</a></p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var ok = new URLSearchParams(location.search).get('ok') !== '0';
+    var lang = 'pl';
+    try { lang = (localStorage.getItem('pmk-lang') || document.documentElement.lang || 'pl').slice(0, 2); } catch (e) {}
+    var T = {
+      pl: {
+        okTitle: 'Dziękujemy!', okText: 'Twoja subskrypcja newslettera została potwierdzona. Będziesz teraz otrzymywać nasze wiadomości.',
+        errTitle: 'Link nieprawidłowy', errText: 'Ten link potwierdzający jest nieprawidłowy lub już został użyty. Spróbuj zapisać się ponownie.',
+        home: 'Wróć na stronę główną'
+      },
+      de: {
+        okTitle: 'Vielen Dank!', okText: 'Deine Newsletter-Anmeldung ist bestätigt. Du erhältst ab jetzt unsere Nachrichten.',
+        errTitle: 'Ungültiger Link', errText: 'Dieser Bestätigungslink ist ungültig oder wurde bereits verwendet. Bitte melde dich erneut an.',
+        home: 'Zurück zur Startseite'
+      }
+    };
+    var t = T[lang] || T.pl;
+    document.documentElement.lang = lang;
+    document.getElementById('nlIcon').textContent = ok ? '✓' : '!';
+    document.getElementById('nlTitle').textContent = ok ? t.okTitle : t.errTitle;
+    document.getElementById('nlText').textContent = ok ? t.okText : t.errText;
+    document.getElementById('nlHome').textContent = t.home;
+  })();
+</script>
+
+<script src="/js/i18n.js" defer></script>
+<script src="/main.js" defer></script>
+<script type="module" src="/js/pmk-chat.js"></script>
+</body>
+</html>

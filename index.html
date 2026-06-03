@@ -15,6 +15,7 @@
 
   <!-- Hreflang - wielojęzyczność -->
   <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/index.html">
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/">
 
   <!-- Open Graph -->
@@ -43,15 +44,13 @@
   <meta name="ICBM" content="52.4870, 13.3950">
 
   <!-- Performance: Preconnect & Preload -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://docs.google.com">
   <link rel="dns-prefetch" href="https://lh3.googleusercontent.com">
   <link rel="preload" href="styles.css" as="style">
   <link rel="preload" href="main.js" as="script">
 
   <!-- Typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
 
   <link rel="stylesheet" href="styles.css">
 
@@ -218,7 +217,7 @@
     <div class="nav-actions">
       <div class="lang-switch">
         <button class="lang-btn active" data-lang="pl">PL</button>
-        <button class="lang-btn" data-lang="de">DE</button>
+        <a href="/de/index.html" class="lang-btn" data-lang="de">DE</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
@@ -511,6 +510,7 @@
             <div class="oc-info">
               <span class="oc-name">St. Joseph - Wedding</span>
               <span class="oc-address">Müllerstraße 161, 13353 Berlin</span>
+              <span class="oc-entry-note" data-i18n-html="wedding.entry_note" style="display:block;margin-top:0.25rem;font-size:var(--text-xs);color:var(--color-text-secondary);line-height:1.45;"><strong>Uwaga:</strong> wejście od Wildenower Straße 8 — brama nr 8 (nie od strony Müllerstraße).</span>
             </div>
             <div class="oc-schedule">
               <span class="oc-label" data-i18n="index.mass.sundays_holidays">Niedziele i święta</span>
@@ -535,7 +535,7 @@
           <div class="oc-row">
             <div class="oc-info">
               <span class="oc-name">St. Marien - Karlshorst</span>
-              <span class="oc-address">Gundelfinger Str. 36, 10318 Berlin</span>
+              <span class="oc-address">Gundelfinger Straße 36, 10318 Berlin</span>
             </div>
             <div class="oc-schedule">
               <span class="oc-label" data-i18n="index.mass.sundays_holidays">Niedziele i święta</span>
@@ -669,6 +669,7 @@
           <h3 class="church-name">St. Joseph</h3>
           <p class="church-district">Wedding</p>
           <address class="church-address">Müllerstraße 161, 13353 Berlin</address>
+          <p class="church-entry-note" data-i18n-html="wedding.entry_note" style="margin:0.5rem 0 0;font-size:var(--text-sm);color:var(--color-text-secondary);line-height:1.5;"><strong>Uwaga:</strong> wejście od Wildenower Straße 8 — brama nr 8 (nie od strony Müllerstraße).</p>
           <a href="https://maps.app.goo.gl/T5US2kgZrmV7AZfB9" target="_blank" rel="noopener" class="church-link">
             <span data-i18n="index.churches.show_map">Pokaż na mapie</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -1056,9 +1057,10 @@
       </div>
 
       <div class="contact-form-wrapper reveal">
-        <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="website">
+          <input type="hidden" name="form-name" value="kontakt">
           <div style="position:absolute;left:-9999px" aria-hidden="true">
-              <input type="text" name="website" tabindex="-1" autocomplete="off">
+              <label>Nie wypełniaj: <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
           </div>
           <div class="form-row form-row-half">
             <div class="form-group">
@@ -1104,9 +1106,19 @@
             <label for="message" data-i18n="index.contact.form_message">Wiadomość</label>
             <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość..." data-i18n-attr="placeholder:index.contact.form_message_placeholder" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-full" data-i18n="index.contact.form_submit">Wyślij wiadomość</button>
-          <p class="form-note" data-i18n="index.contact.form_note">Formularz otworzy Twój program e-mail z wypełnioną wiadomością.</p>
+          <button type="submit" class="btn btn-primary btn-full" id="contactSubmit" data-i18n="index.contact.form_submit">Wyślij wiadomość</button>
+          <p class="form-note" data-i18n="index.contact.form_note">Napisz do nas — odpowiemy najszybciej, jak to możliwe.</p>
         </form>
+
+        <div class="contact-success" id="contactSuccess" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12l3 3 5-6"/>
+          </svg>
+          <h3 data-i18n="kontakt.form.success_title">Dziękujemy!</h3>
+          <p data-i18n="kontakt.form.success_body">Twoja wiadomość została wysłana. Odpowiemy najszybciej, jak to możliwe.</p>
+          <button type="button" class="btn btn-secondary" id="contactReset" data-i18n="kontakt.form.send_another">Wyślij kolejną wiadomość</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1148,6 +1160,7 @@
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>
           <a href="schutzkonzept.html">Schutzkonzept</a>
+          <a href="/de/index.html" hreflang="de" lang="de">Auf Deutsch</a>
         </div>
       </nav>
     </div>
@@ -1167,7 +1180,7 @@
   <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
   <p data-i18n="footer.newsletter_desc">Newsletter parafii — informacje o wydarzeniach, ogłoszenia.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input">
+    <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
@@ -1189,5 +1202,66 @@
 <script src="js/ogloszenia.js" defer></script>
 <script src="main.js" defer></script>
 <script type="module" src="js/pmk-chat.js"></script>
+<script>
+// Homepage contact form — Netlify Forms AJAX submit (mirrors kontakt.html)
+(function(){
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('contactSuccess');
+  const submitBtn = document.getElementById('contactSubmit');
+  const resetBtn = document.getElementById('contactReset');
+  if (!form) return;
+
+  const isDe = (document.documentElement.lang || '').toLowerCase().startsWith('de');
+  const t = (pl, de) => isDe ? de : pl;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const honeypot = form.querySelector('[name="website"]');
+    if (honeypot && honeypot.value) return;
+
+    const emailField = document.getElementById('email');
+    const email = emailField ? emailField.value.trim() : '';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      if (window.showToast) showToast(t('Prosimy podać poprawny adres e-mail.', 'Bitte geben Sie eine gültige E-Mail-Adresse an.'), 'error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.textContent;
+    submitBtn.textContent = t('Wysyłanie…', 'Wird gesendet…');
+
+    try {
+      const formData = new FormData(form);
+      const body = new URLSearchParams(formData).toString();
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      form.hidden = true;
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      if (window.showToast) showToast(t('Wystąpił błąd. Spróbuj ponownie lub napisz na pmk@pmk-berlin.de', 'Es ist ein Fehler aufgetreten. Bitte erneut versuchen oder an pmk@pmk-berlin.de schreiben.'), 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      form.hidden = false;
+      success.hidden = true;
+      submitBtn.disabled = false;
+      submitBtn.textContent = t('Wyślij wiadomość', 'Nachricht senden');
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+})();
+</script>
 </body>
 </html>

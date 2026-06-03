@@ -96,6 +96,35 @@
   status = 301
 
 # ============================================
+# Security: block internal/reference files from public serving
+# (the Apps Script source + planning docs contain the admin PIN; archive
+#  holds stale prompts). These ship because publish=".", so 404 them.
+# ============================================
+[[redirects]]
+  from = "/admin/google-apps-script.js"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/archive/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.planning/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# ============================================
 # 404 Redirect
 # ============================================
 [[redirects]]
