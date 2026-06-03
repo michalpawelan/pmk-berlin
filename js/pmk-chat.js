@@ -4,14 +4,22 @@
  * The ElevenLabs agent (voice+text) runs unchanged — we only replace the UI.
  */
 // Das ElevenLabs-Client-SDK wird LAZY geladen — erst wenn der/die Besucher:in den Chat
-// wirklich startet. Dadurch geht beim reinen Seitenaufruf KEINE Anfrage an esm.sh /
-// ElevenLabs raus (DSGVO/TTDSG: keine Übermittlung vor aktiver Nutzung) und die 37
-// Seiten laden schneller.
-const ELEVENLABS_SDK_URL = 'https://esm.sh/@elevenlabs/client@1.2.1';
+// wirklich startet. Dadurch geht beim reinen Seitenaufruf KEINE Anfrage raus
+// (DSGVO/TTDSG: keine Übermittlung vor aktiver Nutzung) und die Seiten laden schneller.
+// Primär wird das SELBST-GEHOSTETE Bundle geladen (keine Drittanbieter-Anfrage, kein
+// Single-Point-of-Failure). esm.sh dient nur noch als Notnetz, falls die lokale Datei
+// fehlt oder geblockt wird — so kann der funktionierende Chat nie komplett ausfallen.
+const ELEVENLABS_SDK_LOCAL = '/js/vendor/elevenlabs-client-1.2.1.js';
+const ELEVENLABS_SDK_CDN = 'https://esm.sh/@elevenlabs/client@1.2.1';
 let _ConversationCtor = null;
 async function loadConversationCtor() {
   if (_ConversationCtor) return _ConversationCtor;
-  const mod = await import(ELEVENLABS_SDK_URL);
+  let mod;
+  try {
+    mod = await import(ELEVENLABS_SDK_LOCAL);
+  } catch (e) {
+    mod = await import(ELEVENLABS_SDK_CDN); // Fallback auf den CDN
+  }
   _ConversationCtor = mod.Conversation;
   return _ConversationCtor;
 }

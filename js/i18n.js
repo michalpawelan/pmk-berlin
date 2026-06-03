@@ -33,7 +33,7 @@
   async function loadJSON(name) {
     if (translationCache[name]) return translationCache[name];
     try {
-      const resp = await fetch('translations/' + name + '.json');
+      const resp = await fetch('/translations/' + name + '.json');
       if (!resp.ok) return {};
       const data = await resp.json();
       translationCache[name] = data;
