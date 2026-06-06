@@ -837,7 +837,7 @@ function receiveZgloszenie(params) {
     id,
     new Date(),
     name,
-    phone,
+    /^[=+\-@]/.test(phone) ? "'" + phone : phone,   // führendes + sonst als Formel -> #ERROR!
     concern,
     urgent ? 'TAK' : 'NIE',
     lang,
