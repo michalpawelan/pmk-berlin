@@ -1251,9 +1251,10 @@ textarea.form-input {
    Statystyki Tab
    ============================================ */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
-.stat-chart { background: white; border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; border: 1px solid var(--color-warm-100); }
-.stat-chart h3 { font-family: var(--font-serif); font-weight: 500; font-size: 1rem; margin: 0 0 1rem 0; color: var(--color-warm-800); }
-.stat-svg { width: 100%; height: auto; }
+.stat-chart { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--color-warm-100); box-shadow: var(--shadow-sm); }
+.stat-chart h3 { font-family: var(--font-serif); font-weight: 500; font-size: 1.05rem; margin: 0 0 1rem 0; color: var(--color-warm-800); }
+.stat-empty { color: var(--color-warm-500); font-size: var(--text-sm); margin: 0.5rem 0; }
+.stat-svg { width: 100%; height: auto; display: block; }
 .stat-svg-small { width: 140px; height: 140px; display: inline-block; vertical-align: middle; }
 .stat-chart-donut { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
 .stat-chart-donut h3 { width: 100%; }
@@ -1263,7 +1264,7 @@ textarea.form-input {
 .stat-hbar { list-style: none; padding: 0; margin: 0; }
 .stat-hbar li { display: grid; grid-template-columns: 140px 1fr 40px; gap: 0.75rem; align-items: center; padding: 0.35rem 0; font-size: var(--text-sm); }
 .stat-hbar-label { color: var(--color-warm-700); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.stat-hbar-bar { background: var(--color-accent); height: 18px; border-radius: 4px; opacity: 0.7; }
+.stat-hbar-bar { background: var(--color-accent); height: 20px; border-radius: 999px; opacity: 1; min-width: 6px; }
 .stat-hbar-val { font-weight: 600; color: var(--color-warm-900); text-align: right; }
 
 /* ============================================

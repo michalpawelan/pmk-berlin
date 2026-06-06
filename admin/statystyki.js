@@ -84,30 +84,33 @@ const Statystyki = (function() {
 
   function barChart(buckets, title) {
     if (!buckets || !buckets.length) {
-      return '<div class="stat-chart"><h3>' + escapeHtml(title) + '</h3><p>Brak danych</p></div>';
+      return '<div class="stat-chart"><h3>' + escapeHtml(title) + '</h3><p class="stat-empty">Brak danych</p></div>';
     }
     const max = Math.max(1, Math.max.apply(null, buckets.map(function(b) { return b.count; })));
-    const width = 800;
-    const height = 140;
-    const barWidth = (width - 40) / buckets.length;
+    const width = 720;
+    const height = 180;
+    const pad = 8;
+    const barWidth = (width - pad * 2) / buckets.length;
+
+    const baseline = '<line x1="' + pad + '" y1="' + height + '" x2="' + (width - pad) + '" y2="' + height + '" stroke="var(--color-warm-200)" stroke-width="1.5" />';
 
     const bars = buckets.map(function(b, i) {
-      const h = (b.count / max) * height;
-      const x = 20 + i * barWidth;
+      const h = b.count > 0 ? Math.max(4, (b.count / max) * (height - 14)) : 0;
+      const x = pad + i * barWidth;
       const y = height - h;
-      const opacity = 0.4 + (b.count / max) * 0.6;
+      const opacity = 0.5 + (b.count / max) * 0.5;
       const label = (i % 5 === 0 || i === buckets.length - 1)
-        ? '<text x="' + (x + barWidth / 2) + '" y="' + (height + 18) + '" text-anchor="middle" font-size="10" fill="#888">' + escapeHtml(b.label) + '</text>'
+        ? '<text x="' + (x + barWidth / 2) + '" y="' + (height + 20) + '" text-anchor="middle" font-size="12" fill="#b0a690">' + escapeHtml(b.label) + '</text>'
         : '';
-      return '<rect x="' + (x + 1) + '" y="' + y + '" width="' + (barWidth - 2) + '" height="' + h + '" fill="var(--color-accent)" opacity="' + opacity + '">' +
+      return '<rect x="' + (x + 2) + '" y="' + y + '" width="' + (barWidth - 4) + '" height="' + h + '" rx="3" fill="var(--color-accent)" opacity="' + opacity + '">' +
         '<title>' + escapeHtml(b.label) + ': ' + b.count + '</title>' +
         '</rect>' + label;
     }).join('');
 
     return '<div class="stat-chart">' +
       '<h3>' + escapeHtml(title) + '</h3>' +
-      '<svg viewBox="0 0 ' + width + ' ' + (height + 30) + '" class="stat-svg" preserveAspectRatio="xMidYMid meet">' +
-        bars +
+      '<svg viewBox="0 0 ' + width + ' ' + (height + 28) + '" class="stat-svg" preserveAspectRatio="xMidYMid meet">' +
+        baseline + bars +
       '</svg>' +
     '</div>';
   }
@@ -150,9 +153,14 @@ const Statystyki = (function() {
       return '<li><span class="stat-dot" style="background:' + color + '"></span>' + label + ': <strong>' + val + '</strong></li>';
     }).join('');
 
+    const center =
+      '<circle cx="' + cx + '" cy="' + cy + '" r="' + (radius * 0.6) + '" fill="white" />' +
+      '<text x="' + cx + '" y="' + cy + '" text-anchor="middle" dominant-baseline="central" font-size="26" font-weight="700" fill="var(--color-warm-900)">' + total + '</text>' +
+      '<text x="' + cx + '" y="' + (cy + 17) + '" text-anchor="middle" font-size="10" fill="var(--color-warm-500)">razem</text>';
+
     return '<div class="stat-chart stat-chart-donut">' +
       '<h3>' + escapeHtml(title) + '</h3>' +
-      '<svg viewBox="0 0 140 140" class="stat-svg-small">' + slices + '</svg>' +
+      '<svg viewBox="0 0 140 140" class="stat-svg-small">' + slices + center + '</svg>' +
       '<ul class="stat-legend">' + legendItems + '</ul>' +
     '</div>';
   }
