@@ -3,6 +3,18 @@
     "pl": "<strong>Uwaga:</strong> wejście od Wildenower Straße 8 — brama nr 8 (nie od strony Müllerstraße).",
     "de": "<strong>Hinweis:</strong> Eingang über Wildenower Straße 8 — Tor Nr. 8 (nicht von der Müllerstraße)."
   },
+  "kontakt.form.success_title": {
+    "pl": "Dziękujemy!",
+    "de": "Vielen Dank!"
+  },
+  "kontakt.form.success_body": {
+    "pl": "Twoja wiadomość została wysłana. Odpowiemy najszybciej, jak to możliwe.",
+    "de": "Ihre Nachricht wurde gesendet. Wir antworten so schnell wie möglich."
+  },
+  "kontakt.form.send_another": {
+    "pl": "Wyślij kolejną wiadomość",
+    "de": "Weitere Nachricht senden"
+  },
   "nav.home": {
     "pl": "Strona główna",
     "de": "Startseite"

@@ -48,8 +48,12 @@
     "de": "Diese <em>Woche</em>"
   },
   "index.thisweek.lead": {
-    "pl": "Biuletyn parafialny i wydarzenia tego tygodnia",
-    "de": "Pfarrblatt und Termine dieser Woche"
+    "pl": "Biuletyn parafialny i najbliższe wydarzenia",
+    "de": "Pfarrblatt und die nächsten Termine"
+  },
+  "index.thisweek.all_events": {
+    "pl": "Wszystkie wydarzenia →",
+    "de": "Alle Veranstaltungen →"
   },
   "index.events.label": {
     "pl": "Wydarzenia",
@@ -406,6 +410,14 @@
   "index.mass.confession_weekdays": {
     "pl": "od 17:30",
     "de": "ab 17:30"
+  },
+  "index.mass.confession_weekdays_label": {
+    "pl": "Pon. – Sob.",
+    "de": "Mo. – Sa."
+  },
+  "index.mass.confession_first_friday_value": {
+    "pl": "od 17:00",
+    "de": "ab 17:00"
   },
   "index.mass.spandau_wednesday_seasonal": {
     "pl": "Środa (Październik – Maj)",

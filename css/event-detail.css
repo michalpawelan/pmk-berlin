@@ -119,21 +119,21 @@
 /* Event Image - Portrait format */
 .event-image-container {
   width: 100%;
-  aspect-ratio: 3 / 4;
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: linear-gradient(135deg, var(--color-warm-200) 0%, var(--color-warm-300) 100%);
 }
 
+/* Show the FULL poster (no crop) — parish posters are portrait/A4 and must stay readable. */
 .event-image-container img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
 }
 
 .event-image-placeholder {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3 / 4;
   display: flex;
   align-items: center;
   justify-content: center;

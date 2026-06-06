@@ -950,6 +950,8 @@ const Events = (function() {
   return {
     // Called by handleLogin
     setEvents,
+    // Read by przeglad.js (upcoming-events card) + statystyki.js (events-by-community chart)
+    get allEvents() { return allEvents; },
     render: renderEvents,
     updateStats,
     // Called by filter tabs (also exposed on window below)

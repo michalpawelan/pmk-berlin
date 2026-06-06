@@ -138,9 +138,11 @@
 
     .donate-grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr;
+      grid-template-columns: 1fr;
       gap: var(--space-12);
       align-items: start;
+      max-width: 720px;
+      margin: 0 auto;
     }
 
     @media (max-width: 900px) {
@@ -178,33 +180,34 @@
 
     .donate-bank-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-4);
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: 0.75rem;
+      row-gap: 0.3rem;
       padding: var(--space-4) 0;
       border-bottom: 1px solid var(--color-border);
     }
     .donate-bank-row:last-child { border-bottom: none; }
 
     .donate-bank-row .label {
+      flex: 0 0 100%;
       font-size: var(--text-xs);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--color-text-secondary);
       font-weight: 600;
-      flex-shrink: 0;
     }
 
     .donate-bank-row .value {
       font-size: var(--text-base);
       color: var(--color-text-primary);
-      text-align: right;
-      overflow-wrap: anywhere;
+      text-align: left;
+      overflow-wrap: normal;
     }
 
     .donate-bank-row .value-iban {
-      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-      word-break: break-all;
+      word-break: keep-all;
+      overflow-wrap: normal;
     }
 
     .donate-bank-row .value.placeholder {
@@ -256,6 +259,49 @@
       border-bottom: 1px solid currentColor;
     }
     .donate-bank-pending a:hover { color: var(--color-text-primary); }
+
+    /* Bank details + GiroCode QR side by side */
+    .donate-bank-split {
+      display: flex;
+      gap: var(--space-6);
+      align-items: flex-start;
+    }
+    .donate-bank-details { flex: 1 1 auto; min-width: 0; }
+    .donate-qr {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding-top: var(--space-4);
+      text-align: center;
+    }
+    .donate-qr img {
+      width: 150px;
+      height: 150px;
+      border-radius: var(--radius-lg, 0.75rem);
+      border: 1px solid var(--color-border);
+      background: white;
+      padding: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .donate-qr-label {
+      font-size: var(--text-xs);
+      color: var(--color-text-secondary);
+      max-width: 160px;
+      line-height: 1.4;
+    }
+    .donate-bank-preview {
+      margin: var(--space-4) 0 0;
+      font-size: var(--text-xs);
+      color: var(--color-warm-500);
+      font-style: italic;
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      .donate-bank-split { flex-direction: column; gap: var(--space-5); }
+      .donate-qr { align-self: center; padding-top: var(--space-2); }
+    }
 
     /* Right column: purposes + receipt + transparency */
     .donate-side h3 {
@@ -411,16 +457,32 @@
         <p data-i18n="wesprzyj.bank.subtitle">Bankverbindung der Pfarrei</p>
       </div>
       <div class="donate-bank-body">
-        <!-- TODO: nach Erhalt der Konto-Daten vom Pfarramt eintragen -->
-        <div class="donate-bank-row">
-          <span class="label" data-i18n="wesprzyj.bank.holder_label">Odbiorca / Kontoinhaber</span>
-          <span class="value">Polska Misja Katolicka w&nbsp;Berlinie</span>
+        <div class="donate-bank-split">
+          <div class="donate-bank-details">
+            <div class="donate-bank-row">
+              <span class="label" data-i18n="wesprzyj.bank.holder_label">Odbiorca</span>
+              <span class="value">Deutsche Provinz der Salesianer Don Boscos</span>
+            </div>
+            <div class="donate-bank-row">
+              <span class="label">IBAN</span>
+              <span class="value value-iban" id="iban-value">DE28 7509 0300 0402 1461 00</span>
+            </div>
+            <div class="donate-bank-row">
+              <span class="label">BIC</span>
+              <span class="value value-iban">GENODEF1M05</span>
+            </div>
+            <div class="donate-bank-row">
+              <span class="label" data-i18n="wesprzyj.bank.bank_label">Bank</span>
+              <span class="value">LIGA Bank eG</span>
+            </div>
+          </div>
+          <div class="donate-qr">
+            <img src="images/spende-qr.png" width="150" height="150" loading="lazy" alt="GiroCode — zeskanuj aplikacją bankową / mit der Banking-App scannen">
+            <span class="donate-qr-label" data-i18n="wesprzyj.bank.qr_label">Zeskanuj aplikacją bankową</span>
+          </div>
         </div>
 
-        <div class="donate-bank-pending" data-i18n-html="wesprzyj.bank.pending">
-          <strong>Pełne dane bankowe wkrótce dostępne.</strong><br>
-          Bankdaten in Kürze verfügbar — w międzyczasie zapraszamy do kontaktu z biurem parafialnym pod numerem <a href="tel:+49307524080">+49 30 752 40 80</a> lub mailem <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>.
-        </div>
+        <p class="donate-bank-note" data-i18n-html="wesprzyj.bank.note"><strong>Ważne:</strong> w polu „Tytuł przelewu" prosimy wpisać <strong>cel ofiary</strong> (np. „PMK Berlin") oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić zaświadczenia (Spendenquittung).</p>
       </div>
     </div>
 

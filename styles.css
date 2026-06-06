@@ -141,6 +141,9 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
   min-height: 100dvh;
+  /* guard against minor decorative bleed (e.g. .hero-image-accent) causing horizontal scroll on mobile.
+     clip (not hidden) so position:sticky descendants keep working. */
+  overflow-x: clip;
 }
 
 img, video, svg {
@@ -864,19 +867,20 @@ em {
   flex-direction: column;
   align-items: center;
   gap: var(--space-8);
-  margin-top: var(--space-12);
+  margin-top: var(--space-6);
 }
 
 .whatsapp-channel-cta {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-5);
   padding: var(--space-5) var(--space-6);
-  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
-  border: 1px solid #c8e6c9;
-  border-radius: var(--radius-xl);
-  max-width: 42rem;
+  background: #fff;
+  border: 1px solid var(--color-warm-200, #e8dfd1);
+  border-radius: var(--radius-2xl, 1.5rem);
+  max-width: 44rem;
   width: 100%;
+  box-shadow: 0 8px 24px rgba(31, 28, 24, 0.05);
 }
 
 .whatsapp-channel-icon {
@@ -884,8 +888,8 @@ em {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3rem;
+  height: 3rem;
   background: #25D366;
   color: white;
   border-radius: 50%;
@@ -900,26 +904,27 @@ em {
 }
 
 .whatsapp-channel-text strong {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-warm-900);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-warm-900, #2a2520);
 }
 
 .whatsapp-channel-text span {
-  font-size: var(--text-xs);
-  color: var(--color-warm-600);
+  font-size: var(--text-sm);
+  color: var(--color-warm-600, #6b5d4a);
 }
 
 .btn-whatsapp {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1.25rem;
+  padding: 0.6rem 1.4rem;
   background: #25D366;
-  color: white;
+  color: #fff;
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: 600;
   border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
   transition: background var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
 }
 
@@ -1529,15 +1534,29 @@ em {
   gap: 0.85rem;
 }
 
+.events-all-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.25rem;
+  font-family: var(--font-sans, Outfit), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-accent-dark, #8a7248);
+  text-decoration: none;
+}
+.events-all-link[hidden] { display: none; }
+.events-all-link:hover { color: var(--color-warm-900, #2a2520); text-decoration: underline; }
+
 /* --- Clean event card (homepage list): small accent thumb/date, title leads, clear "Szczegóły →" --- */
 .event-card-new {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 1.35rem;
   background: #fff;
   border: 1px solid var(--color-warm-200, #e8dfd1);
-  border-radius: 16px;
-  padding: 0.9rem 1.1rem;
+  border-radius: 18px;
+  padding: 1.1rem 1.35rem;
   text-decoration: none;
   color: inherit;
   transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
@@ -1552,11 +1571,12 @@ em {
 .event-card-new .ev-thumb,
 .event-card-new .ev-date-badge {
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
+  width: 96px;
+  height: 120px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--color-accent-soft, rgba(166, 139, 91, 0.14));
+  box-shadow: 0 2px 10px rgba(31, 28, 24, 0.07);
 }
 .event-card-new .ev-thumb img {
   width: 100%;
@@ -1572,7 +1592,7 @@ em {
   justify-content: center;
   color: var(--color-accent-dark, #8a7248); /* WCAG AA: info-bearing date; ~4.6:1 (was --color-accent #a68b5b = 3.25:1) */
 }
-.event-card-new .ev-date-badge .d { font-family: 'Cormorant', serif; font-weight: 600; font-size: 1.7rem; line-height: 1; }
+.event-card-new .ev-date-badge .d { font-family: 'Cormorant', serif; font-weight: 600; font-size: 2.3rem; line-height: 1; }
 .event-card-new .ev-date-badge .m { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.1rem; }
 .event-card-new .ev-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
 .event-card-new .ev-when {
@@ -1614,9 +1634,10 @@ em {
 .event-card-new:hover .ev-cta .arrow,
 .event-card-new:focus-visible .ev-cta .arrow { transform: translateX(3px); }
 @media (max-width: 600px) {
-  .event-card-new { gap: 0.85rem; padding: 0.85rem 0.9rem; }
-  .event-card-new .ev-thumb, .event-card-new .ev-date-badge { width: 60px; height: 60px; }
-  .event-card-new .ev-title { font-size: 1.15rem; }
+  .event-card-new { gap: 1rem; padding: 0.9rem 1rem; }
+  .event-card-new .ev-thumb, .event-card-new .ev-date-badge { width: 80px; height: 100px; }
+  .event-card-new .ev-date-badge .d { font-size: 1.9rem; }
+  .event-card-new .ev-title { font-size: 1.18rem; }
 }
 .events-group + .events-group-title {
   margin-top: var(--space-10);
@@ -1641,16 +1662,22 @@ em {
   gap: var(--space-12);
 }
 
+/* Grid items must be allowed to shrink below their content min-content,
+   otherwise .mass-info overflowed the viewport (~34px) on mobile. */
+.mass-layout > * {
+  min-width: 0;
+}
+
 @media (min-width: 1024px) {
   .mass-layout {
     grid-template-columns: 1fr 1.5fr;
     gap: var(--space-16);
     align-items: start;
   }
-}
-
-.mass-info {
-  padding-right: var(--space-8);
+  /* padding-right only on the desktop 2-column layout — on mobile it caused ~34px horizontal overflow */
+  .mass-info {
+    padding-right: var(--space-8);
+  }
 }
 
 .mass-location {
@@ -1909,6 +1936,10 @@ em {
     align-items: flex-start;
     gap: var(--space-3);
   }
+  /* let the time badges wrap instead of overflowing (flex-shrink:0 was pushing past the viewport) */
+  .oc-schedule {
+    flex-wrap: wrap;
+  }
 }
 
 /* ============================================
@@ -1922,6 +1953,16 @@ em {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
+}
+
+/* let cards shrink to their track + wrap long German labels (e.g. "Krankensalbung"),
+   otherwise they overflowed the viewport on mobile (esp. /de/) */
+.sacraments-grid > * {
+  min-width: 0;
+}
+
+.sacrament-card {
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 640px) {
@@ -2643,6 +2684,28 @@ em {
 .community-image--logo-tight img {
   object-fit: contain;
   padding: 0;
+}
+
+/* Medallion variant: a portrait devotional image (e.g. the Schönstatt MTA)
+   framed as a circular medallion on the brand cream, so it sits in the same
+   visual rhythm as the round-emblem logo cards instead of going full-bleed. */
+.community-image--medallion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.community-image--medallion img {
+  width: auto;
+  height: 86%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 22%;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 4px #fff,
+    0 0 0 5px rgba(166, 139, 91, 0.45),
+    0 8px 20px rgba(74, 55, 40, 0.16);
 }
 
 .community-image-placeholder {

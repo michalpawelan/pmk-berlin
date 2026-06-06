@@ -41,6 +41,7 @@
   // ============================================
   function initNavigation() {
     const nav = document.getElementById('mainNav');
+    if (!nav) return; // page without site nav (e.g. standalone form) — nothing to bind
     let lastScrollY = window.scrollY;
     let ticking = false;
 
@@ -53,9 +54,13 @@
     }
 
     // Bind language switcher buttons (data-lang attribute)
+    // The DE control is an <a href="/de/..."> kept only as a no-JS fallback.
+    // With JS we translate the current page IN PLACE (preventDefault stops the
+    // browser from navigating to the reduced static /de/ page).
     document.querySelectorAll('[data-lang]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(e) {
         if (typeof window.setLang === 'function') {
+          e.preventDefault();
           window.setLang(this.getAttribute('data-lang'));
         }
       });
@@ -299,41 +304,34 @@
     }
   }
 
-  // Split events by timeframe and render into the two homepage sections:
-  //   #events-this-week  (under the bulletin, in the "W tym tygodniu" section)
-  //   #events-upcoming   (the separate "Nadchodzące" section)
+  // Render the next few upcoming events as ONE slim list under the bulletin
+  // ("W tym tygodniu" section, #events-this-week). A "view all" link appears
+  // only when there are more events than we show here.
   function renderEvents(events) {
     const weekEl = document.getElementById('events-this-week');
-    const upcomingEl = document.getElementById('events-upcoming');
     if (!weekEl) return;
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const weekHorizon = new Date(today);
-    weekHorizon.setDate(today.getDate() + 7);
 
     const upcoming = events
       .filter(e => new Date(e.date) >= today)
       .sort((a, b) => new Date(a.date) - new Date(b.date))
       .slice(0, 12);
 
-    const thisWeek = upcoming.filter(e => new Date(e.date) < weekHorizon);
-    const later = upcoming.filter(e => new Date(e.date) >= weekHorizon);
     const lang = getLang();
 
-    // This week (the section header already reads "W tym tygodniu").
-    weekEl.innerHTML = thisWeek.length
-      ? thisWeek.map(renderEventCard).join('')
-      : '<p class="no-events">' + (lang === 'de' ? 'Diese Woche keine Termine.' : 'W tym tygodniu brak wydarzeń.') + '</p>';
+    // One focused "what's coming" list — the next 3 upcoming events.
+    const next = upcoming.slice(0, 3);
+    weekEl.innerHTML = next.length
+      ? next.map(renderEventCard).join('')
+      : '<p class="no-events">' + (lang === 'de' ? 'Zurzeit keine bevorstehenden Termine.' : 'Brak nadchodzących wydarzeń.') + '</p>';
 
-    // Upcoming (the separate "Nadchodzące" section).
-    if (upcomingEl) {
-      upcomingEl.innerHTML = later.length
-        ? later.map(renderEventCard).join('')
-        : '<p class="no-events">' + (lang === 'de' ? 'Keine weiteren Termine.' : 'Brak kolejnych wydarzeń.') + '</p>';
-    }
+    // "Alle Termine →" link: only if there are more upcoming than shown.
+    const moreLink = document.getElementById('events-all-link');
+    if (moreLink) moreLink.hidden = upcoming.length <= next.length;
 
-    // Inject Event structured data for SEO (covers both groups)
+    // Inject Event structured data for SEO (covers all upcoming, not just shown).
     injectEventSchema(upcoming);
 
     initScrollReveal();

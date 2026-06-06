@@ -36,6 +36,13 @@
   [headers.values]
     Cache-Control = "public, max-age=2592000, immutable"
 
+# Font files are content-hashed (gf-<hash>.woff2) so they can be cached forever —
+# without this they fell through to Netlify's must-revalidate default and revalidated every load.
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # JS/CSS are NOT content-hashed, so a long max-age serves stale code after a deploy.
 # max-age=0 + must-revalidate keeps them cached but forces a quick conditional check
 # (ETag → 304 if unchanged), so every deploy is picked up immediately by all visitors.

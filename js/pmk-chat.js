@@ -24,7 +24,9 @@ async function loadConversationCtor() {
   return _ConversationCtor;
 }
 
-const AGENT_ID = 'agent_4101kpbhjmptftzr7tscfxk639fq';
+// Text/Chat agent (sibling of the Voice agent agent_4101kpbhjmptftzr7tscfxk639fq).
+// Same knowledge base + tools; text-native formatting (markdown links, emojis, lists).
+const AGENT_ID = 'agent_9501kteh8ecmek7asfq0k7zvraqw';
 const PHONE_NUMBER = '+49 30 752 40 80';
 const PHONE_TEL = 'tel:+49307524080';
 const AVATAR_URL = '/images/apple-touch-icon.png';
@@ -472,6 +474,13 @@ function renderRich(text) {
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
   html = html.replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:|tel:)[^)]+)\)/g,
     '<a href="$2" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">$1</a>');
+  // Auto-link bare URLs (the agent often writes "https://pmk-berlin.de/msze" without markdown).
+  // Split on the anchors created above so we never re-link a URL that is already a link.
+  html = html.split(/(<a\b[^>]*>.*?<\/a>)/g).map(function (seg, i) {
+    if (i % 2 === 1) return seg; // odd segments are existing anchors — leave untouched
+    return seg.replace(/(https?:\/\/[^\s<]*[^\s<.,;:!?)\]])/g,
+      '<a href="$1" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">$1</a>');
+  }).join('');
   // Collapse two-or-more newlines to a single newline so numbered lists don't get blown apart.
   html = html.replace(/\n{2,}/g, '\n');
   html = html.replace(/\n/g, '<br>');
