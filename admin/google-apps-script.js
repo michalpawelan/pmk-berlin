@@ -836,9 +836,9 @@ function receiveZgloszenie(params) {
   sheet.appendRow([
     id,
     new Date(),
-    name,
-    /^[=+\-@]/.test(phone) ? "'" + phone : phone,   // führendes + sonst als Formel -> #ERROR!
-    concern,
+    /^[=+\-@]/.test(name) ? "'" + name : name,
+    /^[=+\-@]/.test(phone) ? "'" + phone : phone,         // führendes +/=/-/@ sonst als Formel -> #ERROR!
+    /^[=+\-@]/.test(concern) ? "'" + concern : concern,
     urgent ? 'TAK' : 'NIE',
     lang,
     source,
