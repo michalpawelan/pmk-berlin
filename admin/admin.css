@@ -1116,6 +1116,7 @@ textarea.form-input {
 .ki-table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
 .ki-table th, .ki-table td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--color-warm-100); font-size: var(--text-sm); }
 .ki-table th { background: var(--color-warm-50); font-weight: 600; color: var(--color-warm-700); }
+.ki-mobile-cards { display: none; }   /* Desktop: nur die Tabelle. Mobile (media query unten) blendet die Tabelle aus und zeigt diese Karten. */
 .ki-row { cursor: pointer; }
 .ki-row:hover { background: var(--color-warm-50); }
 .ki-msg { color: var(--color-warm-700); }
