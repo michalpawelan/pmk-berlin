@@ -16,6 +16,7 @@
   <script src="newsletter.js" defer></script>
   <script src="ogloszenia.js" defer></script>
   <script src="ki.js" defer></script>
+  <script src="zgloszenia.js" defer></script>
   <script src="mobile-drawer.js" defer></script>
   <script src="shortcuts.js" defer></script>
   <script src="przeglad.js" defer></script>
@@ -77,6 +78,9 @@
       </a>
       <a href="#ki" class="admin-nav-item" data-tab="ki">
         <span class="admin-nav-icon">💬</span> KI-Czat
+      </a>
+      <a href="#zgloszenia" class="admin-nav-item" data-tab="zgloszenia">
+        <span class="admin-nav-icon">📞</span> Zgłoszenia
       </a>
       <a href="#newsletter" class="admin-nav-item" data-tab="newsletter">
         <span class="admin-nav-icon">✉️</span> Newsletter
@@ -166,6 +170,10 @@
 
       <section id="tab-ki" class="admin-tab" data-tab="ki" hidden>
         <!-- Inhalt von KI.render() -->
+      </section>
+
+      <section id="tab-zgloszenia" class="admin-tab" data-tab="zgloszenia" hidden>
+        <!-- Inhalt wird von Zgloszenia.render() befüllt -->
       </section>
 
       <section id="tab-newsletter" class="admin-tab" data-tab="newsletter" hidden>
@@ -351,6 +359,7 @@
         Events.updateStats();
         // Trigger tab-specific load if user landed on a non-default tab pre-login
         if (location.hash === '#ki' && window.KI) KI.load();
+        if (location.hash === '#zgloszenia' && window.Zgloszenia) Zgloszenia.load();
         if (location.hash === '#newsletter' && window.Newsletter) Newsletter.load();
         if (location.hash === '#ogloszenia' && window.Ogloszenia) Ogloszenia.load();
         if ((location.hash === '#przeglad' || location.hash === '') && window.Przeglad) Przeglad.load();
@@ -397,7 +406,7 @@
 // ============================================
 // Hash-Router: #events | #ki | #newsletter
 // ============================================
-const TABS = ['events', 'ki', 'newsletter', 'ogloszenia', 'przeglad', 'statystyki'];
+const TABS = ['events', 'ki', 'zgloszenia', 'newsletter', 'ogloszenia', 'przeglad', 'statystyki'];
 
 function currentTab() {
   const h = (location.hash || '').replace('#', '');

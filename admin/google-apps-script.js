@@ -41,6 +41,8 @@ const NEWSLETTER_SHEET_NAME = 'Newsletter';
 const SITE_BASE = 'https://pmk-berlinpl.netlify.app';
 const OGLOSZENIA_SHEET_NAME = 'Ogloszenia';
 const OGLOSZENIA_TTL_DAYS = 7;
+// Tab "Zgloszenia": Anliegen, die der Voice-/Chat-Agent eskaliert (kein PIN beim Schreiben).
+const ZGLOSZENIA_SHEET_NAME = 'Zgloszenia';
 // Admin-PIN wird NICHT mehr im Code gespeichert (der Quelltext liegt oeffentlich im Repo).
 // In Apps Script setzen: Projekt-Einstellungen -> Skript-Eigenschaften ->
 // Eigenschaft 'ADMIN_PIN' = <neuer, langer Zufallswert>.
@@ -72,6 +74,10 @@ function getOgloszeniaSheet() {
   return SpreadsheetApp.openById(SHEET_ID).getSheetByName(OGLOSZENIA_SHEET_NAME);
 }
 
+function getZgloszeniaSheet() {
+  return SpreadsheetApp.openById(SHEET_ID).getSheetByName(ZGLOSZENIA_SHEET_NAME);
+}
+
 function jsonResponse(obj) {
   const output = ContentService.createTextOutput();
   output.setMimeType(ContentService.MimeType.JSON);
@@ -101,6 +107,13 @@ function doPost(e) {
   // Oeffentliche Sakrament-Anmeldung (kein PIN) — sendet E-Mails via MailApp
   if (params.action === 'sacrament') {
     return jsonResponse(registerSacrament(params));
+  }
+
+  // Oeffentliches Zgloszenie vom Voice-/Chat-Agenten (kein PIN) — schreibt ins
+  // Sheet + benachrichtigt die Pfarrei per E-Mail. Wird von der Netlify-Function
+  // /.netlify/functions/zgloszenie aufgerufen (die der ElevenLabs-Agent als Tool nutzt).
+  if (params.action === 'zgloszenie') {
+    return jsonResponse(receiveZgloszenie(params));
   }
 
   // PIN-Pruefung
@@ -182,6 +195,12 @@ function handleRequest(e) {
         break;
       case 'toggleOgloszeniePublish':
         result = toggleOgloszeniePublish(params);
+        break;
+      case 'listZgloszenia':
+        result = listZgloszenia();
+        break;
+      case 'toggleZgloszenie':
+        result = toggleZgloszenie(params);
         break;
       default:
         result = { success: false, error: 'Nieznana akcja: ' + action };
@@ -777,4 +796,142 @@ function toggleOgloszeniePublish(params) {
   }
 
   return { success: false, error: 'Nie znaleziono ogloszenia o id: ' + id };
+}
+
+/* =====================================================
+ * ZGLOSZENIA (Anliegen aus dem Voice-/Chat-Agenten)
+ * Tab "Zgloszenia". Spalten:
+ *   A:id  B:created_at  C:name  D:phone  E:concern
+ *   F:urgent (TAK/NIE)  G:lang  H:source (voice/chat)
+ *   I:status (offen/erledigt)  J:resolved_at
+ * Schreiben ist OEFFENTLICH (kein PIN) — der Agent ruft via Netlify-Function an.
+ * Lesen + Status umschalten verlangen den Admin-PIN.
+ * ===================================================== */
+
+/**
+ * Nimmt ein eskaliertes Anliegen entgegen, schreibt eine Zeile und
+ * benachrichtigt die Pfarrei per E-Mail. Kein PIN.
+ * Erwartete Parameter: name, phone, concern, urgent ('true'/'1'), lang, source.
+ */
+function receiveZgloszenie(params) {
+  const name = String(params.name || '').trim().slice(0, 200);
+  const phone = String(params.phone || '').trim().slice(0, 60);
+  const concern = String(params.concern || params.message || '').trim().slice(0, 2000);
+  const urgentRaw = String(params.urgent || '').trim().toLowerCase();
+  const urgent = (urgentRaw === 'true' || urgentRaw === '1' || urgentRaw === 'tak' || urgentRaw === 'ja');
+  const lang = String(params.lang || '').trim().toLowerCase().slice(0, 2);
+  const source = String(params.source || 'voice').trim().toLowerCase().slice(0, 20);
+
+  // Mindestens ein verwertbares Feld muss da sein.
+  if (!concern && !phone && !name) {
+    return { success: false, error: 'empty_zgloszenie' };
+  }
+
+  const sheet = getZgloszeniaSheet();
+  if (!sheet) {
+    return { success: false, error: 'sheet_missing' };
+  }
+
+  const id = Utilities.getUuid();
+  sheet.appendRow([
+    id,
+    new Date(),
+    name,
+    phone,
+    concern,
+    urgent ? 'TAK' : 'NIE',
+    lang,
+    source,
+    'offen',
+    ''
+  ]);
+  SpreadsheetApp.flush();
+
+  try {
+    notifyZgloszenie(name, phone, concern, urgent, lang, source);
+  } catch (e) {
+    // E-Mail-Fehler darf das Speichern nicht scheitern lassen — Eintrag steht im Sheet.
+  }
+
+  return { success: true, id: id };
+}
+
+/**
+ * E-Mail an die Pfarrei bei neuem Anliegen. Dringende Faelle (Sterbefall/
+ * Krankensalbung) werden im Betreff mit [PILNE] markiert.
+ */
+function notifyZgloszenie(name, phone, concern, urgent, lang, source) {
+  const PARISH_EMAIL = 'pmk@pmk-berlin.de';
+  const srcLabel = source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
+  const subject = (urgent ? '[PILNE] ' : '') + 'Nowe zgłoszenie (' + srcLabel + ')'
+    + (name ? ' — ' + name : '');
+
+  const body =
+    (urgent ? '⚠️ ZGŁOSZENIE PILNE (np. pogrzeb / namaszczenie chorych)\n\n' : '')
+    + 'Nowe zgłoszenie przekazane przez ' + srcLabel + ':\n\n'
+    + 'Imię i nazwisko: ' + (name || '—') + '\n'
+    + 'Telefon (oddzwonić): ' + (phone || '—') + '\n'
+    + 'Język rozmowy: ' + (lang ? lang.toUpperCase() : '—') + '\n\n'
+    + 'Sprawa:\n' + (concern || '—') + '\n\n'
+    + '— Prosimy oddzwonić. Wiadomość wygenerowana automatycznie przez asystenta PMK.\n'
+    + 'Panel: ' + SITE_BASE + '/admin/#zgloszenia';
+
+  MailApp.sendEmail({ to: PARISH_EMAIL, subject: subject, body: body });
+}
+
+/**
+ * Alle Zgloszenia auflisten (PIN). Offene zuerst, dann neueste zuerst.
+ */
+function listZgloszenia() {
+  const sheet = getZgloszeniaSheet();
+  if (!sheet) return { success: true, zgloszenia: [] };
+  const data = sheet.getDataRange().getValues();
+  const out = [];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    if (!row[0]) continue; // keine id -> leere Zeile
+    out.push({
+      id: String(row[0] || ''),
+      created_at: row[1] instanceof Date ? row[1].toISOString() : String(row[1] || ''),
+      name: String(row[2] || ''),
+      phone: String(row[3] || ''),
+      concern: String(row[4] || ''),
+      urgent: String(row[5] || 'NIE').toUpperCase() === 'TAK',
+      lang: String(row[6] || ''),
+      source: String(row[7] || ''),
+      status: String(row[8] || 'offen').toLowerCase(),
+      resolved_at: row[9] instanceof Date ? row[9].toISOString() : String(row[9] || '')
+    });
+  }
+  // Offene zuerst, dann neueste zuerst.
+  out.sort(function (a, b) {
+    if (a.status !== b.status) return a.status === 'offen' ? -1 : 1;
+    return (b.created_at || '').localeCompare(a.created_at || '');
+  });
+  return { success: true, zgloszenia: out };
+}
+
+/**
+ * Status eines Zgloszenia umschalten offen <-> erledigt (PIN, Suche per id).
+ * Setzt resolved_at beim Erledigen, leert es beim Wiederoeffnen.
+ */
+function toggleZgloszenie(params) {
+  const sheet = getZgloszeniaSheet();
+  if (!sheet) return { success: false, error: 'sheet_missing' };
+  const id = String(params.id || '');
+  if (!id) return { success: false, error: 'Brak id' };
+
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][0] || '') === id) {
+      const row = i + 1;
+      const current = String(sheet.getRange(row, 9).getValue() || 'offen').toLowerCase();
+      const next = current === 'offen' ? 'erledigt' : 'offen';
+      sheet.getRange(row, 9).setValue(next);
+      sheet.getRange(row, 10).setValue(next === 'erledigt' ? new Date() : '');
+      SpreadsheetApp.flush();
+      return { success: true, status: next };
+    }
+  }
+  return { success: false, error: 'Nie znaleziono zgłoszenia o id: ' + id };
 }

@@ -1455,3 +1455,76 @@ textarea.form-input {
   border-radius: var(--radius-md);
 }
 
+
+/* ============================================
+   ZGŁOSZENIA — Anliegen-Inbox (Voice/Chat-Agent)
+   ============================================ */
+.zg-intro {
+  color: var(--color-warm-700); font-size: var(--text-sm);
+  max-width: 60ch; margin: 0.25rem 0 1.25rem;
+}
+.zg-filter { margin-bottom: 1.25rem; }
+
+.zg-list { display: flex; flex-direction: column; gap: 0.85rem; }
+
+.zg-card {
+  display: flex; gap: 1rem; align-items: flex-start;
+  justify-content: space-between;
+  background: var(--color-warm-50);
+  border: 1px solid var(--color-warm-200);
+  border-left: 3px solid var(--color-warm-200);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.15rem;
+  box-shadow: var(--shadow-sm);
+  animation: fadeUp 0.3s var(--ease-out);
+}
+.zg-card.zg-urgent {
+  border-left-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+.zg-card.zg-done { opacity: 0.62; }
+.zg-card.zg-done .zg-concern { text-decoration: line-through; }
+
+.zg-card-main { min-width: 0; flex: 1; }
+.zg-card-top {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.zg-name {
+  font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600;
+  color: var(--color-warm-900); line-height: 1.2;
+}
+.zg-phone-row { margin: 0.15rem 0 0.5rem; }
+.zg-phone {
+  font-weight: 600; color: var(--color-accent-dark);
+  text-decoration: none; font-variant-numeric: tabular-nums;
+}
+.zg-phone:hover { text-decoration: underline; }
+.zg-muted { color: var(--color-warm-500); font-size: var(--text-sm); }
+.zg-concern {
+  margin: 0; color: var(--color-warm-800); font-size: var(--text-sm);
+  line-height: 1.5; white-space: pre-wrap; word-break: break-word;
+}
+.zg-date { color: var(--color-warm-500); font-size: var(--text-xs); margin-left: auto; }
+
+.zg-badge {
+  display: inline-flex; align-items: center;
+  padding: 0.12rem 0.5rem; border-radius: 999px;
+  font-size: var(--text-xs); font-weight: 600; line-height: 1.5;
+}
+.zg-badge-urgent { background: var(--color-danger); color: white; letter-spacing: 0.03em; }
+.zg-badge-src { background: var(--color-warm-100); color: var(--color-warm-700); }
+.zg-badge-lang { background: var(--color-warm-200); color: var(--color-warm-700); }
+
+.zg-card-actions { flex-shrink: 0; }
+.zg-toggle { white-space: nowrap; }
+
+.zg-empty { text-align: center; padding: 3rem 1rem; color: var(--color-warm-500); }
+.zg-empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+@media (max-width: 640px) {
+  .zg-card { flex-direction: column; gap: 0.75rem; }
+  .zg-card-actions { width: 100%; }
+  .zg-toggle { width: 100%; }
+  .zg-date { margin-left: 0; }
+}
