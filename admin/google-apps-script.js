@@ -847,10 +847,15 @@ function receiveZgloszenie(params) {
   ]);
   SpreadsheetApp.flush();
 
-  try {
-    notifyZgloszenie(name, phone, concern, urgent, lang, source);
-  } catch (e) {
-    // E-Mail-Fehler darf das Speichern nicht scheitern lassen — Eintrag steht im Sheet.
+  // E-Mail nur, wenn der Aufrufer sie NICHT schon selbst verschickt hat.
+  // Die Netlify-Funktion sendet via IONOS als admin@pmk-berlin.de und setzt dann no_email=true.
+  var skipEmail = (String(params.no_email || params.noEmail || '').toLowerCase() === 'true');
+  if (!skipEmail) {
+    try {
+      notifyZgloszenie(name, phone, concern, urgent, lang, source);
+    } catch (e) {
+      // E-Mail-Fehler darf das Speichern nicht scheitern lassen — Eintrag steht im Sheet.
+    }
   }
 
   return { success: true, id: id };

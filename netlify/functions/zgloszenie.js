@@ -44,6 +44,39 @@ function truthy(v) {
   return s === 'true' || s === '1' || s === 'tak' || s === 'ja' || s === 'yes';
 }
 
+// E-Mail an die Pfarrei über IONOS-SMTP, Absender = echte Pfarrei-Adresse (z.B. admin@pmk-berlin.de).
+// env-gated: ohne IONOS_SMTP_USER/PASS passiert nichts (dann mailt weiterhin das Apps Script).
+async function sendViaIonos(d) {
+  const user = process.env.IONOS_SMTP_USER;
+  const pass = process.env.IONOS_SMTP_PASS;
+  if (!user || !pass) return { sent: false, reason: 'smtp_not_configured' };
+  let nodemailer;
+  try { nodemailer = require('nodemailer'); }
+  catch (_) { return { sent: false, reason: 'nodemailer_missing' }; }
+
+  const host = process.env.IONOS_SMTP_HOST || 'smtp.ionos.de';
+  const port = parseInt(process.env.IONOS_SMTP_PORT || '465', 10);
+  const to = process.env.ZGLOSZENIE_TO || 'pmk@pmk-berlin.de';
+  const replyTo = process.env.ZGLOSZENIE_REPLYTO || 'pmk@pmk-berlin.de';
+  const fromName = process.env.ZGLOSZENIE_FROM_NAME || 'PMK Telefon-Assistent';
+
+  const srcLabel = d.source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
+  const subject = (d.urgent ? '[PILNE] ' : '') + 'Nowe zgłoszenie (' + srcLabel + ')'
+    + (d.name ? ' — ' + d.name : '');
+  const body =
+    (d.urgent ? '⚠️ ZGŁOSZENIE PILNE (np. pogrzeb / namaszczenie chorych)\n\n' : '')
+    + 'Nowe zgłoszenie przekazane przez ' + srcLabel + ':\n\n'
+    + 'Imię i nazwisko: ' + (d.name || '—') + '\n'
+    + 'Telefon (oddzwonić): ' + (d.phone || '—') + '\n'
+    + 'Język rozmowy: ' + (d.lang ? d.lang.toUpperCase() : '—') + '\n\n'
+    + 'Sprawa:\n' + (d.concern || '—') + '\n\n'
+    + '— Prosimy oddzwonić. Wiadomość wygenerowana automatycznie przez asystenta PMK.';
+
+  const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
+  await transporter.sendMail({ from: fromName + ' <' + user + '>', to, replyTo, subject, text: body });
+  return { sent: true };
+}
+
 exports.handler = async (event) => {
   // CORS-Preflight (falls der Agent/Browser OPTIONS schickt)
   if (event.httpMethod === 'OPTIONS') {
@@ -79,6 +112,11 @@ exports.handler = async (event) => {
   const sourceRaw = String(p.source || 'voice').trim().toLowerCase();
   const source = sourceRaw === 'chat' ? 'chat' : 'voice';
 
+  // 1) E-Mail über IONOS (echte Pfarrei-Adresse) — wenn konfiguriert.
+  let mail = { sent: false, reason: 'skipped' };
+  try { mail = await sendViaIonos({ name, phone, concern, lang, source, urgent: truthy(p.urgent) }); }
+  catch (e) { mail = { sent: false, reason: 'smtp_error', detail: e.message }; }
+
   const form = new URLSearchParams();
   form.set('action', 'zgloszenie');
   form.set('name', name);
@@ -87,6 +125,9 @@ exports.handler = async (event) => {
   form.set('urgent', truthy(p.urgent) ? 'true' : 'false');
   form.set('lang', lang);
   form.set('source', source);
+  // no_email=true NUR, wenn die Funktion die Mail schon verschickt hat
+  // (sonst mailt Apps Script als Fallback — nie kein Mail, höchstens transient doppelt).
+  form.set('no_email', mail.sent ? 'true' : 'false');
 
   try {
     const res = await fetch(APPS_SCRIPT_URL, {
@@ -100,7 +141,7 @@ exports.handler = async (event) => {
     try { data = JSON.parse(text); } catch (_) { data = { success: false, error: 'upstream_parse' }; }
     // Dem Agenten eine klare, knappe Antwort geben
     if (data && data.success) {
-      return json(200, { success: true, message: 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.' });
+      return json(200, { success: true, message: 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.', mail });
     }
     return json(502, { success: false, error: (data && data.error) || 'upstream_failed' });
   } catch (_) {
