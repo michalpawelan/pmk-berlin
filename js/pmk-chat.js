@@ -150,12 +150,12 @@ const CSS = `
     z-index: 2147483000;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 22px 10px 10px;
-    background: var(--pmk-cream);
-    border: 1px solid var(--pmk-border);
+    gap: 14px;
+    padding: 12px 24px 12px 12px;
+    background: #ffffff;
+    border: 1px solid var(--pmk-border-soft);
     border-radius: 999px;
-    box-shadow: var(--pmk-shadow-md);
+    box-shadow: 0 10px 30px rgba(31, 28, 24, 0.13), 0 3px 8px rgba(31, 28, 24, 0.05);
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
     cursor: pointer;
     opacity: 0;
@@ -163,7 +163,7 @@ const CSS = `
     transition: opacity 240ms ease, transform 240ms ease, box-shadow 200ms ease;
   }
   .pmk-launcher.is-ready { opacity: 1; transform: translateY(0); }
-  .pmk-launcher:hover { box-shadow: var(--pmk-shadow-lg); transform: translateY(-2px); }
+  .pmk-launcher:hover { box-shadow: 0 16px 40px rgba(31, 28, 24, 0.18), 0 4px 10px rgba(31, 28, 24, 0.07); transform: translateY(-3px); }
   .pmk-launcher:focus-visible { outline: 2px solid var(--pmk-gold); outline-offset: 3px; }
   .pmk-launcher.is-hidden {
     opacity: 0; pointer-events: none; transform: translateY(14px) scale(0.96);
@@ -172,19 +172,19 @@ const CSS = `
     position: relative;
     width: 48px; height: 48px;
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--pmk-cream);
     overflow: hidden; flex-shrink: 0;
     box-shadow: inset 0 0 0 1px var(--pmk-border-soft);
   }
   .pmk-launcher-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pmk-launcher-dot {
-    position: absolute; bottom: 2px; right: 2px;
-    width: 10px; height: 10px;
+    position: absolute; bottom: 1px; right: 1px;
+    width: 9px; height: 9px;
     background: #5c9a66;
-    border: 2px solid var(--pmk-cream);
+    border: 2px solid #ffffff;
     border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(92, 154, 102, 0.55);
-    animation: pmk-pulse 2.2s ease-out infinite;
+    box-shadow: 0 0 0 0 rgba(92, 154, 102, 0.5);
+    animation: pmk-pulse 2.4s ease-out infinite;
   }
   @keyframes pmk-pulse {
     0%   { box-shadow: 0 0 0 0   rgba(92, 154, 102, 0.55); }
@@ -192,7 +192,7 @@ const CSS = `
     100% { box-shadow: 0 0 0 0   rgba(92, 154, 102, 0); }
   }
   .pmk-launcher-text { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.25; white-space: nowrap; }
-  .pmk-launcher-title { font-size: 0.95rem; font-weight: 500; color: var(--pmk-ink); letter-spacing: -0.005em; }
+  .pmk-launcher-title { font-size: 0.95rem; font-weight: 600; color: var(--pmk-ink); letter-spacing: -0.005em; }
   .pmk-launcher-sub { font-size: 0.78rem; font-weight: 400; color: var(--pmk-gold); margin-top: 1px; }
 
   /* ================= TEASER (proactive nudge above launcher) ================= */
