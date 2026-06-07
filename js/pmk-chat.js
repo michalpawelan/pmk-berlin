@@ -38,15 +38,16 @@ const I18N = {
   pl: {
     launcher_title: 'Masz pytania?',
     launcher_sub: 'Napisz do nas',
+    teaser: 'Szczęść Boże! 🙏 Pomogę w sprawie Mszy, sakramentów czy wydarzeń?',
     header_name: 'Marta',
-    header_role: 'PMK Berlin',
+    header_role: 'Wirtualna asystentka · PMK Berlin',
     close: 'Zamknij',
     call_tooltip: 'Zadzwoń do parafii',
     input_placeholder: 'Napisz wiadomość…',
     send: 'Wyślij',
     connecting: 'Łączę…',
     connection_error: 'Chwilowy problem z połączeniem. Napisz jeszcze raz albo zadzwoń.',
-    greeting: 'Szczęść Boże! Jestem Marta z Polskiej Misji Katolickiej w Berlinie. W czym mogę pomóc?',
+    greeting: 'Szczęść Boże! Jestem Marta z Polskiej Misji Katolickiej w Berlinie. Pomogę Ci w sprawie Mszy Świętych, sakramentów, wydarzeń i kontaktu z parafią — w czym mogę pomóc?',
     chips_title: 'Popularne pytania',
     chips: [
       { icon: '⛪', label: 'Msze Święte',  text: 'Kiedy są Msze Święte?' },
@@ -60,15 +61,16 @@ const I18N = {
   de: {
     launcher_title: 'Haben Sie Fragen?',
     launcher_sub: 'Schreiben Sie uns',
+    teaser: 'Grüß Gott! 🙏 Fragen zu Messen, Sakramenten oder Terminen?',
     header_name: 'Marta',
-    header_role: 'PMK Berlin',
+    header_role: 'Virtuelle Assistentin · PMK Berlin',
     close: 'Schließen',
     call_tooltip: 'Die Pfarrei anrufen',
     input_placeholder: 'Nachricht schreiben…',
     send: 'Senden',
     connecting: 'Verbinde…',
     connection_error: 'Vorübergehender Verbindungsfehler. Bitte erneut versuchen oder anrufen.',
-    greeting: 'Grüß Gott! Ich bin Marta von der Polnischen Katholischen Mission in Berlin. Wie kann ich helfen?',
+    greeting: 'Grüß Gott! Ich bin Marta von der Polnischen Katholischen Mission in Berlin. Ich helfe bei Fragen zu Messen, Sakramenten, Veranstaltungen und Kontakt — wie kann ich helfen?',
     chips_title: 'Häufige Fragen',
     chips: [
       { icon: '⛪', label: 'Messzeiten',       text: 'Wann sind die Messen?' },
@@ -82,15 +84,16 @@ const I18N = {
   en: {
     launcher_title: 'Any questions?',
     launcher_sub: 'Message us',
+    teaser: 'Hello! 🙏 Questions about Mass, sacraments or events?',
     header_name: 'Marta',
-    header_role: 'PMK Berlin',
+    header_role: 'Virtual assistant · PMK Berlin',
     close: 'Close',
     call_tooltip: 'Call the parish',
     input_placeholder: 'Type a message…',
     send: 'Send',
     connecting: 'Connecting…',
     connection_error: 'Temporary connection issue. Please try again or call us.',
-    greeting: 'Hello! I\'m Marta from the Polish Catholic Mission in Berlin. How can I help?',
+    greeting: 'Hello! I\'m Marta from the Polish Catholic Mission in Berlin. I can help with Mass times, sacraments, events and contacting the parish — how can I help?',
     chips_title: 'Common questions',
     chips: [
       { icon: '⛪', label: 'Mass times',    text: 'When are the Masses?' },
@@ -167,7 +170,7 @@ const CSS = `
   }
   .pmk-launcher-avatar {
     position: relative;
-    width: 44px; height: 44px;
+    width: 48px; height: 48px;
     border-radius: 50%;
     background: #ffffff;
     overflow: hidden; flex-shrink: 0;
@@ -192,6 +195,42 @@ const CSS = `
   .pmk-launcher-title { font-size: 0.95rem; font-weight: 500; color: var(--pmk-ink); letter-spacing: -0.005em; }
   .pmk-launcher-sub { font-size: 0.78rem; font-weight: 400; color: var(--pmk-gold); margin-top: 1px; }
 
+  /* ================= TEASER (proactive nudge above launcher) ================= */
+  .pmk-teaser {
+    position: fixed;
+    right: 24px;
+    bottom: 96px;
+    z-index: 2147483000;
+    max-width: 250px;
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px;
+    background: #ffffff;
+    border: 1px solid var(--pmk-border-soft);
+    border-radius: 16px 16px 6px 16px;
+    box-shadow: var(--pmk-shadow-md);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--pmk-ink);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 280ms ease, transform 280ms ease;
+  }
+  .pmk-teaser.is-shown { opacity: 1; transform: translateY(0); }
+  .pmk-teaser-text { font-size: 0.9rem; line-height: 1.42; }
+  .pmk-teaser-close {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border: none; background: var(--pmk-cream-2);
+    border-radius: 50%;
+    color: var(--pmk-ink-soft);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 15px; line-height: 1;
+    transition: background 160ms ease, color 160ms ease;
+  }
+  .pmk-teaser-close:hover { background: var(--pmk-border); color: var(--pmk-ink); }
+  .pmk-teaser-close:focus-visible { outline: 2px solid var(--pmk-gold); outline-offset: 2px; }
+
   /* ================= PANEL (open state) ================= */
   .pmk-panel {
     position: fixed;
@@ -200,7 +239,7 @@ const CSS = `
     z-index: 2147483001;
     width: 380px;
     max-width: calc(100vw - 32px);
-    height: 580px;
+    height: clamp(520px, 72vh, 680px);
     max-height: calc(100vh - 48px);
     background: var(--pmk-cream);
     border: 1px solid var(--pmk-border);
@@ -213,7 +252,7 @@ const CSS = `
     opacity: 0;
     transform: translateY(18px) scale(0.98);
     pointer-events: none;
-    transition: opacity 240ms ease, transform 240ms ease;
+    transition: opacity 220ms ease, transform 300ms cubic-bezier(0.34, 1.4, 0.64, 1);
   }
   .pmk-panel.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 
@@ -361,10 +400,14 @@ const CSS = `
     border-bottom-left-radius: 6px;
   }
   .pmk-msg-user .pmk-msg-bubble {
-    background: var(--pmk-gold);
+    background: var(--pmk-gold-dark);
     color: #ffffff;
     border-bottom-right-radius: 6px;
   }
+
+  /* Grouped consecutive agent messages: avatar once per run, tighter spacing */
+  .pmk-msg-grouped { margin-top: -6px; }
+  .pmk-msg-grouped .pmk-msg-avatar { visibility: hidden; }
   .pmk-msg-typing .pmk-msg-bubble {
     display: inline-flex; align-items: center; gap: 4px;
     padding: 14px 16px;
@@ -430,9 +473,10 @@ const CSS = `
   /* Mobile */
   @media (max-width: 540px) {
     .pmk-launcher { bottom: 16px; right: 16px; padding: 8px 18px 8px 8px; gap: 10px; }
-    .pmk-launcher-avatar { width: 38px; height: 38px; }
+    .pmk-launcher-avatar { width: 44px; height: 44px; }
     .pmk-launcher-title { font-size: 0.88rem; }
     .pmk-launcher-sub { font-size: 0.72rem; }
+    .pmk-teaser { right: 16px; bottom: 84px; max-width: calc(100vw - 84px); }
     .pmk-panel {
       width: 100vw; height: 100dvh; max-height: 100dvh;
       bottom: 0; right: 0;
@@ -440,7 +484,7 @@ const CSS = `
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .pmk-launcher, .pmk-panel, .pmk-msg, .pmk-launcher-dot, .pmk-chip, .pmk-send-btn {
+    .pmk-launcher, .pmk-panel, .pmk-msg, .pmk-launcher-dot, .pmk-chip, .pmk-send-btn, .pmk-teaser {
       animation: none !important;
       transition: none !important;
     }
@@ -511,7 +555,7 @@ function buildLauncher() {
   btn.setAttribute('aria-label', t('launcher_title') + ' — ' + t('launcher_sub'));
   btn.innerHTML =
     '<span class="pmk-launcher-avatar">' +
-      '<img src="' + AVATAR_URL + '" alt="" width="44" height="44" loading="lazy">' +
+      '<img src="' + AVATAR_URL + '" alt="" width="48" height="48" loading="lazy">' +
       '<span class="pmk-launcher-dot" aria-hidden="true"></span>' +
     '</span>' +
     '<span class="pmk-launcher-text">' +
@@ -610,6 +654,49 @@ function buildPanel() {
 }
 
 // -----------------------------------------------------------------------------
+// Proactive teaser (gentle, once per session)
+// -----------------------------------------------------------------------------
+function buildTeaser() {
+  const el = document.createElement('div');
+  el.id = 'pmkTeaser';
+  el.className = 'pmk-teaser';
+  el.setAttribute('role', 'button');
+  el.setAttribute('tabindex', '0');
+  el.innerHTML =
+    '<span class="pmk-teaser-text"></span>' +
+    '<button type="button" class="pmk-teaser-close" aria-label="' + escapeHTML(t('close')) + '">&times;</button>';
+  el.addEventListener('click', (e) => {
+    if (e.target.closest('.pmk-teaser-close')) { dismissTeaser(); return; }
+    dismissTeaser();
+    openChat();
+  });
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dismissTeaser(); openChat(); }
+  });
+  document.body.appendChild(el);
+  els.teaser = el;
+  return el;
+}
+
+function showTeaser() {
+  if (state.isOpen || !els.teaser) return;
+  try { if (sessionStorage.getItem('pmk-teaser-seen')) return; } catch (e) {}
+  const txt = els.teaser.querySelector('.pmk-teaser-text');
+  if (txt) txt.textContent = t('teaser');
+  els.teaser.setAttribute('aria-label', t('teaser') + ' — ' + t('launcher_title'));
+  requestAnimationFrame(() => els.teaser.classList.add('is-shown'));
+}
+
+function dismissTeaser() {
+  if (!els.teaser) return;
+  const el = els.teaser;
+  els.teaser = null;
+  el.classList.remove('is-shown');
+  try { sessionStorage.setItem('pmk-teaser-seen', '1'); } catch (e) {}
+  setTimeout(() => { if (el && el.parentNode) el.remove(); }, 300);
+}
+
+// -----------------------------------------------------------------------------
 // Conversation lifecycle
 // -----------------------------------------------------------------------------
 async function ensureConversation() {
@@ -697,10 +784,12 @@ function showEmpty() {
 }
 
 function appendMessage(role, text) {
+  const prevRole = state.messages.length ? state.messages[state.messages.length - 1].role : null;
   state.messages.push({ role, text });
   removeFollowups();
   const div = document.createElement('div');
-  div.className = 'pmk-msg pmk-msg-' + role;
+  div.className = 'pmk-msg pmk-msg-' + role +
+    (role === 'agent' && prevRole === 'agent' ? ' pmk-msg-grouped' : '');
   const avatarSrc = role === 'agent' ? AVATAR_URL : '';
   div.innerHTML =
     (role === 'agent' ? '<span class="pmk-msg-avatar"><img src="' + avatarSrc + '" alt=""></span>' : '') +
@@ -792,6 +881,7 @@ function scrollToBottom() {
 function openChat() {
   if (state.isOpen) return;
   state.isOpen = true;
+  dismissTeaser();
   state.prevFocus = document.activeElement;
   els.launcher.classList.add('is-hidden');
   els.launcher.inert = true;
@@ -854,6 +944,12 @@ function init() {
   els.launcher = buildLauncher();
   buildPanel();
   handleLanguageChange();
+  // Proactive teaser — once per session, suppressed on focused-task pages (forms)
+  const path = (location.pathname || '').toLowerCase();
+  if (!/zgloszenie|kontakt/.test(path)) {
+    buildTeaser();
+    setTimeout(showTeaser, 15000);
+  }
   // Escape schließt den geöffneten Chat (a11y)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.isOpen) closeChat();
