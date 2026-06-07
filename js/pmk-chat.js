@@ -370,8 +370,11 @@ const CSS = `
   }
   @keyframes pmk-msg-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-  .pmk-msg-agent { align-self: flex-start; }
-  .pmk-msg-user  { align-self: flex-end; flex-direction: row-reverse; }
+  /* Rows span the full width; the bubble is content-sized (max 84%) and pushed to the
+     correct side via direction. (Shrink-wrapping the row made max-width:84% circular →
+     short bubbles collapsed into a 1-char column.) */
+  .pmk-msg-agent { align-self: stretch; }
+  .pmk-msg-user  { align-self: stretch; flex-direction: row-reverse; }
 
   .pmk-msg-avatar {
     width: 28px; height: 28px; border-radius: 50%;
@@ -599,7 +602,8 @@ function renderRich(text) {
   // NESTED inside that step (sub-points), so a procedure reads as one organized outline
   // instead of a flush-left jumble. Numbering is driven by a CSS counter.
   const rawLines = html.split('\n');
-  let out = '', listTag = null, items = [], firstNum = null, openSub = false;
+  const blocks = [];
+  let listTag = null, items = [], firstNum = null, openSub = false;
   const closeSub = function () {
     if (openSub) { items[items.length - 1] += '</ul></li>'; openSub = false; }
   };
@@ -608,7 +612,7 @@ function renderRich(text) {
     if (listTag) {
       const startAttr = (listTag === 'ol' && firstNum && firstNum !== '1')
         ? ' style="--pmk-start:' + firstNum + '"' : '';
-      out += '<' + listTag + ' class="pmk-md-list"' + startAttr + '>' + items.join('') + '</' + listTag + '>';
+      blocks.push('<' + listTag + ' class="pmk-md-list"' + startAttr + '>' + items.join('') + '</' + listTag + '>');
       items = []; listTag = null; firstNum = null;
     }
   };
@@ -626,10 +630,14 @@ function renderRich(text) {
     closeSub();
     if (ol) { if (listTag !== 'ol') { flush(); listTag = 'ol'; firstNum = ol[1]; } items.push('<li>' + ol[2] + '</li>'); }
     else if (ul) { if (listTag !== 'ul') { flush(); listTag = 'ul'; } items.push('<li>' + ul[1] + '</li>'); }
-    else { flush(); out += '<p>' + ln + '</p>'; }
+    else { flush(); blocks.push('<p>' + ln + '</p>'); }
   });
   flush();
-  return out;
+  // A single short paragraph (a quick "hey", a one-line reply) renders INLINE — no <p> block —
+  // otherwise the block child collapses the flex bubble into a 1-char-wide column. Multi-block
+  // answers (lists / several paragraphs) keep the full typeset formatting.
+  if (blocks.length === 1 && blocks[0].slice(0, 3) === '<p>') return blocks[0].slice(3, -4);
+  return blocks.join('');
 }
 
 // -----------------------------------------------------------------------------
