@@ -386,18 +386,19 @@ const CSS = `
   .pmk-msg-user .pmk-msg-avatar { display: none; }
 
   .pmk-msg-bubble {
-    padding: 9px 13px;
+    padding: 11px 15px;
     border-radius: 16px;
     font-size: 0.94rem;
-    line-height: 1.42;
+    line-height: 1.6;
     max-width: 84%;
     word-wrap: break-word;
   }
   .pmk-msg-agent .pmk-msg-bubble {
-    background: #ffffff;
+    background: #fffdfa;
     color: var(--pmk-ink);
     border: 1px solid var(--pmk-border-soft);
     border-bottom-left-radius: 6px;
+    box-shadow: var(--pmk-shadow-sm);
   }
   .pmk-msg-user .pmk-msg-bubble {
     background: var(--pmk-gold-dark);
@@ -408,6 +409,75 @@ const CSS = `
   /* Grouped consecutive agent messages: avatar once per run, tighter spacing */
   .pmk-msg-grouped { margin-top: -6px; }
   .pmk-msg-grouped .pmk-msg-avatar { visibility: hidden; }
+
+  /* Typeset paragraphs + lists inside a message bubble (gold numerals, nested sub-points) */
+  .pmk-msg-bubble p { margin: 0 0 9px; }
+  .pmk-msg-bubble p:last-child { margin-bottom: 0; }
+  .pmk-msg-bubble strong { font-weight: 600; color: var(--pmk-ink); }
+
+  .pmk-md-list {
+    margin: 8px 0 9px;
+    padding: 0;
+    list-style: none;
+    counter-reset: pmk-step;
+  }
+  .pmk-md-list:last-child { margin-bottom: 0; }
+  ol.pmk-md-list[style*="--pmk-start"] { counter-reset: pmk-step calc(var(--pmk-start) - 1); }
+
+  .pmk-md-list > li {
+    position: relative;
+    margin: 0 0 7px;
+    padding-left: 1.9em;
+    line-height: 1.55;
+  }
+  .pmk-md-list > li:last-child { margin-bottom: 0; }
+
+  /* ordered: gold numeral on a hanging indent, right-aligned, tabular */
+  ol.pmk-md-list > li::before {
+    counter-increment: pmk-step;
+    content: counter(pmk-step) ".";
+    position: absolute;
+    left: 0; top: 0;
+    width: 1.5em;
+    text-align: right;
+    color: var(--pmk-gold);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  /* unordered: small gold dot */
+  ul.pmk-md-list > li::before {
+    content: "";
+    position: absolute;
+    left: 0.5em; top: 0.66em;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--pmk-gold);
+  }
+
+  /* sub-bullets nested INSIDE a step — one tone quieter, fainter dot */
+  .pmk-md-sub {
+    list-style: none;
+    margin: 5px 0 0;
+    padding: 0;
+  }
+  .pmk-md-sub > li {
+    position: relative;
+    margin: 0 0 4px;
+    padding-left: 1em;
+    line-height: 1.5;
+    color: var(--pmk-ink-soft);
+    font-size: 0.91rem;
+  }
+  .pmk-md-sub > li:last-child { margin-bottom: 0; }
+  .pmk-md-sub > li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.6em;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--pmk-gold);
+    opacity: 0.5;
+  }
   .pmk-msg-typing .pmk-msg-bubble {
     display: inline-flex; align-items: center; gap: 4px;
     padding: 14px 16px;
@@ -525,10 +595,41 @@ function renderRich(text) {
     return seg.replace(/(https?:\/\/[^\s<]*[^\s<.,;:!?)\]])/g,
       '<a href="$1" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">$1</a>');
   }).join('');
-  // Collapse two-or-more newlines to a single newline so numbered lists don't get blown apart.
-  html = html.replace(/\n{2,}/g, '\n');
-  html = html.replace(/\n/g, '<br>');
-  return html;
+  // Block-level: build paragraphs + lists. Bullets that follow a numbered step are
+  // NESTED inside that step (sub-points), so a procedure reads as one organized outline
+  // instead of a flush-left jumble. Numbering is driven by a CSS counter.
+  const rawLines = html.split('\n');
+  let out = '', listTag = null, items = [], firstNum = null, openSub = false;
+  const closeSub = function () {
+    if (openSub) { items[items.length - 1] += '</ul></li>'; openSub = false; }
+  };
+  const flush = function () {
+    closeSub();
+    if (listTag) {
+      const startAttr = (listTag === 'ol' && firstNum && firstNum !== '1')
+        ? ' style="--pmk-start:' + firstNum + '"' : '';
+      out += '<' + listTag + ' class="pmk-md-list"' + startAttr + '>' + items.join('') + '</' + listTag + '>';
+      items = []; listTag = null; firstNum = null;
+    }
+  };
+  rawLines.forEach(function (raw) {
+    const ln = raw.trim();
+    if (!ln) return;
+    const ol = ln.match(/^(\d+)[.)]\s+(.*)$/);
+    const ul = ln.match(/^[-•*]\s+(.*)$/);
+    // a bullet while a numbered list is open = sub-point of the current step → nest it
+    if (ul && listTag === 'ol' && items.length) {
+      if (!openSub) { items[items.length - 1] = items[items.length - 1].replace(/<\/li>$/, '<ul class="pmk-md-sub">'); openSub = true; }
+      items[items.length - 1] += '<li>' + ul[1] + '</li>';
+      return;
+    }
+    closeSub();
+    if (ol) { if (listTag !== 'ol') { flush(); listTag = 'ol'; firstNum = ol[1]; } items.push('<li>' + ol[2] + '</li>'); }
+    else if (ul) { if (listTag !== 'ul') { flush(); listTag = 'ul'; } items.push('<li>' + ul[1] + '</li>'); }
+    else { flush(); out += '<p>' + ln + '</p>'; }
+  });
+  flush();
+  return out;
 }
 
 // -----------------------------------------------------------------------------
@@ -702,7 +803,6 @@ function dismissTeaser() {
 async function ensureConversation() {
   if (state.conversation || state.connecting) return state.conversation;
   state.connecting = true;
-  showStatus(t('connecting'));
   try {
     const Conversation = await loadConversationCtor();
     state.conversation = await Conversation.startSession({
@@ -887,6 +987,9 @@ function openChat() {
   els.launcher.inert = true;
   els.panel.classList.add('is-open');
   els.panel.inert = false;
+  // Pre-warm the agent connection (lazy SDK + WebSocket) now, while the visitor reads
+  // the greeting / types — so the first answer comes in seconds, not after a ~10s connect.
+  ensureConversation();
   setTimeout(() => { els.input.focus(); }, 250);
 }
 
