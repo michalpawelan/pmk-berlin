@@ -11,9 +11,16 @@ const KI = (function() {
   let transcriptCache = {};           // key = conversation_id, value = {state, transcript, error}
 
   const URGENT_KEYWORDS = [
+    // PL
     'namaszczenie', 'umiera', 'umrzeć', 'umrzec', 'śmierc', 'smierc', 'śmierć', 'smierci',
     'pogrzeb', 'pilne', 'pilny', 'pilna', 'nagła', 'naglą', 'szpital', 'umar', 'zmarł', 'zmarl',
-    'krwotok', 'wypadek', 'umarł'
+    'krwotok', 'wypadek', 'umarł', 'sakrament', 'hospicjum', 'reanimacja',
+    // DE
+    'krankenhaus', 'krankensalbung', 'sterbe', 'sterben', 'gestorben', 'verstorben', 'verstirbt',
+    'beerdigung', 'beisetzung', 'notfall', 'dringend', 'seelsorge', 'palliativ', 'hospiz',
+    'letzte ölung', 'sterbesakrament', 'unfall', 'intensivstation', 'todesfall',
+    // EN
+    'hospital', 'dying', 'died', 'funeral', 'urgent', 'emergency', 'last rites', 'palliative', 'hospice'
   ];
 
   function isUrgent(c) {
