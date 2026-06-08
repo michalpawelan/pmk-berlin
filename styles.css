@@ -5108,3 +5108,43 @@ a.event-card-full:hover {
 .footer-newsletter-msg-err { color: rgba(255, 180, 180, 1); }
 .footer-newsletter-legal { font-size: 0.75rem; margin-top: 0.6rem; }
 .footer-newsletter-legal a { color: rgba(255, 255, 255, 0.55); text-decoration: underline; }
+
+/* =====================================================================
+   Sacrament / sub-page hero + breadcrumb (moved to global).
+   Previously these rules lived only in per-page inline <style> blocks, so
+   the DE pages that lacked that block (de/sakramente, de/messzeiten,
+   de/kontakt, de/ueber-uns) rendered a giant unstyled breadcrumb chevron
+   and an unstyled hero. Defining them globally fixes every page that uses
+   the .sacr-* hero markup.
+   ===================================================================== */
+.sacr-hero { padding: calc(var(--nav-height, 80px) + var(--space-10)) 0 var(--space-10); background: var(--color-warm-100); border-bottom: 1px solid var(--color-border); }
+.sacr-hero-inner { max-width: 780px; margin: 0 auto; padding: 0 var(--space-6); }
+.sacr-breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-6); }
+.sacr-breadcrumb a { color: var(--color-text-secondary); text-decoration: none; transition: color 0.2s; }
+.sacr-breadcrumb a:hover { color: var(--color-accent); }
+.sacr-breadcrumb svg { width: 14px; height: 14px; opacity: 0.4; flex-shrink: 0; }
+.sacr-hero-badge { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.35em 0.85em; font-size: var(--text-xs); font-weight: 600; color: white; background: var(--color-accent); border-radius: 2em; margin-bottom: var(--space-4); }
+.sacr-hero-badge svg { width: 14px; height: 14px; }
+.sacr-hero-inner h1 { font-family: var(--font-serif); font-size: var(--text-3xl); font-weight: 500; color: var(--color-text-primary); line-height: 1.2; margin-bottom: var(--space-4); }
+.sacr-hero-inner h1 em { color: var(--color-accent); font-style: italic; }
+.sacr-hero-lead { font-size: var(--text-lg); color: var(--color-text-secondary); line-height: 1.7; max-width: 600px; margin-bottom: var(--space-6); }
+.sacr-hero-quick { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.sacr-quick-item { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary); }
+.sacr-quick-item svg { width: 16px; height: 16px; color: var(--color-accent); flex-shrink: 0; }
+.sacr-quick-item strong { color: var(--color-text-primary); font-weight: 600; }
+
+/* =====================================================================
+   Community (wspolnota) contact form — previously unstyled native HTML.
+   ===================================================================== */
+.wspolnota-kontakt { max-width: 640px; margin: 0 auto; padding: var(--space-12) var(--space-6) var(--space-16); }
+.wspolnota-kontakt h2 { font-family: var(--font-serif); font-size: var(--text-2xl); font-weight: 500; color: var(--color-text-primary); text-align: center; margin-bottom: var(--space-8); }
+.wspolnota-kontakt h2 em { color: var(--color-accent); font-style: italic; }
+.wspolnota-kontakt form { display: flex; flex-direction: column; gap: var(--space-4); }
+.wspolnota-kontakt form > p { margin: 0; }
+.wspolnota-kontakt label { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--color-text-primary); line-height: 1.5; }
+.wspolnota-kontakt input[type="text"], .wspolnota-kontakt input[type="email"], .wspolnota-kontakt textarea { width: 100%; margin-top: var(--space-2); padding: 0.7rem 0.9rem; font: inherit; font-size: var(--text-base); color: var(--color-text-primary); background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); transition: border-color 0.2s, box-shadow 0.2s; }
+.wspolnota-kontakt input[type="text"]:focus, .wspolnota-kontakt input[type="email"]:focus, .wspolnota-kontakt textarea:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(166,139,91,0.12); }
+.wspolnota-kontakt textarea { resize: vertical; min-height: 120px; }
+.wspolnota-kontakt button[type="submit"] { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5em; padding: var(--space-3) var(--space-6); font: inherit; font-weight: 600; font-size: var(--text-sm); color: white; background: var(--color-accent); border: none; border-radius: 9999px; cursor: pointer; box-shadow: 0 2px 10px rgba(166,139,91,0.3); transition: all 0.2s ease; }
+.wspolnota-kontakt button[type="submit"]:hover { background: var(--color-accent-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(166,139,91,0.4); }
+@media (max-width: 640px) { .wspolnota-kontakt button[type="submit"] { align-self: stretch; justify-content: center; } }
