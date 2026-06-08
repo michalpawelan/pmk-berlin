@@ -36,7 +36,10 @@ const Newsletter = (function() {
   function filtered() {
     return subs.filter(s => {
       if (filterLang !== 'all' && s.lang !== filterLang) return false;
-      if (searchTerm && !s.email.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+      if (searchTerm) {
+        const q = searchTerm.toLowerCase();
+        if (!s.email.toLowerCase().includes(q) && !String(s.first_name || '').toLowerCase().includes(q)) return false;
+      }
       return true;
     });
   }
@@ -79,9 +82,9 @@ const Newsletter = (function() {
 
   function exportCsv() {
     const rows = filtered();
-    const header = 'email,lang,source,created_at\n';
+    const header = 'email,first_name,lang,source,created_at\n';
     const body = rows.map(r =>
-      [r.email, r.lang, r.source, r.created_at].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')
+      [r.email, r.first_name || '', r.lang, r.source, r.created_at].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')
     ).join('\n');
     const blob = new Blob([header + body], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -114,7 +117,7 @@ const Newsletter = (function() {
       </div>
       ` : ''}
       <div class="news-toolbar">
-        <input class="news-search" placeholder="Szukaj po e-mailu…" value="${escapeHtml(searchTerm)}">
+        <input class="news-search" placeholder="Szukaj po e-mailu lub imieniu…" value="${escapeHtml(searchTerm)}">
         <select class="news-filter">
           <option value="all">Wszystkie języki</option>
           <option value="pl" ${filterLang === 'pl' ? 'selected' : ''}>Polski</option>
@@ -123,18 +126,19 @@ const Newsletter = (function() {
         <button class="btn btn-ghost btn-sm news-export">Eksportuj CSV</button>
       </div>
       <table class="news-table">
-        <thead><tr><th>E-mail</th><th>Język</th><th>Źródło</th><th>Zapisano</th></tr></thead>
+        <thead><tr><th>E-mail</th><th>Imię</th><th>Język</th><th>Źródło</th><th>Zapisano</th></tr></thead>
         <tbody>
           ${rows.length === 0 ? (loading ? `
-            <tr><td colspan="4" class="ki-loading">
+            <tr><td colspan="5" class="ki-loading">
               <div class="ki-spinner"></div>
               <span>Wczytywanie zapisów…</span>
             </td></tr>
           ` : `
-            <tr><td colspan="4" class="news-empty">Brak zapisów</td></tr>
+            <tr><td colspan="5" class="news-empty">Brak zapisów</td></tr>
           `) : rows.map(r => `
             <tr>
               <td>${escapeHtml(r.email)}</td>
+              <td>${r.first_name ? escapeHtml(r.first_name) : '<span class="news-src">—</span>'}</td>
               <td><span class="news-lang-badge news-lang-${escapeHtml(r.lang)}">${escapeHtml(r.lang.toUpperCase())}</span></td>
               <td class="news-src">${escapeHtml(friendlySource(r.source))}</td>
               <td>${fmtDate(r.created_at)}</td>

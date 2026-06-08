@@ -363,13 +363,14 @@ function subscribeNewsletter(params) {
 
   const lang = String(params.lang || 'pl').toLowerCase().slice(0, 2);
   const source = String(params.source || '').slice(0, 200);
+  const firstName = String(params.first_name || '').trim().slice(0, 60);
 
   const sheet = getNewsletterSheet();
   if (!sheet) {
     return { success: false, error: 'sheet_missing' };
   }
 
-  // Double-Opt-in. Spalten: A:Email B:Data C:Jezyk D:Zrodlo E:Status F:Token
+  // Double-Opt-in. Spalten: A:Email B:Data C:Jezyk D:Zrodlo E:Status F:Token G:Imie
   const data = sheet.getDataRange().getValues();
   const token = Utilities.getUuid();
   let existingRow = 0;            // 1-basierte Zeilennummer, 0 = nicht vorhanden
@@ -391,8 +392,9 @@ function subscribeNewsletter(params) {
     // war "pending" -> Token auffrischen und Bestaetigung erneut senden
     sheet.getRange(existingRow, 5).setValue('pending');
     sheet.getRange(existingRow, 6).setValue(token);
+    if (firstName) sheet.getRange(existingRow, 7).setValue(firstName); // G: Imie
   } else {
-    sheet.appendRow([rawEmail, new Date(), lang, source, 'pending', token]);
+    sheet.appendRow([rawEmail, new Date(), lang, source, 'pending', token, firstName]);
   }
   SpreadsheetApp.flush();
 
@@ -577,6 +579,7 @@ function listSubscribers() {
     if (status === 'pending') continue; // Double-Opt-in: nicht bestaetigte ausblenden
     out.push({
       email: String(row[0]),
+      first_name: String(row[6] || ''),
       lang: String(row[2] || ''),
       source: String(row[3] || ''),
       status: status || 'confirmed',

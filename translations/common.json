@@ -106,5 +106,9 @@
   "footer.newsletter_legal": {
     "pl": "Informacja o ochronie danych",
     "de": "Datenschutzhinweis"
+  },
+  "footer.newsletter_firstname": {
+    "pl": "imię (opcjonalnie)",
+    "de": "Vorname (optional)"
   }
 }

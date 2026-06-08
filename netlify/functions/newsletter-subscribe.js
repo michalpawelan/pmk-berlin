@@ -18,6 +18,7 @@ exports.handler = async (event) => {
   const email = String(payload.email || '').trim().toLowerCase();
   const lang = String(payload.lang || 'pl').toLowerCase().slice(0, 2);
   const source = String(payload.source || '').slice(0, 200);
+  const firstName = String(payload.firstName || '').trim().slice(0, 60);
   const honeypot = String(payload.website || '').trim();
 
   if (honeypot) {
@@ -32,6 +33,7 @@ exports.handler = async (event) => {
   form.set('email', email);
   form.set('lang', lang);
   form.set('source', source);
+  form.set('first_name', firstName);
 
   try {
     const res = await fetch(APPS_SCRIPT_URL, {

@@ -691,6 +691,7 @@ window.PmkNewsletter = {
     const btn = form.querySelector('.footer-newsletter-btn');
     const msg = form.querySelector('.footer-newsletter-msg');
     const data = {
+      firstName: form.firstName ? form.firstName.value.trim().slice(0, 60) : '',
       email: form.email.value.trim(),
       website: form.website.value,
       lang: (document.documentElement.lang || 'pl').slice(0, 2),

@@ -289,13 +289,14 @@
   <h4 data-i18n="footer.newsletter_title">Bądź na bieżąco</h4>
   <p data-i18n="footer.newsletter_desc">Newsletter parafii — informacje o wydarzeniach, ogłoszenia.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="imię (opcjonalnie)" data-i18n-attr="placeholder:footer.newsletter_firstname" class="footer-newsletter-input" aria-label="Imię / Vorname">
     <input type="email" name="email" required placeholder="twój e-mail" data-i18n-attr="placeholder:footer.newsletter_placeholder" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
   <p class="footer-newsletter-legal">
-    <a href="datenschutz.html" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
+    <a href="/datenschutz.html" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
   </p>
 </div>
 <!-- END newsletter-footer -->
