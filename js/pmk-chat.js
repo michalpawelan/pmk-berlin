@@ -172,11 +172,13 @@ const CSS = `
     position: relative;
     width: 48px; height: 48px;
     border-radius: 50%;
-    background: var(--pmk-cream);
-    overflow: hidden; flex-shrink: 0;
-    box-shadow: inset 0 0 0 1px var(--pmk-border-soft);
+    background: #ffffff;
+    color: #3d3731;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: inset 0 0 0 2px #a68b5b, 0 1px 3px rgba(31,28,24,0.16);
   }
-  .pmk-launcher-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pmk-launcher-avatar svg { width: 60%; height: 60%; display: block; }
   .pmk-launcher-dot {
     position: absolute; bottom: 1px; right: 1px;
     width: 9px; height: 9px;
@@ -266,11 +268,13 @@ const CSS = `
   }
   .pmk-header-avatar {
     width: 40px; height: 40px; border-radius: 50%;
-    background: var(--pmk-cream); overflow: hidden;
-    box-shadow: inset 0 0 0 1px var(--pmk-border-soft);
+    background: #ffffff;
+    color: #3d3731;
+    display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    box-shadow: inset 0 0 0 2px #a68b5b;
   }
-  .pmk-header-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pmk-header-avatar svg { width: 60%; height: 60%; display: block; }
   .pmk-header-text { flex: 1; display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
   .pmk-header-name { font-family: 'Cormorant', Georgia, serif; font-weight: 500; font-size: 1.15rem; color: var(--pmk-ink); letter-spacing: -0.01em; }
   .pmk-header-role { font-size: 0.75rem; color: var(--pmk-gold); font-weight: 400; margin-top: 1px; }
@@ -378,14 +382,15 @@ const CSS = `
 
   .pmk-msg-avatar {
     width: 28px; height: 28px; border-radius: 50%;
-    background: var(--pmk-cream);
-    overflow: hidden;
+    background: #ffffff;
+    color: #3d3731;
+    display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    box-shadow: inset 0 0 0 1px var(--pmk-border-soft);
     align-self: flex-end;
     margin-bottom: 2px;
+    box-shadow: inset 0 0 0 1.5px #a68b5b;
   }
-  .pmk-msg-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pmk-msg-avatar svg { width: 60%; height: 60%; display: block; }
   .pmk-msg-user .pmk-msg-avatar { display: none; }
 
   .pmk-msg-bubble {
@@ -578,6 +583,8 @@ function injectCSS() {
 const ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
 const ICON_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>';
 const ICON_SEND  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+// Clean Latin cross emblem (white on the gold avatar disc) — replaces the old logo PNG (cross+sprout).
+const ICON_CROSS = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.4 2.6h3.2v4.8h4.8v3.2h-4.8V21.4h-3.2V10.6H5.6V7.4h4.8z"/></svg>';
 
 function escapeHTML(str) {
   return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -664,7 +671,7 @@ function buildLauncher() {
   btn.setAttribute('aria-label', t('launcher_title') + ' — ' + t('launcher_sub'));
   btn.innerHTML =
     '<span class="pmk-launcher-avatar">' +
-      '<img src="' + AVATAR_URL + '" alt="" width="48" height="48" loading="lazy">' +
+      ICON_CROSS +
       '<span class="pmk-launcher-dot" aria-hidden="true"></span>' +
     '</span>' +
     '<span class="pmk-launcher-text">' +
@@ -689,7 +696,7 @@ function buildPanel() {
   panel.innerHTML =
     '<header class="pmk-header">' +
       '<span class="pmk-header-avatar">' +
-        '<img src="' + AVATAR_URL + '" alt="" width="40" height="40">' +
+        ICON_CROSS +
       '</span>' +
       '<span class="pmk-header-text">' +
         '<span class="pmk-header-name">' + t('header_name') + '</span>' +
@@ -909,7 +916,7 @@ function appendMessage(role, text) {
     (role === 'agent' && prevRole === 'agent' ? ' pmk-msg-grouped' : '');
   const avatarSrc = role === 'agent' ? AVATAR_URL : '';
   div.innerHTML =
-    (role === 'agent' ? '<span class="pmk-msg-avatar"><img src="' + avatarSrc + '" alt=""></span>' : '') +
+    (role === 'agent' ? '<span class="pmk-msg-avatar">' + ICON_CROSS + '</span>' : '') +
     '<div class="pmk-msg-bubble">' + renderRich(text) + '</div>';
   els.body.appendChild(div);
   if (role === 'agent') renderFollowups();
@@ -959,7 +966,7 @@ function showTyping() {
   div.id = 'pmkTyping';
   div.setAttribute('aria-hidden', 'true'); // Tipp-Punkte nicht vom Screenreader vorlesen
   div.innerHTML =
-    '<span class="pmk-msg-avatar"><img src="' + AVATAR_URL + '" alt=""></span>' +
+    '<span class="pmk-msg-avatar">' + ICON_CROSS + '</span>' +
     '<div class="pmk-msg-bubble"><span class="pmk-dot"></span><span class="pmk-dot"></span><span class="pmk-dot"></span></div>';
   els.body.appendChild(div);
   scrollToBottom();
@@ -1064,12 +1071,6 @@ function init() {
   els.launcher = buildLauncher();
   buildPanel();
   handleLanguageChange();
-  // Proactive teaser — once per session, suppressed on focused-task pages (forms)
-  const path = (location.pathname || '').toLowerCase();
-  if (!/zgloszenie|kontakt/.test(path)) {
-    buildTeaser();
-    setTimeout(showTeaser, 15000);
-  }
   // Escape schließt den geöffneten Chat (a11y)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && state.isOpen) closeChat();
