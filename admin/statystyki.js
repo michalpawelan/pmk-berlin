@@ -82,35 +82,68 @@ const Statystyki = (function() {
     }
   }
 
-  function barChart(buckets, title) {
+  function trendChart(buckets, title, idSuffix) {
     if (!buckets || !buckets.length) {
-      return '<div class="stat-chart"><h3>' + escapeHtml(title) + '</h3><p class="stat-empty">Brak danych</p></div>';
+      return '<div class="stat-chart">' +
+        '<div class="stat-chart-head"><h3>' + escapeHtml(title) + '</h3></div>' +
+        '<p class="stat-empty">Brak danych</p></div>';
     }
+    const total = buckets.reduce(function(a, b) { return a + b.count; }, 0);
     const max = Math.max(1, Math.max.apply(null, buckets.map(function(b) { return b.count; })));
-    const width = 720;
-    const height = 180;
-    const pad = 8;
-    const barWidth = (width - pad * 2) / buckets.length;
+    const W = 720, H = 150, padX = 10, padTop = 24, padBottom = 24;
+    const innerH = H - padTop - padBottom;
+    const step = (W - padX * 2) / (buckets.length - 1);
+    const baseY = padTop + innerH;
 
-    const baseline = '<line x1="' + pad + '" y1="' + height + '" x2="' + (width - pad) + '" y2="' + height + '" stroke="var(--color-warm-200)" stroke-width="1.5" />';
+    const pts = buckets.map(function(b, i) {
+      return [padX + i * step, padTop + innerH - (b.count / max) * innerH];
+    });
 
-    const bars = buckets.map(function(b, i) {
-      const h = b.count > 0 ? Math.max(4, (b.count / max) * (height - 14)) : 0;
-      const x = pad + i * barWidth;
-      const y = height - h;
-      const opacity = 0.5 + (b.count / max) * 0.5;
-      const label = (i % 5 === 0 || i === buckets.length - 1)
-        ? '<text x="' + (x + barWidth / 2) + '" y="' + (height + 20) + '" text-anchor="middle" font-size="12" fill="#b0a690">' + escapeHtml(b.label) + '</text>'
+    const line = pts.map(function(p, i) {
+      return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+    }).join(' ');
+    const area = 'M ' + pts[0][0].toFixed(1) + ' ' + baseY + ' ' +
+      pts.map(function(p) { return 'L ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ') +
+      ' L ' + pts[pts.length - 1][0].toFixed(1) + ' ' + baseY + ' Z';
+
+    // peak day marker (only if there's any activity)
+    let peakIdx = 0;
+    buckets.forEach(function(b, i) { if (b.count > buckets[peakIdx].count) peakIdx = i; });
+    const peakVal = buckets[peakIdx].count;
+    const peak = pts[peakIdx];
+    const peakMark = peakVal > 0
+      ? '<circle cx="' + peak[0].toFixed(1) + '" cy="' + peak[1].toFixed(1) + '" r="3.5" fill="var(--color-accent)" stroke="white" stroke-width="2" />' +
+        '<text x="' + peak[0].toFixed(1) + '" y="' + (peak[1] - 9).toFixed(1) + '" text-anchor="middle" font-size="13" font-weight="600" fill="var(--color-accent-dark)">' + peakVal + '</text>'
+      : '';
+
+    // subtle dots on the other active days
+    const dots = buckets.map(function(b, i) {
+      return (b.count > 0 && i !== peakIdx)
+        ? '<circle cx="' + pts[i][0].toFixed(1) + '" cy="' + pts[i][1].toFixed(1) + '" r="2" fill="var(--color-accent)" opacity="0.5" />'
         : '';
-      return '<rect x="' + (x + 2) + '" y="' + y + '" width="' + (barWidth - 4) + '" height="' + h + '" rx="3" fill="var(--color-accent)" opacity="' + opacity + '">' +
-        '<title>' + escapeHtml(b.label) + ': ' + b.count + '</title>' +
-        '</rect>' + label;
     }).join('');
 
+    const baseline = '<line x1="' + padX + '" y1="' + baseY + '" x2="' + (W - padX) + '" y2="' + baseY + '" stroke="var(--color-warm-200)" stroke-width="1.5" />';
+
+    const labels = buckets.map(function(b, i) {
+      if (i % 5 !== 0 && i !== buckets.length - 1) return '';
+      const anchor = i === 0 ? 'start' : (i === buckets.length - 1 ? 'end' : 'middle');
+      return '<text x="' + pts[i][0].toFixed(1) + '" y="' + (H - 7) + '" text-anchor="' + anchor + '" font-size="12" fill="#b0a690">' + escapeHtml(b.label) + '</text>';
+    }).join('');
+
+    const gid = 'statgrad-' + idSuffix;
+
     return '<div class="stat-chart">' +
-      '<h3>' + escapeHtml(title) + '</h3>' +
-      '<svg viewBox="0 0 ' + width + ' ' + (height + 28) + '" class="stat-svg" preserveAspectRatio="xMidYMid meet">' +
-        baseline + bars +
+      '<div class="stat-chart-head"><h3>' + escapeHtml(title) + '</h3><span class="stat-chart-sub">łącznie ' + total + '</span></div>' +
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" class="stat-svg">' +
+        '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.26" />' +
+          '<stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />' +
+        '</linearGradient></defs>' +
+        baseline +
+        '<path d="' + area + '" fill="url(#' + gid + ')" />' +
+        '<path d="' + line + '" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />' +
+        dots + peakMark + labels +
       '</svg>' +
     '</div>';
   }
@@ -204,12 +237,28 @@ const Statystyki = (function() {
       return;
     }
 
+    const totalConvos = c.totalConvos || 0;
+    const totalSubs = c.totalSubs || 0;
+    const totalEvents = c.wspol ? Object.keys(c.wspol).reduce(function(a, k) { return a + c.wspol[k]; }, 0) : 0;
+    const avg = totalConvos / 30;
+    const avgStr = avg >= 10 ? String(Math.round(avg)) : String(Math.round(avg * 10) / 10).replace('.', ',');
+
+    function kpi(num, label) {
+      return '<div class="prz-stat"><div class="prz-stat-num">' + num + '</div><div class="prz-stat-label">' + label + '</div></div>';
+    }
+
     root.innerHTML =
       '<h1 class="prz-title">Statystyki</h1>' +
       '<p class="prz-subtitle">Aktywność z ostatnich 30 dni.</p>' +
+      '<div class="prz-stats stat-kpis">' +
+        kpi(totalConvos, 'Rozmowy z KI · 30 dni') +
+        kpi(avgStr, 'Średnio dziennie') +
+        kpi(totalSubs, 'Subskrybenci newslettera') +
+        kpi(totalEvents, 'Wydarzenia w bazie') +
+      '</div>' +
       '<div class="stat-grid">' +
-        barChart(c.days30 || [], 'Rozmowy KI dziennie (30 dni) · łącznie ' + (c.totalConvos || 0)) +
-        barChart(c.sub30 || [], 'Nowe zapisy newsletter dziennie · łącznie ' + (c.totalSubs || 0)) +
+        trendChart(c.days30 || [], 'Rozmowy z asystentem KI', 'convos') +
+        trendChart(c.sub30 || [], 'Nowe zapisy do newslettera', 'subs') +
         donutChart(c.chans || {}, 'Kanały rozmów') +
         hbarChart(c.wspol || {}, 'Wydarzenia wg wspólnoty') +
       '</div>';
