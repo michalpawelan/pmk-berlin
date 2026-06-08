@@ -809,49 +809,58 @@ function dismissTeaser() {
 // Conversation lifecycle
 // -----------------------------------------------------------------------------
 async function ensureConversation() {
-  if (state.conversation || state.connecting) return state.conversation;
-  state.connecting = true;
-  try {
-    const Conversation = await loadConversationCtor();
-    state.conversation = await Conversation.startSession({
-      agentId: AGENT_ID,
-      connectionType: 'websocket',
-      textOnly: true,
-      overrides: {
-        // Suppress the agent's configured first_message in chat — the widget already shows
-        // a written greeting in the empty state, so a re-greeting from the agent reads as
-        // a doppelbegrüßung. The phone channel keeps the configured first_message.
-        agent: { language: currentLang(), firstMessage: '' }
-      },
-      onConnect: () => { hideStatus(); },
-      onDisconnect: () => {
-        state.conversation = null;
-        hideTyping();
-      },
-      onError: (err, ctx) => {
-        console.error('PMK Chat error:', err, ctx);
-        showStatus(t('connection_error'), true);
-      },
-      onMessage: ({ source, message }) => {
-        // source "ai" = agent, source "user" = echoed user transcript
-        if (source === 'ai' && message) {
+  if (state.conversation) return state.conversation;
+  // A connect may already be in flight (openChat() pre-warms the socket). Concurrent
+  // callers must AWAIT that same attempt — previously this returned the still-null
+  // state.conversation, so any message sent during the connect window was silently
+  // dropped (no reply, no error). Share one promise so sendMessage waits for connect.
+  if (state.connectPromise) return state.connectPromise;
+  state.connectPromise = (async () => {
+    try {
+      const Conversation = await loadConversationCtor();
+      const conv = await Conversation.startSession({
+        agentId: AGENT_ID,
+        connectionType: 'websocket',
+        textOnly: true,
+        overrides: {
+          // Suppress the agent's configured first_message in chat — the widget already shows
+          // a written greeting in the empty state, so a re-greeting from the agent reads as
+          // a doppelbegrüßung. The phone channel keeps the configured first_message.
+          agent: { language: currentLang(), firstMessage: '' }
+        },
+        onConnect: () => { hideStatus(); },
+        onDisconnect: () => {
+          state.conversation = null;
           hideTyping();
-          appendMessage('agent', message);
+        },
+        onError: (err, ctx) => {
+          console.error('PMK Chat error:', err, ctx);
+          showStatus(t('connection_error'), true);
+        },
+        onMessage: ({ source, message }) => {
+          // source "ai" = agent, source "user" = echoed user transcript
+          if (source === 'ai' && message) {
+            hideTyping();
+            appendMessage('agent', message);
+          }
+        },
+        onModeChange: ({ mode }) => {
+          if (mode === 'speaking' || mode === 'thinking') showTyping();
+          else hideTyping();
         }
-      },
-      onModeChange: ({ mode }) => {
-        if (mode === 'speaking' || mode === 'thinking') showTyping();
-        else hideTyping();
-      }
-    });
-  } catch (e) {
-    console.error('PMK Chat startSession failed:', e);
-    showStatus(t('connection_error'), true);
-    state.conversation = null;
-  } finally {
-    state.connecting = false;
-  }
-  return state.conversation;
+      });
+      state.conversation = conv;
+      return conv;
+    } catch (e) {
+      console.error('PMK Chat startSession failed:', e);
+      showStatus(t('connection_error'), true);
+      state.conversation = null;
+      return null;
+    } finally {
+      state.connectPromise = null;
+    }
+  })();
+  return state.connectPromise;
 }
 
 async function sendMessage(text) {
