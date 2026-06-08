@@ -384,7 +384,7 @@ const Events = (function() {
         document.getElementById('eventDesc').value = ev.description;
         document.getElementById('eventImage').value = ev.image;
         document.getElementById('eventLocation').value = ev.location || 'Johannes-Basilika';
-        document.getElementById('eventAddress').value = ev.address || 'Lilienthalstraße 5, 10965 Berlin';
+        document.getElementById('eventAddress').value = ev.address || 'Lilienthalstraße 5, 12049 Berlin';
         document.getElementById('eventPublished').checked = ev.published === 'TAK';
         showExistingImage(ev.image);
       }
@@ -395,7 +395,7 @@ const Events = (function() {
       document.getElementById('eventForm').reset();
       document.getElementById('eventRow').value = '';
       document.getElementById('eventLocation').value = 'Johannes-Basilika';
-      document.getElementById('eventAddress').value = 'Lilienthalstraße 5, 10965 Berlin';
+      document.getElementById('eventAddress').value = 'Lilienthalstraße 5, 12049 Berlin';
       document.getElementById('eventPublished').checked = true;
       document.getElementById('fileInput').value = '';
       showExistingImage('');

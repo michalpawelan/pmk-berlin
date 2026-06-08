@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png?v=5">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
   <title>Wydarzenie | Polska Misja Katolicka Berlin</title>
   <meta name="description" content="Szczegóły wydarzenia w Polskiej Misji Katolickiej w Berlinie. Sprawdź datę, godzinę, miejsce i opis nadchodzącego wydarzenia parafialnego.">
@@ -33,9 +33,9 @@
   <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
 
   <meta name="geo.region" content="DE-BE">
-  <meta name="geo.placename" content="Berlin, Kreuzberg">
-  <meta name="geo.position" content="52.4870;13.3950">
-  <meta name="ICBM" content="52.4870, 13.3950">
+  <meta name="geo.placename" content="Berlin, Neukölln">
+  <meta name="geo.position" content="52.48762;13.40901">
+  <meta name="ICBM" content="52.48762, 13.40901">
 
   <script type="application/ld+json">
   {
@@ -248,7 +248,7 @@
         </div>
         <p class="footer-address">
           Johannes-Basilika<br>
-          Lilienthalstraße 5, 10965 Berlin
+          Lilienthalstraße 5, 12049 Berlin
         </p>
         <div class="footer-contact">
           <a href="tel:+49307524080">+49 30 752 40 80</a>
@@ -401,14 +401,14 @@ function renderEvent(event) {
 
   // Location
   const locationName = event.location || 'Johannes-Basilika';
-  const locationAddr = event.address || 'Lilienthalstr. 5, 10965 Berlin';
+  const locationAddr = event.address || 'Lilienthalstr. 5, 12049 Berlin';
   document.getElementById('event-location').textContent = locationName;
   document.getElementById('event-address').textContent = locationAddr;
   document.getElementById('event-location-2').textContent = locationName;
   document.getElementById('event-address-2').textContent = locationAddr;
 
   // Maps
-  const address = event.address || 'Lilienthalstraße 5, 10965 Berlin';
+  const address = event.address || 'Lilienthalstraße 5, 12049 Berlin';
   document.getElementById('event-map-link').href = EventsManager.getGoogleMapsUrl(address);
 
   // Map embed (click to load)
@@ -475,7 +475,7 @@ function updateEventSeo(event) {
   const startTime = event.time ? `${isoDate}T${event.time}:00+02:00` : isoDate;
   const endTime = event.endTime ? `${isoDate}T${event.endTime}:00+02:00` : startTime;
   const locationName = event.location || 'Johannes-Basilika';
-  const locationAddr = event.address || 'Lilienthalstr. 5, 10965 Berlin';
+  const locationAddr = event.address || 'Lilienthalstr. 5, 12049 Berlin';
 
   const eventSchema = {
     '@context': 'https://schema.org',

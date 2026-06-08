@@ -438,7 +438,7 @@
       }
 
       const location = val(5) || 'Johannes-Basilika';
-      const address = val(6) || 'Lilienthalstraße 5, 10965 Berlin';
+      const address = val(6) || 'Lilienthalstraße 5, 12049 Berlin';
       const description = val(3);
 
       events.push({

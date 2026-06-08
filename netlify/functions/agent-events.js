@@ -61,7 +61,7 @@ function parseEvents(text) {
       time: parseTime(row.c[2]),
       description: String(cellValue(row.c[3])).trim(),
       location: String(cellValue(row.c[5])).trim() || 'Johannes-Basilika',
-      address: String(cellValue(row.c[6])).trim() || 'Lilienthalstraße 5, 10965 Berlin'
+      address: String(cellValue(row.c[6])).trim() || 'Lilienthalstraße 5, 12049 Berlin'
     });
   }
   return out;
