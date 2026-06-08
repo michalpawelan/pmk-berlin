@@ -550,11 +550,11 @@ const CSS = `
 
   /* Mobile */
   @media (max-width: 540px) {
-    .pmk-launcher { bottom: 16px; right: 16px; padding: 8px 18px 8px 8px; gap: 10px; }
-    .pmk-launcher-avatar { width: 44px; height: 44px; }
-    .pmk-launcher-title { font-size: 0.88rem; }
-    .pmk-launcher-sub { font-size: 0.72rem; }
-    .pmk-teaser { right: 16px; bottom: 84px; max-width: calc(100vw - 84px); }
+    /* Icon-only circle on phones: hide the text, wrap the avatar in a round button */
+    .pmk-launcher { bottom: 16px; right: 16px; padding: 8px; gap: 0; }
+    .pmk-launcher-avatar { width: 48px; height: 48px; }
+    .pmk-launcher-text { display: none; }
+    .pmk-teaser { right: 16px; bottom: 80px; max-width: calc(100vw - 32px); }
     .pmk-panel {
       width: 100vw; height: 100dvh; max-height: 100dvh;
       bottom: 0; right: 0;
