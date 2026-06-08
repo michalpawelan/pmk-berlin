@@ -657,7 +657,6 @@
     <input type="hidden" name="form-name" value="kontakt-schola">
     <input type="hidden" name="bot-field">
     <input type="hidden" name="grupa" value="Schola Marana Tha">
-    <input type="hidden" name="_to" value="25sierp12@gmail.com">
     <p>
       <label>Imię i nazwisko<br>
         <input type="text" name="name" required>
@@ -671,6 +670,12 @@
     <p>
       <label>Wiadomość<br>
         <textarea name="message" rows="5" required></textarea>
+      </label>
+    </p>
+    <p class="form-consent" style="margin-top:.25rem;">
+      <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
+        <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
+        <span data-i18n-html="form.consent_html">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href="polityka-prywatnosci.html" target="_blank" rel="noopener">Polityką Prywatności</a>.</span>
       </label>
     </p>
     <p><button type="submit">Wyślij</button></p>

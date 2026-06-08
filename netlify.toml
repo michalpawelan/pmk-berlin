@@ -131,6 +131,27 @@
   status = 404
   force = true
 
+# Internal/build files that ship because publish="." — 404 them so they are not
+# publicly readable (agent prompt leaks the bot's instructions + agent id; the
+# npm files leak the dependency tree).
+[[redirects]]
+  from = "/elevenlabs-agent-prompt.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
 # ============================================
 # 404 Redirect
 # ============================================

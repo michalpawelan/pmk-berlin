@@ -3,6 +3,10 @@
     "pl": "<strong>Uwaga:</strong> wejście od Wildenower Straße 8 — brama nr 8 (nie od strony Müllerstraße).",
     "de": "<strong>Hinweis:</strong> Eingang über Wildenower Straße 8 — Tor Nr. 8 (nicht von der Müllerstraße)."
   },
+  "form.consent_html": {
+    "pl": "Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href=\"polityka-prywatnosci.html\" target=\"_blank\" rel=\"noopener\">Polityką Prywatności</a>.",
+    "de": "Ich willige in die Verarbeitung meiner personenbezogenen Daten zur Bearbeitung dieser Anfrage gemäß der <a href=\"datenschutz.html\" target=\"_blank\" rel=\"noopener\">Datenschutzerklärung</a> ein."
+  },
   "kontakt.form.success_title": {
     "pl": "Dziękujemy!",
     "de": "Vielen Dank!"

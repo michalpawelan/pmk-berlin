@@ -635,7 +635,6 @@
   </div>
 </div>
 
-<!-- TODO J3: leader email pending (Alina Zitzelmann — Kinga waiting on reply) — submissions currently go to pmk@pmk-berlin.de via Netlify Forms default -->
 <!-- Contact Form -->
 <section class="wspolnota-kontakt">
   <h2>Skontaktuj się z grupą</h2>
@@ -656,6 +655,12 @@
     <p>
       <label>Wiadomość<br>
         <textarea name="message" rows="5" required></textarea>
+      </label>
+    </p>
+    <p class="form-consent" style="margin-top:.25rem;">
+      <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
+        <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
+        <span data-i18n-html="form.consent_html">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href="polityka-prywatnosci.html" target="_blank" rel="noopener">Polityką Prywatności</a>.</span>
       </label>
     </p>
     <p><button type="submit">Wyślij</button></p>

@@ -276,6 +276,12 @@
               <label for="message" data-i18n="kontakt.form.message_label">Wiadomość</label>
               <textarea id="message" name="message" rows="5" placeholder="Twoja wiadomość..." data-i18n-attr="placeholder:kontakt.form.message_placeholder" required></textarea>
             </div>
+            <p class="form-consent" style="margin:0 0 1rem;">
+              <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
+                <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
+                <span data-i18n-html="form.consent_html">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href="polityka-prywatnosci.html" target="_blank" rel="noopener">Polityką Prywatności</a>.</span>
+              </label>
+            </p>
             <button type="submit" class="btn btn-primary btn-full" id="contactSubmit" data-i18n="kontakt.form.submit">Wyślij wiadomość</button>
             <p class="form-note" data-i18n="kontakt.form.note">Odpowiemy najszybciej, jak to możliwe — zwykle w ciągu 1–2 dni roboczych.</p>
           </form>
