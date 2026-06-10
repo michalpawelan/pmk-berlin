@@ -478,31 +478,39 @@ function registerSacrament(params) {
   const email = String(params.email || '').trim();
   const childName = (String(params.imiona || '') + ' ' + String(params.nazwisko || '')).trim();
 
-  const LABELS = {
-    nazwisko: 'Nazwisko',
-    imiona: 'Imiona',
-    data_urodzenia: 'Data urodzenia',
-    miejsce_urodzenia: 'Miejsce urodzenia',
-    data_chrztu: 'Data chrztu',
-    miejsce_chrztu: 'Miejsce chrztu',
-    adres_parafii_chrztu: 'Adres parafii chrztu',
-    chrzest_pmk: 'Chrzest w PMK (rok/data)',
-    imie_ojca: 'Imię i nazwisko ojca',
-    imie_matki: 'Imię i nazwisko matki',
-    telefon: 'Telefon',
-    email: 'E-mail',
-    adres: 'Adres zamieszkania',
-    katecheza: 'Katecheza (miejsce i godzina)',
-    uwagi: 'Uwagi'
-  };
+  // e.parameter garantiert KEINE Key-Reihenfolge — die E-Mail muss daher eine
+  // feste, druckfreundliche Reihenfolge erzwingen (Vorgabe Pfarrbuero, 10.06.2026).
+  const FIELD_ORDER = [
+    ['data_urodzenia', 'Data urodzenia'],
+    ['miejsce_urodzenia', 'Miejsce urodzenia'],
+    ['telefon', 'Telefon'],
+    ['email', 'E-mail'],
+    ['adres', 'Adres zamieszkania'],
+    ['imie_matki', 'Imię i nazwisko matki'],
+    ['imie_ojca', 'Imię i nazwisko ojca'],
+    ['data_chrztu', 'Data chrztu'],
+    ['miejsce_chrztu', 'Miejsce chrztu'],
+    ['adres_parafii_chrztu', 'Adres parafii chrztu'],
+    ['chrzest_pmk', 'Chrzest w PMK (rok/data)'],
+    ['katecheza', 'Katecheza (miejsce i godzina)'],
+    ['uwagi', 'Uwagi']
+  ];
   const SKIP = { action: 1, pin: 1, website: 1, datenschutz: 1, sakrament: 1, metryka_data: 1, metryka_name: 1, metryka_type: 1 };
 
   const lines = [];
+  if (childName) lines.push('Imię i nazwisko: ' + childName);
+  const used = { nazwisko: 1, imiona: 1 };
+  FIELD_ORDER.forEach(function (f) {
+    used[f[0]] = 1;
+    const v = String(params[f[0]] || '').trim();
+    if (v) lines.push(f[1] + ': ' + v);
+  });
+  // Restfelder (unbekannte Keys) hinten anhaengen, damit nichts verloren geht
   Object.keys(params).forEach(function (k) {
-    if (SKIP[k] || k.charAt(0) === '_') return;
+    if (SKIP[k] || used[k] || k.charAt(0) === '_') return;
     const v = String(params[k] || '').trim();
     if (!v) return;
-    lines.push((LABELS[k] || k) + ': ' + v);
+    lines.push(k + ': ' + v);
   });
   const summary = lines.join('\n');
 
