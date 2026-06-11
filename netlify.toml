@@ -356,8 +356,13 @@
   status = 301
 
 # ============================================
-# 404 Redirect
+# 404 Redirect (deutsch unter /de/, sonst polnisch)
 # ============================================
+[[redirects]]
+  from = "/de/*"
+  to = "/de/404.html"
+  status = 404
+
 [[redirects]]
   from = "/*"
   to = "/404.html"

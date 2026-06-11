@@ -35,6 +35,14 @@ const DE_PENDANT = {
   ].map((s) => ['wspolnota-' + s + '.html', '/de/wspolnota-' + s + '.html'])),
 };
 
+// Deutschsprachige Root-Seiten (Rechtstexte): DE ist hier die Eigensprache.
+// PL-Pendant nur für Datenschutz vorhanden.
+const GERMAN_ROOT = {
+  'datenschutz.html': '/polityka-prywatnosci.html',
+  'impressum.html': null,
+  'schutzkonzept.html': null,
+};
+
 const files = readdirSync(ROOT).filter((f) => f.endsWith('.html'));
 
 for (const file of files) {
@@ -60,6 +68,36 @@ for (const file of files) {
   // Footer-Sprachlink „Auf Deutsch" → deutsches Pendant
   html = html.replace(/<a href="[^"]*"([^>]*hreflang="de"[^>]*)>([^<]*)<\/a>/g,
     `<a href="${de}"$1>$2</a>`);
+
+  // hreflang=de-Rücklink im <head> sicherstellen, wenn ein ECHTES Pendant
+  // existiert (nicht der /de/index.html-Fallback) — Reziprozität für Google.
+  if (DE_PENDANT[file] && DE_PENDANT[file].startsWith('/de/') && !(file in GERMAN_ROOT)) {
+    const deAbs = 'https://www.pmk-berlin.de' + DE_PENDANT[file];
+    if (/<link rel="alternate" hreflang="de"/.test(html)) {
+      html = html.replace(/(<link rel="alternate" hreflang="de" href=")[^"]*(")/, '$1' + deAbs + '$2');
+    } else {
+      html = html.replace(/(<link rel="alternate" hreflang="pl"[^>]*>)/,
+        '$1\n  <link rel="alternate" hreflang="de" href="' + deAbs + '">');
+    }
+  }
+
+  // Deutschsprachige Root-Seiten: lang="de", Schalter DE=aktiv/selbst, PL=Pendant
+  if (file in GERMAN_ROOT) {
+    html = html.replace(/<html lang="pl"/, '<html lang="de"');
+    const plPendant = GERMAN_ROOT[file];
+    if (plPendant) {
+      html = html.replace(/<a href="[^"]*" class="lang-btn[^"]*" data-lang="pl">PL<\/a>/g,
+        `<a href="${plPendant}" class="lang-btn" data-lang="pl">PL</a>`);
+      html = html.replace(/<a href="[^"]*" class="lang-btn[^"]*" data-lang="de">DE<\/a>/g,
+        `<a href="${self}" class="lang-btn active" data-lang="de">DE</a>`);
+    } else {
+      // kein PL-Pendant: Schalter zeigt DE aktiv, PL führt zur PL-Startseite
+      html = html.replace(/<a href="[^"]*" class="lang-btn[^"]*" data-lang="pl">PL<\/a>/g,
+        `<a href="/" class="lang-btn" data-lang="pl">PL</a>`);
+      html = html.replace(/<a href="[^"]*" class="lang-btn[^"]*" data-lang="de">DE<\/a>/g,
+        `<a href="${self}" class="lang-btn active" data-lang="de">DE</a>`);
+    }
+  }
 
   if (html !== before) {
     writeFileSync(path, html);

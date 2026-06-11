@@ -29,8 +29,8 @@
   <meta property="og:image:alt" content="Johannes-Basilika - Polska Misja Katolicka w Berlinie">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Wesprzyj naszą Misję | PMK Berlin">
-  <meta name="twitter:description" content="Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.">
+  <meta name="twitter:title" content="Gemeinde unterstützen | PMK Berlin">
+  <meta name="twitter:description" content="Unterstützen Sie die Polnische Katholische Mission Berlin mit Ihrer Spende — Bankverbindung und QR-Code für die Überweisung.">
   <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
 
   <meta name="geo.region" content="DE-BE">
@@ -43,8 +43,18 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://www.pmk-berlin.de/de/index.html" },
-      { "@type": "ListItem", "position": 2, "name": "Gemeinde unterstützen", "item": "https://www.pmk-berlin.de/de/spenden.html" }
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Startseite",
+        "item": "https://www.pmk-berlin.de/de/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Gemeinde unterstützen",
+        "item": "https://www.pmk-berlin.de/de/spenden.html"
+      }
     ]
   }
   </script>
@@ -52,10 +62,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Wesprzyj naszą Misję — PMK Berlin",
-    "url": "https://www.pmk-berlin.de/wesprzyj.html",
+    "name": "Gemeinde unterstützen",
+    "url": "https://www.pmk-berlin.de/de/spenden.html",
     "inLanguage": "pl",
-    "about": { "@id": "https://www.pmk-berlin.de/#church" }
+    "about": {
+      "@id": "https://www.pmk-berlin.de/#church"
+    }
   }
   </script>
 
@@ -403,7 +415,7 @@
   </style>
 </head>
 <body>
-<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
 
 <!-- Navigation -->
 <header class="nav-header" id="mainNav">
@@ -479,7 +491,7 @@
             </div>
           </div>
           <div class="donate-qr">
-            <img src="/images/spende-qr.png" width="150" height="150" loading="lazy" alt="GiroCode — zeskanuj aplikacją bankową / mit der Banking-App scannen">
+            <img src="/images/spende-qr.png" width="150" height="150" loading="lazy" alt="GiroCode — mit der Banking-App scannen">
             <span class="donate-qr-label">Mit der Banking-App scannen — Überweisung ist vorausgefüllt</span>
           </div>
         </div>
@@ -540,8 +552,8 @@
   <h4>Bleib auf dem Laufenden</h4>
   <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Imię / Vorname">
-    <input type="email" name="email" required placeholder="deine E-Mail" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Vorname">
+    <input type="email" name="email" required placeholder="deine E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn">Anmelden</button>
     <p class="footer-newsletter-msg" hidden></p>
@@ -553,7 +565,7 @@
 <!-- END newsletter-footer -->
 
     <div class="footer-bottom">
-      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-motto">„Gelobt sei Jesus Christus“</p>
       <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
     </div>
   </div>
@@ -567,8 +579,8 @@
     de: { copy: 'Kopieren', copied: 'Kopiert!', aria: 'IBAN in die Zwischenablage kopieren' }
   };
   function tWesprzyj(key) {
-    var lang = 'pl';
-    try { lang = localStorage.getItem('pmk-lang') || 'pl'; } catch (e) {}
+    // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+    var lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
     return (WESPRZYJ_I18N[lang] && WESPRZYJ_I18N[lang][key]) || WESPRZYJ_I18N.pl[key] || key;
   }
 
@@ -596,11 +608,6 @@
       });
     });
 
-    // Refresh button text when language switches
-    var orig = window.setLang;
-    if (typeof orig === 'function') {
-      window.setLang = function(lang) { orig(lang); refreshLabels(); };
-    }
   });
 </script>
 <script type="module" src="/js/pmk-chat.js"></script>

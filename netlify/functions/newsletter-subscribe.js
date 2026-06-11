@@ -58,7 +58,8 @@ async function sendConfirmViaIonos(email, lang, token) {
   const host = process.env.IONOS_SMTP_HOST || 'smtp.ionos.de';
   const port = parseInt(process.env.IONOS_SMTP_PORT || '465', 10);
 
-  const link = SITE_BASE + '/.netlify/functions/newsletter-confirm?token=' + encodeURIComponent(token);
+  const link = SITE_BASE + '/.netlify/functions/newsletter-confirm?token=' + encodeURIComponent(token)
+    + '&lang=' + (lang === 'de' ? 'de' : 'pl');
   const mail = confirmMailText(lang, link);
 
   const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });

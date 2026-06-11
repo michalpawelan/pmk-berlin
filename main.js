@@ -275,7 +275,7 @@
     }
     if (events.length === 0) {
       try {
-        const response = await fetch('events.json');
+        const response = await fetch('/events.json');
         if (response.ok) events = await response.json();
       } catch (e) {
         // events.json fetch failed
@@ -482,7 +482,7 @@
     const day = String(d.getDate()).padStart(2, '0');
     const month = i18nLabels.months[lang][d.getMonth()];
     const weekday = i18nLabels.weekdays[lang][d.getDay()];
-    const eventUrl = `event.html?id=${ev.id}`;
+    const eventUrl = `${lang === 'de' ? '/de/veranstaltung.html' : '/event.html'}?id=${ev.id}`;
 
     // Past events get a muted dot (homepage only shows upcoming, but keep it correct).
     const now = new Date(); now.setHours(0, 0, 0, 0);

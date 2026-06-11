@@ -311,6 +311,11 @@ const EventsManager = (function() {
   // ============================================
   // Datum Formatierung
   // ============================================
+  // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+  function dateLang() {
+    return window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
+  }
+
   function formatDate(dateStr, options = {}) {
     const date = new Date(dateStr);
     const defaultOptions = {
@@ -319,19 +324,27 @@ const EventsManager = (function() {
       month: 'long',
       day: 'numeric'
     };
-    return date.toLocaleDateString('pl-PL', { ...defaultOptions, ...options });
+    const locale = dateLang() === 'de' ? 'de-DE' : 'pl-PL';
+    return date.toLocaleDateString(locale, { ...defaultOptions, ...options });
   }
+
+  const MONTHS_SHORT = {
+    pl: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'],
+    de: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+  };
+  const WEEKDAYS = {
+    pl: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+    de: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
+  };
 
   function formatDateShort(dateStr) {
     const date = new Date(dateStr);
     const day = String(date.getDate()).padStart(2, '0');
-    const months = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paz', 'lis', 'gru'];
-    return { day, month: months[date.getMonth()] };
+    return { day, month: MONTHS_SHORT[dateLang()][date.getMonth()] };
   }
 
   function getWeekday(dateStr) {
-    const weekdays = ['Niedziela', 'Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota'];
-    return weekdays[new Date(dateStr).getDay()];
+    return WEEKDAYS[dateLang()][new Date(dateStr).getDay()];
   }
 
   // ============================================

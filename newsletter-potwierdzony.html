@@ -53,8 +53,9 @@
 <script>
   (function () {
     var ok = new URLSearchParams(location.search).get('ok') !== '0';
-    var lang = 'pl';
-    try { lang = (localStorage.getItem('pmk-lang') || document.documentElement.lang || 'pl').slice(0, 2); } catch (e) {}
+    // Sprache kommt als ?lang= aus dem Bestätigungslink (Fallback: Polnisch)
+    var lang = (new URLSearchParams(location.search).get('lang') || 'pl').slice(0, 2);
+    if (lang !== 'de') lang = 'pl';
     var T = {
       pl: {
         okTitle: 'Dziękujemy!', okText: 'Twoja subskrypcja newslettera została potwierdzona. Będziesz teraz otrzymywać nasze wiadomości.',

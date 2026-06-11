@@ -61,7 +61,7 @@ const SITE = 'https://www.pmk-berlin.de';
 const GROUP_NAMES = {
   'wspolnota-sne': 'Schule der Neuevangelisierung',
   'wspolnota-domowy-kosciol': 'Hauskirche (Domowy Kościół)',
-  'wspolnota-schola': 'Schola „Marana Tha"',
+  'wspolnota-schola': 'Schola „Marana Tha“',
   'wspolnota-ruch-swiatlo-zycie': 'Licht-Leben-Bewegung (Oaza)',
   'wspolnota-ruch-szensztacki': 'Schönstatt-Bewegung',
   'wspolnota-zywy-rozaniec': 'Lebendiger Rosenkranz',
@@ -90,6 +90,11 @@ const PAGES = [
     desc: 'Aktuelle Veranstaltungen und Termine der Polnischen Katholischen Mission Berlin in der Johannes-Basilika Neukölln.',
   },
   {
+    src: '404.html', out: 'de/404.html', json: [],
+    title: 'Seite nicht gefunden | Polnische Katholische Mission Berlin',
+    desc: 'Die gesuchte Seite existiert nicht oder wurde verschoben.',
+  },
+  {
     src: 'event.html', out: 'de/veranstaltung.html', json: 'event',
     title: 'Veranstaltung | Polnische Katholische Mission Berlin',
     desc: 'Veranstaltung der Polnischen Katholischen Mission Berlin.',
@@ -97,7 +102,7 @@ const PAGES = [
   ...Object.keys(GROUP_NAMES).map((slug) => ({
     src: slug + '.html', out: 'de/' + slug + '.html', json: 'wspolnoty',
     title: GROUP_NAMES[slug] + ' | Polnische Katholische Mission Berlin',
-    desc: '„' + GROUP_NAMES[slug] + '" — Gemeinschaft der Polnischen Katholischen Mission Berlin. Treffen, Termine und Kontakt (die Gruppe trifft sich auf Polnisch).',
+    desc: GROUP_NAMES[slug] + ' — Gemeinschaft der Polnischen Katholischen Mission Berlin. Treffen, Termine und Kontakt (die Gruppe trifft sich auf Polnisch).',
   })),
 ];
 
@@ -116,7 +121,7 @@ function loadTranslations(pageJson) {
 }
 
 function escapeHtml(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 // Findet das passende schließende Tag (depth-aware für gleichnamige Nester)
@@ -179,7 +184,7 @@ function applyAttrs(html, dict, stats) {
 
 // Interne Links auf /de/-Pendants umbiegen; Rest root-absolut machen
 function rewriteLinks(html) {
-  return html.replace(/(href|src)="([^"]*)"/g, (full, attr, url) => {
+  return html.replace(/(href|src|srcset)="([^"]*)"/g, (full, attr, url) => {
     if (/^(https?:|mailto:|tel:|#|data:|javascript:)/.test(url)) return full;
     if (url.includes('${')) return full; // JS-Template-String in Inline-Skripten — nicht anfassen
     const [path, suffix] = splitUrl(url);
@@ -206,6 +211,8 @@ function buildHead(html, page) {
   html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, '$1' + deUrl + '$2');
   html = html.replace(/(<meta property="og:title" content=")[^"]*(")/, '$1' + escapeHtml(page.title) + '$2');
   html = html.replace(/(<meta property="og:description" content=")[^"]*(")/, '$1' + escapeHtml(page.desc) + '$2');
+  html = html.replace(/(<meta name="twitter:title" content=")[^"]*(")/, '$1' + escapeHtml(page.title.replace('Polnische Katholische Mission Berlin', 'PMK Berlin')) + '$2');
+  html = html.replace(/(<meta name="twitter:description" content=")[^"]*(")/, '$1' + escapeHtml(page.desc) + '$2');
   html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, '$1' + deUrl + '$2');
   html = html.replace(/(<meta property="og:locale" content=")pl_PL(")/, '$1de_DE$2');
   html = html.replace(/(<meta property="og:locale:alternate" content=")de_DE(")/, '$1pl_PL$2');
@@ -243,6 +250,25 @@ const FIXED_STRINGS = [
   ['<label>Wiadomość<br>', '<label>Nachricht<br>'],
   ['<button type="submit">Wyślij</button>', '<button type="submit">Absenden</button>'],
   ['content="Polska Misja Katolicka w Berlinie"', 'content="Polnische Katholische Mission Berlin"'],
+  // Sichtbare PL-Reste ohne data-i18n (alt-Texte, Anreden)
+  ['alt="Cudowny Medalik – emblemat Grona Dzieci Maryi"', 'alt="Wundertätige Medaille – Emblem der Marienkinder"'],
+  ['alt="Emblemat Grupa Męska"', 'alt="Emblem der Männergruppe"'],
+  ['alt="GiroCode — zeskanuj aplikacją bankową / mit der Banking-App scannen"', 'alt="GiroCode — mit der Banking-App scannen"'],
+  ['alt="Logo Apostolstwo Dobrej Śmierci"', 'alt="Logo Apostolat des guten Todes"'],
+  ['alt="Logo Domowy Kościół"', 'alt="Logo Hauskirche (Domowy Kościół)"'],
+  ['alt="Logo Grupa Kobiet Empatycznych"', 'alt="Logo Gruppe der empathischen Frauen"'],
+  ['alt="Logo Koło Żywego Różańca"', 'alt="Logo Lebendiger Rosenkranz"'],
+  ['alt="Logo Ministranci – Służba Liturgiczna"', 'alt="Logo Ministranten – Liturgischer Dienst"'],
+  ['alt="Logo Ruch Światło-Życie"', 'alt="Logo Licht-Leben-Bewegung (Oaza)"'],
+  ['alt="Logo Szkoła Nowej Ewangelizacji"', 'alt="Logo Schule der Neuevangelisierung"'],
+  ['alt="Matka Boża Trzykroć Przedziwna — Ruch Szensztacki"', 'alt="Dreimal Wunderbare Mutter — Schönstatt-Bewegung"'],
+  ['alt="Oaza Berlin — katolicka grupa młodzieżowa"', 'alt="Oaza Berlin — katholische Jugendgruppe"'],
+  ['>Ks. ', '>P. '],
+  ['Danuta i Tomasz', 'Danuta und Tomasz'],
+  // 404-Seite (Strings ohne data-i18n)
+  ['<h1 class="error-title">Strona nie została znaleziona</h1>', '<h1 class="error-title">Seite nicht gefunden</h1>'],
+  ['Przepraszamy, strona której szukasz nie istnieje lub została przeniesiona. Zapraszamy na stronę główną naszej parafii.', 'Die gesuchte Seite existiert nicht oder wurde verschoben. Besuchen Sie gerne die Startseite unserer Gemeinde.'],
+  ['>Wróć na stronę główną<', '>Zur Startseite<'],
 ];
 
 function applyFixedStrings(html) {
@@ -250,15 +276,70 @@ function applyFixedStrings(html) {
   return html;
 }
 
-// JSON-LD-Breadcrumbs eindeutschen: Startseite + Seitenname + de-URLs
+// JSON-LD-Blöcke eindeutschen: echtes JSON-Parsing statt Regex.
+// Breadcrumbs (2- und 3-stufig), ItemList-/Organization-Namen, URLs via LINK_MAP.
+const JSONLD_NAMES = {
+  'Strona główna': 'Startseite',
+  'Grupy parafialne': 'Gruppen',
+  'Wydarzenia': 'Veranstaltungen',
+  'Wydarzenie': 'Veranstaltung',
+  'Grupy i wspólnoty parafialne PMK Berlin': 'Gruppen und Gemeinschaften der PMK Berlin',
+  'Szkoła Nowej Ewangelizacji': 'Schule der Neuevangelisierung',
+  'Domowy Kościół': 'Hauskirche',
+  'Schola Marana Tha': 'Schola „Marana Tha“',
+  'Ruch Światło-Życie': 'Licht-Leben-Bewegung (Oaza)',
+  'Ruch Szensztacki': 'Schönstatt-Bewegung',
+  'Koło Żywego Różańca': 'Lebendiger Rosenkranz',
+  'Grono Dzieci Maryi': 'Gemeinschaft der Marienkinder',
+  'Koło Przyjaciół Radia Maryja': 'Freunde von Radio Maryja',
+  'Apostolstwo Dobrej Śmierci': 'Apostolat des guten Todes',
+  'Grupa Męska': 'Männergruppe',
+  'Grupa Kobiet Empatycznych': 'Gruppe der empathischen Frauen',
+  'Ministranci – Służba Liturgiczna': 'Ministranten – Liturgischer Dienst',
+};
+
+function rewriteJsonLdUrl(url) {
+  if (typeof url !== 'string' || !url.startsWith(SITE + '/')) return url;
+  const path = url.slice(SITE.length);
+  const bare = path.replace(/^\//, '');
+  if (LINK_MAP[path] !== undefined) return SITE + LINK_MAP[path];
+  if (LINK_MAP[bare] !== undefined) return SITE + LINK_MAP[bare];
+  return url;
+}
+
 function fixJsonLd(html, page) {
   const deUrl = SITE + '/' + page.out;
   const pageName = page.title.split('|')[0].trim();
-  html = html.replace(/"name": "Strona główna", "item": "https:\/\/www\.pmk-berlin\.de\/"/,
-    '"name": "Startseite", "item": "' + SITE + '/de/index.html"');
-  html = html.replace(/\{ "@type": "ListItem", "position": 2, "name": "[^"]*", "item": "[^"]*" \}/,
-    '{ "@type": "ListItem", "position": 2, "name": "' + pageName + '", "item": "' + deUrl + '" }');
-  return html;
+  return html.replace(/(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/g, (full, open, body, close) => {
+    let data;
+    try { data = JSON.parse(body); } catch (e) { return full; }
+
+    const walkUrls = (node) => {
+      if (Array.isArray(node)) { node.forEach(walkUrls); return; }
+      if (node && typeof node === 'object') {
+        for (const k of Object.keys(node)) {
+          if (typeof node[k] === 'string') node[k] = rewriteJsonLdUrl(node[k]);
+          else walkUrls(node[k]);
+        }
+      }
+    };
+    walkUrls(data);
+
+    if (data['@type'] === 'BreadcrumbList' && Array.isArray(data.itemListElement)) {
+      const items = data.itemListElement;
+      items.forEach((it) => { if (JSONLD_NAMES[it.name]) it.name = JSONLD_NAMES[it.name]; });
+      const last = items[items.length - 1];
+      if (last) { last.name = pageName; last.item = deUrl; }
+    } else {
+      // Root-Objekt anderer Typen (Organization, ItemList, WebPage, …)
+      if (typeof data.name === 'string') data.name = JSONLD_NAMES[data.name] || pageName;
+      if (typeof data.description === 'string') data.description = page.desc;
+      if (Array.isArray(data.itemListElement)) {
+        data.itemListElement.forEach((it) => { if (JSONLD_NAMES[it.name]) it.name = JSONLD_NAMES[it.name]; });
+      }
+    }
+    return open + '\n  ' + JSON.stringify(data, null, 2).replace(/\n/g, '\n  ') + '\n  ' + close;
+  });
 }
 
 function stripI18nRuntime(html) {

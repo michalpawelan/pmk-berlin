@@ -13,6 +13,7 @@
   <meta name="author" content="Polska Misja Katolicka Berlin">
 
   <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/event.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/veranstaltung.html">
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/event.html">
 
   <meta property="og:title" content="Wydarzenie | Polska Misja Katolicka Berlin">
@@ -441,6 +442,16 @@ function renderEvent(event) {
 }
 
 // Lang-aware strings for dynamically-rendered content
+// Sprachwechsel auf der Detailseite: Event-ID mitnehmen
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.search) {
+    document.querySelectorAll('a.lang-btn').forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (href && href.indexOf('?') === -1 && href.indexOf('#') === -1) a.setAttribute('href', href + window.location.search);
+    });
+  }
+});
+
 const EVENT_I18N = {
   pl: { copied: 'Skopiowano!', copy_prompt: 'Skopiuj link:', default_desc: 'Wydarzenie parafialne w Polskiej Misji Katolickiej w Berlinie.' },
   de: { copied: 'Kopiert!', copy_prompt: 'Link kopieren:', default_desc: 'Gemeindeveranstaltung der Polnischen Katholischen Mission in Berlin.' }
@@ -452,7 +463,9 @@ function tEvent(key) {
 }
 
 function updateEventSeo(event) {
-  const canonicalUrl = `https://www.pmk-berlin.de/event.html?id=${encodeURIComponent(event.id || '')}`;
+  // Detailseite je Sprache (DE-Pendant heißt veranstaltung.html)
+  const detailPath = window.location.pathname.indexOf('/de/') === 0 ? '/de/veranstaltung.html' : '/event.html';
+  const canonicalUrl = `https://www.pmk-berlin.de${detailPath}?id=${encodeURIComponent(event.id || '')}`;
   const desc = (event.shortDesc || event.fullDesc || tEvent('default_desc')).replace(/\s+/g, ' ').trim().slice(0, 300);
   const image = event.imageUrl || 'https://www.pmk-berlin.de/images/basilika-fassade.webp';
 

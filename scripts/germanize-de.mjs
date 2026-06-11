@@ -27,6 +27,7 @@ const PL_PENDANT = {
   'messzeiten.html': '/#messzeiten', 'ueber-uns.html': '/#onas',
   'gruppen.html': '/grupy.html', 'spenden.html': '/wesprzyj.html',
   'veranstaltungen.html': '/events.html', 'veranstaltung.html': '/event.html',
+  '404.html': '/',
 };
 // wspolnota-* → gleiches PL-File im Root
 function plPendant(file) {
@@ -122,6 +123,15 @@ function applyAttrs(html, dict) {
   });
 }
 
+// Feste Ersetzungen auf allen de-Seiten (Strings ohne data-i18n in den Quellen)
+const DE_FIXED = [
+  ['>Przejdź do treści<', '>Zum Inhalt springen<'],
+  ['"Niech będzie pochwalony Jezus Chrystus"', '„Gelobt sei Jesus Christus“'],
+  ['aria-label="Imię / Vorname"', 'aria-label="Vorname"'],
+  ['aria-label="Adres e-mail / E-Mail-Adresse"', 'aria-label="E-Mail-Adresse"'],
+  ['alt="GiroCode — zeskanuj aplikacją bankową / mit der Banking-App scannen"', 'alt="GiroCode — mit der Banking-App scannen"'],
+];
+
 const dict = loadCommonDe();
 const files = readdirSync(join(ROOT, 'de')).filter((f) => f.endsWith('.html'));
 
@@ -130,6 +140,8 @@ for (const file of files) {
   let html = readFileSync(path, 'utf8');
   const pl = plPendant(file);
   const deHref = '/de/' + file;
+
+  for (const [pl, de] of DE_FIXED) html = html.split(pl).join(de);
 
   // 1) Übersetzungen statisch einbrennen (wirkt nur, wo data-i18n noch existiert)
   html = applyContent(html, dict, 'data-i18n-html', true);

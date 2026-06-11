@@ -5,17 +5,19 @@
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
   || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
 
-function redirect(ok) {
+function redirect(ok, lang) {
+  const l = lang === 'de' ? 'de' : 'pl';
   return {
     statusCode: 302,
-    headers: { Location: '/newsletter-potwierdzony.html?ok=' + (ok ? '1' : '0') },
+    headers: { Location: '/newsletter-potwierdzony.html?ok=' + (ok ? '1' : '0') + '&lang=' + l },
     body: ''
   };
 }
 
 exports.handler = async (event) => {
   const token = (event.queryStringParameters && event.queryStringParameters.token) || '';
-  if (!token) return redirect(false);
+  const lang = (event.queryStringParameters && event.queryStringParameters.lang) || 'pl';
+  if (!token) return redirect(false, lang);
 
   try {
     const url = new URL(APPS_SCRIPT_URL);
@@ -24,8 +26,8 @@ exports.handler = async (event) => {
     const res = await fetch(url.toString(), { redirect: 'follow' });
     let data = {};
     try { data = JSON.parse(await res.text()); } catch (_) { data = {}; }
-    return redirect(!!(data && data.success));
+    return redirect(!!(data && data.success), (data && data.lang) || lang);
   } catch (_) {
-    return redirect(false);
+    return redirect(false, lang);
   }
 };

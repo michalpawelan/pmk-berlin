@@ -13,6 +13,7 @@
   <meta name="author" content="Polska Misja Katolicka Berlin">
 
   <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wesprzyj.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/spenden.html">
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wesprzyj.html">
 
   <meta property="og:title" content="Wesprzyj naszą Misję | Polska Misja Katolicka Berlin">
@@ -558,8 +559,8 @@
     de: { copy: 'Kopieren', copied: 'Kopiert!', aria: 'IBAN in die Zwischenablage kopieren' }
   };
   function tWesprzyj(key) {
-    var lang = 'pl';
-    try { lang = localStorage.getItem('pmk-lang') || 'pl'; } catch (e) {}
+    // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+    var lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
     return (WESPRZYJ_I18N[lang] && WESPRZYJ_I18N[lang][key]) || WESPRZYJ_I18N.pl[key] || key;
   }
 
@@ -587,11 +588,6 @@
       });
     });
 
-    // Refresh button text when language switches
-    var orig = window.setLang;
-    if (typeof orig === 'function') {
-      window.setLang = function(lang) { orig(lang); refreshLabels(); };
-    }
   });
 </script>
 <script type="module" src="/js/pmk-chat.js"></script>
