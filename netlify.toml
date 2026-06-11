@@ -153,6 +153,209 @@
   force = true
 
 # ============================================
+# Legacy Wix URLs (301) — Google hat die alten
+# Wix-Pfade noch im Index; ohne diese Redirects
+# landen Besucher aus der Suche auf der 404-Seite.
+# Nicht-ASCII-Pfade müssen URL-encoded sein.
+# ============================================
+
+# Messzeiten (alte Wix-Seiten "Porządek Nabożeństw" / "Msze Święte")
+[[redirects]]
+  from = "/porz%C4%85dek-nabo%C5%BCe%C5%84stw"
+  to = "/#messzeiten"
+  status = 301
+
+[[redirects]]
+  from = "/msze-%C5%9Bwi%C4%99te"
+  to = "/#messzeiten"
+  status = 301
+
+# Pfarrbüro / Kontakt
+[[redirects]]
+  from = "/biuro-parafialne"
+  to = "/kontakt.html"
+  status = 301
+
+[[redirects]]
+  from = "/kopia-biuro-parafialne"
+  to = "/kontakt.html"
+  status = 301
+
+[[redirects]]
+  from = "/kontakt"
+  to = "/kontakt.html"
+  status = 301
+
+# Sakramente
+[[redirects]]
+  from = "/chrzest"
+  to = "/sakrament-chrzest.html"
+  status = 301
+
+[[redirects]]
+  from = "/bierzmowanie"
+  to = "/sakrament-bierzmowanie.html"
+  status = 301
+
+[[redirects]]
+  from = "/pierwsza-komunia-%C5%9Bw"
+  to = "/sakrament-komunia.html"
+  status = 301
+
+[[redirects]]
+  from = "/ma%C5%82%C5%BCe%C5%84stwo"
+  to = "/sakrament-malzenstwo.html"
+  status = 301
+
+[[redirects]]
+  from = "/namaszczenie-chorych"
+  to = "/sakrament-namaszczenie.html"
+  status = 301
+
+[[redirects]]
+  from = "/katecheza"
+  to = "/sakramente.html"
+  status = 301
+
+# Ogłoszenia / Blog (alte Wix-Posts)
+[[redirects]]
+  from = "/og%C5%82oszenia-duszpasterskie"
+  to = "/ogloszenia.html"
+  status = 301
+
+[[redirects]]
+  from = "/post/*"
+  to = "/ogloszenia.html"
+  status = 301
+
+[[redirects]]
+  from = "/bible-stories"
+  to = "/ogloszenia.html"
+  status = 301
+
+[[redirects]]
+  from = "/bible-stories/*"
+  to = "/ogloszenia.html"
+  status = 301
+
+[[redirects]]
+  from = "/kalendarz"
+  to = "/events.html"
+  status = 301
+
+# Wspólnoty / Gruppen
+[[redirects]]
+  from = "/domowy-ko%C5%9Bci%C3%B3%C5%82"
+  to = "/wspolnota-domowy-kosciol.html"
+  status = 301
+
+[[redirects]]
+  from = "/grono-dzieci-maryi"
+  to = "/wspolnota-grono-dzieci-maryi.html"
+  status = 301
+
+[[redirects]]
+  from = "/grupa-kobiet-empatycznych"
+  to = "/wspolnota-grupa-kobiet.html"
+  status = 301
+
+[[redirects]]
+  from = "/grupa-meska"
+  to = "/wspolnota-grupa-meska.html"
+  status = 301
+
+[[redirects]]
+  from = "/ko%C5%82o-%C5%BCywego-r%C3%B3%C5%BCa%C5%84ca"
+  to = "/wspolnota-zywy-rozaniec.html"
+  status = 301
+
+[[redirects]]
+  from = "/ko%C5%82o-przyjaci%C3%B3%C5%82-radia-maryja"
+  to = "/wspolnota-radio-maryja.html"
+  status = 301
+
+[[redirects]]
+  from = "/liturgiczna-s%C5%82u%C5%BCba-o%C5%82tarza"
+  to = "/wspolnota-ministranci.html"
+  status = 301
+
+[[redirects]]
+  from = "/rodzina-szensztacka"
+  to = "/wspolnota-ruch-szensztacki.html"
+  status = 301
+
+[[redirects]]
+  from = "/ruch-%C5%9Bwiat%C5%82o-%C5%BCycie"
+  to = "/wspolnota-ruch-swiatlo-zycie.html"
+  status = 301
+
+[[redirects]]
+  from = "/schola-marana-tha"
+  to = "/wspolnota-schola.html"
+  status = 301
+
+[[redirects]]
+  from = "/wsp%C3%B3lnota-szko%C5%82a-nowej-ewangelizacj"
+  to = "/wspolnota-sne.html"
+  status = 301
+
+[[redirects]]
+  from = "/wsp%C3%B3lnota-szko%C5%82a-nowej-ewangelizacji"
+  to = "/wspolnota-sne.html"
+  status = 301
+
+[[redirects]]
+  from = "/diakonia-%C5%BCycia"
+  to = "/grupy.html"
+  status = 301
+
+[[redirects]]
+  from = "/grup-oratoryjna"
+  to = "/grupy.html"
+  status = 301
+
+[[redirects]]
+  from = "/stowarzyszenie-matki-bo%C5%BCej"
+  to = "/grupy.html"
+  status = 301
+
+[[redirects]]
+  from = "/rada-wsp%C3%B3lnoty-parafialnej"
+  to = "/grupy.html"
+  status = 301
+
+# Über uns / Seelsorger / Rechtliches
+[[redirects]]
+  from = "/historia"
+  to = "/#onas"
+  status = 301
+
+[[redirects]]
+  from = "/salezjanie"
+  to = "/#onas"
+  status = 301
+
+[[redirects]]
+  from = "/sylwetki-duszpasterzy"
+  to = "/#duszpasterze"
+  status = 301
+
+[[redirects]]
+  from = "/s%C5%82owo-video-proboszcza"
+  to = "/#duszpasterze"
+  status = 301
+
+[[redirects]]
+  from = "/rodo"
+  to = "/polityka-prywatnosci.html"
+  status = 301
+
+[[redirects]]
+  from = "/kopia-kopia-rodo-datenschutzerkl%C3%A4rung"
+  to = "/polityka-prywatnosci.html"
+  status = 301
+
+# ============================================
 # 404 Redirect
 # ============================================
 [[redirects]]
