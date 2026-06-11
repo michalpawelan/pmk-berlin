@@ -79,8 +79,8 @@
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" data-lang="pl">PL</button>
-        <a href="/de/index.html" class="lang-btn" data-lang="de">DE</a>
+        <a href="/event.html" class="lang-btn active" data-lang="pl">PL</a>
+        <a href="/de/veranstaltung.html" class="lang-btn" data-lang="de">DE</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
@@ -307,7 +307,6 @@
     </div>
   </div>
 </footer>
-<script src="js/i18n.js" defer></script>
 <script src="main.js" defer></script>
 <script type="module" src="js/pmk-chat.js"></script>
 <script src="js/events-manager.js" defer></script>
@@ -447,8 +446,8 @@ const EVENT_I18N = {
   de: { copied: 'Kopiert!', copy_prompt: 'Link kopieren:', default_desc: 'Gemeindeveranstaltung der Polnischen Katholischen Mission in Berlin.' }
 };
 function tEvent(key) {
-  let lang = 'pl';
-  try { lang = localStorage.getItem('pmk-lang') || 'pl'; } catch (e) {}
+  // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+  const lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
   return (EVENT_I18N[lang] && EVENT_I18N[lang][key]) || EVENT_I18N.pl[key] || key;
 }
 

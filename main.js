@@ -53,18 +53,8 @@
       hamburger.addEventListener('click', toggleMenu);
     }
 
-    // Bind language switcher buttons (data-lang attribute)
-    // The DE control is an <a href="/de/..."> kept only as a no-JS fallback.
-    // With JS we translate the current page IN PLACE (preventDefault stops the
-    // browser from navigating to the reduced static /de/ page).
-    document.querySelectorAll('[data-lang]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        if (typeof window.setLang === 'function') {
-          e.preventDefault();
-          window.setLang(this.getAttribute('data-lang'));
-        }
-      });
-    });
+    // Sprachwahl ist URL-basiert: PL unter /, DE unter /de/ — die
+    // lang-btn-Elemente sind normale Links, kein JS-Umschalten mehr.
 
     function updateNav() {
       const scrollY = window.scrollY;
@@ -482,7 +472,8 @@
   };
 
   function getLang() {
-    try { return localStorage.getItem('pmk-lang') || 'pl'; } catch (e) { return 'pl'; }
+    // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+    return window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
   }
 
   function renderEventCard(ev) {

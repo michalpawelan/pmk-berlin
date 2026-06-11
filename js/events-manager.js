@@ -14,7 +14,7 @@ const EventsManager = (function() {
     EVENTS_API: '/.netlify/functions/events-proxy',
 
     // Fallback auf lokale JSON wenn Google Sheets nicht erreichbar
-    FALLBACK_JSON: 'events.json',
+    FALLBACK_JSON: '/events.json',
 
     // Cache-Dauer in Minuten
     CACHE_DURATION: 5

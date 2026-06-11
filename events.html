@@ -87,8 +87,8 @@
 
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn active" data-lang="pl">PL</button>
-        <a href="/de/index.html" class="lang-btn" data-lang="de">DE</a>
+        <a href="/events.html" class="lang-btn active" data-lang="pl">PL</a>
+        <a href="/de/veranstaltungen.html" class="lang-btn" data-lang="de">DE</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <span></span>
@@ -322,7 +322,6 @@
     </div>
   </div>
 </footer>
-<script src="js/i18n.js" defer></script>
 <script src="main.js" defer></script>
 <script type="module" src="js/pmk-chat.js"></script>
 <script src="js/events-manager.js" defer></script>
@@ -350,11 +349,13 @@ const EVENTS_I18N = {
 };
 
 function getEventsLang() {
-  try {
-    const saved = localStorage.getItem('pmk-lang') || 'pl';
-    return EVENTS_I18N[saved] ? saved : 'pl';
-  } catch (e) { return 'pl'; }
+  // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+  return window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
 }
+
+// Detailseite passend zur Sprache (DE-Pendant heißt veranstaltung.html)
+const EVENT_DETAIL_PAGE = window.location.pathname.indexOf('/de/') === 0
+  ? '/de/veranstaltung.html' : '/event.html';
 
 function tEvents(key) {
   const lang = getEventsLang();
@@ -420,19 +421,6 @@ async function loadEvents() {
   }
 }
 
-// Re-render events when language switches mid-session
-document.addEventListener('DOMContentLoaded', function() {
-  // Wrap window.setLang after i18n.js (deferred) has installed it
-  const orig = window.setLang;
-  if (typeof orig === 'function') {
-    window.setLang = function(lang) { orig(lang); loadEvents(); };
-  }
-});
-// Cross-tab sync
-window.addEventListener('storage', function(e) {
-  if (e.key === 'pmk-lang') loadEvents();
-});
-
 function renderSection(title, events) {
   // Same clean card as the homepage (.event-card-new — styles live in styles.css):
   // small poster thumb OR date badge, title leads, one meta line, visible "Szczegóły →".
@@ -454,7 +442,7 @@ function renderSection(title, events) {
     const whenText = hasImage ? `${weekday} · ${dateInfo.day} ${dateInfo.month}` : weekday;
 
     html += `
-      <a href="event.html?id=${ev.id}" class="event-card-new reveal">
+      <a href="${EVENT_DETAIL_PAGE}?id=${ev.id}" class="event-card-new reveal">
         ${left}
         <span class="ev-main">
           <span class="ev-when"><span class="dot"></span>${whenText}</span>

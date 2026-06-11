@@ -107,14 +107,8 @@ const I18N = {
 };
 
 function currentLang() {
-  const active = document.querySelector('.lang-btn.active');
-  if (active && active.dataset.lang) return active.dataset.lang;
-  try {
-    const s = localStorage.getItem('pmk-lang');
-    if (s && I18N[s]) return s;
-  } catch (e) {}
-  const htmlLang = (document.documentElement.lang || 'pl').slice(0, 2);
-  return I18N[htmlLang] ? htmlLang : 'pl';
+  // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+  return window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
 }
 
 function t(key) {

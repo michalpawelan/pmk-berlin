@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <title>Veranstaltung | Polnische Katholische Mission Berlin</title>
+  <meta name="description" content="Veranstaltung der Polnischen Katholischen Mission Berlin.">
+  <link rel="canonical" href="https://www.pmk-berlin.de/de/veranstaltung.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/event.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/veranstaltung.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/event.html">
+
+  <meta property="og:title" content="Veranstaltung | Polnische Katholische Mission Berlin">
+  <meta property="og:description" content="Veranstaltung der Polnischen Katholischen Mission Berlin.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.pmk-berlin.de/de/veranstaltung.html">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="pl_PL">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Polnische Katholische Mission Berlin">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wydarzenie | PMK Berlin">
+  <meta name="twitter:description" content="Szczegóły wydarzenia w Polskiej Misji Katolickiej w Berlinie.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Neukölln">
+  <meta name="geo.position" content="52.48762;13.40901">
+  <meta name="ICBM" content="52.48762, 13.40901">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://www.pmk-berlin.de/de/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Veranstaltung", "item": "https://www.pmk-berlin.de/de/veranstaltung.html" },
+      { "@type": "ListItem", "position": 3, "name": "Wydarzenie", "item": "https://www.pmk-berlin.de/event.html" }
+    ]
+  }
+  </script>
+
+  <!-- Premium Typography -->
+  <link rel="stylesheet" href="/fonts/fonts.css">
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/css/event-detail.css">
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="/de/index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="/images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/de/index.html">Startseite</a></li>
+      <li><a href="/de/messzeiten.html">Messzeiten</a></li>
+      <li><a href="/de/sakramente.html">Sakramente</a></li>
+      <li><a href="/de/veranstaltungen.html" class="active">Veranstaltungen</a></li>
+      <li><a href="/de/gruppen.html">Gruppen</a></li>
+      <li><a href="/de/ueber-uns.html">Über uns</a></li>
+      <li><a href="/de/kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <a href="/event.html" class="lang-btn" data-lang="pl">PL</a>
+        <a href="/de/veranstaltung.html" class="lang-btn active" data-lang="de">DE</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Event Detail Content -->
+<main id="main-content">
+  <!-- Loading State -->
+  <div class="event-loading" id="event-loading">
+    <div class="loading-spinner"></div>
+    <p>Veranstaltung wird geladen...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="event-error" id="event-error" style="display: none;">
+    <div class="error-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4m0 4h.01"/>
+      </svg>
+    </div>
+    <h2>Veranstaltung nicht gefunden</h2>
+    <p>Wir konnten diese Veranstaltung leider nicht finden.</p>
+    <a href="/de/veranstaltungen.html" class="btn btn-primary">Zurück zum Kalender</a>
+  </div>
+
+  <!-- Event Content (Luma-style, filled by JavaScript) -->
+  <article class="event-article" id="event-content" style="display: none;">
+
+    <!-- Back Link -->
+    <a href="/de/veranstaltungen.html" class="event-back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5m0 0l7 7m-7-7l7-7"/>
+      </svg>
+      <span>Zurück zu den Veranstaltungen</span>
+    </a>
+
+    <!-- Top: Image + Title/Info side by side -->
+    <div class="event-top">
+      <!-- Image -->
+      <div class="event-image-container" id="event-image-container">
+        <div class="event-image-placeholder" id="event-image-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+        </div>
+        <img id="event-image" src="/" alt="" loading="lazy" style="display:none;">
+      </div>
+
+      <!-- Title + Info -->
+      <div class="event-header">
+        <h1 class="event-title" id="event-title"></h1>
+
+        <div class="event-info-rows">
+          <!-- Date -->
+          <div class="event-info-row">
+            <div class="event-info-icon event-info-icon-date">
+              <span id="event-month-short"></span>
+              <span class="date-num" id="event-day"></span>
+            </div>
+            <div class="event-info-text">
+              <strong id="event-date-full"></strong>
+              <span id="event-time" data-section="time"></span>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="event-info-row">
+            <div class="event-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="event-info-text">
+              <strong id="event-location"></strong>
+              <span id="event-address"></span>
+              <a id="event-map-link" href="#" target="_blank" rel="noopener">In Google Maps öffnen ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="event-about">
+      <h2>Über die Veranstaltung</h2>
+      <div class="event-description" id="event-description">
+        <!-- Filled by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="event-actions-bar">
+      <a class="action-btn action-btn-google" id="btn-google" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Google Calendar
+      </a>
+      <button class="action-btn" id="btn-copy-link" title="Link kopieren">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+        </svg>
+        <span>Link kopieren</span>
+      </button>
+      <a class="action-btn" id="btn-share-whatsapp" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- Location + Map -->
+    <div class="event-location-section">
+      <h2>Standort</h2>
+      <div class="location-info">
+        <div class="location-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="location-info-text">
+          <strong id="event-location-2"></strong>
+          <span id="event-address-2"></span>
+        </div>
+      </div>
+      <div class="event-map" id="event-map">
+        <div class="map-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <p>Zum Anzeigen der Karte klicken</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="/images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 12049 Berlin
+        </p>
+        <div class="footer-contact">
+          <a href="tel:+49307524080">+49 30 752 40 80</a>
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Navigation</h4>
+          <a href="/de/index.html">Startseite</a>
+          <a href="/de/messzeiten.html">Messzeiten</a>
+          <a href="/de/sakramente.html">Sakramente</a>
+          <a href="/de/veranstaltungen.html">Veranstaltungen</a>
+          <a href="/de/gruppen.html">Gruppen</a>
+          <a href="/de/ueber-uns.html">Über uns</a>
+          <a href="/de/kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Sprache</h4>
+          <a href="/event.html">Polski (Originalversion)</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informationen</h4>
+          <a href="/impressum.html">Impressum</a>
+          <a href="/datenschutz.html">Datenschutz</a>
+          <a href="/schutzkonzept.html">Schutzkonzept</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4>Unterstützen Sie unsere Mission</h4>
+        <p>Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung.</p>
+      </div>
+      <div class="footer-donate-cta-wrap">
+        <a href="/de/spenden.html" class="footer-donate-btn">Mission unterstützen</a>
+      </div>
+    </div>
+
+    <!-- BEGIN newsletter-footer -->
+<div class="footer-newsletter" data-newsletter-form>
+  <h4>Bleib auf dem Laufenden</h4>
+  <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
+  <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Imię / Vorname">
+    <input type="email" name="email" required placeholder="deine E-Mail" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button type="submit" class="footer-newsletter-btn">Anmelden</button>
+    <p class="footer-newsletter-msg" hidden></p>
+  </form>
+  <p class="footer-newsletter-legal">
+    <a href="/datenschutz.html">Datenschutzhinweis</a>
+  </p>
+</div>
+<!-- END newsletter-footer -->
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+<script src="/main.js" defer></script>
+<script type="module" src="/js/pmk-chat.js"></script>
+<script src="/js/events-manager.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  // Event ID aus URL holen
+  const params = new URLSearchParams(window.location.search);
+  const eventId = params.get('id');
+
+  if (!eventId) {
+    showError();
+    return;
+  }
+
+  // 1. Instant paint from the homepage's shared events cache (pmk-events-v1).
+  //    The cached event objects have the exact same shape renderEvent expects,
+  //    so arriving from the homepage shows the event immediately — no long spinner.
+  let painted = false;
+  try {
+    const cached = JSON.parse(localStorage.getItem('pmk-events-v1') || 'null');
+    if (Array.isArray(cached)) {
+      const hit = cached.find(e => e && e.id === eventId);
+      if (hit) { renderEvent(hit); painted = true; }
+    }
+  } catch (e) { /* ignore — fall through to network */ }
+
+  // 2. Revalidate from the live source. Only render/error here if the cache
+  //    didn't already paint (avoids re-running renderEvent's one-time setup).
+  try {
+    const event = await EventsManager.getEventById(eventId);
+    if (event) {
+      if (!painted) renderEvent(event);
+    } else if (!painted) {
+      showError();
+    }
+  } catch (error) {
+    if (!painted) { console.error('Fehler beim Laden:', error); showError(); }
+  }
+});
+
+function showError() {
+  document.getElementById('event-loading').style.display = 'none';
+  document.getElementById('event-error').style.display = 'flex';
+}
+
+function renderEvent(event) {
+  // Update page title
+  document.title = `${event.title} | PMK Berlin`;
+
+  // Dynamic SEO: update meta description, canonical, OG/Twitter + inject Event schema
+  updateEventSeo(event);
+
+  // Hide loading, show content
+  document.getElementById('event-loading').style.display = 'none';
+  document.getElementById('event-content').style.display = 'block';
+
+  // Image (Luma-style)
+  if (event.imageUrl) {
+    const imgEl = document.getElementById('event-image');
+    imgEl.src = event.imageUrl;
+    imgEl.alt = event.title;
+    imgEl.style.display = 'block';
+    document.getElementById('event-image-placeholder').style.display = 'none';
+  }
+
+  // Title
+  document.getElementById('event-title').textContent = event.title;
+
+  // Date
+  const dateInfo = EventsManager.formatDateShort(event.date);
+  document.getElementById('event-day').textContent = dateInfo.day;
+  document.getElementById('event-month-short').textContent = dateInfo.month;
+
+  const weekday = EventsManager.getWeekday(event.date);
+  const fullDate = EventsManager.formatDate(event.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  document.getElementById('event-date-full').textContent = fullDate;
+
+  // Time
+  if (event.time) {
+    const timeText = event.endTime ? `${event.time} - ${event.endTime}` : event.time;
+    document.getElementById('event-time').textContent = timeText;
+  }
+
+  // Description
+  const descEl = document.getElementById('event-description');
+  if (event.fullDesc) {
+    descEl.innerHTML = event.fullDesc.replace(/\n/g, '<br>');
+  } else if (event.shortDesc) {
+    descEl.innerHTML = `<p>${event.shortDesc}</p>`;
+  }
+
+  // Location
+  const locationName = event.location || 'Johannes-Basilika';
+  const locationAddr = event.address || 'Lilienthalstr. 5, 12049 Berlin';
+  document.getElementById('event-location').textContent = locationName;
+  document.getElementById('event-address').textContent = locationAddr;
+  document.getElementById('event-location-2').textContent = locationName;
+  document.getElementById('event-address-2').textContent = locationAddr;
+
+  // Maps
+  const address = event.address || 'Lilienthalstraße 5, 12049 Berlin';
+  document.getElementById('event-map-link').href = EventsManager.getGoogleMapsUrl(address);
+
+  // Map embed (click to load)
+  const mapContainer = document.getElementById('event-map');
+  mapContainer.addEventListener('click', function() {
+    this.innerHTML = `<iframe src="https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed" frameborder="0" allowfullscreen loading="lazy"></iframe>`;
+  });
+
+  // Calendar buttons
+  const btnIcs = document.getElementById('btn-ics');
+  if (btnIcs) btnIcs.addEventListener('click', () => EventsManager.downloadICS(event));
+  document.getElementById('btn-google').href = EventsManager.getGoogleCalendarUrl(event);
+
+  // Share buttons
+  const pageUrl = window.location.href;
+  document.getElementById('btn-copy-link').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(pageUrl);
+      const btn = document.getElementById('btn-copy-link');
+      const original = btn.innerHTML;
+      const copiedLabel = tEvent('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> ' + copiedLabel;
+      setTimeout(() => btn.innerHTML = original, 2000);
+    } catch (e) {
+      prompt(tEvent('copy_prompt'), pageUrl);
+    }
+  });
+
+  document.getElementById('btn-share-whatsapp').href =
+    `https://wa.me/?text=${encodeURIComponent(event.title + ' - ' + pageUrl)}`;
+}
+
+// Lang-aware strings for dynamically-rendered content
+const EVENT_I18N = {
+  pl: { copied: 'Skopiowano!', copy_prompt: 'Skopiuj link:', default_desc: 'Wydarzenie parafialne w Polskiej Misji Katolickiej w Berlinie.' },
+  de: { copied: 'Kopiert!', copy_prompt: 'Link kopieren:', default_desc: 'Gemeindeveranstaltung der Polnischen Katholischen Mission in Berlin.' }
+};
+function tEvent(key) {
+  // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+  const lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
+  return (EVENT_I18N[lang] && EVENT_I18N[lang][key]) || EVENT_I18N.pl[key] || key;
+}
+
+function updateEventSeo(event) {
+  const canonicalUrl = `https://www.pmk-berlin.de/event.html?id=${encodeURIComponent(event.id || '')}`;
+  const desc = (event.shortDesc || event.fullDesc || tEvent('default_desc')).replace(/\s+/g, ' ').trim().slice(0, 300);
+  const image = event.imageUrl || 'https://www.pmk-berlin.de/images/basilika-fassade.webp';
+
+  const setMeta = (selector, attr, value) => {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, value);
+  };
+  setMeta('meta[name="description"]', 'content', desc);
+  setMeta('link[rel="canonical"]', 'href', canonicalUrl);
+  setMeta('meta[property="og:title"]', 'content', `${event.title} | PMK Berlin`);
+  setMeta('meta[property="og:description"]', 'content', desc);
+  setMeta('meta[property="og:url"]', 'content', canonicalUrl);
+  setMeta('meta[property="og:image"]', 'content', image);
+  setMeta('meta[name="twitter:title"]', 'content', `${event.title} | PMK Berlin`);
+  setMeta('meta[name="twitter:description"]', 'content', desc);
+  setMeta('meta[name="twitter:image"]', 'content', image);
+
+  const isoDate = event.date || '';
+  const startTime = event.time ? `${isoDate}T${event.time}:00+02:00` : isoDate;
+  const endTime = event.endTime ? `${isoDate}T${event.endTime}:00+02:00` : startTime;
+  const locationName = event.location || 'Johannes-Basilika';
+  const locationAddr = event.address || 'Lilienthalstr. 5, 12049 Berlin';
+
+  const eventSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    description: desc,
+    startDate: startTime,
+    endDate: endTime,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    image: image,
+    url: canonicalUrl,
+    inLanguage: 'pl',
+    location: {
+      '@type': 'Place',
+      name: locationName,
+      address: locationAddr
+    },
+    organizer: {
+      '@type': 'Organization',
+      '@id': 'https://www.pmk-berlin.de/#church',
+      name: 'Polska Misja Katolicka Berlin',
+      url: 'https://www.pmk-berlin.de/'
+    },
+    isAccessibleForFree: true
+  };
+
+  const existingSchema = document.getElementById('event-schema-dynamic');
+  if (existingSchema) existingSchema.remove();
+  const scriptEl = document.createElement('script');
+  scriptEl.type = 'application/ld+json';
+  scriptEl.id = 'event-schema-dynamic';
+  scriptEl.textContent = JSON.stringify(eventSchema);
+  document.head.appendChild(scriptEl);
+}
+</script>
+</body>
+</html>

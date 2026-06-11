@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <title>Männergruppe | Polnische Katholische Mission Berlin</title>
+  <meta name="description" content="„Männergruppe" — Gemeinschaft der Polnischen Katholischen Mission Berlin. Treffen, Termine und Kontakt (die Gruppe trifft sich auf Polnisch).">
+  <link rel="canonical" href="https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polska Misja Katolicka Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grupa-meska.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grupa-meska.html">
+
+  <meta property="og:title" content="Männergruppe | Polnische Katholische Mission Berlin">
+  <meta property="og:description" content="„Männergruppe" — Gemeinschaft der Polnischen Katholischen Mission Berlin. Treffen, Termine und Kontakt (die Gruppe trifft sich auf Polnisch).">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="pl_PL">
+  <meta property="og:site_name" content="PMK Berlin">
+  <meta property="og:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Polnische Katholische Mission Berlin">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Grupa Męska | PMK Berlin">
+  <meta name="twitter:description" content="Wspólnota chrześcijańskich mężczyzn wspierających się w wyzwaniach duchowych i życiowych.">
+  <meta name="twitter:image" content="https://www.pmk-berlin.de/images/basilika-fassade.webp">
+
+  <meta name="geo.region" content="DE-BE">
+  <meta name="geo.placename" content="Berlin, Neukölln">
+  <meta name="geo.position" content="52.48762;13.40901">
+  <meta name="ICBM" content="52.48762, 13.40901">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://www.pmk-berlin.de/de/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Männergruppe", "item": "https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html" },
+      { "@type": "ListItem", "position": 3, "name": "Grupa Męska", "item": "https://www.pmk-berlin.de/wspolnota-grupa-meska.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Grupa Męska PMK Berlin",
+    "description": "Wspólnota parafialna PMK Berlin. Wspólnota chrześcijańskich mężczyzn wspierających się nawzajem w przezwyciężaniu wyzwań duchowych i życiowych.",
+    "url": "https://www.pmk-berlin.de/wspolnota-grupa-meska.html",
+    "memberOf": { "@id": "https://www.pmk-berlin.de/#church" },
+    "areaServed": { "@type": "City", "name": "Berlin" }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/fonts/fonts.css">
+
+  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    /* ===== Group Detail Page Styles ===== */
+
+    .group-hero {
+      padding: calc(var(--nav-height, 80px) + var(--space-12)) 0 var(--space-12);
+      background: var(--color-warm-100);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .group-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, var(--color-accent-light));
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .group-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .group-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .group-breadcrumb a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .group-breadcrumb a:hover {
+      color: var(--color-accent);
+    }
+
+    .group-breadcrumb svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.4;
+    }
+
+    .group-hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .group-hero-text {
+      max-width: 540px;
+    }
+
+    .group-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: var(--color-accent);
+      color: white;
+      border-radius: 16px;
+      margin-bottom: var(--space-5);
+    }
+
+    .group-icon-badge svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .group-hero-text h1 {
+      font-family: var(--font-serif);
+      font-size: var(--text-4xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      line-height: 1.15;
+      margin-bottom: var(--space-4);
+    }
+
+    .group-hero-text h1 em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    .group-hero-tagline {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+    }
+
+    .group-hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .group-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .group-meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .group-meta-item strong {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    .group-hero-image {
+      position: relative;
+      border-radius: var(--radius-2xl, 1.5rem);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #f5f1ea;
+    }
+
+    .group-hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 1.25rem;
+    }
+
+    /* Fade-in animation for images */
+    .group-hero-image img,
+    .group-hero-image .group-hero-image-placeholder {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInImage 0.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeInImage {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .group-hero-text {
+      opacity: 0;
+      animation: fadeInText 0.6s ease-out 0.1s forwards;
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .group-hero-image-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--color-warm-200), var(--color-warm-300));
+      color: var(--color-accent);
+      font-size: 4rem;
+      opacity: 0.5;
+    }
+
+    .group-hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(166, 139, 91, 0.15);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* Main Content */
+    .group-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-6);
+    }
+
+    .group-content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+
+    /* Left Column - Description */
+    .group-description h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-5);
+    }
+
+    .group-description h2 em {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    .group-description p {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-5);
+    }
+
+    .group-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin: var(--space-8) 0;
+    }
+
+    .group-highlight-card {
+      padding: var(--space-5);
+      background: var(--color-warm-100);
+      border-radius: var(--radius-xl, 1rem);
+      border: 1px solid var(--color-border);
+    }
+
+    .group-highlight-card h4 {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .group-highlight-card p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Right Column - Contact Card */
+    .group-contact-card {
+      position: sticky;
+      top: calc(var(--nav-height, 80px) + var(--space-6));
+      background: white;
+      border-radius: var(--radius-2xl, 1.5rem);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    }
+
+    .group-contact-header {
+      background: var(--color-warm-950);
+      color: white;
+      padding: var(--space-6);
+      text-align: center;
+    }
+
+    .group-contact-header h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-xl);
+      font-weight: 500;
+      margin-bottom: var(--space-1);
+    }
+
+    .group-contact-header p {
+      font-size: var(--text-sm);
+      opacity: 0.7;
+    }
+
+    .group-contact-body {
+      padding: var(--space-6);
+    }
+
+    .group-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .group-contact-item:last-child {
+      border-bottom: none;
+    }
+
+    .group-contact-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .group-contact-item .label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .group-contact-item .value {
+      font-size: var(--text-sm);
+      color: var(--color-text-primary);
+      line-height: 1.5;
+    }
+
+    .group-contact-item a {
+      color: var(--color-accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .group-contact-item a:hover {
+      color: var(--color-accent-dark);
+      text-decoration: underline;
+    }
+
+    .group-contact-cta {
+      display: block;
+      width: 100%;
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      background: var(--color-accent);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--text-sm);
+      border-radius: var(--radius-lg, 0.75rem);
+      transition: all 0.2s;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+    }
+
+    .group-contact-cta:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(166, 139, 91, 0.3);
+    }
+
+    /* Back link */
+    .group-back-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-16);
+      text-align: center;
+    }
+
+    .group-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: var(--space-3) var(--space-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full, 9999px);
+      transition: all 0.2s;
+    }
+
+    .group-back-link:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .group-back-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .group-content-grid {
+        grid-template-columns: 1fr;
+      }
+      .group-contact-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .group-hero-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .group-hero-text {
+        order: 1;
+      }
+      .group-hero-image {
+        order: 0;
+        max-height: 280px;
+      }
+      .group-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Przejdź do treści</a>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="/de/index.html" class="nav-brand">
+      <span class="nav-brand-icon">
+        <img class="nav-logo" src="/images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie" width="45" height="45">
+      </span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polska Misja Katolicka</span>
+        <span class="nav-brand-location">BERLIN</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/de/index.html">Startseite</a></li>
+      <li><a href="/de/messzeiten.html">Messzeiten</a></li>
+      <li><a href="/de/sakramente.html">Sakramente</a></li>
+      <li><a href="/de/veranstaltungen.html">Veranstaltungen</a></li>
+      <li><a href="/de/gruppen.html" class="active">Gruppen</a></li>
+      <li><a href="/de/ueber-uns.html">Über uns</a></li>
+      <li><a href="/de/kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <a href="/wspolnota-grupa-meska.html" class="lang-btn" data-lang="pl">PL</a>
+        <a href="/de/wspolnota-grupa-meska.html" class="lang-btn active" data-lang="de">DE</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Group Hero Section -->
+<section id="main-content" class="group-hero">
+  <div class="group-hero-inner">
+
+    <nav class="group-breadcrumb">
+      <a href="/de/index.html">Startseite</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <a href="/de/gruppen.html">Gemeinschaften</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <span>Männergruppe</span>
+    </nav>
+
+    <div class="group-hero-content">
+      <div class="group-hero-text">
+        <div class="group-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h1><em>Männergruppe</em></h1>
+        <p class="group-hero-tagline">Gemeinschaft christlicher Männer, die sich gegenseitig bei der Bewältigung geistlicher und alltäglicher Herausforderungen unterstützen.</p>
+        <div class="group-hero-meta">
+          <div class="group-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Treffen: <strong>1 Mal im Monat, Donnerstag, 19:00 Uhr</strong></span>
+          </div>
+          <div class="group-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Ort: <strong>Johannes-Paul-II.-Haus</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="group-hero-image">
+        <img src="/images/grupy/grupa-meska.svg" alt="Emblemat Grupa Męska" loading="eager" width="200" height="200" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="group-hero-image-placeholder" style="display:none;">📷</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="group-content">
+  <div class="group-content-grid">
+
+    <!-- Left: Description -->
+    <div class="group-description">
+      <h2>Über <em>uns</em></h2>
+      <p>Wir sind eine Gruppe christlicher Männer. Wir unterstützen einander, um Stärkung und Hilfe bei der Bewältigung sowohl geistlicher als auch alltäglicher Herausforderungen zu finden. Wir lernen voneinander und teilen unsere Erfahrungen, wodurch wir bessere Brüder, Ehemänner und Väter werden.</p>
+
+            <div class="group-highlights">
+        <div class="group-highlight-card">
+          <h4>Gegenseitige Unterstützung</h4>
+          <p>Männer unterstützen sich gegenseitig im Glauben und im Alltag.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Geistliche Herausforderungen</h4>
+          <p>Erfahrungen teilen und Stärkung auf dem Weg des Glaubens suchen.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Bessere Ehemänner und Väter</h4>
+          <p>Formung, die zu einer besseren Erfüllung der Rolle in Familie und Gesellschaft führt.</p>
+        </div>
+        <div class="group-highlight-card">
+          <h4>Brüderschaft von Männern</h4>
+          <p>Aufbau tiefer brüderlicher Verbindungen, die auf einem gemeinsamen Glauben gründen.</p>
+        </div>
+      </div>
+
+      <h2>Werden Sie <em>Teil von uns</em></h2>
+      <p>Wir laden herzlich alle ein, die sich unserer Gemeinschaft anschließen möchten. Unabhängig von der Erfahrung ist jeder in unserer Gruppe willkommen. Nehmen Sie Kontakt mit uns auf oder kommen Sie zu einem unserer Treffen.</p>
+    </div>
+
+    <!-- Right: Contact Card -->
+    <aside>
+      <div class="group-contact-card">
+        <div class="group-contact-header">
+          <h3>Kontakt</h3>
+          <p>Nehmen Sie Kontakt mit uns auf</p>
+        </div>
+        <div class="group-contact-body">
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+            <div>
+              <div class="label">Leitung / Verantwortlicher</div>
+              <div class="value">Keine Angaben</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg>
+            <div>
+              <div class="label">Geistliche Begleitung</div>
+              <div class="value">Ks. Przemek Kawecki SDB</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div class="label">Treffen</div>
+              <div class="value">1 Mal im Monat, Donnerstag, 19:00 Uhr<br>Johannes-Paul-II.-Haus</div>
+            </div>
+          </div>
+          <a href="/de/kontakt.html?temat=Wsp%C3%B3lnota%3A%20Grupa%20M%C4%99ska" class="group-contact-cta">Schreiben Sie uns</a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- Contact Form -->
+<section class="wspolnota-kontakt">
+  <h2>Kontakt zur Gruppe</h2>
+  <form name="kontakt-grupa-meska" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" netlify>
+    <input type="hidden" name="form-name" value="kontakt-grupa-meska">
+    <input type="hidden" name="bot-field">
+    <input type="hidden" name="grupa" value="Grupa Męska">
+    <p>
+      <label>Vor- und Nachname<br>
+        <input type="text" name="name" required>
+      </label>
+    </p>
+    <p>
+      <label>E-Mail<br>
+        <input type="email" name="email" required>
+      </label>
+    </p>
+    <p>
+      <label>Nachricht<br>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+    </p>
+    <p class="form-consent" style="margin-top:.25rem;">
+      <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
+        <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
+        <span>Ich willige in die Verarbeitung meiner personenbezogenen Daten zur Bearbeitung dieser Anfrage gemäß der <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> ein.</span>
+      </label>
+    </p>
+    <p><button type="submit">Absenden</button></p>
+  </form>
+</section>
+
+<!-- Back to groups -->
+<div class="group-back-section">
+  <a href="/de/gruppen.html" class="group-back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>Alle Gemeinschaften</span>
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="/images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
+          <div class="footer-brand-text">
+            <strong>Polska Misja Katolicka</strong>
+            <span>w Berlinie</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 12049 Berlin
+        </p>
+        <div class="footer-contact">
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Navigation</h4>
+          <a href="/de/index.html">Startseite</a>
+          <a href="/de/messzeiten.html">Messzeiten</a>
+          <a href="/de/sakramente.html">Sakramente</a>
+          <a href="/de/veranstaltungen.html">Veranstaltungen</a>
+          <a href="/de/gruppen.html">Gruppen</a>
+          <a href="/de/ueber-uns.html">Über uns</a>
+          <a href="/de/kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Sprache</h4>
+          <a href="/wspolnota-grupa-meska.html">Polski (Originalversion)</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informationen</h4>
+          <a href="/impressum.html">Impressum</a>
+          <a href="/datenschutz.html">Datenschutz</a>
+          <a href="/schutzkonzept.html">Schutzkonzept</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4>Unterstützen Sie unsere Mission</h4>
+        <p>Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung.</p>
+      </div>
+      <div class="footer-donate-cta-wrap">
+        <a href="/de/spenden.html" class="footer-donate-btn">Mission unterstützen</a>
+      </div>
+    </div>
+
+    <!-- BEGIN newsletter-footer -->
+<div class="footer-newsletter" data-newsletter-form>
+  <h4>Bleib auf dem Laufenden</h4>
+  <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
+  <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Imię / Vorname">
+    <input type="email" name="email" required placeholder="deine E-Mail" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button type="submit" class="footer-newsletter-btn">Anmelden</button>
+    <p class="footer-newsletter-msg" hidden></p>
+  </form>
+  <p class="footer-newsletter-legal">
+    <a href="/datenschutz.html">Datenschutzhinweis</a>
+  </p>
+</div>
+<!-- END newsletter-footer -->
+
+    <div class="footer-bottom">
+      <p class="footer-motto">"Niech będzie pochwalony Jezus Chrystus"</p>
+      <p class="footer-copy">&copy; 2026 Polska Misja Katolicka Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+<script type="module" src="/js/pmk-chat.js"></script>
+</body>
+</html>

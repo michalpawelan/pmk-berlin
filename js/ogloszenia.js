@@ -18,7 +18,8 @@
   const OGLOSZENIA_API = '/.netlify/functions/ogloszenia-proxy';
 
   function getLang() {
-    try { return localStorage.getItem('pmk-lang') || 'pl'; } catch (e) { return 'pl'; }
+    // Sprache hängt nur an der URL: /de/* ist Deutsch, alles andere Polnisch
+    return window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
   }
 
   function escapeHTML(s) {

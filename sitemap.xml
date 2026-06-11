@@ -36,6 +36,9 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/events.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/veranstaltungen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/events.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/ogloszenia.html</loc>
@@ -48,6 +51,9 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/grupy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/gruppen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/grupy.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/kontakt.html</loc>
@@ -63,6 +69,9 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wesprzyj.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/spenden.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wesprzyj.html"/>
   </url>
 
   <!-- ============================================ -->
@@ -73,36 +82,54 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-chrzest.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/taufe.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-chrzest.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/sakrament-komunia.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-komunia.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/erstkommunion.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-komunia.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/sakrament-bierzmowanie.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-bierzmowanie.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/firmung.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-bierzmowanie.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/sakrament-malzenstwo.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-malzenstwo.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/trauung.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-malzenstwo.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/sakrament-spowiedz.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-spowiedz.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/beichte.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-spowiedz.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/sakrament-namaszczenie.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakrament-namaszczenie.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/krankensalbung.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/sakrament-namaszczenie.html"/>
   </url>
 
   <!-- ============================================ -->
@@ -113,6 +140,9 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/event.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/veranstaltung.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/event.html"/>
   </url>
 
   <!-- ============================================ -->
@@ -123,72 +153,108 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-sne.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-sne.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-sne.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-domowy-kosciol.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-domowy-kosciol.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-domowy-kosciol.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-domowy-kosciol.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-schola.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-schola.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-schola.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-schola.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-ruch-swiatlo-zycie.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ruch-swiatlo-zycie.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-ruch-swiatlo-zycie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ruch-swiatlo-zycie.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-ruch-szensztacki.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ruch-szensztacki.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-ruch-szensztacki.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ruch-szensztacki.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-zywy-rozaniec.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-grono-dzieci-maryi.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grono-dzieci-maryi.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grono-dzieci-maryi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grono-dzieci-maryi.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-radio-maryja.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-radio-maryja.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-radio-maryja.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-radio-maryja.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-apostolstwo.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-apostolstwo.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-apostolstwo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-apostolstwo.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-grupa-meska.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grupa-meska.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grupa-meska.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grupa-kobiet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/wspolnota-ministranci.html</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+      <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ministranci.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-ministranci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ministranci.html"/>
   </url>
 
   <!-- ============================================ -->
@@ -320,6 +386,155 @@
     <lastmod>2026-06-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
+  </url>
+
+
+  <!-- ============================================ -->
+  <!-- Deutsche Seiten (generiert, Konsolidierung)   -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://www.pmk-berlin.de/de/gruppen.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/grupy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/gruppen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/grupy.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/spenden.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wesprzyj.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/spenden.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wesprzyj.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/veranstaltungen.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/events.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/veranstaltungen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/events.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/veranstaltung.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/event.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/veranstaltung.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/event.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-apostolstwo.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-apostolstwo.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-apostolstwo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-apostolstwo.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-domowy-kosciol.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-domowy-kosciol.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-domowy-kosciol.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-domowy-kosciol.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-grono-dzieci-maryi.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grono-dzieci-maryi.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grono-dzieci-maryi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grono-dzieci-maryi.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-grupa-kobiet.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grupa-kobiet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grupa-kobiet.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-grupa-meska.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-grupa-meska.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-grupa-meska.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-ministranci.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ministranci.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-ministranci.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ministranci.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-radio-maryja.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-radio-maryja.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-radio-maryja.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-radio-maryja.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-ruch-swiatlo-zycie.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ruch-swiatlo-zycie.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-ruch-swiatlo-zycie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ruch-swiatlo-zycie.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-ruch-szensztacki.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-ruch-szensztacki.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-ruch-szensztacki.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-ruch-szensztacki.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-schola.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-schola.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-schola.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-schola.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-sne.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-sne.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-sne.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-sne.html"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/de/wspolnota-zywy-rozaniec.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/wspolnota-zywy-rozaniec.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/wspolnota-zywy-rozaniec.html"/>
   </url>
 
 </urlset>
