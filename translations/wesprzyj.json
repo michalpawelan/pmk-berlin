@@ -17,12 +17,8 @@
   },
 
   "wesprzyj.bank.title": {
-    "pl": "Konto bankowe parafii",
-    "de": "Bankverbindung der Gemeinde"
-  },
-  "wesprzyj.bank.subtitle": {
-    "pl": "Bankverbindung der Pfarrei",
-    "de": "Konto bankowe parafii"
+    "pl": "Konto bankowe",
+    "de": "Bankverbindung"
   },
   "wesprzyj.bank.holder_label": {
     "pl": "Odbiorca",
@@ -47,10 +43,6 @@
   "wesprzyj.bank.preview_hint": {
     "pl": "Podgląd — pełne dane bankowe wkrótce dostępne (uzupełnimy po otrzymaniu z biura parafialnego).",
     "de": "Vorschau — die vollständigen Bankdaten folgen, sobald sie vom Pfarrbüro vorliegen."
-  },
-  "wesprzyj.bank.note": {
-    "pl": "<strong>Ważne:</strong> w polu „Tytuł przelewu\" prosimy wpisać <strong>cel ofiary</strong> (np. „PMK Berlin”) oraz — jeśli chcesz otrzymać zaświadczenie o darowiźnie — <strong>imię, nazwisko i adres</strong>. Bez tych danych nie możemy wystawić zaświadczenia (Spendenquittung).",
-    "de": "<strong>Wichtig:</strong> Bitte tragen Sie im Feld „Verwendungszweck\" den <strong>Spendenzweck</strong> (z. B. „PMK Berlin”) ein und — falls Sie eine Spendenquittung wünschen — <strong>Vor- und Nachname sowie Anschrift</strong>. Ohne diese Angaben können wir keine Spendenquittung ausstellen."
   },
   "wesprzyj.bank.pending": {
     "pl": "<strong>Pełne dane bankowe wkrótce dostępne.</strong><br>W międzyczasie zapraszamy do kontaktu z biurem parafialnym pod numerem <a href=\"tel:+49307524080\">+49 30 752 40 80</a> lub mailem <a href=\"mailto:pmk@pmk-berlin.de\">pmk@pmk-berlin.de</a>.",
