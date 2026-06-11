@@ -37,8 +37,8 @@ const SHEET_ID = '1tPc4twR0CoefnHDoODo-a5opSK35ogDmZHyzB_uhb1w';
 const SHEET_NAME = 'Tabellenblatt1';
 const NEWSLETTER_SHEET_NAME = 'Newsletter';
 // Basis-URL fuer Newsletter-Bestaetigungslinks (Double-Opt-in).
-// NACH DEM DNS-CUTOVER auf 'https://www.pmk-berlin.de' aendern.
-const SITE_BASE = 'https://pmk-berlinpl.netlify.app';
+// Seit DNS-Cutover 2026-06-08 die echte Domain.
+const SITE_BASE = 'https://www.pmk-berlin.de';
 const OGLOSZENIA_SHEET_NAME = 'Ogloszenia';
 const OGLOSZENIA_TTL_DAYS = 7;
 // Tab "Zgloszenia": Anliegen, die der Voice-/Chat-Agent eskaliert (kein PIN beim Schreiben).
@@ -398,6 +398,12 @@ function subscribeNewsletter(params) {
   }
   SpreadsheetApp.flush();
 
+  // no_email=true: der Aufrufer (Netlify-Function) verschickt die Bestätigungsmail
+  // selbst über IONOS als admin@pmk-berlin.de — Token dafür zurückgeben.
+  // (Die Function gibt den Token NIE an den Browser weiter.)
+  if (String(params.no_email || '').toLowerCase() === 'true') {
+    return { success: true, message: 'confirmation_sent', token: token, lang: lang };
+  }
   sendNewsletterConfirmation(rawEmail, lang, token);
   return { success: true, message: 'confirmation_sent' };
 }
