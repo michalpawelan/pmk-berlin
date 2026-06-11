@@ -20,6 +20,13 @@
   // Store original Polish content so we can restore without reloading
   let originalContent = new Map();
 
+  // Page-JSONs, die tatsächlich in /translations/ existieren — Seiten ohne
+  // eigenes JSON (statische /de/-Seiten, Impressum, Datenschutz, 404 …)
+  // nutzen nur common.json; ohne diese Liste erzeugt jeder Aufruf dort
+  // einen 404 in der Konsole.
+  const PAGE_JSONS = ['common', 'event', 'events', 'grupy', 'index', 'kontakt',
+    'ogloszenia', 'sakramente', 'sakramenty', 'wesprzyj', 'wspolnoty'];
+
   // Detect which page we're on to load the right JSON
   function getPageId() {
     const path = window.location.pathname;
@@ -149,7 +156,7 @@
     var pageId = getPageId();
     var sources = await Promise.all([
       loadJSON('common'),
-      loadJSON(pageId)
+      PAGE_JSONS.indexOf(pageId) !== -1 ? loadJSON(pageId) : Promise.resolve({})
     ]);
 
     var translations = mergeTranslations(sources);
