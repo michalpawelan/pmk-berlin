@@ -15,7 +15,6 @@
     "pl": "Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.",
     "de": "Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung."
   },
-
   "wesprzyj.bank.title": {
     "pl": "Konto bankowe",
     "de": "Bankverbindung"
@@ -48,7 +47,6 @@
     "pl": "<strong>Pełne dane bankowe wkrótce dostępne.</strong><br>W międzyczasie zapraszamy do kontaktu z biurem parafialnym pod numerem <a href=\"tel:+49307524080\">+49 30 752 40 80</a> lub mailem <a href=\"mailto:pmk@pmk-berlin.de\">pmk@pmk-berlin.de</a>.",
     "de": "<strong>Bankdaten in Kürze verfügbar.</strong><br>In der Zwischenzeit erreichen Sie uns telefonisch unter <a href=\"tel:+49307524080\">+49 30 752 40 80</a> oder per E-Mail <a href=\"mailto:pmk@pmk-berlin.de\">pmk@pmk-berlin.de</a>."
   },
-
   "wesprzyj.receipt.title": {
     "pl": "Zaświadczenie o darowiźnie",
     "de": "Spendenquittung"
@@ -57,7 +55,6 @@
     "pl": "Wystawiamy zaświadczenia o darowiźnie do celów podatkowych. Aby je otrzymać, podaj w tytule przelewu swoje <strong>imię, nazwisko i adres</strong>. Zaświadczenie wyślemy pocztą lub e&#8209;mailem.",
     "de": "Wir stellen Spendenquittungen für steuerliche Zwecke aus. Um sie zu erhalten, geben Sie im Verwendungszweck <strong>Vor- und Nachname sowie Anschrift</strong> an. Wir senden die Quittung per Post oder E&#8209;Mail zu."
   },
-
   "wesprzyj.quote.text": {
     "pl": "„Każdy niech przeto postąpi tak, jak mu nakazuje jego własne serce, nie żałując i nie czując się przymuszonym, albowiem radosnego dawcę miłuje Bóg.\"",
     "de": "„Jeder gebe, wie er es sich in seinem Herzen vorgenommen hat, nicht verdrossen und nicht aus Zwang; denn Gott liebt einen fröhlichen Geber.\""
@@ -66,7 +63,6 @@
     "pl": "— 2 Kor 9, 7",
     "de": "— 2 Kor 9, 7"
   },
-
   "wesprzyj.cta.contact": {
     "pl": "Masz pytania? Napisz do nas",
     "de": "Haben Sie Fragen? Schreiben Sie uns"
@@ -74,5 +70,57 @@
   "wesprzyj.cta.home": {
     "pl": "Powrót na stronę główną",
     "de": "Zurück zur Startseite"
+  },
+  "wesprzyj.thanks.title": {
+    "pl": "Już po <em>przelewie</em>? Daj nam znać",
+    "de": "Schon <em>gespendet</em>? Sagen Sie uns Bescheid"
+  },
+  "wesprzyj.thanks.lead": {
+    "pl": "Przelew bankowy jest anonimowy dla naszej strony — zostaw nam swoje dane, a podziękujemy Ci osobiście. Adres jest potrzebny tylko, jeśli chcesz otrzymać zaświadczenie o darowiźnie (Spendenquittung).",
+    "de": "Die Banküberweisung ist für unsere Website anonym — hinterlassen Sie uns Ihre Daten, damit wir uns persönlich bedanken können. Die Adresse benötigen wir nur, wenn Sie eine Spendenquittung möchten."
+  },
+  "wesprzyj.thanks.first_label": {
+    "pl": "Imię",
+    "de": "Vorname"
+  },
+  "wesprzyj.thanks.last_label": {
+    "pl": "Nazwisko",
+    "de": "Nachname"
+  },
+  "wesprzyj.thanks.email_label": {
+    "pl": "E-mail",
+    "de": "E-Mail"
+  },
+  "wesprzyj.thanks.phone_label": {
+    "pl": "Telefon (opcjonalnie)",
+    "de": "Telefon (optional)"
+  },
+  "wesprzyj.thanks.address_label": {
+    "pl": "Adres (opcjonalnie — do zaświadczenia o darowiźnie)",
+    "de": "Adresse (optional — für die Spendenquittung)"
+  },
+  "wesprzyj.thanks.address_placeholder": {
+    "pl": "ulica, kod pocztowy, miasto",
+    "de": "Straße, PLZ, Ort"
+  },
+  "wesprzyj.thanks.submit": {
+    "pl": "Wyślij",
+    "de": "Absenden"
+  },
+  "wesprzyj.thanks.sending": {
+    "pl": "Wysyłanie…",
+    "de": "Wird gesendet…"
+  },
+  "wesprzyj.thanks.success_title": {
+    "pl": "Bóg zapłać!",
+    "de": "Vergelt’s Gott!"
+  },
+  "wesprzyj.thanks.success_body": {
+    "pl": "Twoja wiadomość dotarła do biura parafialnego — odezwiemy się osobiście. Potwierdzenie wysłaliśmy też na Twój e-mail.",
+    "de": "Ihre Nachricht ist im Pfarrbüro angekommen — wir melden uns persönlich. Eine Bestätigung haben wir Ihnen auch per E-Mail geschickt."
+  },
+  "wesprzyj.thanks.error": {
+    "pl": "Nie udało się wysłać wiadomości. Spróbuj ponownie lub napisz bezpośrednio na pmk@pmk-berlin.de.",
+    "de": "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an pmk@pmk-berlin.de."
   }
 }

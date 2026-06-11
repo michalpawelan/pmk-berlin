@@ -301,6 +301,48 @@
     }
     @media (max-width: 640px) {
       .donate-bank-split { flex-direction: column; gap: var(--space-5); }
+    }
+
+    /* --- Spenden-Danke-Formular --- */
+    .donate-thanks {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-16);
+    }
+    .donate-thanks-card {
+      background: var(--color-surface, #fff);
+      border: 1px solid var(--color-border, #e5e0d8);
+      border-radius: var(--radius-lg, 12px);
+      padding: var(--space-8) var(--space-7);
+    }
+    .donate-thanks-card h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      margin: 0 0 var(--space-3);
+    }
+    .donate-thanks-card h2 em { color: var(--color-accent, #a08a4f); font-style: italic; }
+    .donate-thanks-lead {
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0 0 var(--space-6);
+    }
+    .donate-thanks-success {
+      text-align: center;
+      padding: var(--space-8) var(--space-4);
+    }
+    .donate-thanks-success h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      margin: 0 0 var(--space-3);
+      color: var(--color-accent, #a08a4f);
+    }
+    .donate-thanks-error {
+      color: #a03c3c;
+      margin-top: var(--space-3);
+      font-size: var(--text-sm);
+    }
+    @media (max-width: 640px) {
+      .donate-thanks-card { padding: var(--space-6) var(--space-4); }
       .donate-qr { align-self: center; padding-top: var(--space-2); }
     }
 
@@ -487,6 +529,57 @@
   </div>
 </section>
 
+<!-- Spenden-Danke: Darczyńca melde dich -->
+<section class="donate-thanks">
+  <div class="donate-thanks-card">
+    <h2 data-i18n-html="wesprzyj.thanks.title">Już po <em>przelewie</em>? Daj nam znać</h2>
+    <p class="donate-thanks-lead" data-i18n="wesprzyj.thanks.lead">Przelew bankowy jest anonimowy dla naszej strony — zostaw nam swoje dane, a podziękujemy Ci osobiście. Adres jest potrzebny tylko, jeśli chcesz otrzymać zaświadczenie o darowiźnie (Spendenquittung).</p>
+
+    <form class="contact-form" id="donateThanksForm" novalidate>
+      <div style="position:absolute;left:-9999px" aria-hidden="true">
+        <label>Nie wypełniaj: <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <div class="form-row form-row-half">
+        <div class="form-group">
+          <label for="dt-imie" data-i18n="wesprzyj.thanks.first_label">Imię</label>
+          <input type="text" id="dt-imie" name="imie" autocomplete="given-name" maxlength="100" required>
+        </div>
+        <div class="form-group">
+          <label for="dt-nazwisko" data-i18n="wesprzyj.thanks.last_label">Nazwisko</label>
+          <input type="text" id="dt-nazwisko" name="nazwisko" autocomplete="family-name" maxlength="100" required>
+        </div>
+      </div>
+      <div class="form-row form-row-half">
+        <div class="form-group">
+          <label for="dt-email" data-i18n="wesprzyj.thanks.email_label">E-mail</label>
+          <input type="email" id="dt-email" name="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="form-group">
+          <label for="dt-telefon" data-i18n="wesprzyj.thanks.phone_label">Telefon (opcjonalnie)</label>
+          <input type="tel" id="dt-telefon" name="telefon" autocomplete="tel" maxlength="40">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dt-adres" data-i18n="wesprzyj.thanks.address_label">Adres (opcjonalnie — do zaświadczenia o darowiźnie)</label>
+        <input type="text" id="dt-adres" name="adres" autocomplete="street-address" maxlength="300" placeholder="ulica, kod pocztowy, miasto" data-i18n-attr="placeholder:wesprzyj.thanks.address_placeholder">
+      </div>
+      <p class="form-consent" style="margin-top:.25rem;">
+        <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
+          <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
+          <span data-i18n-html="form.consent_html">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href="polityka-prywatnosci.html" target="_blank" rel="noopener">Polityką Prywatności</a>.</span>
+        </label>
+      </p>
+      <p><button type="submit" class="btn btn-primary" id="dt-submit" data-i18n="wesprzyj.thanks.submit">Wyślij</button></p>
+      <p class="donate-thanks-error" id="dt-error" hidden data-i18n="wesprzyj.thanks.error">Nie udało się wysłać wiadomości. Spróbuj ponownie lub napisz bezpośrednio na pmk@pmk-berlin.de.</p>
+    </form>
+
+    <div class="donate-thanks-success" id="dt-success" hidden>
+      <h3 data-i18n="wesprzyj.thanks.success_title">Bóg zapłać!</h3>
+      <p data-i18n="wesprzyj.thanks.success_body">Twoja wiadomość dotarła do biura parafialnego — odezwiemy się osobiście. Potwierdzenie wysłaliśmy też na Twój e-mail.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-container">
@@ -553,6 +646,52 @@
 
 <script src="main.js" defer></script>
 <script>
+  // Spenden-Danke-Formular: AJAX an die Netlify-Function, On-Page-Bestätigung
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('donateThanksForm');
+    if (!form) return;
+    var btn = document.getElementById('dt-submit');
+    var err = document.getElementById('dt-error');
+    var success = document.getElementById('dt-success');
+    var lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
+    var btnIdle = btn.textContent;
+    var btnSending = lang === 'de' ? 'Wird gesendet…' : 'Wysyłanie…';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      err.hidden = true;
+      btn.disabled = true;
+      btn.textContent = btnSending;
+      var payload = {
+        imie: form.imie.value, nazwisko: form.nazwisko.value,
+        email: form.email.value, telefon: form.telefon.value,
+        adres: form.adres.value, website: form.website.value,
+        lang: lang
+      };
+      fetch('/.netlify/functions/spende-danke', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r) { return r.json().catch(function() { return {}; }).then(function(d) { return { ok: r.ok && d.success }; }); })
+        .then(function(res) {
+          if (res.ok) {
+            form.hidden = true;
+            success.hidden = false;
+          } else {
+            err.hidden = false;
+            btn.disabled = false;
+            btn.textContent = btnIdle;
+          }
+        })
+        .catch(function() {
+          err.hidden = false;
+          btn.disabled = false;
+          btn.textContent = btnIdle;
+        });
+    });
+  });
+
   // Lang-aware strings for the dynamic IBAN copy button
   var WESPRZYJ_I18N = {
     pl: { copy: 'Kopiuj', copied: 'Skopiowano!', aria: 'Kopiuj IBAN do schowka' },

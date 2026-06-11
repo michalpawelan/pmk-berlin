@@ -313,6 +313,48 @@
     }
     @media (max-width: 640px) {
       .donate-bank-split { flex-direction: column; gap: var(--space-5); }
+    }
+
+    /* --- Spenden-Danke-Formular --- */
+    .donate-thanks {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--space-6) var(--space-16);
+    }
+    .donate-thanks-card {
+      background: var(--color-surface, #fff);
+      border: 1px solid var(--color-border, #e5e0d8);
+      border-radius: var(--radius-lg, 12px);
+      padding: var(--space-8) var(--space-7);
+    }
+    .donate-thanks-card h2 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      margin: 0 0 var(--space-3);
+    }
+    .donate-thanks-card h2 em { color: var(--color-accent, #a08a4f); font-style: italic; }
+    .donate-thanks-lead {
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0 0 var(--space-6);
+    }
+    .donate-thanks-success {
+      text-align: center;
+      padding: var(--space-8) var(--space-4);
+    }
+    .donate-thanks-success h3 {
+      font-family: var(--font-serif);
+      font-size: var(--text-2xl);
+      margin: 0 0 var(--space-3);
+      color: var(--color-accent, #a08a4f);
+    }
+    .donate-thanks-error {
+      color: #a03c3c;
+      margin-top: var(--space-3);
+      font-size: var(--text-sm);
+    }
+    @media (max-width: 640px) {
+      .donate-thanks-card { padding: var(--space-6) var(--space-4); }
       .donate-qr { align-self: center; padding-top: var(--space-2); }
     }
 
@@ -501,6 +543,57 @@
   </div>
 </section>
 
+<!-- Spenden-Danke: Darczyńca melde dich -->
+<section class="donate-thanks">
+  <div class="donate-thanks-card">
+    <h2>Schon <em>gespendet</em>? Sagen Sie uns Bescheid</h2>
+    <p class="donate-thanks-lead">Die Banküberweisung ist für unsere Website anonym — hinterlassen Sie uns Ihre Daten, damit wir uns persönlich bedanken können. Die Adresse benötigen wir nur, wenn Sie eine Spendenquittung möchten.</p>
+
+    <form class="contact-form" id="donateThanksForm" novalidate>
+      <div style="position:absolute;left:-9999px" aria-hidden="true">
+        <label>Nie wypełniaj: <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <div class="form-row form-row-half">
+        <div class="form-group">
+          <label for="dt-imie">Vorname</label>
+          <input type="text" id="dt-imie" name="imie" autocomplete="given-name" maxlength="100" required>
+        </div>
+        <div class="form-group">
+          <label for="dt-nazwisko">Nachname</label>
+          <input type="text" id="dt-nazwisko" name="nazwisko" autocomplete="family-name" maxlength="100" required>
+        </div>
+      </div>
+      <div class="form-row form-row-half">
+        <div class="form-group">
+          <label for="dt-email">E-Mail</label>
+          <input type="email" id="dt-email" name="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="form-group">
+          <label for="dt-telefon">Telefon (optional)</label>
+          <input type="tel" id="dt-telefon" name="telefon" autocomplete="tel" maxlength="40">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dt-adres">Adresse (optional — für die Spendenquittung)</label>
+        <input type="text" id="dt-adres" name="adres" autocomplete="street-address" maxlength="300" placeholder="Straße, PLZ, Ort">
+      </div>
+      <p class="form-consent" style="margin-top:.25rem;">
+        <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
+          <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
+          <span>Ich willige in die Verarbeitung meiner personenbezogenen Daten zur Bearbeitung dieser Anfrage gemäß der <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> ein.</span>
+        </label>
+      </p>
+      <p><button type="submit" class="btn btn-primary" id="dt-submit">Absenden</button></p>
+      <p class="donate-thanks-error" id="dt-error" hidden>Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an pmk@pmk-berlin.de.</p>
+    </form>
+
+    <div class="donate-thanks-success" id="dt-success" hidden>
+      <h3>Vergelt’s Gott!</h3>
+      <p>Ihre Nachricht ist im Pfarrbüro angekommen — wir melden uns persönlich. Eine Bestätigung haben wir Ihnen auch per E-Mail geschickt.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer class="footer">
   <div class="footer-container">
@@ -573,6 +666,52 @@
 
 <script src="/main.js" defer></script>
 <script>
+  // Spenden-Danke-Formular: AJAX an die Netlify-Function, On-Page-Bestätigung
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('donateThanksForm');
+    if (!form) return;
+    var btn = document.getElementById('dt-submit');
+    var err = document.getElementById('dt-error');
+    var success = document.getElementById('dt-success');
+    var lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
+    var btnIdle = btn.textContent;
+    var btnSending = lang === 'de' ? 'Wird gesendet…' : 'Wysyłanie…';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      err.hidden = true;
+      btn.disabled = true;
+      btn.textContent = btnSending;
+      var payload = {
+        imie: form.imie.value, nazwisko: form.nazwisko.value,
+        email: form.email.value, telefon: form.telefon.value,
+        adres: form.adres.value, website: form.website.value,
+        lang: lang
+      };
+      fetch('/.netlify/functions/spende-danke', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r) { return r.json().catch(function() { return {}; }).then(function(d) { return { ok: r.ok && d.success }; }); })
+        .then(function(res) {
+          if (res.ok) {
+            form.hidden = true;
+            success.hidden = false;
+          } else {
+            err.hidden = false;
+            btn.disabled = false;
+            btn.textContent = btnIdle;
+          }
+        })
+        .catch(function() {
+          err.hidden = false;
+          btn.disabled = false;
+          btn.textContent = btnIdle;
+        });
+    });
+  });
+
   // Lang-aware strings for the dynamic IBAN copy button
   var WESPRZYJ_I18N = {
     pl: { copy: 'Kopiuj', copied: 'Skopiowano!', aria: 'Kopiuj IBAN do schowka' },
