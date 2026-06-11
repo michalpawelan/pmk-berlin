@@ -181,6 +181,7 @@ function applyAttrs(html, dict, stats) {
 function rewriteLinks(html) {
   return html.replace(/(href|src)="([^"]*)"/g, (full, attr, url) => {
     if (/^(https?:|mailto:|tel:|#|data:|javascript:)/.test(url)) return full;
+    if (url.includes('${')) return full; // JS-Template-String in Inline-Skripten — nicht anfassen
     const [path, suffix] = splitUrl(url);
     const bare = path.replace(/^\//, '');
     if (attr === 'href' && LINK_MAP[path] !== undefined) return `${attr}="${LINK_MAP[path]}${suffix}"`;

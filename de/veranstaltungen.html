@@ -447,12 +447,12 @@ function renderSection(title, events) {
     const metaLine = [timeDisplay, location].filter(Boolean).join(' · ');
 
     const left = hasImage
-      ? `<span class="ev-thumb"><img src="/${ev.imageUrl}" alt="" loading="lazy"></span>`
+      ? `<span class="ev-thumb"><img src="${ev.imageUrl}" alt="" loading="lazy"></span>`
       : `<span class="ev-date-badge"><span class="d">${dateInfo.day}</span><span class="m">${String(dateInfo.month).slice(0, 3)}</span></span>`;
     const whenText = hasImage ? `${weekday} · ${dateInfo.day} ${dateInfo.month}` : weekday;
 
     html += `
-      <a href="/${EVENT_DETAIL_PAGE}?id=${ev.id}" class="event-card-new reveal">
+      <a href="${EVENT_DETAIL_PAGE}?id=${ev.id}" class="event-card-new reveal">
         ${left}
         <span class="ev-main">
           <span class="ev-when"><span class="dot"></span>${whenText}</span>
