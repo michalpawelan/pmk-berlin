@@ -90,7 +90,7 @@ const PAGES = [
     desc: 'Aktuelle Veranstaltungen und Termine der Polnischen Katholischen Mission Berlin in der Johannes-Basilika Neukölln.',
   },
   {
-    src: '404.html', out: 'de/404.html', json: [],
+    src: '404.html', out: 'de/404.html', json: 'index',
     title: 'Seite nicht gefunden | Polnische Katholische Mission Berlin',
     desc: 'Die gesuchte Seite existiert nicht oder wurde verschoben.',
   },
