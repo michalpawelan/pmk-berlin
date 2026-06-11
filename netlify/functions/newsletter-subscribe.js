@@ -1,7 +1,9 @@
 // PMK Berlin — Newsletter-Anmeldung (Double-Opt-in)
 // Die Bestätigungsmail geht über IONOS-SMTP raus, Absender = admin@pmk-berlin.de.
-// Apps Script verwaltet weiterhin Sheet + Token (action=subscribe, no_email=true);
-// es mailt selbst nur noch als Fallback, wenn SMTP nicht konfiguriert/gestört ist.
+// Apps Script verwaltet nur Sheet + Token (action=subscribe, no_email=true) und
+// mailt NIE selbst (User-Vorgabe 11.06.2026: nie von einer privaten Adresse senden).
+// Schlägt SMTP fehl, bekommt der Nutzer einen Fehler und kann es erneut versuchen
+// (erneutes Abonnieren frischt den Token auf).
 
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
   || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
@@ -107,12 +109,11 @@ exports.handler = async (event) => {
     return json(400, { success: false, error: 'invalid_email' });
   }
 
-  const base = { action: 'subscribe', email, lang, source, first_name: firstName };
-  const smtpReady = !!(process.env.IONOS_SMTP_USER && process.env.IONOS_SMTP_PASS);
+  const base = { action: 'subscribe', email, lang, source, first_name: firstName, no_email: 'true' };
 
   let text;
   try {
-    text = await callAppsScript(smtpReady ? { ...base, no_email: 'true' } : base);
+    text = await callAppsScript(base);
   } catch (_) {
     return json(502, { success: false, error: 'upstream_failed' });
   }
@@ -124,14 +125,15 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers: { 'Content-Type': 'application/json; charset=utf-8' }, body: text };
   }
 
-  // Neuer Weg: Apps Script hat Sheet + Token angelegt, wir verschicken die Mail
+  // Apps Script hat Sheet + Token angelegt, die Mail verschicken NUR wir (admin@)
   if (data.success && data.token) {
     let sent = false;
     try { sent = (await sendConfirmViaIonos(email, data.lang || lang, data.token)).sent; }
     catch (_) { sent = false; }
     if (!sent) {
-      // Fallback: Apps Script mailt selbst (frischt den Token auf)
-      try { await callAppsScript(base); } catch (_) { /* Eintrag steht im Sheet */ }
+      // Kein Fallback über Apps Script — Nutzer sieht den Fehler und kann es
+      // erneut versuchen (Eintrag steht als "pending" im Sheet, Token wird erneuert)
+      return json(502, { success: false, error: 'mail_failed' });
     }
   }
 

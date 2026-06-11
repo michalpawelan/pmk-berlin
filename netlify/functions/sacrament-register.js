@@ -2,11 +2,9 @@
 // Versand direkt über IONOS-SMTP, Absender = echte Pfarrei-Adresse (admin@pmk-berlin.de):
 //   1) Benachrichtigung an die Pfarrei (pmk@pmk-berlin.de), optional mit Metryka-Anhang
 //   2) Bestätigungs-E-Mail an den Absender (Eltern / Kandidat)
-// Fallback: ist SMTP nicht konfiguriert oder gestört, übernimmt wie bisher das
-// Google Apps Script (MailApp — Absender ist dann der Script-Eigentümer).
-
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
+// KEIN Fallback über Apps Script (User-Vorgabe 11.06.2026: nie von einer privaten
+// Adresse senden) — schlägt SMTP fehl, bekommt das Formular einen echten Fehler
+// und zeigt den mailto-Hinweis auf pmk@pmk-berlin.de.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ALLOWED = new Set(['komunia', 'bierzmowanie']);
@@ -148,26 +146,6 @@ async function sendViaIonos(p, sakrament, email) {
   return { sent: true };
 }
 
-// Fallback: alle Felder wie früher an Apps Script weiterreichen (MailApp übernimmt den Versand)
-async function relayToAppsScript(p) {
-  const form = new URLSearchParams();
-  form.set('action', 'sacrament');
-  Object.keys(p).forEach((k) => {
-    if (k === 'website') return;
-    const v = p[k];
-    if (v == null) return;
-    if (k === 'metryka_data') { form.set(k, String(v)); return; }
-    form.set(k, String(v).slice(0, 2000));
-  });
-  const res = await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: form.toString(),
-    redirect: 'follow'
-  });
-  return res.text();
-}
-
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return json(405, { success: false, error: 'method_not_allowed' });
@@ -203,19 +181,14 @@ exports.handler = async (event) => {
     return json(413, { success: false, error: 'file_too_large' });
   }
 
-  // 1) Bevorzugt: IONOS-SMTP (Absender admin@pmk-berlin.de)
+  // Versand ausschließlich über IONOS-SMTP (admin@pmk-berlin.de) — kein Fallback
   try {
     const mail = await sendViaIonos(p, sakrament, email);
     if (mail.sent) {
       return json(200, { success: true, message: 'sent' });
     }
-  } catch (_) { /* SMTP gestört -> Fallback unten */ }
-
-  // 2) Fallback: Apps Script (MailApp)
-  try {
-    const text = await relayToAppsScript(p);
-    return { statusCode: 200, headers: { 'Content-Type': 'application/json; charset=utf-8' }, body: text };
+    return json(502, { success: false, error: mail.reason || 'smtp_not_configured' });
   } catch (_) {
-    return json(502, { success: false, error: 'upstream_failed' });
+    return json(502, { success: false, error: 'mail_failed' });
   }
 };

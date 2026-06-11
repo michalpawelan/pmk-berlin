@@ -398,42 +398,10 @@ function subscribeNewsletter(params) {
   }
   SpreadsheetApp.flush();
 
-  // no_email=true: der Aufrufer (Netlify-Function) verschickt die Bestätigungsmail
-  // selbst über IONOS als admin@pmk-berlin.de — Token dafür zurückgeben.
-  // (Die Function gibt den Token NIE an den Browser weiter.)
-  if (String(params.no_email || '').toLowerCase() === 'true') {
-    return { success: true, message: 'confirmation_sent', token: token, lang: lang };
-  }
-  sendNewsletterConfirmation(rawEmail, lang, token);
-  return { success: true, message: 'confirmation_sent' };
-}
-
-/**
- * Sendet die Double-Opt-in-Bestaetigungsmail mit Aktivierungslink.
- */
-function sendNewsletterConfirmation(email, lang, token) {
-  const link = SITE_BASE + '/.netlify/functions/newsletter-confirm?token=' + encodeURIComponent(token);
-  let subject, body;
-  if (lang === 'de') {
-    subject = 'Bitte bestätige deine Newsletter-Anmeldung — PMK Berlin';
-    body = 'Szczęść Boże!\n\n'
-      + 'Du (oder jemand mit deiner Adresse) hat den Newsletter der Polnischen Katholischen Mission in Berlin abonniert. '
-      + 'Bitte bestätige deine Anmeldung mit einem Klick auf den folgenden Link:\n\n'
-      + link + '\n\n'
-      + 'Erst nach dieser Bestätigung erhältst du unseren Newsletter. '
-      + 'Wenn du dich nicht angemeldet hast, ignoriere diese E-Mail einfach – es wird nichts gespeichert versendet.\n\n'
-      + 'Mit Gottes Segen\nPolska Misja Katolicka w Berlinie';
-  } else {
-    subject = 'Potwierdź subskrypcję newslettera — PMK Berlin';
-    body = 'Szczęść Boże!\n\n'
-      + 'Twój adres e-mail został zapisany do newslettera Polskiej Misji Katolickiej w Berlinie. '
-      + 'Prosimy o potwierdzenie subskrypcji, klikając w poniższy link:\n\n'
-      + link + '\n\n'
-      + 'Newsletter będziesz otrzymywać dopiero po tym potwierdzeniu. '
-      + 'Jeśli to nie Ty, po prostu zignoruj tę wiadomość.\n\n'
-      + 'Z Panem Bogiem\nPolska Misja Katolicka w Berlinie';
-  }
-  MailApp.sendEmail({ to: email, subject: subject, body: body });
+  // Die Bestätigungsmail verschickt IMMER die Netlify-Function über IONOS als
+  // admin@pmk-berlin.de — dieses Script mailt NIE (Vorgabe 11.06.2026).
+  // Token nur für den server-seitigen Aufrufer; die Function gibt ihn NIE an den Browser.
+  return { success: true, message: 'confirmation_sent', token: token, lang: lang };
 }
 
 /**
@@ -471,6 +439,12 @@ function confirmNewsletter(params) {
  * Kein PIN noetig. Daten werden NICHT im Sheet gespeichert (nur per E-Mail).
  */
 function registerSacrament(params) {
+  // DEAKTIVIERT (11.06.2026): Sakrament-Mails verschickt ausschließlich die
+  // Netlify-Function über IONOS (admin@pmk-berlin.de). Dieses Script darf nie
+  // von der Eigentümer-Adresse mailen — auch nicht bei direktem Aufruf der URL.
+  return { success: false, error: 'mail_disabled' };
+
+  /* eslint-disable no-unreachable */
   const PARISH_EMAIL = 'pmk@pmk-berlin.de';
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -864,41 +838,9 @@ function receiveZgloszenie(params) {
   ]);
   SpreadsheetApp.flush();
 
-  // E-Mail nur, wenn der Aufrufer sie NICHT schon selbst verschickt hat.
-  // Die Netlify-Funktion sendet via IONOS als admin@pmk-berlin.de und setzt dann no_email=true.
-  var skipEmail = (String(params.no_email || params.noEmail || '').toLowerCase() === 'true');
-  if (!skipEmail) {
-    try {
-      notifyZgloszenie(name, phone, concern, urgent, lang, source);
-    } catch (e) {
-      // E-Mail-Fehler darf das Speichern nicht scheitern lassen — Eintrag steht im Sheet.
-    }
-  }
-
+  // Mails verschickt ausschließlich die Netlify-Function über IONOS
+  // (admin@pmk-berlin.de) — dieses Script mailt nie (Vorgabe 11.06.2026).
   return { success: true, id: id };
-}
-
-/**
- * E-Mail an die Pfarrei bei neuem Anliegen. Dringende Faelle (Sterbefall/
- * Krankensalbung) werden im Betreff mit [PILNE] markiert.
- */
-function notifyZgloszenie(name, phone, concern, urgent, lang, source) {
-  const PARISH_EMAIL = 'pmk@pmk-berlin.de';
-  const srcLabel = source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
-  const subject = (urgent ? '[PILNE] ' : '') + 'Nowe zgłoszenie (' + srcLabel + ')'
-    + (name ? ' — ' + name : '');
-
-  const body =
-    (urgent ? '⚠️ ZGŁOSZENIE PILNE (np. pogrzeb / namaszczenie chorych)\n\n' : '')
-    + 'Nowe zgłoszenie przekazane przez ' + srcLabel + ':\n\n'
-    + 'Imię i nazwisko: ' + (name || '—') + '\n'
-    + 'Telefon (oddzwonić): ' + (phone || '—') + '\n'
-    + 'Język rozmowy: ' + (lang ? lang.toUpperCase() : '—') + '\n\n'
-    + 'Sprawa:\n' + (concern || '—') + '\n\n'
-    + '— Prosimy oddzwonić. Wiadomość wygenerowana automatycznie przez asystenta PMK.\n'
-    + 'Panel: ' + SITE_BASE + '/admin/#zgloszenia';
-
-  MailApp.sendEmail({ to: PARISH_EMAIL, subject: subject, body: body });
 }
 
 /**

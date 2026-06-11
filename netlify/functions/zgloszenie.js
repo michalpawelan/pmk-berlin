@@ -125,9 +125,10 @@ exports.handler = async (event) => {
   form.set('urgent', truthy(p.urgent) ? 'true' : 'false');
   form.set('lang', lang);
   form.set('source', source);
-  // no_email=true NUR, wenn die Funktion die Mail schon verschickt hat
-  // (sonst mailt Apps Script als Fallback — nie kein Mail, höchstens transient doppelt).
-  form.set('no_email', mail.sent ? 'true' : 'false');
+  // Apps Script darf NIE selbst mailen (User-Vorgabe 11.06.2026: nie von einer
+  // privaten Adresse senden). Schlägt IONOS fehl, steht das Zgłoszenie trotzdem
+  // im Sheet + Admin-Tab und geht nicht verloren.
+  form.set('no_email', 'true');
 
   try {
     const res = await fetch(APPS_SCRIPT_URL, {
