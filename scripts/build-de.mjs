@@ -38,6 +38,7 @@ const LINK_MAP = {
   'wesprzyj.html': '/de/spenden.html',
   'events.html': '/de/veranstaltungen.html',
   'event.html': '/de/veranstaltung.html',
+  'ogloszenia.html': '/de/ogloszenia.html',
   'polityka-prywatnosci.html': '/datenschutz.html',
   'wspolnota-apostolstwo.html': '/de/wspolnota-apostolstwo.html',
   'wspolnota-domowy-kosciol.html': '/de/wspolnota-domowy-kosciol.html',
@@ -74,6 +75,26 @@ const GROUP_NAMES = {
 };
 
 const PAGES = [
+  {
+    src: 'index.html', out: 'de/index.html', json: 'index',
+    title: 'Polnische Katholische Mission Berlin | Polska Misja Katolicka Berlin',
+    desc: 'Polnische Katholische Mission Berlin — polnische katholische Seelsorge im Herzen Berlins. Heilige Messen sonntags um 10:15, 12:00 und 18:00 Uhr. Sakramente, Veranstaltungen, Gemeindegruppen. Johannes-Basilika, Neukölln.',
+  },
+  {
+    src: 'kontakt.html', out: 'de/kontakt.html', json: 'kontakt',
+    title: 'Kontakt | Polnische Katholische Mission Berlin',
+    desc: 'Kontakt zur Polnischen Katholischen Mission Berlin — Adresse, Telefon, E-Mail, Bürozeiten und Kontaktformular.',
+  },
+  {
+    src: 'sakramente.html', out: 'de/sakramente.html', json: 'sakramente',
+    title: 'Sakramente | Polnische Katholische Mission Berlin',
+    desc: 'Informationen zu den Sakramenten in der Polnischen Katholischen Mission Berlin — Taufe, Erstkommunion, Firmung, Ehe, Beichte, Krankensalbung.',
+  },
+  {
+    src: 'ogloszenia.html', out: 'de/ogloszenia.html', json: 'ogloszenia',
+    title: 'Pfarrnachrichten | Polnische Katholische Mission Berlin',
+    desc: 'Aktuelle Pfarrnachrichten der Polnischen Katholischen Mission Berlin — das Pfarrblatt der Woche (erscheint auf Polnisch).',
+  },
   {
     src: 'grupy.html', out: 'de/gruppen.html', json: 'grupy',
     title: 'Gemeindegruppen | Polnische Katholische Mission Berlin',
@@ -185,6 +206,7 @@ function applyAttrs(html, dict, stats) {
 // Interne Links auf /de/-Pendants umbiegen; Rest root-absolut machen
 function rewriteLinks(html) {
   return html.replace(/(href|src|srcset)="([^"]*)"/g, (full, attr, url) => {
+    if (url === '') return full; // leere Platzhalter (z.B. <img id="event-image" src="">) nicht zu "/" machen
     if (/^(https?:|mailto:|tel:|#|data:|javascript:)/.test(url)) return full;
     if (url.includes('${')) return full; // JS-Template-String in Inline-Skripten — nicht anfassen
     const [path, suffix] = splitUrl(url);
@@ -265,6 +287,24 @@ const FIXED_STRINGS = [
   ['alt="Oaza Berlin — katolicka grupa młodzieżowa"', 'alt="Oaza Berlin — katholische Jugendgruppe"'],
   ['>Ks. ', '>P. '],
   ['Danuta i Tomasz', 'Danuta und Tomasz'],
+  // Kontaktformular-Inline-Skript (kontakt.html + index.html)
+  ["submitBtn.textContent = 'Wysyłanie…';", "submitBtn.textContent = 'Wird gesendet…';"],
+  ["showToast('Prosimy podać poprawny adres e-mail.', 'error')", "showToast('Bitte geben Sie eine gültige E-Mail-Adresse an.', 'error')"],
+  ["showToast('Wystąpił błąd. Spróbuj ponownie lub napisz na pmk@pmk-berlin.de', 'error')", "showToast('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder schreiben Sie an pmk@pmk-berlin.de.', 'error')"],
+  ["submitBtn.textContent = 'Wyślij wiadomość';", "submitBtn.textContent = 'Nachricht senden';"],
+  ['title="Mapa - Johannes-Basilika Berlin"', 'title="Karte – Johannes-Basilika Berlin"'],
+  // Meta author (generierte Seiten)
+  ['content="Polska Misja Katolicka Berlin"', 'content="Polnische Katholische Mission Berlin"'],
+  // JSON-LD-Reste, die fixJsonLd nicht erreicht (laufen NACH der Re-Serialisierung)
+  ['(Kościół główny)', '(Hauptkirche)'],
+  ['"Biuro parafialne - przedpołudnie"', '"Pfarrbüro – Vormittag"'],
+  ['"Biuro parafialne - popołudnie"', '"Pfarrbüro – Nachmittag"'],
+  ['"Kontakt z parafią"', '"Kontakt zur Pfarrei"'],
+  ['"ks. Franciszek Blachnicki"', '"Franciszek Blachnicki"'],
+  ['"o. Josef Kentenich"', '"Pater Josef Kentenich"'],
+  ['"Liturgia"', '"Liturgie"'],
+  ['"Muzyka sakralna"', '"Sakralmusik"'],
+  ['"Muzyka współczesna"', '"Zeitgenössische Musik"'],
   // 404-Seite (Strings ohne data-i18n)
   ['<h1 class="error-title">Strona nie została znaleziona</h1>', '<h1 class="error-title">Seite nicht gefunden</h1>'],
   ['Przepraszamy, strona której szukasz nie istnieje lub została przeniesiona. Zapraszamy na stronę główną naszej parafii.', 'Die gesuchte Seite existiert nicht oder wurde verschoben. Besuchen Sie gerne die Startseite unserer Gemeinde.'],
@@ -279,6 +319,14 @@ function applyFixedStrings(html) {
 // JSON-LD-Blöcke eindeutschen: echtes JSON-Parsing statt Regex.
 // Breadcrumbs (2- und 3-stufig), ItemList-/Organization-Namen, URLs via LINK_MAP.
 const JSONLD_NAMES = {
+  'Polska Misja Katolicka Berlin': 'Polnische Katholische Mission Berlin',
+  'Kościoły Polskiej Misji Katolickiej w Berlinie': 'Kirchen der Polnischen Katholischen Mission Berlin',
+  'Chrzest Święty': 'Taufe',
+  'Pierwsza Komunia Święta': 'Erstkommunion',
+  'Bierzmowanie': 'Firmung',
+  'Spowiedź': 'Beichte',
+  'Sakrament Małżeństwa': 'Sakrament der Ehe',
+  'Namaszczenie Chorych': 'Krankensalbung',
   'Strona główna': 'Startseite',
   'Grupy parafialne': 'Gruppen',
   'Wydarzenia': 'Veranstaltungen',

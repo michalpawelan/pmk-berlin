@@ -27,6 +27,7 @@ const PL_PENDANT = {
   'messzeiten.html': '/#messzeiten', 'ueber-uns.html': '/#onas',
   'gruppen.html': '/grupy.html', 'spenden.html': '/wesprzyj.html',
   'veranstaltungen.html': '/events.html', 'veranstaltung.html': '/event.html',
+  'ogloszenia.html': '/ogloszenia.html',
   '404.html': '/',
 };
 // wspolnota-* → gleiches PL-File im Root
@@ -130,7 +131,36 @@ const DE_FIXED = [
   ['aria-label="Imię / Vorname"', 'aria-label="Vorname"'],
   ['aria-label="Adres e-mail / E-Mail-Adresse"', 'aria-label="E-Mail-Adresse"'],
   ['alt="GiroCode — zeskanuj aplikacją bankową / mit der Banking-App scannen"', 'alt="GiroCode — mit der Banking-App scannen"'],
+  // Brand/Markenname eindeutschen — NUR kontextgebunden ersetzen:
+  // JSON-LD "alternateName": "Polska Misja Katolicka Berlin" ist korrekt und bleibt!
+  ['<span class="nav-brand-name">Polska Misja Katolicka</span>', '<span class="nav-brand-name">Polnische Katholische Mission</span>'],
+  ['<strong>Polska Misja Katolicka</strong>', '<strong>Polnische Katholische Mission</strong>'],
+  ['alt="Polska Misja Katolicka w Berlinie"', 'alt="Polnische Katholische Mission Berlin"'],
+  ['&copy; 2026 Polska Misja Katolicka Berlin', '&copy; 2026 Polnische Katholische Mission Berlin'],
+  ['<meta name="author" content="Polska Misja Katolicka Berlin">', '<meta name="author" content="Polnische Katholische Mission Berlin">'],
+  ['content="Johannes-Basilika - Polska Misja Katolicka w Berlinie"', 'content="Johannes-Basilika — Polnische Katholische Mission Berlin"'],
+  // Seiten-Schemas (WebPage/CollectionPage/FAQPage) deklarieren die Seitensprache.
+  // Event-Schemas (inline-JS, single quotes) bleiben bewusst 'pl' — die Events selbst sind polnischsprachig.
+  ['"inLanguage": "pl"', '"inLanguage": "de"'],
+  ['aria-label="Menu"', 'aria-label="Menü"'],
+  ['<span>w Berlinie</span>', '<span>in Berlin</span>'],
+  // Newsletter-Footer: Sie-Form (Register der DE-Seiten)
+  ['<h4>Bleib auf dem Laufenden</h4>', '<h4>Bleiben Sie auf dem Laufenden</h4>'],
+  ['placeholder="deine E-Mail"', 'placeholder="Ihre E-Mail"'],
 ];
+
+// Spenden-Band (PL-Footer hat es überall) — auf DE-Seiten sicherstellen
+const DONATE_BLOCK = `<div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4>Unterstützen Sie unsere Mission</h4>
+        <p>Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung.</p>
+      </div>
+      <div class="footer-donate-cta-wrap">
+        <a href="/de/spenden.html" class="footer-donate-btn">Mission unterstützen</a>
+      </div>
+    </div>
+
+    `;
 
 const dict = loadCommonDe();
 const files = readdirSync(join(ROOT, 'de')).filter((f) => f.endsWith('.html'));
@@ -142,6 +172,11 @@ for (const file of files) {
   const deHref = '/de/' + file;
 
   for (const [pl, de] of DE_FIXED) html = html.split(pl).join(de);
+
+  // Spenden-Band sicherstellen (außer auf der Spendenseite selbst)
+  if (file !== 'spenden.html' && !html.includes('footer-donate')) {
+    html = html.replace('<!-- BEGIN newsletter-footer -->', DONATE_BLOCK + '<!-- BEGIN newsletter-footer -->');
+  }
 
   // 1) Übersetzungen statisch einbrennen (wirkt nur, wo data-i18n noch existiert)
   html = applyContent(html, dict, 'data-i18n-html', true);

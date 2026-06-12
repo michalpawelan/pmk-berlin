@@ -551,7 +551,7 @@
         "organizer": {
           "@type": "Organization",
           "name": "Polska Misja Katolicka Berlin",
-          "url": "https://pmk-berlin.de"
+          "url": "https://www.pmk-berlin.de"
         },
         ...(ev.imageUrl && { "image": ev.imageUrl }),
         "inLanguage": "pl"
@@ -563,7 +563,7 @@
     script.textContent = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ItemList",
-      "name": "Nadchodzące wydarzenia - PMK Berlin",
+      "name": getLang() === 'de' ? 'Kommende Veranstaltungen - PMK Berlin' : 'Nadchodzące wydarzenia - PMK Berlin',
       "numberOfItems": schemaEvents.length,
       "itemListElement": schemaEvents.map((ev, i) => ({
         "@type": "ListItem",
