@@ -53,8 +53,8 @@
     "de": "Beichte"
   },
   "sakramente.card.spowiedz.desc": {
-    "pl": "Spotkanie z miłosiernym Bogiem. Pon.–Sob. od 17:30, niedziela przed i podczas każdej Mszy Św., I piątek miesiąca od 17:00.",
-    "de": "Begegnung mit dem barmherzigen Gott. Mo.–Sa. ab 17:30 Uhr, sonntags vor und während jeder Hl. Messe, 1. Freitag im Monat ab 17:00."
+    "pl": "Spotkanie z miłosiernym Bogiem. Pon.–Sob. podczas Mszy wieczornej, niedziela przed i podczas każdej Mszy Św., I piątek miesiąca od 17:00.",
+    "de": "Begegnung mit dem barmherzigen Gott. Mo.–Sa. während der Abendmesse, sonntags vor und während jeder Hl. Messe, 1. Freitag im Monat ab 17:00 Uhr."
   },
 
   "sakramente.card.namaszczenie.name": {
@@ -63,7 +63,7 @@
   },
   "sakramente.card.namaszczenie.desc": {
     "pl": "Sakrament umocnienia w chorobie. Odwiedziny chorych: pierwszy piątek miesiąca oraz na wezwanie.",
-    "de": "Sakrament der Stärkung in der Krankheit. Krankenbesuche: jeden 1. Freitag im Monat sowie auf Wunsch."
+    "de": "Sakrament der Stärkung in der Krankheit. Krankenbesuche: jeden 1. Freitag im Monat sowie auf Anruf."
   },
 
   "sakramente.badge.info": {
@@ -73,5 +73,26 @@
   "sakramente.badge.register": {
     "pl": "Zapisz online <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
     "de": "Online anmelden <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
+  },
+
+  "sakramente.meta.author": {
+    "pl": "Polska Misja Katolicka Berlin",
+    "de": "Polnische Katholische Mission Berlin"
+  },
+  "sakramente.meta.og_image_alt": {
+    "pl": "Johannes-Basilika - Polska Misja Katolicka w Berlinie",
+    "de": "Johannes-Basilika - Polnische Katholische Mission Berlin"
+  },
+  "sakramente.nav.menu": {
+    "pl": "Menu",
+    "de": "Menü"
+  },
+  "sakramente.footer.brand_location": {
+    "pl": "w Berlinie",
+    "de": "in Berlin"
+  },
+  "sakramente.footer.copy": {
+    "pl": "© 2026 Polska Misja Katolicka Berlin",
+    "de": "© 2026 Polnische Katholische Mission Berlin"
   }
 }

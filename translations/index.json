@@ -81,19 +81,19 @@
   },
   "index.ogloszenia.title": {
     "pl": "Ogłoszenia duszpasterskie",
-    "de": "Pastorale Ankündigungen"
+    "de": "Pfarrnachrichten"
   },
   "index.ogloszenia.lead": {
     "pl": "Aktualny tygodniowy biuletyn parafialny",
-    "de": "Wöchentlicher Pfarrbrief"
+    "de": "Die aktuellen Pfarrnachrichten der Woche"
   },
   "index.ogloszenia.cta": {
     "pl": "Czytaj ogłoszenia",
-    "de": "Pfarrblatt lesen"
+    "de": "Pfarrnachrichten lesen"
   },
   "index.ogloszenia.bulletin": {
     "pl": "Biuletyn na ten tydzień",
-    "de": "Pfarrblatt dieser Woche"
+    "de": "Pfarrnachrichten dieser Woche"
   },
   "index.mass.label": {
     "pl": "Nabożeństwa",
@@ -140,12 +140,12 @@
     "de": "Gemeinschaften"
   },
   "index.communities.title": {
-    "pl": "Nasze <em>Wspólnoty</em>",
-    "de": "Unsere <em>Gemeinschaften</em>"
+    "pl": "Grupy <em>parafialne</em>",
+    "de": "Gruppen der <em>Gemeinde</em>"
   },
   "index.communities.lead": {
-    "pl": "Grupy parafialne, w których możesz wzrastać w wierze i wspólnocie",
-    "de": "Pfarrgruppen, in denen Sie im Glauben und in Gemeinschaft wachsen können"
+    "pl": "Dołącz do jednej z naszych wspólnot",
+    "de": "Schließen Sie sich einer unserer Gemeinschaften an"
   },
   "index.no_events": {
     "pl": "Brak nadchodzących wydarzeń.",
@@ -204,32 +204,32 @@
     "de": "Taufe"
   },
   "index.sacraments.baptism_desc": {
-    "pl": "Sakrament inicjacji chrześcijańskiej",
-    "de": "Sakrament der christlichen Initiation"
+    "pl": "Zgłoś dziecko do chrztu",
+    "de": "Melden Sie Ihr Kind zur Taufe an"
   },
   "index.sacraments.communion": {
     "pl": "Pierwsza Komunia",
     "de": "Erstkommunion"
   },
   "index.sacraments.communion_desc": {
-    "pl": "Zgłoszenie online",
-    "de": "Online-Anmeldung"
+    "pl": "Zapisz dziecko na przygotowanie",
+    "de": "Melden Sie Ihr Kind zur Vorbereitung an"
   },
   "index.sacraments.confirmation": {
     "pl": "Bierzmowanie",
     "de": "Firmung"
   },
   "index.sacraments.confirmation_desc": {
-    "pl": "Zgłoszenie online",
-    "de": "Online-Anmeldung"
+    "pl": "Zapisz się na przygotowanie",
+    "de": "Melden Sie sich zur Vorbereitung an"
   },
   "index.sacraments.marriage": {
     "pl": "Małżeństwo",
     "de": "Ehe"
   },
   "index.sacraments.marriage_desc": {
-    "pl": "Ślub kościelny i przygotowanie",
-    "de": "Kirchliche Trauung und Vorbereitung"
+    "pl": "Umów spotkanie w sprawie ślubu",
+    "de": "Vereinbaren Sie ein Gespräch zur Trauung"
   },
   "index.sacraments.confession": {
     "pl": "Spowiedź",
@@ -244,8 +244,8 @@
     "de": "Krankensalbung"
   },
   "index.sacraments.anointing_desc": {
-    "pl": "Sakrament chorych",
-    "de": "Sakrament der Kranken"
+    "pl": "Wezwij księdza do chorego",
+    "de": "Rufen Sie einen Priester zu einem Kranken"
   },
   "index.sacraments.all_btn": {
     "pl": "Wszystkie sakramenty",
@@ -277,15 +277,15 @@
   },
   "index.about.lead": {
     "pl": "1 stycznia 1982 roku decyzją ordynariusza Berlina, ks. bpa Joachima Meissnera, został erygowany Polski Ośrodek Katolicki w Berlinie. „Polski Kościół\" bardzo szybko stał się miejscem spotkania Polaków mieszkających w Berlinie oraz tych, którzy coraz liczniej przybywali do miasta. Wspólnota wielokrotnie zmieniała swoją siedzibę, rozwijając jednocześnie działalność duszpasterską i integrując polskojęzycznych wiernych. Od początku duszpasterstwem polonijnym w Berlinie zajmują się Salezjanie Księdza Bosko.",
-    "de": "Am 1. Januar 1982 wurde durch Entscheidung des Berliner Diözesanbischofs, Erzbischof Joachim Meissner, das Polnische Katholische Zentrum in Berlin errichtet. Die „Polnische Kirche\" wurde schnell zum Treffpunkt der in Berlin lebenden Polen und derer, die immer zahlreicher in die Stadt kamen. Die Gemeinde wechselte mehrfach ihren Sitz und entwickelte gleichzeitig ihre seelsorgerische Tätigkeit, integrierte die polnischsprachigen Gläubigen. Seit Anfang an wird die Polnische Seelsorge in Berlin von den Salesianern Don Boscos geleitet."
+    "de": "Am 1. Januar 1982 wurde durch Entscheidung des Berliner Ordinarius, Bischof Joachim Meissner, das Polnische Katholische Zentrum in Berlin errichtet. Die „Polnische Kirche\" wurde sehr schnell zum Treffpunkt der in Berlin lebenden Polen und derer, die immer zahlreicher in die Stadt kamen. Die Gemeinde wechselte mehrfach ihren Sitz, entwickelte dabei ihre seelsorgliche Tätigkeit weiter und integrierte die polnischsprachigen Gläubigen. Von Anfang an wird die polnische Seelsorge in Berlin von den Salesianern Don Boscos getragen."
   },
   "index.about.text1": {
     "pl": "Od 1 stycznia 1997 roku Polskie Duszpasterstwo otrzymało nazwę Polska Misja Katolicka w Berlinie. Dziś jest to największa wspólnota misyjna Archidiecezji Berlińskiej. Z jej posługi duszpasterskiej korzystają tysiące Polaków i polskojęzycznych katolików z Berlina oraz okolic.",
-    "de": "Seit dem 1. Januar 1997 trägt die Polnische Seelsorge den Namen Polnische Katholische Mission in Berlin. Sie ist heute die größte Missionsgemeinde der Erzdiözese Berlin. Ihre seelsorgerischen Dienste nutzen Tausende Polen und polnischsprachige Katholiken aus Berlin und Umgebung."
+    "de": "Seit dem 1. Januar 1997 trägt die polnische Seelsorge den Namen Polnische Katholische Mission in Berlin. Sie ist heute die größte Missionsgemeinde des Erzbistums Berlin. Tausende Polen und polnischsprachige Katholiken aus Berlin und Umgebung nehmen ihre seelsorglichen Dienste in Anspruch."
   },
   "index.about.text2": {
     "pl": "Polska Misja Katolicka pełni również ważną rolę w życiu kulturalnym Polonii, będąc miejscem koncertów, spotkań, wykładów oraz wydarzeń artystycznych. W nowym podziale administracyjnym Archidiecezji Berlińskiej, od 2021 roku, Polska Misja Katolicka należy do Okręgu Duszpasterskiego Berlin-Mitte pw. bł. Bernarda Lichtenberga.",
-    "de": "Die Polnische Katholische Mission spielt auch eine wichtige Rolle im kulturellen Leben der Polonia und ist Ort von Konzerten, Begegnungen, Vorträgen und künstlerischen Veranstaltungen. In der neuen Verwaltungsgliederung der Erzdiözese Berlin gehört die Polnische Katholische Mission seit 2021 zum Seelsorgebereich Berlin-Mitte unter dem Patronat des Sel. Bernhard Lichtenberg."
+    "de": "Die Polnische Katholische Mission spielt auch eine wichtige Rolle im kulturellen Leben der Polonia und ist Ort von Konzerten, Begegnungen, Vorträgen und künstlerischen Veranstaltungen. In der neuen Verwaltungsgliederung des Erzbistums Berlin gehört die Polnische Katholische Mission seit 2021 zum Pastoralen Raum Berlin-Mitte unter dem Patronat des seligen Bernhard Lichtenberg."
   },
   "index.about.stat_years": {
     "pl": "lat w Berlinie",
@@ -509,7 +509,7 @@
   },
   "index.communities.meska.tagline": {
     "pl": "Braterstwo mężczyzn wspierających się w wierze i życiu",
-    "de": "Brüderschaft von Männern, die sich gegenseitig im Glauben und Leben stärken"
+    "de": "Bruderschaft von Männern, die einander im Glauben und im Leben stärken"
   },
   "index.communities.kobiet.name": {
     "pl": "Grupa Kobiet Empatycznych",
@@ -574,5 +574,45 @@
   "index.contact.optgroup_inne": {
     "pl": "Inne",
     "de": "Sonstiges"
+  },
+  "index.nav.logo_alt": {
+    "pl": "Polska Misja Katolicka w Berlinie",
+    "de": "Polnische Katholische Mission in Berlin"
+  },
+  "index.nav.menu_label": {
+    "pl": "Menu",
+    "de": "Menü"
+  },
+  "index.hero.image_alt": {
+    "pl": "Wnętrze Johannes-Basilika",
+    "de": "Innenraum der Johannes-Basilika"
+  },
+  "index.about.image_alt": {
+    "pl": "Bazylika św. Jana Chrzciciela z kwiatami",
+    "de": "St. Johannes-Basilika mit Blumen"
+  },
+  "index.sacraments.badge_contact": {
+    "pl": "Napisz do nas <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>",
+    "de": "Schreiben Sie uns <svg viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 8h10m-4-4l4 4-4 4\"/></svg>"
+  },
+  "index.pastors.pastor_name": {
+    "pl": "ks. Przemysław Kawecki SDB",
+    "de": "P. Przemysław Kawecki SDB"
+  },
+  "index.pastors.vicar1_name": {
+    "pl": "ks. Janusz Ulatowski SDB",
+    "de": "P. Janusz Ulatowski SDB"
+  },
+  "index.pastors.vicar2_name": {
+    "pl": "ks. Grzegorz Jeżewski SDB",
+    "de": "P. Grzegorz Jeżewski SDB"
+  },
+  "index.pastors.vicar3_name": {
+    "pl": "ks. Janusz Kuskowski SDB",
+    "de": "P. Janusz Kuskowski SDB"
+  },
+  "index.footer.brand_location": {
+    "pl": "w Berlinie",
+    "de": "in Berlin"
   }
 }

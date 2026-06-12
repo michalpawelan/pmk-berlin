@@ -223,6 +223,10 @@
     "pl": "Moderatorzy kręgów",
     "de": "Moderatoren der Kreise"
   },
+  "wspolnota_domowy.contact.moderators_value": {
+    "pl": "Ks. Janusz Ulatowski SDB, Ks. Janusz Kuskowski SDB, Ks. Grzegorz Jeżewski",
+    "de": "P. Janusz Ulatowski SDB, P. Janusz Kuskowski SDB, P. Grzegorz Jeżewski"
+  },
   "wspolnota_domowy.contact.email_label": {
     "pl": "E-mail",
     "de": "E-Mail"
@@ -370,6 +374,10 @@
   "wspolnota_schola.back_link": {
     "pl": "Wszystkie wspólnoty",
     "de": "Alle Gemeinschaften"
+  },
+  "wspolnota_oaza.meta_og_image_alt": {
+    "pl": "Oaza Berlin — katolicka grupa młodzieżowa",
+    "de": "Oaza Berlin — katholische Jugendgruppe"
   },
   "wspolnota_oaza.breadcrumb_home": {
     "pl": "Strona główna",
@@ -582,6 +590,10 @@
   "wspolnota_szensztacki.contact_leader_label": {
     "pl": "Prowadzący / Odpowiedzialny",
     "de": "Leitung / Verantwortliche"
+  },
+  "wspolnota_szensztacki.contact_leader_value": {
+    "pl": "Marzena i Adam Koperla",
+    "de": "Marzena und Adam Koperla"
   },
   "wspolnota_szensztacki.contact_chaplain_label": {
     "pl": "Opieka duchowa",
@@ -1181,7 +1193,7 @@
   },
   "wspolnota_kobiet.quote": {
     "pl": "<p>„Człowiek jest tak zbudowany, że sam sobie nie wystarczy. Nasze oczy nie widzą swojej twarzy, potrzebujemy innego, żeby ją zobaczyć. Swoją doskonałość trzeba odkrywać we wspólnocie — z Bogiem i drugim człowiekiem\".</p><cite>— Ks. Krzysztof Grzywocz</cite>",
-    "de": "<p>„Der Mensch ist so geschaffen, dass er sich selbst nicht genügt. Unsere Augen sehen das eigene Gesicht nicht — wir brauchen einen anderen, um es zu sehen. Die eigene Vollkommenheit muss man in der Gemeinschaft entdecken — mit Gott und mit dem Nächsten\".</p><cite>— Ks. Krzysztof Grzywocz</cite>"
+    "de": "<p>„Der Mensch ist so geschaffen, dass er sich selbst nicht genügt. Unsere Augen sehen das eigene Gesicht nicht — wir brauchen einen anderen, um es zu sehen. Die eigene Vollkommenheit muss man in der Gemeinschaft entdecken — mit Gott und mit dem Nächsten\".</p><cite>— P. Krzysztof Grzywocz</cite>"
   },
   "wspolnota_kobiet.section_about_title": {
     "pl": "O <em>nas</em>",
@@ -1274,6 +1286,10 @@
   "wspolnota_kobiet.contact_lead_label": {
     "pl": "Prowadzący / Odpowiedzialny",
     "de": "Leitung / Verantwortliche"
+  },
+  "wspolnota_kobiet.contact_lead_value": {
+    "pl": "Siostra Bernadetta Broda, Karolina Nebel",
+    "de": "Sr. Bernadetta Broda, Karolina Nebel"
   },
   "wspolnota_kobiet.contact_email_label": {
     "pl": "E-mail",

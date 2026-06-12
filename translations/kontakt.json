@@ -120,6 +120,74 @@
     "pl": "Wspólnoty",
     "de": "Gemeinschaften"
   },
+  "kontakt.form.opt_wsp_apostolstwo": {
+    "pl": "Apostolstwo Dobrej Śmierci",
+    "de": "Apostolat des guten Todes"
+  },
+  "kontakt.form.opt_wsp_caritas": {
+    "pl": "Caritas",
+    "de": "Caritas"
+  },
+  "kontakt.form.opt_wsp_domowy_kosciol": {
+    "pl": "Domowy Kościół",
+    "de": "Hauskirche (Domowy Kościół)"
+  },
+  "kontakt.form.opt_wsp_grono_dzieci": {
+    "pl": "Grono Dzieci Maryi",
+    "de": "Gemeinschaft der Marienkinder"
+  },
+  "kontakt.form.opt_wsp_grupa_kobiet": {
+    "pl": "Grupa Kobiet Empatycznych",
+    "de": "Gruppe der empathischen Frauen"
+  },
+  "kontakt.form.opt_wsp_grupa_meska": {
+    "pl": "Grupa Męska",
+    "de": "Männergruppe"
+  },
+  "kontakt.form.opt_wsp_katecheza": {
+    "pl": "Katecheza Dorosłych",
+    "de": "Erwachsenenkatechese"
+  },
+  "kontakt.form.opt_wsp_radio_maryja": {
+    "pl": "Koło Przyjaciół Radia Maryja",
+    "de": "Freunde von Radio Maryja"
+  },
+  "kontakt.form.opt_wsp_rozaniec": {
+    "pl": "Koło Żywego Różańca",
+    "de": "Lebendiger Rosenkranz"
+  },
+  "kontakt.form.opt_wsp_kregi_biblijne": {
+    "pl": "Kręgi Biblijne",
+    "de": "Bibelkreise"
+  },
+  "kontakt.form.opt_wsp_legia_maryi": {
+    "pl": "Legia Maryi",
+    "de": "Legion Mariens"
+  },
+  "kontakt.form.opt_wsp_ministranci": {
+    "pl": "Ministranci",
+    "de": "Ministranten"
+  },
+  "kontakt.form.opt_wsp_mlodzi_dorosli": {
+    "pl": "Młodzi Dorośli",
+    "de": "Junge Erwachsene"
+  },
+  "kontakt.form.opt_wsp_szensztat": {
+    "pl": "Ruch Szensztacki",
+    "de": "Schönstatt-Bewegung"
+  },
+  "kontakt.form.opt_wsp_oaza": {
+    "pl": "Ruch Światło-Życie",
+    "de": "Licht-Leben-Bewegung (Oaza)"
+  },
+  "kontakt.form.opt_wsp_schola": {
+    "pl": "Schola Marana Tha",
+    "de": "Schola „Marana Tha“"
+  },
+  "kontakt.form.opt_wsp_sne": {
+    "pl": "Szkoła Nowej Ewangelizacji",
+    "de": "Schule der Neuevangelisierung"
+  },
   "kontakt.form.optgroup_other": {
     "pl": "Inne",
     "de": "Sonstiges"
@@ -159,6 +227,19 @@
   "kontakt.form.send_another": {
     "pl": "Wyślij kolejną wiadomość",
     "de": "Weitere Nachricht senden"
+  },
+
+  "kontakt.map.consent_title": {
+    "pl": "Pokaż mapę · Karte anzeigen",
+    "de": "Karte anzeigen"
+  },
+  "kontakt.map.consent_note": {
+    "pl": "Po kliknięciu mapa Google Maps zostanie załadowana, a Twój adres IP zostanie przekazany do Google. · Beim Laden der Google-Maps-Karte wird Ihre IP-Adresse an Google übertragen.",
+    "de": "Beim Laden der Google-Maps-Karte wird Ihre IP-Adresse an Google übertragen."
+  },
+  "kontakt.map.consent_load": {
+    "pl": "Załaduj mapę / Karte laden ↗",
+    "de": "Karte laden ↗"
   },
 
   "kontakt.churches.label": {
