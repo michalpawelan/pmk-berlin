@@ -24,7 +24,6 @@ const PL_PENDANT = {
   'taufe.html': '/sakrament-chrzest.html', 'firmung.html': '/sakrament-bierzmowanie.html',
   'erstkommunion.html': '/sakrament-komunia.html', 'trauung.html': '/sakrament-malzenstwo.html',
   'krankensalbung.html': '/sakrament-namaszczenie.html', 'beichte.html': '/sakrament-spowiedz.html',
-  'messzeiten.html': '/#messzeiten', 'ueber-uns.html': '/#onas',
   'gruppen.html': '/grupy.html', 'spenden.html': '/wesprzyj.html',
   'veranstaltungen.html': '/events.html', 'veranstaltung.html': '/event.html',
   'ogloszenia.html': '/ogloszenia.html',
@@ -45,13 +44,13 @@ function navActive(file) {
   return file;
 }
 
+// Spiegel der PL-Navigation (5 Punkte) — Messzeiten/Über-uns sind Abschnitte
+// der Startseite (/de/index.html#messzeiten, #onas), keine eigenen Seiten mehr.
 const NAV_ITEMS = [
   ['index.html', 'Startseite'],
-  ['messzeiten.html', 'Messzeiten'],
   ['sakramente.html', 'Sakramente'],
   ['veranstaltungen.html', 'Veranstaltungen'],
   ['gruppen.html', 'Gruppen'],
-  ['ueber-uns.html', 'Über uns'],
   ['kontakt.html', 'Kontakt'],
 ];
 

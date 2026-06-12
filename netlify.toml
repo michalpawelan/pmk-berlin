@@ -103,6 +103,20 @@
   status = 301
 
 # ============================================
+# DE-Konsolidierung: Messzeiten/Über-uns sind Abschnitte der DE-Startseite
+# (Seiten entfernt 2026-06-12, Nav = Spiegel der PL-Nav)
+# ============================================
+[[redirects]]
+  from = "/de/messzeiten.html"
+  to = "/de/index.html#messzeiten"
+  status = 301
+
+[[redirects]]
+  from = "/de/ueber-uns.html"
+  to = "/de/index.html#onas"
+  status = 301
+
+# ============================================
 # Security: block internal/reference files from public serving
 # (the Apps Script source + planning docs contain the admin PIN; archive
 #  holds stale prompts). These ship because publish=".", so 404 them.
