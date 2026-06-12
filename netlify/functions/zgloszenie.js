@@ -44,6 +44,26 @@ function truthy(v) {
   return s === 'true' || s === '1' || s === 'tak' || s === 'ja' || s === 'yes';
 }
 
+// Rückrufnummer kanonisch als "+49 …" formatieren. Zwei Gründe:
+// 1) Google Sheets parst reine Ziffernfolgen als Zahl — "0178…" verliert die
+//    führende Null. Ein "+…"-String wird vom Apps Script als Text escaped.
+// 2) Die eigenen Nummern (KI-Leitung, Pfarrbüro-Weiterleitung) sind nie die
+//    Rückrufnummer des Anrufers — der Agent hat sie schon einmal fälschlich
+//    eingetragen, weil der Anrufer "die Nummer, von der ich anrufe" sagte.
+const OWN_NUMBERS = ['493075938358', '49307524080'];
+function normalizePhone(raw) {
+  const s = String(raw || '').trim();
+  if (!s) return '';
+  const compact = s.replace(/[\s\/().-]/g, '');
+  if (!/^\+?\d{4,20}$/.test(compact)) return s; // keine Ziffernfolge (z. B. Worte) -> unverändert lassen
+  let d = compact.replace(/^\+/, '');
+  if (d.startsWith('00')) d = d.slice(2);
+  else if (d.startsWith('0')) d = '49' + d.slice(1);
+  else if (!compact.startsWith('+') && !d.startsWith('49')) return s; // ohne Vorwahl-Hinweis nicht raten
+  if (OWN_NUMBERS.indexOf(d) !== -1) return '';
+  return '+' + d.slice(0, 2) + ' ' + d.slice(2);
+}
+
 // E-Mail an die Pfarrei über IONOS-SMTP, Absender = echte Pfarrei-Adresse (z.B. admin@pmk-berlin.de).
 // env-gated: ohne IONOS_SMTP_USER/PASS passiert nichts (dann mailt weiterhin das Apps Script).
 async function sendViaIonos(d) {
@@ -99,7 +119,7 @@ exports.handler = async (event) => {
   }
 
   const name = String(p.name || '').trim().slice(0, 200);
-  const phone = String(p.phone || p.telefon || '').trim().slice(0, 60);
+  const phone = normalizePhone(String(p.phone || p.telefon || '').trim().slice(0, 60));
   const concern = String(p.concern || p.message || p.sprawa || '').trim().slice(0, 2000);
 
   // Mindestens ein verwertbares Feld
