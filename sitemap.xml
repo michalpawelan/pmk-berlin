@@ -42,9 +42,12 @@
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/ogloszenia.html</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/ogloszenia.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/ogloszenia.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/ogloszenia.html"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/grupy.html</loc>
@@ -262,7 +265,7 @@
   <!-- ============================================ -->
   <url>
     <loc>https://www.pmk-berlin.de/de/index.html</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/"/>
@@ -270,8 +273,17 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/"/>
   </url>
   <url>
+    <loc>https://www.pmk-berlin.de/de/ogloszenia.html</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/ogloszenia.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/ogloszenia.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/ogloszenia.html"/>
+  </url>
+  <url>
     <loc>https://www.pmk-berlin.de/de/sakramente.html</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/sakramente.html"/>
@@ -280,7 +292,7 @@
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/de/kontakt.html</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/kontakt.html"/>
@@ -289,13 +301,13 @@
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/de/messzeiten.html</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/de/ueber-uns.html</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

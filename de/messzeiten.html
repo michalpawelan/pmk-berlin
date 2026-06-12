@@ -56,7 +56,7 @@
     "name": "Heilige Messen in polnischer Sprache — PMK Berlin",
     "description": "Regelmäßige Heilige Messen auf Polnisch in der Johannes-Basilika Berlin-Neukölln und drei weiteren Kirchen.",
     "url": "https://www.pmk-berlin.de/de/messzeiten.html",
-    "inLanguage": "pl",
+    "inLanguage": "de",
     "organizer": { "@id": "https://www.pmk-berlin.de/#church" },
     "location": [
       {
@@ -93,7 +93,7 @@
         "name": "Wann findet die polnische Heilige Messe in Berlin statt?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "In der Johannes-Basilika (Lilienthalstraße 5, 12049 Berlin-Neukölln) werden Heilige Messen auf Polnisch sonntags um 10:15, 12:00 und 18:00 Uhr gefeiert. Werktags (Montag bis Samstag) um 07:00 und 18:00 Uhr."
+          "text": "In der Johannes-Basilika (Lilienthalstraße 5, 12049 Berlin-Neukölln) werden Heilige Messen auf Polnisch sonntags um 10:15, 12:00 und 18:00 Uhr gefeiert. Werktags (Montag bis Samstag) um 07:00 und 18:00 Uhr; im Juli und August nur um 18:00 Uhr. Die Basilika wird 30 Minuten vor jeder Heiligen Messe und Andacht geöffnet."
         }
       },
       {
@@ -101,7 +101,7 @@
         "name": "Gibt es in Berlin außerhalb von Neukölln polnische Gottesdienste?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Die PMK Berlin feiert regelmäßig polnische Messen in drei weiteren Kirchen: St. Joseph (Wedding, Müllerstraße 161) sonntags 16:00 Uhr, St. Marien (Spandau, Flankenschanze 43) sonntags 12:00 Uhr und mittwochs 18:30 Uhr, sowie St. Marien (Karlshorst, Gundelfinger Straße 36) sonntags 11:00 Uhr."
+          "text": "Ja. Die PMK Berlin feiert regelmäßig polnische Messen in drei weiteren Kirchen: St. Joseph (Wedding, Müllerstraße 161) sonntags 16:00 Uhr, St. Marien (Spandau, Flankenschanze 43) sonntags 12:00 Uhr und mittwochs 18:30 Uhr (Oktober bis Mai), sowie St. Marien (Karlshorst, Gundelfinger Straße 36) sonntags 11:00 Uhr."
         }
       },
       {
@@ -109,7 +109,7 @@
         "name": "Wann ist Beichtgelegenheit in der PMK Berlin?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Beichtgelegenheit besteht Montag bis Samstag während der Abendmesse, sonntags vor und während jeder Heiligen Messe sowie am ersten Freitag im Monat ab 17:00 Uhr."
+          "text": "Beichtgelegenheit besteht Montag bis Samstag ab 17:30 Uhr, sonntags vor und während jeder Heiligen Messe sowie am ersten Freitag im Monat ab 17:00 Uhr."
         }
       },
       {
@@ -203,13 +203,17 @@
         </div>
       </div>
 
+      <p class="mass-opening-note">
+        Die Basilika wird 30 Minuten vor jeder Heiligen Messe und Andacht geöffnet.
+      </p>
+
       <div class="mass-confession">
         <img src="/images/pmk-logo.png" alt="PMK" class="confession-logo" loading="lazy" width="35" height="35">
         <div class="confession-text"><strong>Heilige Beichte</strong></div>
         <div class="confession-details">
           <div class="confession-item">
             <span class="confession-label">Mo. – Sa.</span>
-            <span class="confession-value">während der Abendmesse</span>
+            <span class="confession-value">ab 17:30 Uhr</span>
           </div>
           <div class="confession-item">
             <span class="confession-label">Sonntag</span>
@@ -245,7 +249,7 @@
               <span class="oc-label">Sonn- und Feiertage</span>
               <span class="mass-time">12:00</span>
               <span class="oc-divider"></span>
-              <span class="oc-label">Mittwoch</span>
+              <span class="oc-label">Mittwoch (Oktober – Mai)</span>
               <span class="mass-time">18:30</span>
             </div>
           </div>
@@ -343,13 +347,23 @@
         </div>
       </nav>
     </div>
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4>Unterstützen Sie unsere Mission</h4>
+        <p>Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung.</p>
+      </div>
+      <div class="footer-donate-cta-wrap">
+        <a href="/de/spenden.html" class="footer-donate-btn">Mission unterstützen</a>
+      </div>
+    </div>
+
     <!-- BEGIN newsletter-footer -->
 <div class="footer-newsletter" data-newsletter-form>
-  <h4>Bleib auf dem Laufenden</h4>
+  <h4>Bleiben Sie auf dem Laufenden</h4>
   <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
     <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Vorname">
-    <input type="email" name="email" required placeholder="deine E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
+    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn">Anmelden</button>
     <p class="footer-newsletter-msg" hidden></p>

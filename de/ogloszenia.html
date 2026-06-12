@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico?v=5">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png?v=5">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <title>Pfarrnachrichten | Polnische Katholische Mission Berlin</title>
+  <meta name="description" content="Aktuelle Pfarrnachrichten der Polnischen Katholischen Mission Berlin — das Pfarrblatt der Woche (erscheint auf Polnisch).">
+  <link rel="canonical" href="https://www.pmk-berlin.de/de/ogloszenia.html">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Polnische Katholische Mission Berlin">
+
+  <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/ogloszenia.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/ogloszenia.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/ogloszenia.html">
+
+  <meta property="og:title" content="Pfarrnachrichten | Polnische Katholische Mission Berlin">
+  <meta property="og:description" content="Aktuelle Pfarrnachrichten der Polnischen Katholischen Mission Berlin — das Pfarrblatt der Woche (erscheint auf Polnisch).">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.pmk-berlin.de/de/ogloszenia.html">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="pl_PL">
+  <meta property="og:site_name" content="PMK Berlin">
+
+  <!-- Premium Typography -->
+  <link rel="stylesheet" href="/fonts/fonts.css">
+
+  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    .ogloszenia-page { background: var(--color-warm-50, #faf6f0); padding: 3rem 0 4rem; min-height: 60vh; }
+    .ogloszenia-page-container { max-width: 720px; margin: 0 auto; padding: 0 1.25rem; }
+
+    .ogloszenia-back {
+      display: inline-block;
+      font-family: var(--font-sans, Outfit), sans-serif;
+      font-size: 0.85rem;
+      color: var(--color-accent, #b4593e);
+      text-decoration: none;
+      margin-bottom: 1.25rem;
+    }
+    .ogloszenia-back:hover { text-decoration: underline; }
+
+    .ogloszenia-article {
+      background: #fff;
+      border: 1px solid var(--color-warm-200, #e8dfd1);
+      border-left: 3px solid var(--color-accent, #b4593e);
+      border-radius: 10px;
+      padding: 2.5rem 2.5rem 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .ogloszenia-article-header { margin-bottom: 1.5rem; }
+    .ogloszenia-eyebrow {
+      font-family: var(--font-sans, Outfit), sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--color-accent, #b4593e);
+      margin: 0 0 0.5rem;
+    }
+    .ogloszenia-article-title {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: clamp(1.7rem, 3.5vw, 2.25rem);
+      font-weight: 500;
+      color: var(--color-warm-900, #2a2520);
+      margin: 0 0 0.6rem;
+      line-height: 1.2;
+    }
+    .ogloszenia-article-meta {
+      font-size: 0.85rem;
+      color: var(--color-warm-500, #8a7a65);
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+    .ogloszenia-print {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      font-family: var(--font-sans, Outfit), sans-serif;
+      font-size: 0.78rem;
+      padding: 0.45rem 0.85rem;
+      background: transparent;
+      border: 1px solid var(--color-warm-300, #d4c8b6);
+      border-radius: 999px;
+      color: var(--color-warm-700, #574c40);
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+    .ogloszenia-print:hover {
+      background: var(--color-accent, #b4593e);
+      color: #fff;
+      border-color: var(--color-accent, #b4593e);
+    }
+    .ogloszenia-article-body {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--color-warm-800, #3a342d);
+    }
+    .ogloszenia-article-body p { margin: 0 0 1rem; }
+    .ogloszenia-article-body p:last-child { margin-bottom: 0; }
+    .ogloszenia-article-body a { color: var(--color-accent, #b4593e); text-decoration: underline; }
+    /* Clean mounted image: shown at its natural aspect ratio (never cropped, never blurred,
+       no letterbox bars), scaled to fit a comfortable max box, mounted like a framed poster
+       (rounded corners + soft shadow + hairline border). Works for any uploaded aspect ratio.
+       Markup emitted by js/ogloszenia.js renderBlocks(). */
+    .ogloszenia-article-body .ogloszenia-img-block {
+      display: block;
+      max-width: min(100%, 500px);  /* cap width; never upscales small images past natural */
+      max-height: 70vh;             /* a very tall flyer can't dominate the viewport */
+      width: auto;
+      height: auto;
+      margin: 1.5rem auto;          /* centered in the reading column */
+      border-radius: 10px;
+      border: 1px solid var(--color-warm-200, #e8dfd1);
+      box-shadow: 0 6px 28px rgba(42, 37, 32, 0.12);
+      background: var(--color-warm-50, #faf6f0);
+    }
+    .ogloszenia-article-body .ogloszenia-img-block:first-child { margin-top: 0; }
+    .ogloszenia-article-body .ogloszenia-img-block:last-child  { margin-bottom: 0; }
+
+    .ogloszenia-empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--color-warm-500, #8a7a65);
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .ogloszenia-page { padding: 1.5rem 0 3rem; }
+      .ogloszenia-article { padding: 1.75rem 1.25rem 1.5rem; border-radius: 8px; }
+      .ogloszenia-print {
+        position: static;
+        margin-top: 1rem;
+        display: inline-block;
+      }
+    }
+
+    /* Print layout — A4-friendly, no chrome */
+    @media print {
+      @page { margin: 1.5cm; }
+      body { background: #fff; color: #000; }
+      .nav-header, .footer, .pmk-launcher, .pmk-panel, .lang-switch, .skip-nav,
+      .ogloszenia-back, .ogloszenia-print { display: none !important; }
+      .ogloszenia-page { background: #fff; padding: 0; }
+      .ogloszenia-page-container { max-width: 100%; padding: 0; }
+      .ogloszenia-article {
+        background: #fff;
+        border: none;
+        border-left: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      .ogloszenia-article-title { font-size: 1.6rem; color: #000; }
+      .ogloszenia-eyebrow, .ogloszenia-article-meta { color: #555; }
+      .ogloszenia-article-body { font-size: 0.95rem; line-height: 1.55; color: #000; }
+      .ogloszenia-article-body p { page-break-inside: avoid; }
+      /* Print: whole image, natural aspect, no shadow/border tint. Capped in cm so the
+         header + image + text fit on ONE A4 page (no empty leading page). */
+      .ogloszenia-article-body .ogloszenia-img-block {
+        max-width: 12cm;
+        max-height: 16cm;
+        width: auto;
+        height: auto;
+        margin: 0.6cm auto;
+        box-shadow: none;
+        border: none;
+        background: none;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
+
+<!-- Navigation -->
+<header class="nav-header" id="mainNav">
+  <nav class="nav-container">
+    <a href="/de/index.html" class="nav-brand">
+      <span class="nav-brand-icon"><img class="nav-logo" src="/images/pmk-logo.png" alt="PMK Logo" width="45" height="45"></span>
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">Polnische Katholische Mission</span>
+        <span class="nav-brand-location">Berlin</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/de/index.html">Startseite</a></li>
+      <li><a href="/de/messzeiten.html">Messzeiten</a></li>
+      <li><a href="/de/sakramente.html">Sakramente</a></li>
+      <li><a href="/de/veranstaltungen.html">Veranstaltungen</a></li>
+      <li><a href="/de/gruppen.html">Gruppen</a></li>
+      <li><a href="/de/ueber-uns.html">Über uns</a></li>
+      <li><a href="/de/kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <div class="lang-switch">
+        <a href="/ogloszenia.html" class="lang-btn" data-lang="pl">PL</a>
+        <a href="/de/ogloszenia.html" class="lang-btn active" data-lang="de">DE</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menü">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main-content" class="ogloszenia-page">
+  <div class="ogloszenia-page-container">
+    <a class="ogloszenia-back" href="/de/index.html">← Zur Startseite</a>
+
+    <article class="ogloszenia-article" id="ogloszenia-article" hidden>
+      <header class="ogloszenia-article-header">
+        <p class="ogloszenia-eyebrow">Pfarrnachrichten</p>
+        <h1 class="ogloszenia-article-title" id="ogloszenia-article-title"></h1>
+        <p class="ogloszenia-article-meta" id="ogloszenia-article-meta"></p>
+        <button type="button" class="ogloszenia-print" id="ogloszenia-print-btn">Drucken</button>
+      </header>
+      <div class="ogloszenia-article-body" id="ogloszenia-article-body"></div>
+    </article>
+
+    <div class="ogloszenia-empty" id="ogloszenia-empty" hidden>
+      <p>Zurzeit liegen keine Pfarrnachrichten vor.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <img src="/images/pmk-logo-white.png" alt="PMK Logo" class="footer-logo" loading="lazy" width="56" height="56">
+          <div class="footer-brand-text">
+            <strong>Polnische Katholische Mission</strong>
+            <span>in Berlin</span>
+          </div>
+        </div>
+        <p class="footer-address">
+          Johannes-Basilika<br>
+          Lilienthalstraße 5, 12049 Berlin
+        </p>
+        <div class="footer-contact">
+          <a href="tel:+49307524080">+49 30 752 40 80</a>
+          <span class="footer-divider"></span>
+          <a href="mailto:pmk@pmk-berlin.de">pmk@pmk-berlin.de</a>
+        </div>
+      </div>
+
+      <nav class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>Navigation</h4>
+          <a href="/de/index.html">Startseite</a>
+          <a href="/de/messzeiten.html">Messzeiten</a>
+          <a href="/de/sakramente.html">Sakramente</a>
+          <a href="/de/veranstaltungen.html">Veranstaltungen</a>
+          <a href="/de/gruppen.html">Gruppen</a>
+          <a href="/de/ueber-uns.html">Über uns</a>
+          <a href="/de/kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Sprache</h4>
+          <a href="/ogloszenia.html">Polski (Originalversion)</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>Informationen</h4>
+          <a href="/impressum.html">Impressum</a>
+          <a href="/datenschutz.html">Datenschutz</a>
+          <a href="/schutzkonzept.html">Schutzkonzept</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-donate">
+      <div class="footer-donate-text">
+        <h4>Unterstützen Sie unsere Mission</h4>
+        <p>Ihre Spende unterstützt die Missionstätigkeit der Salesianer. Vielen Dank für jede Unterstützung.</p>
+      </div>
+      <div class="footer-donate-cta-wrap">
+        <a href="/de/spenden.html" class="footer-donate-btn">Mission unterstützen</a>
+      </div>
+    </div>
+
+    <!-- BEGIN newsletter-footer -->
+<div class="footer-newsletter" data-newsletter-form>
+  <h4>Bleiben Sie auf dem Laufenden</h4>
+  <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
+  <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Vorname">
+    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button type="submit" class="footer-newsletter-btn">Anmelden</button>
+    <p class="footer-newsletter-msg" hidden></p>
+  </form>
+  <p class="footer-newsletter-legal">
+    <a href="/datenschutz.html">Datenschutzhinweis</a>
+  </p>
+</div>
+<!-- END newsletter-footer -->
+
+    <div class="footer-bottom">
+      <p class="footer-motto">„Gelobt sei Jesus Christus“</p>
+      <p class="footer-copy">&copy; 2026 Polnische Katholische Mission Berlin</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/ogloszenia.js" defer></script>
+<script src="/main.js" defer></script>
+<script type="module" src="/js/pmk-chat.js"></script>
+
+<script>
+  // Detail page loader — uses class-based selectors that DO NOT conflict with main.js
+  // (main.js's loadOgloszenie targets #ogloszenia, which doesn't exist on this page).
+  (function () {
+    'use strict';
+
+    function init() {
+      if (!window.PMK_Ogloszenia) {
+        // Module not loaded yet — retry once after a tick (defer ordering safety net)
+        setTimeout(init, 50);
+        return;
+      }
+
+      const article = document.getElementById('ogloszenia-article');
+      const empty = document.getElementById('ogloszenia-empty');
+      const titleEl = document.getElementById('ogloszenia-article-title');
+      const metaEl = document.getElementById('ogloszenia-article-meta');
+      const bodyEl = document.getElementById('ogloszenia-article-body');
+      const printBtn = document.getElementById('ogloszenia-print-btn');
+
+      window.PMK_Ogloszenia.fetchCurrent().then(function (data) {
+        if (!data) {
+          if (empty) empty.hidden = false;
+          return;
+        }
+        if (titleEl) titleEl.textContent = data.title;
+        if (metaEl) metaEl.textContent = window.PMK_Ogloszenia.formatWeekRange(data.publishedAt, window.PMK_Ogloszenia.getLang());
+        if (bodyEl) bodyEl.innerHTML = window.PMK_Ogloszenia.renderBlocks(data.body);
+        if (article) article.hidden = false;
+      }).catch(function () {
+        if (empty) empty.hidden = false;
+      });
+
+      if (printBtn) {
+        printBtn.addEventListener('click', function () { window.print(); });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>
