@@ -54,6 +54,29 @@ Laufendes Protokoll der eingehenden Telefonate auf der ElevenLabs-„Marta". Neu
 
 ## Tagesprotokoll
 
+### 📅 17.06.2026 — Root-Cause Rückrufnummer + Fix
+
+Rückmeldung der Sekretärin: „manchmal keine Telefonnummer, neulich war **meine eigene** Nummer
+angegeben". In den echten Calls reproduziert:
+- **08.06. (Grzegorz):** Rückrufnummer = `+49 30 7593 8358` = die **KI-Leitung selbst** → „eigene Nummer".
+- **12.06. (Adela):** Rückrufnummer = `„dwadzieścia trzy"` (Wort statt Ziffern) → „keine Nummer".
+
+**Root Cause:** Die `phone`-Parameter-Beschreibung des `create_zgloszenie`-Tools enthielt
+„*If the caller number is already known via caller-ID, confirm it and pass it here*" — das **Gegenteil**
+des System-Prompts. Der 12.06.-Fix hatte nur den Prompt + einen Code-Backstop angefasst, nicht die
+Tool-Beschreibung. Da jede weitergeleitete Anrufe als Caller-ID die Pfarrbüro-Nummer `+49 30 7524 080`
+zeigt (auf allen Calls bestätigt), trug der Agent die eigene Nummer ein.
+
+**Fix (17.06.):**
+1. Tool-Beschreibung `phone` live umgeschrieben (eigenständiges Tool `tool_5501…`): nur diktierte,
+   Ziffer-für-Ziffer rückbestätigte Nummern; **niemals** Caller-ID / eigene Nummern; `""` wenn keine.
+2. Code-Backstop `normalizePhone` (eigene Nummern → `""`) mit Regression-Test abgesichert
+   (`scripts/test-normalize-phone.cjs`, 9/9) + deployed.
+3. Eigentliche Wurzel = Weiterleitung versteckt echte Anrufer-Nr. → Anbieter-Anleitung
+   `caller-id-passthrough.md` (Original-CLIP durchreichen) erstellt.
+
+---
+
 ### 📅 05.06.2026 — Launch-Tag
 
 **2 Anrufe**, beide von **derselben Nummer** (`+49 30 7524•••`) → ein einziger realer
@@ -84,7 +107,9 @@ Agent begrüßt („Polska Misja Katolicka, tu Marta. W czym mogę pomóc?"), An
 - ⚠️ **Latenz-/Funkloch-Moment:** Agent sagt „Chwileczkę…" und eine überlappende
   Halbsatz-Antwort; Anruferin reagiert mit „Hallo? Bitte? … Ich hör Sie nicht." — kurz tote
   Leitung, Eindruck eines Verbindungsabbruchs. → Antwort-Latenz / Füllwörter prüfen.
-- ⚠️ Mündlich genannte Rückrufnummer wirkt **unvollständig** — im Zweifel die Caller-ID nutzen.
+- ⚠️ Mündlich genannte Rückrufnummer wirkt **unvollständig** — Agent muss sie Ziffer-für-Ziffer
+  rückbestätigen. **Niemals die Caller-ID als Rückrufnummer verwenden:** bei Weiterleitung ist sie
+  immer die Pfarrbüro-Nummer (`+49 30 7524 080`), nie der echte Anrufer (siehe Eintrag 17.06.2026).
 - 🔴 **ACTION (zeitkritisch):** Diese Seelsorge-Anfrage wurde **NICHT automatisch eskaliert**
   (kein Post-Call-Webhook, siehe Offene Punkte #1). Sie liegt **nur** im ElevenLabs-Dashboard.
   Palliativ-Kontext → jemand muss das Anliegen von *Frau A.* **manuell und heute** an die

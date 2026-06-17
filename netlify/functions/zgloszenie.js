@@ -64,6 +64,10 @@ function normalizePhone(raw) {
   return '+' + d.slice(0, 2) + ' ' + d.slice(2);
 }
 
+// Für die Regression-Tests exportiert (scripts/test-normalize-phone.cjs).
+// Kein Einfluss auf den Netlify-Handler, der weiterhin exports.handler nutzt.
+exports.normalizePhone = normalizePhone;
+
 // E-Mail an die Pfarrei über IONOS-SMTP, Absender = echte Pfarrei-Adresse (z.B. admin@pmk-berlin.de).
 // env-gated: ohne IONOS_SMTP_USER/PASS passiert nichts (dann mailt weiterhin das Apps Script).
 async function sendViaIonos(d) {
