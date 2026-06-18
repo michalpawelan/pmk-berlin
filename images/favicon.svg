@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Polska Misja Katolicka Berlin">
+  <rect width="512" height="512" fill="#FFFFFF"/>
+  <circle cx="256" cy="256" r="240" fill="none" stroke="#A68B5B" stroke-width="9"/>
+  <g fill="#3C362F">
+    <rect x="227" y="126" width="58" height="261" rx="5"/>
+    <rect x="163" y="170" width="186" height="58" rx="5"/>
+  </g>
+</svg>
