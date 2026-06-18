@@ -80,7 +80,10 @@ async function sendViaIonos(d) {
 
   const host = process.env.IONOS_SMTP_HOST || 'smtp.ionos.de';
   const port = parseInt(process.env.IONOS_SMTP_PORT || '465', 10);
-  const to = process.env.ZGLOSZENIE_TO || 'pmk@pmk-berlin.de';
+  // Dringende Fälle dürfen optional an eine separate Adresse (damit ein
+  // [PILNE]-Ticket nicht zwischen Vertriebsanfragen untergeht). Fällt auf
+  // die Standard-Adresse zurück, wenn ZGLOSZENIE_URGENT_TO nicht gesetzt ist.
+  const to = (d.urgent && process.env.ZGLOSZENIE_URGENT_TO) || process.env.ZGLOSZENIE_TO || 'pmk@pmk-berlin.de';
   const replyTo = process.env.ZGLOSZENIE_REPLYTO || 'pmk@pmk-berlin.de';
   const fromName = process.env.ZGLOSZENIE_FROM_NAME || 'PMK Telefon-Assistent';
 
@@ -123,8 +126,18 @@ exports.handler = async (event) => {
   }
 
   const name = String(p.name || '').trim().slice(0, 200);
-  const phone = normalizePhone(String(p.phone || p.telefon || '').trim().slice(0, 60));
+  const rawPhone = String(p.phone || p.telefon || '').trim().slice(0, 60);
+  const phone = normalizePhone(rawPhone);
   const concern = String(p.concern || p.message || p.sprawa || '').trim().slice(0, 2000);
+
+  // Hat der Anrufer eine Nummer geliefert, die aber NICHT als gültige
+  // Rückrufnummer verwertbar ist (eigene PMK-Nummer, Wortform wie
+  // "dwadzieścia trzy", unparsebar)? Dann gibt normalizePhone "" oder den
+  // Rohtext zurück. Der Agent erfuhr das bisher NICHT (stiller Fehlschlag) und
+  // sagte dem Anrufer "wir rufen zurück" ohne erreichbare Nummer. phone_usable
+  // signalisiert dem Agenten, die Nummer erneut zu erfragen.
+  const phoneProvided = rawPhone.length > 0;
+  const phoneUsable = /^\+\d{1,3}\s\d{6,}$/.test(phone);
 
   // Mindestens ein verwertbares Feld
   if (!name && !phone && !concern) {
@@ -166,7 +179,19 @@ exports.handler = async (event) => {
     try { data = JSON.parse(text); } catch (_) { data = { success: false, error: 'upstream_parse' }; }
     // Dem Agenten eine klare, knappe Antwort geben
     if (data && data.success) {
-      return json(200, { success: true, message: 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.', mail });
+      const resp = {
+        success: true,
+        message: 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.',
+        mail,
+        phone_provided: phoneProvided,
+        phone_usable: phoneUsable
+      };
+      // Anrufer hat eine Nummer genannt, die nicht verwertbar ist -> Agent soll
+      // sie erneut Ziffer für Ziffer erfragen (das Anliegen ist trotzdem erfasst).
+      if (phoneProvided && !phoneUsable) {
+        resp.phone_warning = 'Telefonnummer NICHT als gültige Rückrufnummer gespeichert. Bitte die Nummer erneut Ziffer für Ziffer erfragen und bestätigen, dann das Tool erneut aufrufen.';
+      }
+      return json(200, resp);
     }
     return json(502, { success: false, error: (data && data.error) || 'upstream_failed' });
   } catch (_) {
