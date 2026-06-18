@@ -85,6 +85,31 @@ function enrich(events, lang) {
     });
 }
 
+// In-Memory-Cache (sprachunabhängig: parseEvents liefert Rohdaten, enrich pro lang).
+// Ein warmer Netlify-Container serviert wiederholte Tool-Calls sofort, statt den
+// 1–3 s langen gviz-Roundtrip zum Google Sheet zu wiederholen — das reduziert die
+// Tool-Latenz, die im Telefonat als Stille ankommt ("halo?"). Bei gviz-Fehler wird
+// der letzte gültige Stand serviert (resilienter als ein harter 502).
+let _eventsCache = { events: null, ts: 0 };
+const EVENTS_CACHE_TTL_MS = 120000; // 2 Minuten
+
+async function getEventsCached() {
+  const now = Date.now();
+  if (_eventsCache.events && (now - _eventsCache.ts) < EVENTS_CACHE_TTL_MS) {
+    return _eventsCache.events;
+  }
+  try {
+    const res = await fetch(GVIZ_URL);
+    const text = await res.text();
+    const events = parseEvents(text);
+    _eventsCache = { events, ts: now };
+    return events;
+  } catch (err) {
+    if (_eventsCache.events) return _eventsCache.events; // stale > Fehler
+    throw err;
+  }
+}
+
 exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
   const lang = (params.lang || 'pl').toLowerCase() === 'de' ? 'de' : 'pl';
@@ -92,9 +117,7 @@ exports.handler = async (event) => {
   const query = (params.query || '').toLowerCase().trim();
 
   try {
-    const res = await fetch(GVIZ_URL);
-    const text = await res.text();
-    let events = parseEvents(text);
+    let events = await getEventsCached();
     events = enrich(events, lang);
     if (query) {
       events = events.filter(e =>
