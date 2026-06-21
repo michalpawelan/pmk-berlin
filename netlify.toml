@@ -108,12 +108,12 @@
 # ============================================
 [[redirects]]
   from = "/de/messzeiten.html"
-  to = "/de/index.html#messzeiten"
+  to = "/de/#messzeiten"
   status = 301
 
 [[redirects]]
   from = "/de/ueber-uns.html"
-  to = "/de/index.html#onas"
+  to = "/de/#onas"
   status = 301
 
 # ============================================
@@ -187,155 +187,150 @@
 # Pfarrbüro / Kontakt
 [[redirects]]
   from = "/biuro-parafialne"
-  to = "/kontakt.html"
+  to = "/kontakt"
   status = 301
 
 [[redirects]]
   from = "/kopia-biuro-parafialne"
-  to = "/kontakt.html"
-  status = 301
-
-[[redirects]]
-  from = "/kontakt"
-  to = "/kontakt.html"
+  to = "/kontakt"
   status = 301
 
 # Sakramente
 [[redirects]]
   from = "/chrzest"
-  to = "/sakrament-chrzest.html"
+  to = "/sakrament-chrzest"
   status = 301
 
 [[redirects]]
   from = "/bierzmowanie"
-  to = "/sakrament-bierzmowanie.html"
+  to = "/sakrament-bierzmowanie"
   status = 301
 
 [[redirects]]
   from = "/pierwsza-komunia-%C5%9Bw"
-  to = "/sakrament-komunia.html"
+  to = "/sakrament-komunia"
   status = 301
 
 [[redirects]]
   from = "/ma%C5%82%C5%BCe%C5%84stwo"
-  to = "/sakrament-malzenstwo.html"
+  to = "/sakrament-malzenstwo"
   status = 301
 
 [[redirects]]
   from = "/namaszczenie-chorych"
-  to = "/sakrament-namaszczenie.html"
+  to = "/sakrament-namaszczenie"
   status = 301
 
 [[redirects]]
   from = "/katecheza"
-  to = "/sakramente.html"
+  to = "/sakramente"
   status = 301
 
 # Ogłoszenia / Blog (alte Wix-Posts)
 [[redirects]]
   from = "/og%C5%82oszenia-duszpasterskie"
-  to = "/ogloszenia.html"
+  to = "/ogloszenia"
   status = 301
 
 [[redirects]]
   from = "/post/*"
-  to = "/ogloszenia.html"
+  to = "/ogloszenia"
   status = 301
 
 [[redirects]]
   from = "/bible-stories"
-  to = "/ogloszenia.html"
+  to = "/ogloszenia"
   status = 301
 
 [[redirects]]
   from = "/bible-stories/*"
-  to = "/ogloszenia.html"
+  to = "/ogloszenia"
   status = 301
 
 [[redirects]]
   from = "/kalendarz"
-  to = "/events.html"
+  to = "/events"
   status = 301
 
 # Wspólnoty / Gruppen
 [[redirects]]
   from = "/domowy-ko%C5%9Bci%C3%B3%C5%82"
-  to = "/wspolnota-domowy-kosciol.html"
+  to = "/wspolnota-domowy-kosciol"
   status = 301
 
 [[redirects]]
   from = "/grono-dzieci-maryi"
-  to = "/wspolnota-grono-dzieci-maryi.html"
+  to = "/wspolnota-grono-dzieci-maryi"
   status = 301
 
 [[redirects]]
   from = "/grupa-kobiet-empatycznych"
-  to = "/wspolnota-grupa-kobiet.html"
+  to = "/wspolnota-grupa-kobiet"
   status = 301
 
 [[redirects]]
   from = "/grupa-meska"
-  to = "/wspolnota-grupa-meska.html"
+  to = "/wspolnota-grupa-meska"
   status = 301
 
 [[redirects]]
   from = "/ko%C5%82o-%C5%BCywego-r%C3%B3%C5%BCa%C5%84ca"
-  to = "/wspolnota-zywy-rozaniec.html"
+  to = "/wspolnota-zywy-rozaniec"
   status = 301
 
 [[redirects]]
   from = "/ko%C5%82o-przyjaci%C3%B3%C5%82-radia-maryja"
-  to = "/wspolnota-radio-maryja.html"
+  to = "/wspolnota-radio-maryja"
   status = 301
 
 [[redirects]]
   from = "/liturgiczna-s%C5%82u%C5%BCba-o%C5%82tarza"
-  to = "/wspolnota-ministranci.html"
+  to = "/wspolnota-ministranci"
   status = 301
 
 [[redirects]]
   from = "/rodzina-szensztacka"
-  to = "/wspolnota-ruch-szensztacki.html"
+  to = "/wspolnota-ruch-szensztacki"
   status = 301
 
 [[redirects]]
   from = "/ruch-%C5%9Bwiat%C5%82o-%C5%BCycie"
-  to = "/wspolnota-ruch-swiatlo-zycie.html"
+  to = "/wspolnota-ruch-swiatlo-zycie"
   status = 301
 
 [[redirects]]
   from = "/schola-marana-tha"
-  to = "/wspolnota-schola.html"
+  to = "/wspolnota-schola"
   status = 301
 
 [[redirects]]
   from = "/wsp%C3%B3lnota-szko%C5%82a-nowej-ewangelizacj"
-  to = "/wspolnota-sne.html"
+  to = "/wspolnota-sne"
   status = 301
 
 [[redirects]]
   from = "/wsp%C3%B3lnota-szko%C5%82a-nowej-ewangelizacji"
-  to = "/wspolnota-sne.html"
+  to = "/wspolnota-sne"
   status = 301
 
 [[redirects]]
   from = "/diakonia-%C5%BCycia"
-  to = "/grupy.html"
+  to = "/grupy"
   status = 301
 
 [[redirects]]
   from = "/grup-oratoryjna"
-  to = "/grupy.html"
+  to = "/grupy"
   status = 301
 
 [[redirects]]
   from = "/stowarzyszenie-matki-bo%C5%BCej"
-  to = "/grupy.html"
+  to = "/grupy"
   status = 301
 
 [[redirects]]
   from = "/rada-wsp%C3%B3lnoty-parafialnej"
-  to = "/grupy.html"
+  to = "/grupy"
   status = 301
 
 # Über uns / Seelsorger / Rechtliches
@@ -361,13 +356,373 @@
 
 [[redirects]]
   from = "/rodo"
-  to = "/polityka-prywatnosci.html"
+  to = "/polityka-prywatnosci"
   status = 301
 
 [[redirects]]
   from = "/kopia-kopia-rodo-datenschutzerkl%C3%A4rung"
-  to = "/polityka-prywatnosci.html"
+  to = "/polityka-prywatnosci"
   status = 301
+
+# ============================================
+# Clean URLs: .html -> ohne Endung (301, force, da die Datei real existiert).
+# Generiert via scripts/clean-urls-Pipeline. index.html -> Verzeichnis.
+# Muss VOR der 404-Catch-all stehen (first-match-wins).
+# ============================================
+
+[[redirects]]
+  from = "/datenschutz.html"
+  to = "/datenschutz"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/event.html"
+  to = "/event"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/events.html"
+  to = "/events"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/grupy.html"
+  to = "/grupy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/impressum.html"
+  to = "/impressum"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/kontakt.html"
+  to = "/kontakt"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/newsletter-potwierdzony.html"
+  to = "/newsletter-potwierdzony"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ogloszenia.html"
+  to = "/ogloszenia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/polityka-prywatnosci.html"
+  to = "/polityka-prywatnosci"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakrament-bierzmowanie.html"
+  to = "/sakrament-bierzmowanie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakrament-chrzest.html"
+  to = "/sakrament-chrzest"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakrament-komunia.html"
+  to = "/sakrament-komunia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakrament-malzenstwo.html"
+  to = "/sakrament-malzenstwo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakrament-namaszczenie.html"
+  to = "/sakrament-namaszczenie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakrament-spowiedz.html"
+  to = "/sakrament-spowiedz"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sakramente.html"
+  to = "/sakramente"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/schutzkonzept.html"
+  to = "/schutzkonzept"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wesprzyj.html"
+  to = "/wesprzyj"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-apostolstwo.html"
+  to = "/wspolnota-apostolstwo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-domowy-kosciol.html"
+  to = "/wspolnota-domowy-kosciol"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-grono-dzieci-maryi.html"
+  to = "/wspolnota-grono-dzieci-maryi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-grupa-kobiet.html"
+  to = "/wspolnota-grupa-kobiet"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-grupa-meska.html"
+  to = "/wspolnota-grupa-meska"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-ministranci.html"
+  to = "/wspolnota-ministranci"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-radio-maryja.html"
+  to = "/wspolnota-radio-maryja"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-ruch-swiatlo-zycie.html"
+  to = "/wspolnota-ruch-swiatlo-zycie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-ruch-szensztacki.html"
+  to = "/wspolnota-ruch-szensztacki"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-schola.html"
+  to = "/wspolnota-schola"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-sne.html"
+  to = "/wspolnota-sne"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wspolnota-zywy-rozaniec.html"
+  to = "/wspolnota-zywy-rozaniec"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/zgloszenie-bierzmowanie.html"
+  to = "/zgloszenie-bierzmowanie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/zgloszenie-komunia.html"
+  to = "/zgloszenie-komunia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/beichte.html"
+  to = "/de/beichte"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/erstkommunion.html"
+  to = "/de/erstkommunion"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/firmung.html"
+  to = "/de/firmung"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/gruppen.html"
+  to = "/de/gruppen"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/index.html"
+  to = "/de/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/kontakt.html"
+  to = "/de/kontakt"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/krankensalbung.html"
+  to = "/de/krankensalbung"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/ogloszenia.html"
+  to = "/de/ogloszenia"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/sakramente.html"
+  to = "/de/sakramente"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/spenden.html"
+  to = "/de/spenden"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/taufe.html"
+  to = "/de/taufe"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/trauung.html"
+  to = "/de/trauung"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/veranstaltung.html"
+  to = "/de/veranstaltung"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/veranstaltungen.html"
+  to = "/de/veranstaltungen"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-apostolstwo.html"
+  to = "/de/wspolnota-apostolstwo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-domowy-kosciol.html"
+  to = "/de/wspolnota-domowy-kosciol"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-grono-dzieci-maryi.html"
+  to = "/de/wspolnota-grono-dzieci-maryi"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-grupa-kobiet.html"
+  to = "/de/wspolnota-grupa-kobiet"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-grupa-meska.html"
+  to = "/de/wspolnota-grupa-meska"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-ministranci.html"
+  to = "/de/wspolnota-ministranci"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-radio-maryja.html"
+  to = "/de/wspolnota-radio-maryja"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-ruch-swiatlo-zycie.html"
+  to = "/de/wspolnota-ruch-swiatlo-zycie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-ruch-szensztacki.html"
+  to = "/de/wspolnota-ruch-szensztacki"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-schola.html"
+  to = "/de/wspolnota-schola"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-sne.html"
+  to = "/de/wspolnota-sne"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/de/wspolnota-zywy-rozaniec.html"
+  to = "/de/wspolnota-zywy-rozaniec"
+  status = 301
+  force = true
 
 # ============================================
 # 404 Redirect (deutsch unter /de/, sonst polnisch)

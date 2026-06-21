@@ -50,25 +50,29 @@ const Newsletter = (function() {
   }
 
   function friendlySource(path) {
-    if (!path || path === '/') return 'Strona główna';
+    if (!path) return 'Strona główna';
+    // Clean-URLs + Alt-.html-Daten vereinheitlichen (in der Tabelle stehen beide Formen):
+    // .html strippen, index → Verzeichnis.
+    path = path.replace(/\.html$/, '').replace(/(^|\/)index$/, '$1') || '/';
+    if (path === '/' || path === '') return 'Strona główna';
     const map = {
-      '/sakramente.html': 'Sakramenty',
-      '/events.html': 'Wydarzenia',
-      '/grupy.html': 'Wspólnoty',
-      '/kontakt.html': 'Kontakt',
-      '/wesprzyj.html': 'Wesprzyj',
-      '/de/index.html': 'Strona DE',
-      '/de/sakramente.html': 'Sakramenty DE',
-      '/de/events.html': 'Wydarzenia DE',
-      '/de/grupy.html': 'Wspólnoty DE',
-      '/de/kontakt.html': 'Kontakt DE'
+      '/sakramente': 'Sakramenty',
+      '/events': 'Wydarzenia',
+      '/grupy': 'Wspólnoty',
+      '/kontakt': 'Kontakt',
+      '/wesprzyj': 'Wesprzyj',
+      '/de/': 'Strona DE',
+      '/de/sakramente': 'Sakramenty DE',
+      '/de/events': 'Wydarzenia DE',
+      '/de/grupy': 'Wspólnoty DE',
+      '/de/kontakt': 'Kontakt DE'
     };
     if (map[path]) return map[path];
-    // Wspolnota detail pages: wspolnota-apostolstwo.html → "Apostolstwo"
-    const m = path.match(/wspolnota-([a-z-]+)\.html/);
+    // Wspolnota detail pages: /wspolnota-apostolstwo → "Apostolstwo"
+    const m = path.match(/wspolnota-([a-z-]+)/);
     if (m) return 'Wspólnota: ' + m[1].replace(/-/g, ' ');
-    // Sakrament detail pages: sakrament-chrzest.html → "Sakrament: chrzest"
-    const s = path.match(/sakrament-([a-z-]+)\.html/);
+    // Sakrament detail pages: /sakrament-chrzest → "Sakrament: chrzest"
+    const s = path.match(/sakrament-([a-z-]+)/);
     if (s) return 'Sakrament: ' + s[1].replace(/-/g, ' ');
     // Fallback: show the path
     return path;

@@ -16,6 +16,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cleanUrls } from './lib-clean-urls.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -416,6 +417,7 @@ for (const page of PAGES) {
   html = fixJsonLd(html, page);
   html = applyFixedStrings(html);
   html = stripI18nRuntime(html);
+  html = cleanUrls(html); // .html aus allen internen URLs strippen (Clean-URLs)
 
   mkdirSync(join(ROOT, 'de'), { recursive: true });
   writeFileSync(join(ROOT, page.out), html);

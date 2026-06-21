@@ -9,6 +9,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cleanUrls } from './lib-clean-urls.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -26,6 +27,7 @@ const DE_PENDANT = {
   'wesprzyj.html': '/de/spenden.html',
   'events.html': '/de/veranstaltungen.html',
   'event.html': '/de/veranstaltung.html',
+  'ogloszenia.html': '/de/ogloszenia.html',
   'polityka-prywatnosci.html': '/datenschutz.html',
   // Wspólnoty 1:1
   ...Object.fromEntries([
@@ -98,6 +100,8 @@ for (const file of files) {
         `<a href="${self}" class="lang-btn active" data-lang="de">DE</a>`);
     }
   }
+
+  html = cleanUrls(html); // .html aus allen internen URLs strippen (Clean-URLs)
 
   if (html !== before) {
     writeFileSync(path, html);

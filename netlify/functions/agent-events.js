@@ -61,7 +61,7 @@ function parseEvents(text) {
       time: parseTime(row.c[2]),
       description: String(cellValue(row.c[3])).trim(),
       location: String(cellValue(row.c[5])).trim() || 'Johannes-Basilika',
-      address: String(cellValue(row.c[6])).trim() || 'Lilienthalstraße 5, 12049 Berlin'
+      address: String(cellValue(row.c[6])).trim() || 'Lilienthalstraße 5, 10965 Berlin'
     });
   }
   return out;
@@ -141,7 +141,7 @@ exports.handler = async (event) => {
         description: e.description
       })),
       fetched_at: new Date().toISOString(),
-      source_url: 'https://www.pmk-berlin.de/events.html',
+      source_url: 'https://www.pmk-berlin.de/events',
       note: 'Use the description field for the actual schedule — the time field may be empty or a coarse range. Only upcoming, published events are returned.'
     };
 

@@ -7,8 +7,9 @@ Disallow: /netlify/
 Disallow: /.netlify/
 
 # Anmeldeformulare (nur mit direktem Link erreichbar)
-Disallow: /zgloszenie-komunia.html
-Disallow: /zgloszenie-bierzmowanie.html
+# Ohne .html — Praefix-Match deckt Clean-URL UND .html-Form ab
+Disallow: /zgloszenie-komunia
+Disallow: /zgloszenie-bierzmowanie
 
 # Temporaere/interne Dateien
 Disallow: /*.json$

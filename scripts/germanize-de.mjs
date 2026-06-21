@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cleanUrls } from './lib-clean-urls.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -207,6 +208,8 @@ for (const file of files) {
   } else {
     html = html.replace(/<a href="[^"]*">Polski \(Originalversion\)<\/a>/, `<a href="${pl}">Polski (Originalversion)</a>`);
   }
+
+  html = cleanUrls(html); // .html aus allen internen URLs strippen (Clean-URLs)
 
   writeFileSync(path, html);
   console.log(`de/${file} ✓`);

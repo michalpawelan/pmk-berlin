@@ -9,7 +9,7 @@ function redirect(ok, lang) {
   const l = lang === 'de' ? 'de' : 'pl';
   return {
     statusCode: 302,
-    headers: { Location: '/newsletter-potwierdzony.html?ok=' + (ok ? '1' : '0') + '&lang=' + l },
+    headers: { Location: '/newsletter-potwierdzony?ok=' + (ok ? '1' : '0') + '&lang=' + l },
     body: ''
   };
 }

@@ -428,7 +428,7 @@
       }
 
       const location = val(5) || 'Johannes-Basilika';
-      const address = val(6) || 'Lilienthalstraße 5, 12049 Berlin';
+      const address = val(6) || 'Lilienthalstraße 5, 10965 Berlin';
       const description = val(3);
 
       events.push({
@@ -482,7 +482,7 @@
     const day = String(d.getDate()).padStart(2, '0');
     const month = i18nLabels.months[lang][d.getMonth()];
     const weekday = i18nLabels.weekdays[lang][d.getDay()];
-    const eventUrl = `${lang === 'de' ? '/de/veranstaltung.html' : '/event.html'}?id=${ev.id}`;
+    const eventUrl = `${lang === 'de' ? '/de/veranstaltung' : '/event'}?id=${ev.id}`;
 
     // Past events get a muted dot (homepage only shows upcoming, but keep it correct).
     const now = new Date(); now.setHours(0, 0, 0, 0);
