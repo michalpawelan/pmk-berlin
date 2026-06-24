@@ -16,7 +16,7 @@
 
   <!-- Hreflang - wielojęzyczność -->
   <link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/">
-  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/index.html">
+  <link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/de/">
   <link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/">
 
   <!-- Open Graph -->
@@ -73,7 +73,7 @@
       "streetAddress": "Lilienthalstraße 5",
       "addressLocality": "Berlin",
       "addressRegion": "Berlin",
-      "postalCode": "12049",
+      "postalCode": "10965",
       "addressCountry": "DE",
       "neighborhood": "Neukölln"
     },
@@ -137,7 +137,7 @@
         "item": {
           "@type": "Church",
           "name": "Johannes-Basilika (Kościół główny)",
-          "address": { "@type": "PostalAddress", "streetAddress": "Lilienthalstraße 5", "addressLocality": "Berlin", "postalCode": "12049", "addressCountry": "DE" },
+          "address": { "@type": "PostalAddress", "streetAddress": "Lilienthalstraße 5", "addressLocality": "Berlin", "postalCode": "10965", "addressCountry": "DE" },
           "geo": { "@type": "GeoCoordinates", "latitude": 52.48762, "longitude": 13.40901 }
         }
       },
@@ -197,7 +197,7 @@
 <!-- Navigation -->
 <header class="nav-header" id="mainNav">
   <nav class="nav-container">
-    <a href="index.html" class="nav-brand">
+    <a href="/" class="nav-brand">
       <span class="nav-brand-icon">
         <img class="nav-logo" src="images/pmk-logo.png" alt="Polska Misja Katolicka w Berlinie" data-i18n-attr="alt:index.nav.logo_alt" width="45" height="45">
       </span>
@@ -208,17 +208,17 @@
     </a>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="active" data-i18n="nav.home">Strona główna</a></li>
-      <li><a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a></li>
-      <li><a href="events.html" data-i18n="nav.events">Wydarzenia</a></li>
-      <li><a href="grupy.html" data-i18n="nav.groups">Grupy parafialne</a></li>
-      <li><a href="kontakt.html" data-i18n="nav.contact">Kontakt</a></li>
+      <li><a href="/" class="active" data-i18n="nav.home">Strona główna</a></li>
+      <li><a href="sakramente" data-i18n="nav.sacraments">Sakramenty</a></li>
+      <li><a href="events" data-i18n="nav.events">Wydarzenia</a></li>
+      <li><a href="grupy" data-i18n="nav.groups">Grupy parafialne</a></li>
+      <li><a href="kontakt" data-i18n="nav.contact">Kontakt</a></li>
     </ul>
 
     <div class="nav-actions">
       <div class="lang-switch">
         <a href="/" class="lang-btn active" data-lang="pl">PL</a>
-        <a href="/de/index.html" class="lang-btn" data-lang="de">DE</a>
+        <a href="/de/" class="lang-btn" data-lang="de">DE</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu" data-i18n-attr="aria-label:index.nav.menu_label">
         <span></span>
@@ -238,7 +238,7 @@
         Polska Misja
         <em>Katolicka</em>
       </h1>
-      <p class="hero-subtitle" data-i18n="index.hero.subtitle">Bazylika św. Jana Chrzciciela w sercu Neukölln</p>
+      <p class="hero-subtitle" data-i18n="index.hero.subtitle">Bazylika św. Jana Chrzciciela w sercu Kreuzkölln</p>
       <div class="hero-verse">
         <p data-i18n="index.hero.verse">Błogosławieni, którzy wprowadzają pokój, albowiem oni będą nazwani synami Bożymi.</p>
         <cite>Mt 5,9</cite>
@@ -390,7 +390,7 @@
 
     <!-- Ogłoszenia bulletin card (hidden until a current bulletin is fetched) -->
     <div id="ogloszenia" class="ogloszenia-card-wrap" hidden>
-      <a class="ogloszenia-card-link" href="/ogloszenia.html" id="ogloszenia-link" aria-label="Ogłoszenia duszpasterskie" data-i18n-attr="aria-label:index.ogloszenia.title">
+      <a class="ogloszenia-card-link" href="/ogloszenia" id="ogloszenia-link" aria-label="Ogłoszenia duszpasterskie" data-i18n-attr="aria-label:index.ogloszenia.title">
         <span class="ogloszenia-card-icon" aria-hidden="true">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 5h13v14H6a2 2 0 0 1-2-2V5z"/><path d="M17 8h2a1 1 0 0 1 1 1v8a2 2 0 0 1-2 2"/><path d="M7 8h7M7 11h7M7 14h4"/>
@@ -407,7 +407,7 @@
 
     <!-- Next upcoming events — one slim list -->
     <div class="events-group" id="events-this-week"><!-- next events loaded dynamically --></div>
-    <a href="events.html" id="events-all-link" class="events-all-link" data-i18n-html="index.thisweek.all_events" hidden>Wszystkie wydarzenia →</a>
+    <a href="events" id="events-all-link" class="events-all-link" data-i18n-html="index.thisweek.all_events" hidden>Wszystkie wydarzenia →</a>
   </div>
 </section>
 
@@ -446,7 +446,7 @@
         </header>
         <p class="mass-location">
           <strong>Johannes-Basilika</strong><br>
-          Lilienthalstr. 5, 12049 Berlin-Neukölln
+          Lilienthalstr. 5, 10965 Berlin-Neukölln
         </p>
       </div>
 
@@ -557,7 +557,7 @@
     </header>
 
     <div class="sacraments-grid">
-      <a href="sakrament-chrzest.html" class="sacrament-card reveal">
+      <a href="sakrament-chrzest" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2v6m0 0c-3.5 0-6 2.5-6 5.5S8.5 19 12 22c3.5-3 6-5.5 6-8.5S15.5 8 12 8z"/>
@@ -568,7 +568,7 @@
         <span class="sacrament-badge sacrament-badge--contact" data-i18n-html="index.sacraments.badge_contact">Napisz do nas <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakrament-komunia.html" class="sacrament-card sacrament-card--online reveal">
+      <a href="sakrament-komunia" class="sacrament-card sacrament-card--online reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="12" cy="12" r="8"/>
@@ -580,7 +580,7 @@
         <span class="sacrament-badge" data-i18n-html="index.sacraments.badge_register">Zapisz online <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakrament-bierzmowanie.html" class="sacrament-card sacrament-card--online reveal">
+      <a href="sakrament-bierzmowanie" class="sacrament-card sacrament-card--online reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2l3 7h7l-5.5 5 2 7.5L12 17l-6.5 4.5 2-7.5L2 9h7l3-7z"/>
@@ -591,7 +591,7 @@
         <span class="sacrament-badge" data-i18n-html="index.sacraments.badge_register">Zapisz online <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakrament-malzenstwo.html" class="sacrament-card reveal">
+      <a href="sakrament-malzenstwo" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M8 12a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 100-8 4 4 0 000 8zm-8 2c-4 0-6 2-6 4v2h12v-2c0-2-2-4-6-4zm8 0c-.5 0-1 .05-1.5.15.9.85 1.5 2 1.5 3.35v2.5h6v-2c0-2-2-4-6-4z"/>
@@ -602,7 +602,7 @@
         <span class="sacrament-badge sacrament-badge--contact" data-i18n-html="index.sacraments.badge_contact">Napisz do nas <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakrament-spowiedz.html" class="sacrament-card reveal">
+      <a href="sakrament-spowiedz" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/>
@@ -614,7 +614,7 @@
         <span class="sacrament-badge sacrament-badge--contact" data-i18n-html="index.sacraments.badge_info">Więcej informacji <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10m-4-4l4 4-4 4"/></svg></span>
       </a>
 
-      <a href="sakrament-namaszczenie.html" class="sacrament-card reveal">
+      <a href="sakrament-namaszczenie" class="sacrament-card reveal">
         <div class="sacrament-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2c-2 4-6 6-6 10a6 6 0 1012 0c0-4-4-6-6-10z"/>
@@ -649,7 +649,7 @@
           <p class="church-district">Neukölln</p>
           <address class="church-address">
             Lilienthalstraße 5<br>
-            12049 Berlin
+            10965 Berlin
           </address>
           <a href="https://maps.app.goo.gl/Rz8zAVkuQMXwTXtr8" target="_blank" rel="noopener" class="church-link">
             <span data-i18n="index.churches.show_map">Pokaż na mapie</span>
@@ -813,7 +813,7 @@
 
     <div class="communities-grid">
       <!-- Szkoła Nowej Ewangelizacji -->
-      <a href="wspolnota-sne.html" class="community-item reveal">
+      <a href="wspolnota-sne" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/sne.webp" alt="Logo Szkoła Nowej Ewangelizacji" loading="lazy" width="800" height="800" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #8a7248); display: none;">
@@ -828,7 +828,7 @@
         </div>
       </a>
       <!-- Domowy Kościół -->
-      <a href="wspolnota-domowy-kosciol.html" class="community-item reveal">
+      <a href="wspolnota-domowy-kosciol" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/domowy-kosciol.webp" alt="Logo Domowy Kościół" loading="lazy" width="361" height="400" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #7a6d5c, #5c5247); display: none;">
@@ -843,7 +843,7 @@
         </div>
       </a>
       <!-- Schola „Marana Tha“ -->
-      <a href="wspolnota-schola.html" class="community-item reveal">
+      <a href="wspolnota-schola" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/schola-marana-tha.webp" alt="Logo Schola Marana Tha" loading="lazy" width="800" height="800" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #a68b5b); display: none;">
@@ -858,7 +858,7 @@
         </div>
       </a>
       <!-- Ruch Światło-Życie -->
-      <a href="wspolnota-ruch-swiatlo-zycie.html" class="community-item reveal">
+      <a href="wspolnota-ruch-swiatlo-zycie" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/ruch-swiatlo-zycie.webp" alt="Logo Ruch Światło-Życie" loading="lazy" width="2400" height="2265" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #b8a892, #9a8b76); display: none;">
@@ -873,7 +873,7 @@
         </div>
       </a>
       <!-- Ruch Szensztacki -->
-      <a href="wspolnota-ruch-szensztacki.html" class="community-item reveal">
+      <a href="wspolnota-ruch-szensztacki" class="community-item reveal">
         <div class="community-image community-image--medallion" style="background:#f5f1ea;">
           <img src="images/grupy/ruch-szensztacki.jpg" alt="Matka Boża Trzykroć Przedziwna — Ruch Szensztacki" loading="lazy" width="354" height="517" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #8a7248, #6b5a3a); display: none;">
@@ -888,7 +888,7 @@
         </div>
       </a>
       <!-- Koło Żywego Różańca -->
-      <a href="wspolnota-zywy-rozaniec.html" class="community-item reveal">
+      <a href="wspolnota-zywy-rozaniec" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/zywy-rozaniec.webp" alt="Logo Koło Żywego Różańca" loading="lazy" width="330" height="330" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #d4c9ba, #b8a892); display: none;">
@@ -903,7 +903,7 @@
         </div>
       </a>
       <!-- Grono Dzieci Maryi -->
-      <a href="wspolnota-grono-dzieci-maryi.html" class="community-item reveal">
+      <a href="wspolnota-grono-dzieci-maryi" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/grono-dzieci-maryi.webp" alt="Cudowny Medalik – emblemat Grona Dzieci Maryi" loading="lazy" width="429" height="600" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #9a8b76, #7a6d5c); display: none;">
@@ -918,7 +918,7 @@
         </div>
       </a>
       <!-- Koło Przyjaciół Radia Maryja -->
-      <a href="wspolnota-radio-maryja.html" class="community-item reveal">
+      <a href="wspolnota-radio-maryja" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/radio-maryja.png" alt="Logo Radio Maryja" loading="lazy" width="312" height="297" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #5c5247, #3d3731); display: none;">
@@ -933,7 +933,7 @@
         </div>
       </a>
       <!-- Apostolstwo Dobrej Śmierci -->
-      <a href="wspolnota-apostolstwo.html" class="community-item reveal">
+      <a href="wspolnota-apostolstwo" class="community-item reveal">
         <div class="community-image community-image--logo community-image--logo-tight" style="background:#f5f1ea;">
           <img src="images/grupy/apostolstwo.webp" alt="Logo Apostolstwo Dobrej Śmierci" loading="lazy" width="256" height="256" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #7a6d5c); display: none;">
@@ -948,7 +948,7 @@
         </div>
       </a>
       <!-- Grupa Męska -->
-      <a href="wspolnota-grupa-meska.html" class="community-item reveal">
+      <a href="wspolnota-grupa-meska" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/grupa-meska.svg" alt="Emblemat Grupa Męska" loading="lazy" width="200" height="200" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #7a6d5c, #5c5247); display: none;">
@@ -963,7 +963,7 @@
         </div>
       </a>
       <!-- Grupa Kobiet Empatycznych -->
-      <a href="wspolnota-grupa-kobiet.html" class="community-item reveal">
+      <a href="wspolnota-grupa-kobiet" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/grupa-kobiet.webp" alt="Logo Grupa Kobiet Empatycznych" loading="lazy" width="800" height="800" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #c4a875, #9a8b76); display: none;">
@@ -978,7 +978,7 @@
         </div>
       </a>
       <!-- Ministranci – Służba Liturgiczna -->
-      <a href="wspolnota-ministranci.html" class="community-item reveal">
+      <a href="wspolnota-ministranci" class="community-item reveal">
         <div class="community-image community-image--logo" style="background:#f5f1ea;">
           <img src="images/grupy/sluzba-liturgiczna.webp" alt="Logo Ministranci – Służba Liturgiczna" loading="lazy" width="800" height="500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="community-image-placeholder" style="background: linear-gradient(135deg, #a68b5b, #7a6d5c); display: none;">
@@ -1013,7 +1013,7 @@
             </span>
             <div class="contact-text">
               <strong data-i18n="index.contact.address_label">Adres</strong>
-              <span>Lilienthalstr. 5, 12049 Berlin</span>
+              <span>Lilienthalstr. 5, 10965 Berlin</span>
             </div>
           </div>
 
@@ -1106,7 +1106,7 @@
           <p class="form-consent" style="margin:0 0 1rem;">
             <label style="display:flex;gap:.5rem;align-items:flex-start;font-weight:400;font-size:.9rem;line-height:1.5;cursor:pointer;">
               <input type="checkbox" name="zgoda-rodo" required style="margin-top:.25rem;flex-shrink:0;">
-              <span data-i18n-html="form.consent_html">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href="polityka-prywatnosci.html" target="_blank" rel="noopener">Polityką Prywatności</a>.</span>
+              <span data-i18n-html="form.consent_html">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi tego zapytania, zgodnie z <a href="polityka-prywatnosci" target="_blank" rel="noopener">Polityką Prywatności</a>.</span>
             </label>
           </p>
           <button type="submit" class="btn btn-primary btn-full" id="contactSubmit" data-i18n="index.contact.form_submit">Wyślij wiadomość</button>
@@ -1141,7 +1141,7 @@
         </div>
         <p class="footer-address">
           Johannes-Basilika<br>
-          Lilienthalstraße 5, 12049 Berlin
+          Lilienthalstraße 5, 10965 Berlin
         </p>
         <div class="footer-contact">
           <a href="tel:+49307524080">+49 30 752 40 80</a>
@@ -1153,17 +1153,17 @@
       <nav class="footer-nav">
         <div class="footer-nav-group">
           <h4 data-i18n="index.footer.nav_title">Nawigacja</h4>
-          <a href="index.html" data-i18n="nav.home">Strona główna</a>
-          <a href="sakramente.html" data-i18n="nav.sacraments">Sakramenty</a>
-          <a href="events.html" data-i18n="nav.events">Wydarzenia</a>
-          <a href="kontakt.html" data-i18n="nav.contact">Kontakt</a>
+          <a href="/" data-i18n="nav.home">Strona główna</a>
+          <a href="sakramente" data-i18n="nav.sacraments">Sakramenty</a>
+          <a href="events" data-i18n="nav.events">Wydarzenia</a>
+          <a href="kontakt" data-i18n="nav.contact">Kontakt</a>
         </div>
         <div class="footer-nav-group">
           <h4 data-i18n="index.footer.info_title">Informacje</h4>
-          <a href="impressum.html">Impressum</a>
-          <a href="datenschutz.html">Datenschutz</a>
-          <a href="schutzkonzept.html">Schutzkonzept</a>
-          <a href="/de/index.html" hreflang="de" lang="de" data-lang="de">Auf Deutsch</a>
+          <a href="impressum">Impressum</a>
+          <a href="datenschutz">Datenschutz</a>
+          <a href="schutzkonzept">Schutzkonzept</a>
+          <a href="/de/" hreflang="de" lang="de" data-lang="de">Auf Deutsch</a>
         </div>
       </nav>
     </div>
@@ -1174,7 +1174,7 @@
         <p data-i18n="footer.donate_desc">Twoja ofiara wspiera działalność misyjną Salezjanów. Dziękujemy za każde wsparcie.</p>
       </div>
       <div class="footer-donate-cta-wrap">
-        <a href="wesprzyj.html" class="footer-donate-btn" data-i18n="footer.donate_cta">Wesprzyj Misję</a>
+        <a href="wesprzyj" class="footer-donate-btn" data-i18n="footer.donate_cta">Wesprzyj Misję</a>
       </div>
     </div>
 
@@ -1190,7 +1190,7 @@
     <p class="footer-newsletter-msg" hidden></p>
   </form>
   <p class="footer-newsletter-legal">
-    <a href="/datenschutz.html" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
+    <a href="/datenschutz" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
   </p>
 </div>
 <!-- END newsletter-footer -->

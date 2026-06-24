@@ -104,7 +104,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 ### PL — Pierwsza Komunia
 
-**Wiek:** dziecko musi mieć ukończoną minimum 3. klasę szkoły podstawowej.
+**Wiek:** dziecko musi mieć ukończoną minimum 2. klasę szkoły podstawowej.
 
 **Zapisy:** w maju–czerwcu. Proszę przyjść do biura parafialnego w godzinach otwarcia.
 
@@ -127,7 +127,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 ### DE — Erstkommunion
 
-**Alter:** Kind muss mindestens die 3. Klasse abgeschlossen haben.
+**Alter:** Kind muss mindestens die 2. Klasse abgeschlossen haben.
 
 **Anmeldung:** Mai–Juni. Ins Pfarrbüro während der Öffnungszeiten kommen.
 

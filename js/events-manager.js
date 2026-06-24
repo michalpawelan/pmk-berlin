@@ -120,7 +120,7 @@ const EventsManager = (function() {
 
       const description = getValue(3);
       const location = getValue(5) || 'Johannes-Basilika';
-      const address = getValue(6) || 'Lilienthalstraße 5, 12049 Berlin';
+      const address = getValue(6) || 'Lilienthalstraße 5, 10965 Berlin';
 
       events.push({
         id: slug || `event-${i}`,

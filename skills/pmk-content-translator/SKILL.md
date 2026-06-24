@@ -72,7 +72,7 @@ Use dot-notation namespaced by page and section:
 {page}.{section}.{element}
 
 Examples:
-  index.hero.badge        → "Od 1945 roku w Berlinie" / "Seit 1945 in Berlin"
+  index.hero.badge        → "Od 1982 roku w Berlinie" / "Seit 1982 in Berlin"
   index.hero.title        → "Polska Misja Katolicka" / "Polnische Katholische Mission"
   index.mass.sunday.label → "Niedziela" / "Sonntag"
   kontakt.form.name       → "Imie i nazwisko" / "Vor- und Nachname"
@@ -92,7 +92,7 @@ Consult `references/glossary.md` for church-specific terminology. Key principles
 
 ```html
 <!-- Plain text -->
-<span data-i18n="index.hero.badge">Od 1945 roku w Berlinie</span>
+<span data-i18n="index.hero.badge">Od 1982 roku w Berlinie</span>
 
 <!-- Rich HTML content -->
 <h1 data-i18n-html="index.hero.title">Polska Misja <em>Katolicka</em></h1>

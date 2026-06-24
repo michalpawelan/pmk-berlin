@@ -16,7 +16,7 @@ Informationen zu den 12 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 - **DE Beschreibung:** Schule der Neuevangelisierung — Antwort auf den Aufruf Johannes Pauls II. zur Erneuerung der Kirche, des Menschen und der Gemeinschaften.
 - **Spotkania / Treffen:** wtorek / Dienstag, 19:00
 - **Miejsce / Ort:** Bazylika lub Dom Jana Pawła II
-- **Prowadzący / Leitung:** Karolina Budzikowska
+- **Prowadzący / Leitung:** Karolina Buzikowska
 - **Odpowiedzialny za szkołę:** Tomasz Zdych
 - **Opieka duchowa:** Ks. Grzegorz Jeżewski SDB
 - **E-mail:** info@se.pmk.berlin
@@ -43,7 +43,7 @@ Informationen zu den 12 Gemeindegruppen der PMK Berlin. Angaben aus den Untersei
 - **PL opis:** Schola parafialna dla młodzieży i dorosłych, założona we wrześniu 2006. Celem scholi jest ubogacenie Liturgii Eucharystycznych i uroczystości parafialnych poprzez śpiewy liturgiczne i religijne oraz pielęgnowanie polskiej tradycji (np. koncerty kolęd). Wykonuje utwory jedno- i wielogłosowe. Organizowane są też warsztaty muzyczno-liturgiczne. Do scholi może należeć każdy, kto posiada umiejętności wokalne — wykształcenie muzyczne nie jest wymagane.
 - **DE Beschreibung:** Pfarr-Schola für Jugendliche und Erwachsene, gegründet im September 2006. Bereichert die Liturgie und Pfarrfeste mit ein- und mehrstimmigen liturgischen und religiösen Gesängen, pflegt polnische Tradition (z. B. Weihnachtsliedkonzerte). Es werden auch musikalisch-liturgische Workshops organisiert. Mitmachen kann jeder mit Gesangsfähigkeit — musikalische Ausbildung ist nicht erforderlich.
 - **Próby / Proben:** poniedziałek / Montag, **19:00**
-- **Miejsce / Ort:** **Dom parafialny przy Bazylice św. Jana Chrzciciela** (Lilienthalstraße 5, Kreuzberg)
+- **Miejsce / Ort:** **Dom parafialny przy Bazylice św. Jana Chrzciciela** (Lilienthalstraße 5, Neukölln)
 - **Prowadząca / Leitung:** Anna Kokowska-Weinstok — organistka PMK
 - **Opieka duchowa:** Ks. Grzegorz Jeżewski SDB
 - **E-mail:** 25sierp12@gmail.com

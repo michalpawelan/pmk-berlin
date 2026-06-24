@@ -7,9 +7,9 @@ Quelle: offizielle Webseite pmk-berlin.de sowie interne Festlegungen mit dem Rek
 
 ## PL — Dane parafii
 
-**Polska Misja Katolicka w Berlinie** — duszpasterstwo polskie przy Archidiecezji Berlin, działa od 1945 roku. Prowadzona przez Księży Salezjanów (SDB).
+**Polska Misja Katolicka w Berlinie** — duszpasterstwo polskie przy Archidiecezji Berlin, działa od 1982 roku. Prowadzona przez Księży Salezjanów (SDB).
 
-Kościół główny: **Johannes-Basilika**, Lilienthalstraße 5, 10965 Berlin-Kreuzberg.
+Kościół główny: **Johannes-Basilika**, Lilienthalstraße 5, 10965 Berlin-Neukölln.
 E-mail: pmk@pmk-berlin.de
 Strona: pmk-berlin.de
 Kanał WhatsApp (anonimowy, ogłoszenia parafialne): link znajduje się w stopce strony pmk-berlin.de.
@@ -67,9 +67,9 @@ Bazylika jest otwierana **30 minut przed każdym nabożeństwem** (Msza Święta
 
 ## DE — Angaben zur Pfarrei
 
-**Polnische Katholische Mission in Berlin** — polnische Seelsorge im Erzbistum Berlin, seit 1945. Geführt von den Salesianern Don Boscos (SDB).
+**Polnische Katholische Mission in Berlin** — polnische Seelsorge im Erzbistum Berlin, seit 1982. Geführt von den Salesianern Don Boscos (SDB).
 
-Hauptkirche: **Johannes-Basilika**, Lilienthalstraße 5, 10965 Berlin-Kreuzberg.
+Hauptkirche: **Johannes-Basilika**, Lilienthalstraße 5, 10965 Berlin-Neukölln.
 E-Mail: pmk@pmk-berlin.de
 Website: pmk-berlin.de
 WhatsApp-Kanal (anonym, Pfarrnachrichten): der Link steht im Footer der Website pmk-berlin.de.
@@ -153,7 +153,7 @@ Wenn jemand auf Deutsch anruft oder schreibt und um eine Messe, Taufe, Trauung o
 
 ## EN — Quick reference
 
-- Main church: Johannes-Basilika, Lilienthalstraße 5, 10965 Berlin-Kreuzberg.
+- Main church: Johannes-Basilika, Lilienthalstraße 5, 10965 Berlin-Neukölln.
 - Email: pmk@pmk-berlin.de
 - Office: Monday and Wednesday only, 10:00–13:00 and 15:00–17:30. No appointment needed.
 - Masses — Johannes-Basilika: Sunday 10:15, 12:00, 18:00. Monday through Saturday 7:00 and 18:00.

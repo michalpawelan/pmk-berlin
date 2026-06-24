@@ -125,7 +125,7 @@ Bei Unsicherheit gilt: die hier gelistete Uebersetzung hat Vorrang.
 | Polnisch | Deutsch |
 |----------|---------|
 | Polska Misja Katolicka | Polnische Katholische Mission |
-| Od 1945 roku w Berlinie | Seit 1945 in Berlin |
+| Od 1982 roku w Berlinie | Seit 1982 in Berlin |
 | Johannes-Basilika w sercu Kreuzbergu | Johannes-Basilika im Herzen von Kreuzberg |
 | Nie przegap zadnego wydarzenia! | Verpassen Sie keine Veranstaltung! |
 | Dolacz do naszego kanalu WhatsApp | Treten Sie unserem WhatsApp-Kanal bei |
