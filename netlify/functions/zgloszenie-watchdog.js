@@ -154,7 +154,7 @@ module.exports.handler = async () => {
   let store = null;
   if (!dry) { const { getStore } = require('@netlify/blobs'); store = getStore('zgloszenie-watchdog'); }
 
-  const result = { scanned: 0, recovered: 0, quota: 0, skipped: 0, errors: 0, pending: 0, dry, details: [] };
+  const result = { scanned: 0, recovered: 0, failed: 0, quota: 0, skipped: 0, errors: 0, pending: 0, dry, details: [] };
   for (const [agentId, source] of Object.entries(AGENTS)) {
     let list = [];
     try { list = await listRecent(agentId, since); }
@@ -174,14 +174,27 @@ module.exports.handler = async () => {
         }
         result.scanned++;
         const det = detectLostHandoff(full);
+        let markDone = true;
         if (det.lost) {
           const fields = extractTicketFields(full);
-          if (!dry) await postRecoveredTicket(fields, source, id);
-          result.recovered++;
-          result.details.push({ id, source, action: 'recovered', name: fields.name, phone: fields.phone });
+          // Degenerierter Fall: nichts extrahierbar -> trotzdem ein Ticket mit
+          // Call-Link, damit der echte verlorene Handoff nicht stillschweigend
+          // verschwindet. Pfarrei hört die Aufnahme ab.
+          if (!fields.name && !fields.phone && !fields.concern) {
+            fields.concern = '(brak danych w transkrypcji — proszę odsłuchać nagranie)';
+          }
+          const ok = dry ? true : await postRecoveredTicket(fields, source, id);
+          if (ok) {
+            result.recovered++;
+            result.details.push({ id, source, action: 'recovered', name: fields.name, phone: fields.phone });
+          } else {
+            // POST fehlgeschlagen -> NICHT als done markieren, nächster Lauf versucht erneut
+            result.failed++;
+            markDone = false;
+          }
         }
         if (isQuotaFailure(full)) result.quota++;
-        if (store) await store.set(key, '1');
+        if (store && markDone) await store.set(key, '1');
       } catch (e) { result.errors++; }
     }
   }
