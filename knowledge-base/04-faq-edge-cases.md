@@ -57,7 +57,7 @@ Wysokość ofiary nie jest publiczna i nie można jej ustalić z chatu ani telef
 
 ## Prośba o rozmowę duchową / pomoc duszpasterską
 
-Ksiądz NIE przyjmuje w biurze na prywatne rozmowy. Proszę podejść po Mszy Świętej — każdy dzień powszedni jest Msza o 18:00 (oprócz środy) i w niedziele.
+Ksiądz NIE przyjmuje w biurze na prywatne rozmowy. Proszę podejść po Mszy Świętej — każdy dzień powszedni jest Msza o 18:00 i w niedziele.
 
 W sprawach pilnych emocjonalnie/duchowo zaproponuj też:
 - Telefon Zaufania Polski w Berlinie (podać tylko jeśli pytający wyraźnie szuka doradztwa świeckiego poza Kościołem — nie z pamięci, proszę przekierować do biura).
