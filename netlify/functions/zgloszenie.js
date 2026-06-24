@@ -68,6 +68,35 @@ function normalizePhone(raw) {
 // Kein Einfluss auf den Netlify-Handler, der weiterhin exports.handler nutzt.
 exports.normalizePhone = normalizePhone;
 
+// Reine Mail-Texterzeugung (für scripts/test-zgloszenie-mail.cjs exportiert).
+// recovered=true => das Safety-Net hat dieses Anliegen aus dem Transkript
+// rekonstruiert (Tool feuerte nicht). Pfarrei MUSS Name/Nummer gegen die
+// Aufnahme prüfen, daher Warn-Präfix + Call-Link.
+function buildMail(d) {
+  const srcLabel = d.source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
+  const recPrefix = d.recovered ? '⚠️ AUTO-WIEDERHERGESTELLT — ' : '';
+  const subject = recPrefix + (d.urgent ? '[PILNE] ' : '') + 'Nowe zgłoszenie (' + srcLabel + ')'
+    + (d.name ? ' — ' + d.name : '');
+  const recBanner = d.recovered
+    ? '⚠️ AUTOMATYCZNIE ODZYSKANE ZGŁOSZENIE\n'
+      + 'Asystent obiecał przekazać sprawę, ale narzędzie nie zostało wywołane. '
+      + 'Dane wyodrębniono z transkrypcji — proszę sprawdzić imię i numer z nagraniem przed oddzwonieniem.\n'
+      + (d.call_link ? 'Nagranie / transkrypcja: ' + d.call_link + '\n' : '')
+      + '(Hinweis DE: automatisch wiederhergestellt — Name/Nummer gegen die Aufnahme prüfen.)\n\n'
+    : '';
+  const body =
+    (d.urgent ? '⚠️ ZGŁOSZENIE PILNE (np. pogrzeb / namaszczenie chorych)\n\n' : '')
+    + recBanner
+    + 'Nowe zgłoszenie przekazane przez ' + srcLabel + ':\n\n'
+    + 'Imię i nazwisko: ' + (d.name || '—') + '\n'
+    + 'Telefon (oddzwonić): ' + (d.phone || '—') + '\n'
+    + 'Język rozmowy: ' + (d.lang ? d.lang.toUpperCase() : '—') + '\n\n'
+    + 'Sprawa:\n' + (d.concern || '—') + '\n\n'
+    + '— Prosimy oddzwonić. Wiadomość wygenerowana automatycznie przez asystenta PMK.';
+  return { subject, body };
+}
+exports.buildMail = buildMail;
+
 // E-Mail an die Pfarrei über IONOS-SMTP, Absender = echte Pfarrei-Adresse (z.B. admin@pmk-berlin.de).
 // env-gated: ohne IONOS_SMTP_USER/PASS passiert nichts (dann mailt weiterhin das Apps Script).
 async function sendViaIonos(d) {
@@ -87,17 +116,7 @@ async function sendViaIonos(d) {
   const replyTo = process.env.ZGLOSZENIE_REPLYTO || 'pmk@pmk-berlin.de';
   const fromName = process.env.ZGLOSZENIE_FROM_NAME || 'PMK Telefon-Assistent';
 
-  const srcLabel = d.source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
-  const subject = (d.urgent ? '[PILNE] ' : '') + 'Nowe zgłoszenie (' + srcLabel + ')'
-    + (d.name ? ' — ' + d.name : '');
-  const body =
-    (d.urgent ? '⚠️ ZGŁOSZENIE PILNE (np. pogrzeb / namaszczenie chorych)\n\n' : '')
-    + 'Nowe zgłoszenie przekazane przez ' + srcLabel + ':\n\n'
-    + 'Imię i nazwisko: ' + (d.name || '—') + '\n'
-    + 'Telefon (oddzwonić): ' + (d.phone || '—') + '\n'
-    + 'Język rozmowy: ' + (d.lang ? d.lang.toUpperCase() : '—') + '\n\n'
-    + 'Sprawa:\n' + (d.concern || '—') + '\n\n'
-    + '— Prosimy oddzwonić. Wiadomość wygenerowana automatycznie przez asystenta PMK.';
+  const { subject, body } = buildMail(d);
 
   const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
   await transporter.sendMail({ from: fromName + ' <' + user + '>', to, replyTo, subject, text: body });
@@ -149,9 +168,12 @@ exports.handler = async (event) => {
   const sourceRaw = String(p.source || 'voice').trim().toLowerCase();
   const source = sourceRaw === 'chat' ? 'chat' : 'voice';
 
+  const recovered = truthy(p.recovered);
+  const callLink = String(p.call_link || '').trim().slice(0, 300);
+
   // 1) E-Mail über IONOS (echte Pfarrei-Adresse) — wenn konfiguriert.
   let mail = { sent: false, reason: 'skipped' };
-  try { mail = await sendViaIonos({ name, phone, concern, lang, source, urgent: truthy(p.urgent) }); }
+  try { mail = await sendViaIonos({ name, phone, concern, lang, source, urgent: truthy(p.urgent), recovered, call_link: callLink }); }
   catch (e) { mail = { sent: false, reason: 'smtp_error', detail: e.message }; }
 
   const form = new URLSearchParams();
@@ -162,6 +184,8 @@ exports.handler = async (event) => {
   form.set('urgent', truthy(p.urgent) ? 'true' : 'false');
   form.set('lang', lang);
   form.set('source', source);
+  form.set('recovered', recovered ? 'true' : 'false');
+  if (callLink) form.set('call_link', callLink);
   // Apps Script darf NIE selbst mailen (User-Vorgabe 11.06.2026: nie von einer
   // privaten Adresse senden). Schlägt IONOS fehl, steht das Zgłoszenie trotzdem
   // im Sheet + Admin-Tab und geht nicht verloren.
