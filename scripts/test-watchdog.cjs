@@ -75,5 +75,24 @@ const massStipendCall = { transcript: [
 check('H lost (oferta mszalna ist KEIN Vertrieb)', w.detectLostHandoff(massStipendCall).lost === true);
 check('H isSalesCall false (oferta mszalna)',       w.isSalesCall(massStipendCall.transcript) === false);
 
-console.log(`\n${15 - fail}/15 passed`);
+// --- Extraktion ---
+// data_collection bevorzugt
+const dcConvo = { transcript: [agent('Przekażę.')], analysis: { data_collection_results: {
+  caller_name: { value: 'Marta Sawicz' }, callback_phone: { value: '+49 176 4389' }, concern: { value: 'Protokół ślubny' }
+} }, metadata: { main_language: 'pl' } };
+const f1 = w.extractTicketFields(dcConvo);
+check('extract: Name aus data_collection', f1.name === 'Marta Sawicz');
+check('extract: Phone aus data_collection', f1.phone === '+49 176 4389');
+check('extract: lang aus metadata', f1.lang === 'pl');
+
+// Fallback auf abgebrochene Tool-Params
+const f2 = w.extractTicketFields(abandonedCall);
+check('extract: Name aus abgebrochenen Tool-Params', f2.name === 'Adela');
+check('extract: Phone aus abgebrochenen Tool-Params', f2.phone === '030 223');
+
+// Fallback auf transcript_summary als concern
+const sumConvo = { transcript: [agent('Przekażę.')], analysis: { transcript_summary: 'Sprawa pogrzebu.' } };
+check('extract: concern Fallback auf Summary', w.extractTicketFields(sumConvo).concern === 'Sprawa pogrzebu.');
+
+console.log(`\n${20 - fail}/20 passed`);
 process.exit(fail ? 1 : 0);

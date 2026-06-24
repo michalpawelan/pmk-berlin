@@ -42,7 +42,37 @@ function isQuotaFailure(convo) {
   return /quota|exceeded\s+quota|rate.?limit/i.test(term);
 }
 
+function dcValue(dc, key) {
+  const v = dc && dc[key];
+  if (v == null) return '';
+  if (typeof v === 'object') return String(v.value || v.result || '').trim();
+  return String(v).trim();
+}
+
+function abandonedToolParams(transcript) {
+  for (const turn of (transcript || [])) {
+    for (const c of ((turn && turn.tool_calls) || [])) {
+      if (c && c.tool_name === 'create_zgloszenie' && c.params_as_json) {
+        try { return JSON.parse(c.params_as_json); } catch (_) { /* ignore */ }
+      }
+    }
+  }
+  return {};
+}
+
+function extractTicketFields(convo) {
+  const t = (convo && convo.transcript) || [];
+  const ana = (convo && convo.analysis) || {};
+  const dc = ana.data_collection_results || {};
+  const params = abandonedToolParams(t);
+  const name = (dcValue(dc, 'caller_name') || params.name || '').toString().trim();
+  const phone = (dcValue(dc, 'callback_phone') || params.phone || '').toString().trim();
+  const concern = (dcValue(dc, 'concern') || params.concern || ana.transcript_summary || '').toString().trim();
+  const lang = ((convo && convo.metadata && convo.metadata.main_language) || params.lang || '').toString().toLowerCase().slice(0, 2);
+  return { name, phone, concern, urgent: isUrgent(t) || !!params.urgent, lang };
+}
+
 module.exports = {
   detectLostHandoff, hasHandoffPromise, hasSuccessfulZgloszenie,
-  isSalesCall, isUrgent, isQuotaFailure,
+  isSalesCall, isUrgent, isQuotaFailure, extractTicketFields,
 };
