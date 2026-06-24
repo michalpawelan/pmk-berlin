@@ -6,6 +6,16 @@ const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx
 const PL_WEEKDAYS = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
 const DE_WEEKDAYS = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
 
+// Defensive Korrektur stale Daten aus den Sheet-Event-Beschreibungen:
+// alte PLZ 12049 -> 10965 (sitewide-verifiziert), tote /events.html-Links -> /events.
+// Greift unabhängig davon, was Admins ins Sheet tippen. Verifizierter Bug 2026-06-24.
+function normalizeEventText(str) {
+  return String(str == null ? '' : str)
+    .replace(/\b12049\b/g, '10965')
+    .replace(/events\.html/g, 'events');
+}
+exports.normalizeEventText = normalizeEventText;
+
 function cellValue(cell) {
   if (!cell) return '';
   return cell.v ?? cell.f ?? '';
@@ -56,12 +66,12 @@ function parseEvents(text) {
     const date = parseSheetDate(row.c[1]);
     if (!title || !date) continue;
     out.push({
-      title,
+      title: normalizeEventText(title),
       date,
       time: parseTime(row.c[2]),
-      description: String(cellValue(row.c[3])).trim(),
-      location: String(cellValue(row.c[5])).trim() || 'Johannes-Basilika',
-      address: String(cellValue(row.c[6])).trim() || 'Lilienthalstraße 5, 10965 Berlin'
+      description: normalizeEventText(String(cellValue(row.c[3])).trim()),
+      location: normalizeEventText(String(cellValue(row.c[5])).trim()) || 'Johannes-Basilika',
+      address: normalizeEventText(String(cellValue(row.c[6])).trim()) || 'Lilienthalstraße 5, 10965 Berlin'
     });
   }
   return out;
