@@ -4,6 +4,12 @@
 // "recovered" markiertes Ticket. Reine Detektions-Helfer unten sind für
 // scripts/test-watchdog.cjs exportiert.
 
+const AGENTS = {
+  'agent_4101kpbhjmptftzr7tscfxk639fq': 'voice',
+  'agent_9501kteh8ecmek7asfq0k7zvraqw': 'chat',
+};
+const EL_BASE = 'https://api.elevenlabs.io/v1/convai';
+
 const HANDOFF_RE = /przekaż|przekaza[łl]|przekazu|zanotuj|notuj[ęe]|odezwie|oddzwoni|weitergeleitet|weitergegeben|leite[^.]{0,25}weiter|melden sich|notiert|i'?ll pass|pass(?:ed)? (?:it|this) on/i;
 const SALES_RE = /churchdesk|ofert\w*\s+handlow|współprac|wspolprac|reklam|w imieniu firmy|przedstawiciel handlow|sprzedaż|kooperation|werbung|vertrieb|im auftrag (?:der |des )?firma?/i;
 const URGENT_RE = /umieraj|kona\b|intensywn|zagrożenie życia|zagrozenie zycia|namaszcz|ostatnie namaszczenie|reanimacj|sterbe|sterbend|krankensalbung|letzte ölung|nie żyje|zmar[łl]/i;
@@ -76,3 +82,102 @@ module.exports = {
   detectLostHandoff, hasHandoffPromise, hasSuccessfulZgloszenie,
   isSalesCall, isUrgent, isQuotaFailure, extractTicketFields,
 };
+
+// ============================================================
+// Netzwerk-Helfer (nicht exportiert — nur intern verwendet)
+// ============================================================
+
+async function elGet(path) {
+  const res = await fetch(EL_BASE + path, { headers: { 'xi-api-key': process.env.ELEVENLABS_API_KEY } });
+  if (!res.ok) throw new Error('ElevenLabs ' + res.status + ' für ' + path);
+  return res.json();
+}
+
+async function listRecent(agentId, sinceUnix) {
+  const out = []; let cursor = '';
+  do {
+    const q = `/conversations?agent_id=${agentId}&page_size=100` + (cursor ? `&cursor=${cursor}` : '');
+    const d = await elGet(q);
+    for (const c of (d.conversations || [])) {
+      if ((c.start_time_unix_secs || 0) >= sinceUnix) out.push(c);
+    }
+    const more = d.has_more && d.next_cursor && (d.conversations || []).some(c => (c.start_time_unix_secs || 0) >= sinceUnix);
+    cursor = more ? d.next_cursor : '';
+  } while (cursor);
+  return out;
+}
+
+async function postRecoveredTicket(fields, source, conversationId) {
+  const callLink = 'https://elevenlabs.io/app/conversational-ai/history/' + conversationId;
+  const url = process.env.ZGLOSZENIE_URL || 'https://www.pmk-berlin.de/.netlify/functions/zgloszenie';
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: fields.name, phone: fields.phone, concern: fields.concern,
+      urgent: fields.urgent, lang: fields.lang,
+      source: source, recovered: true, call_link: callLink, conversation_id: conversationId,
+    }),
+  });
+  return res.ok;
+}
+
+async function sendQuotaAlert(count) {
+  const user = process.env.IONOS_SMTP_USER, pass = process.env.IONOS_SMTP_PASS;
+  const to = process.env.ZGLOSZENIE_ALERT_TO || process.env.ZGLOSZENIE_TO;
+  if (!user || !pass || !to) return false;
+  let nodemailer; try { nodemailer = require('nodemailer'); } catch (_) { return false; }
+  const host = process.env.IONOS_SMTP_HOST || 'smtp.ionos.de';
+  const port = parseInt(process.env.IONOS_SMTP_PORT || '465', 10);
+  const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
+  await transporter.sendMail({
+    from: 'PMK Watchdog <' + user + '>', to,
+    subject: '⚠️ PMK-Chat: ' + count + ' Gespräch(e) durch Quota-Limit abgebrochen',
+    text: 'Der Watchdog hat ' + count + ' Chat-Gespräch(e) gefunden, die wegen eines '
+      + 'Quota-/Limit-Fehlers ohne Antwort endeten. Bitte das ElevenLabs-/LLM-Kontingent prüfen/anheben.',
+  });
+  return true;
+}
+
+// ============================================================
+// Scheduled handler — läuft alle 15 Min auf Netlify
+// ============================================================
+
+module.exports.handler = async () => {
+  if (!process.env.ELEVENLABS_API_KEY) {
+    return { statusCode: 500, body: JSON.stringify({ error: 'ELEVENLABS_API_KEY fehlt' }) };
+  }
+  const dry = process.env.WATCHDOG_DRY_RUN === 'true';
+  const lookbackH = parseInt(process.env.WATCHDOG_LOOKBACK_HOURS || '24', 10);
+  const since = Math.floor(Date.now() / 1000) - lookbackH * 3600;
+
+  let store = null;
+  if (!dry) { const { getStore } = require('@netlify/blobs'); store = getStore('zgloszenie-watchdog'); }
+
+  const result = { scanned: 0, recovered: 0, quota: 0, skipped: 0, dry, details: [] };
+  for (const [agentId, source] of Object.entries(AGENTS)) {
+    const list = await listRecent(agentId, since);
+    for (const c of list) {
+      const id = c.conversation_id;
+      const key = 'done:' + id;
+      if (store && (await store.get(key))) { result.skipped++; continue; }
+      const full = await elGet('/conversations/' + id);
+      // Noch nicht fertig analysiert? -> nicht markieren, nächster Lauf erneut.
+      if (!full.analysis) { continue; }
+      result.scanned++;
+      const det = detectLostHandoff(full);
+      if (det.lost) {
+        const fields = extractTicketFields(full);
+        if (!dry) await postRecoveredTicket(fields, source, id);
+        result.recovered++;
+        result.details.push({ id, source, action: 'recovered', name: fields.name, phone: fields.phone });
+      }
+      if (isQuotaFailure(full)) result.quota++;
+      if (store) await store.set(key, '1');
+    }
+  }
+  if (result.quota > 0 && !dry) { try { await sendQuotaAlert(result.quota); } catch (_) { /* alert best-effort */ } }
+  return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(result) };
+};
+
+module.exports.config = { schedule: '*/15 * * * *' };

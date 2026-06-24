@@ -5,6 +5,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions."zgloszenie-watchdog"]
+  schedule = "*/15 * * * *"
+
 # ============================================
 # Security Headers - alle Seiten
 # ============================================
