@@ -54,19 +54,24 @@ Jede Welle endet mit **manuellem Deploy** (`netlify deploy --prod --dir=.` — k
 
 ## 5. Detail-Design: Safety-Net (Baustein A)
 
-**Mechanismus:** ElevenLabs **Post-Call-Webhook** → neue Netlify-Function `netlify/functions/zgloszenie-watchdog.js`. Feuert nach *jedem* beendeten Gespräch (auch bei Drop/Auflegen — fängt genau die Drop-Verluste).
+**Mechanismus (revidiert 2026-06-24 nach Workspace-Fund):** **Scheduled Netlify-Function** (Polling) `netlify/functions/zgloszenie-watchdog.js`, nicht Webhook. Grund: Der ElevenLabs-Workspace ist ein **geteilter Agentur-Workspace** (PKV, REDO, Wealth Movement … neben PMK) mit nur EINEM Workspace-weiten Post-Call-Webhook (`0eddbfb1…`, bereits aktiv für ein anderes Projekt). Polling ist isoliert auf die 2 PMK-Agenten, ohne Eingriff in geteilte Config, ohne öffentlichen Endpoint/Signatur, und fängt Drops genauso (die Conversations-API listet auch abgebrochene Calls). Latenz (Minuten) ist für ~2 Anrufe/Tag unkritisch.
 
 ```
-ElevenLabs (Voice 4101 + Chat 9501)
-  └─ post_call_webhook ─▶ zgloszenie-watchdog.js
-        1. Detektion (3 Bedingungen, s.u.)
-        2. Extraktion: data-collection-Felder (name/phone/concern/handoff_promised)
+Scheduled Function (alle ~15 Min)
+  └─ für jeden PMK-Agenten (Voice 4101 + Chat 9501):
+        list conversations (letzte ~24h) ─▶ je Call:
+        1. Detektion (3 Bedingungen, s.u.) — Tool-Erfolg via tool_result.is_error==false
+        2. Idempotenz: schon verarbeitet? (@netlify/blobs)  → ja: skip
+        3. Extraktion: data_collection_results + abgebrochene Tool-Params
            + Recording-Link & transcript_summary als Fallback
-        3. POST ─▶ zgloszenie.js  { recovered:true, conversation_id, ... }
+        4. POST ─▶ zgloszenie.js  { recovered:true, conversation_id, ... }
                      └─▶ IONOS-Mail + Sheet-Zeile an Pfarrei
                          Betreff: "⚠️ AUTO-WIEDERHERGESTELLT — Nummer/Name
                                    gegen Aufnahme prüfen" + Call-Link
+        + Nebenfunktion: Quota-Terminierungen (E1) erkennen → Alert
 ```
+
+**Wichtig:** „Erfolgreicher `create_zgloszenie`" = es existiert ein `tool_result` mit `tool_name=="create_zgloszenie"` UND `is_error==false`. Abgebrochene Tool-Calls („abandoned due to user input", `is_error:true`) zählen als **nicht** erfüllt — sie sind ein eigener Verlustfall, den nur diese Erfolgsprüfung fängt.
 
 **Detektion** — Ticket nur wenn **alle drei** zutreffen (Logik heute per Grep über die 60 Transkripte verifiziert):
 1. Transkript enthält Handoff-Marker: `przekaż*` / `przekazał*` / `zanotuj*` / `odezwie` / `oddzwoni*` / `weitergeleitet` / `leite … weiter` / `melden sich` / `pass(ed)? (it )?on` / `notiert`.
