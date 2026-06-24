@@ -148,32 +148,41 @@ module.exports.handler = async () => {
     return { statusCode: 500, body: JSON.stringify({ error: 'ELEVENLABS_API_KEY fehlt' }) };
   }
   const dry = process.env.WATCHDOG_DRY_RUN === 'true';
-  const lookbackH = parseInt(process.env.WATCHDOG_LOOKBACK_HOURS || '24', 10);
+  const lookbackH = parseInt(process.env.WATCHDOG_LOOKBACK_HOURS || '24', 10) || 24;
   const since = Math.floor(Date.now() / 1000) - lookbackH * 3600;
 
   let store = null;
   if (!dry) { const { getStore } = require('@netlify/blobs'); store = getStore('zgloszenie-watchdog'); }
 
-  const result = { scanned: 0, recovered: 0, quota: 0, skipped: 0, dry, details: [] };
+  const result = { scanned: 0, recovered: 0, quota: 0, skipped: 0, errors: 0, pending: 0, dry, details: [] };
   for (const [agentId, source] of Object.entries(AGENTS)) {
-    const list = await listRecent(agentId, since);
+    let list = [];
+    try { list = await listRecent(agentId, since); }
+    catch (e) { result.errors++; continue; }
     for (const c of list) {
-      const id = c.conversation_id;
-      const key = 'done:' + id;
-      if (store && (await store.get(key))) { result.skipped++; continue; }
-      const full = await elGet('/conversations/' + id);
-      // Noch nicht fertig analysiert? -> nicht markieren, nächster Lauf erneut.
-      if (!full.analysis) { continue; }
-      result.scanned++;
-      const det = detectLostHandoff(full);
-      if (det.lost) {
-        const fields = extractTicketFields(full);
-        if (!dry) await postRecoveredTicket(fields, source, id);
-        result.recovered++;
-        result.details.push({ id, source, action: 'recovered', name: fields.name, phone: fields.phone });
-      }
-      if (isQuotaFailure(full)) result.quota++;
-      if (store) await store.set(key, '1');
+      try {
+        const id = c.conversation_id;
+        const key = 'done:' + id;
+        if (store && (await store.get(key))) { result.skipped++; continue; }
+        const full = await elGet('/conversations/' + id);
+        // Noch nicht fertig analysiert? -> zählen, nach 6h abschreiben.
+        if (!full.analysis) {
+          result.pending++;
+          const sixHoursAgo = Math.floor(Date.now() / 1000) - 6 * 3600;
+          if (store && (c.start_time_unix_secs || 0) < sixHoursAgo) await store.set(key, '1');
+          continue;
+        }
+        result.scanned++;
+        const det = detectLostHandoff(full);
+        if (det.lost) {
+          const fields = extractTicketFields(full);
+          if (!dry) await postRecoveredTicket(fields, source, id);
+          result.recovered++;
+          result.details.push({ id, source, action: 'recovered', name: fields.name, phone: fields.phone });
+        }
+        if (isQuotaFailure(full)) result.quota++;
+        if (store) await store.set(key, '1');
+      } catch (e) { result.errors++; }
     }
   }
   if (result.quota > 0 && !dry) { try { await sendQuotaAlert(result.quota); } catch (_) { /* alert best-effort */ } }
