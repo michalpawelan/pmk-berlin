@@ -23,5 +23,5 @@ check('recovered: Call-Link im Body', /conv_X/.test(rec.body));
 const urg = buildMail({ name: 'X', phone: '', concern: 'umierający', lang: 'pl', source: 'voice', urgent: true, recovered: true, call_link: 'L' });
 check('urgent+recovered: [PILNE] im Betreff', /\[PILNE\]/.test(urg.subject));
 
-console.log(`\n${4 - fail}/4 passed`);
+console.log(`\n${6 - fail}/6 passed`);
 process.exit(fail ? 1 : 0);

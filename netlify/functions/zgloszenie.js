@@ -170,6 +170,7 @@ exports.handler = async (event) => {
 
   const recovered = truthy(p.recovered);
   const callLink = String(p.call_link || '').trim().slice(0, 300);
+  const conversationId = String(p.conversation_id || '').trim().slice(0, 100);
 
   // 1) E-Mail über IONOS (echte Pfarrei-Adresse) — wenn konfiguriert.
   let mail = { sent: false, reason: 'skipped' };
@@ -186,6 +187,7 @@ exports.handler = async (event) => {
   form.set('source', source);
   form.set('recovered', recovered ? 'true' : 'false');
   if (callLink) form.set('call_link', callLink);
+  if (conversationId) form.set('conversation_id', conversationId);
   // Apps Script darf NIE selbst mailen (User-Vorgabe 11.06.2026: nie von einer
   // privaten Adresse senden). Schlägt IONOS fehl, steht das Zgłoszenie trotzdem
   // im Sheet + Admin-Tab und geht nicht verloren.
