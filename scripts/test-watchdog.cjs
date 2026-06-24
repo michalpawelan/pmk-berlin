@@ -67,5 +67,13 @@ check('isQuotaFailure B false',                         w.isQuotaFailure(okCall)
 check('isUrgent G true',                                w.isUrgent(urgentTranscript) === true);
 check('isUrgent E false',                               w.isUrgent(infoCall.transcript) === false);
 
-console.log(`\n${13 - fail}/13 passed`);
+// H) Pastorale "oferta mszalna" (Mess-Stipendium) ist KEIN Vertrieb -> darf NICHT unterdrückt werden
+const massStipendCall = { transcript: [
+  user('Chciałbym zamówić ofertę mszalną za zmarłego ojca i proszę o kontakt.'),
+  agent('Oczywiście, przekażę to do biura parafialnego, ktoś się odezwie.'),
+] };
+check('H lost (oferta mszalna ist KEIN Vertrieb)', w.detectLostHandoff(massStipendCall).lost === true);
+check('H isSalesCall false (oferta mszalna)',       w.isSalesCall(massStipendCall.transcript) === false);
+
+console.log(`\n${15 - fail}/15 passed`);
 process.exit(fail ? 1 : 0);

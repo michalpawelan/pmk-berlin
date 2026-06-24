@@ -5,7 +5,7 @@
 // scripts/test-watchdog.cjs exportiert.
 
 const HANDOFF_RE = /przekaż|przekaza[łl]|przekazu|zanotuj|notuj[ęe]|odezwie|oddzwoni|weitergeleitet|weitergegeben|leite[^.]{0,25}weiter|melden sich|notiert|i'?ll pass|pass(?:ed)? (?:it|this) on/i;
-const SALES_RE = /churchdesk|ofert|współprac|wspolprac|reklam|w imieniu firmy|przedstawiciel handlow|sprzedaż|kooperation|werbung|vertrieb|im auftrag (?:der |des )?firma?/i;
+const SALES_RE = /churchdesk|ofert\w*\s+handlow|współprac|wspolprac|reklam|w imieniu firmy|przedstawiciel handlow|sprzedaż|kooperation|werbung|vertrieb|im auftrag (?:der |des )?firma?/i;
 const URGENT_RE = /umieraj|kona\b|intensywn|zagrożenie życia|zagrozenie zycia|namaszcz|ostatnie namaszczenie|reanimacj|sterbe|sterbend|krankensalbung|letzte ölung|nie żyje|zmar[łl]/i;
 
 function agentText(transcript) {
