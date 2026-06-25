@@ -2,35 +2,19 @@
 // GET /.netlify/functions/ki-transcript?id=conv_XXX&pin=YYY
 // Returns chronological transcript for a single ElevenLabs conversation.
 
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
-const ADMIN_PIN = process.env.ADMIN_PIN || '';
-
-async function verifyPin(pin) {
-  if (ADMIN_PIN) return pin === ADMIN_PIN;
-  if (!APPS_SCRIPT_URL) return false;
-  const u = new URL(APPS_SCRIPT_URL);
-  u.searchParams.set('action', 'list');
-  u.searchParams.set('pin', pin);
-  try {
-    const r = await fetch(u.toString());
-    const d = await r.json();
-    return d && d.success !== false && Array.isArray(d.events);
-  } catch (_) { return false; }
-}
+const { checkAuth, unauthorized, NO_STORE } = require('./_admin-auth');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') {
     return { statusCode: 405, body: JSON.stringify({ success: false, error: 'method_not_allowed' }) };
   }
 
+  const auth = await checkAuth(event);
+  if (!auth.ok) return unauthorized(auth);
+
   const q = event.queryStringParameters || {};
-  const pin = q.pin || '';
   const id = q.id || '';
 
-  if (!pin || !(await verifyPin(pin))) {
-    return { statusCode: 401, body: JSON.stringify({ success: false, error: 'unauthorized' }) };
-  }
   if (!id || !id.startsWith('conv_')) {
     return { statusCode: 400, body: JSON.stringify({ success: false, error: 'invalid_id' }) };
   }
@@ -58,7 +42,7 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'private, max-age=300' },
+      headers: { 'Content-Type': 'application/json', ...NO_STORE },
       body: JSON.stringify({
         success: true,
         conversation_id: id,

@@ -728,6 +728,52 @@
   force = true
 
 # ============================================
+# Interne Quell-/Build-Dateien NICHT oeffentlich ausliefern (publish = ".")
+# force = true, weil die Dateien real existieren und sonst direkt geliefert wuerden.
+# ============================================
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/skills/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/elevenlabs-agent-prompt.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/elevenlabs-agent-prompt-chat.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# ============================================
 # 404 Redirect (deutsch unter /de/, sonst polnisch)
 # ============================================
 [[redirects]]

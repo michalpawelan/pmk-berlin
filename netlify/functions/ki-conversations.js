@@ -3,26 +3,9 @@
 // Listet Conversations vom ElevenLabs-Agenten und merged Flag-Daten aus Netlify Blobs.
 
 const { getStore } = require('@netlify/blobs');
+const { checkAuth, unauthorized, mintToken, NO_STORE } = require('./_admin-auth');
 
 const ELEVENLABS_API = 'https://api.elevenlabs.io/v1/convai/conversations';
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
-const ADMIN_PIN = process.env.ADMIN_PIN || '';
-
-async function verifyPin(pin) {
-  // Falls ADMIN_PIN env gesetzt: vergleichen
-  if (ADMIN_PIN) return pin === ADMIN_PIN;
-  // Fallback: kleinen list-Call gegen Apps Script versuchen
-  if (!APPS_SCRIPT_URL) return false;
-  const u = new URL(APPS_SCRIPT_URL);
-  u.searchParams.set('action', 'list');
-  u.searchParams.set('pin', pin);
-  try {
-    const r = await fetch(u.toString());
-    const d = await r.json();
-    return d && d.success !== false && Array.isArray(d.events);
-  } catch (_) { return false; }
-}
 
 function inferChannel(c) {
   const src = String(c.conversation_initiation_source || '').toLowerCase();
@@ -46,12 +29,10 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: JSON.stringify({ success: false, error: 'method_not_allowed' }) };
   }
 
-  const q = event.queryStringParameters || {};
-  const pin = q.pin || '';
-  if (!pin || !(await verifyPin(pin))) {
-    return { statusCode: 401, body: JSON.stringify({ success: false, error: 'unauthorized' }) };
-  }
+  const auth = await checkAuth(event);
+  if (!auth.ok) return unauthorized(auth);
 
+  const q = event.queryStringParameters || {};
   const days = Math.max(1, Math.min(90, parseInt(q.days || '7', 10) || 7));
   const since = new Date(Date.now() - days * 86400000).toISOString();
 
@@ -86,7 +67,9 @@ exports.handler = async (event) => {
       duration_secs: c.call_duration_secs || 0,
       message_count: c.message_count || 0,
       call_successful: c.call_successful || 'unknown',
-      status: c.status || ''
+      status: c.status || '',
+      // Kurzlebiges, signiertes Token statt PIN-in-URL fuer das <audio>-Element.
+      audio_token: inferChannel(c) === 'phone' ? mintToken(c.conversation_id) : undefined
     }));
 
   // Try to merge flags from Blobs. If Blobs isn't configured (file-based deploys),
@@ -113,7 +96,7 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'private, max-age=30' },
+    headers: { 'Content-Type': 'application/json', ...NO_STORE },
     body: JSON.stringify({ success: true, conversations })
   };
 };

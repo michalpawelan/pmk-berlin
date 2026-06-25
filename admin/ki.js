@@ -53,8 +53,8 @@ const KI = (function() {
     loading = true;
     render();
     try {
-      const url = `/.netlify/functions/ki-conversations?pin=${encodeURIComponent(pin)}&days=${rangeDays}`;
-      const res = await fetch(url);
+      const url = `/.netlify/functions/ki-conversations?days=${rangeDays}`;
+      const res = await fetch(url, { headers: Auth.headers() });
       const data = await res.json();
       convos = (data && Array.isArray(data.conversations)) ? data.conversations : [];
     } catch (e) {
@@ -97,11 +97,10 @@ const KI = (function() {
   }
 
   async function saveFlag(conversationId, status, note) {
-    const pin = Auth.getPin();
     const res = await fetch('/.netlify/functions/ki-flag', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pin, conversation_id: conversationId, status, note })
+      headers: { 'Content-Type': 'application/json', ...Auth.headers() },
+      body: JSON.stringify({ conversation_id: conversationId, status, note })
     });
     const data = await res.json();
     if (data && data.success) {
@@ -130,9 +129,8 @@ const KI = (function() {
     transcriptCache[conversationId] = { state: 'loading' };
     render();
     try {
-      const pin = Auth.getPin();
-      const url = `/.netlify/functions/ki-transcript?id=${encodeURIComponent(conversationId)}&pin=${encodeURIComponent(pin)}`;
-      const res = await fetch(url);
+      const url = `/.netlify/functions/ki-transcript?id=${encodeURIComponent(conversationId)}`;
+      const res = await fetch(url, { headers: Auth.headers() });
       const data = await res.json();
       if (data && data.success && Array.isArray(data.transcript)) {
         transcriptCache[conversationId] = { state: 'ready', transcript: data.transcript };
@@ -270,7 +268,7 @@ const KI = (function() {
         <p class="ki-meta">${escapeHtml(fmtTime(selected.started_at))} · ${selected.channel === 'phone' ? '📞 Telefon' : '💬 Czat'} · ${escapeHtml((selected.language || '').toUpperCase())}</p>
         ${selected.channel === 'phone' ? `
           <div class="ki-audio">
-            <audio controls preload="none" src="/.netlify/functions/ki-audio?id=${encodeURIComponent(selected.conversation_id)}&pin=${encodeURIComponent(Auth.getPin())}"></audio>
+            <audio controls preload="none" src="/.netlify/functions/ki-audio?id=${encodeURIComponent(selected.conversation_id)}&token=${encodeURIComponent(selected.audio_token || '')}"></audio>
           </div>
         ` : ''}
         <details class="ki-transcript-toggle" ${selected.__transcriptOpen ? 'open' : ''}>

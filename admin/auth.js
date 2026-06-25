@@ -10,6 +10,13 @@ const Auth = {
     return sessionStorage.getItem('pmk_admin_pin') || '';
   },
 
+  // PIN als Header mitschicken statt in der URL-Query (landet sonst in Logs/History).
+  // Fuer alle Aufrufe gegen eigene /.netlify/functions/* nutzen.
+  headers() {
+    const pin = this.getPin();
+    return pin ? { 'X-Admin-Pin': pin } : {};
+  },
+
   setPin(pin) {
     sessionStorage.setItem('pmk_admin_pin', pin);
   },

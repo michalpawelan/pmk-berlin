@@ -20,8 +20,8 @@ const Statystyki = (function() {
     render();
     try {
       const [convoRes, subsRes] = await Promise.all([
-        fetch('/.netlify/functions/ki-conversations?pin=' + encodeURIComponent(pin) + '&days=90').then(r => r.json()),
-        fetch('/.netlify/functions/newsletter-list?pin=' + encodeURIComponent(pin)).then(r => r.json())
+        fetch('/.netlify/functions/ki-conversations?days=90', { headers: Auth.headers() }).then(r => r.json()),
+        fetch('/.netlify/functions/newsletter-list', { headers: Auth.headers() }).then(r => r.json())
       ]);
       const convos = convoRes && convoRes.conversations ? convoRes.conversations : [];
       const subs = subsRes && subsRes.subscribers ? subsRes.subscribers : [];

@@ -4,24 +4,9 @@
 // Schreibt/aktualisiert Flag fuer eine Conversation in Netlify Blobs ('ki-flags').
 
 const { getStore } = require('@netlify/blobs');
+const { checkAuth, unauthorized } = require('./_admin-auth');
 
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
-const ADMIN_PIN = process.env.ADMIN_PIN || '';
 const VALID_STATUS = new Set(['unhandled', 'done', 'followup', 'bad_answer', 'spam']);
-
-async function verifyPin(pin) {
-  if (ADMIN_PIN) return pin === ADMIN_PIN;
-  if (!APPS_SCRIPT_URL) return false;
-  const u = new URL(APPS_SCRIPT_URL);
-  u.searchParams.set('action', 'list');
-  u.searchParams.set('pin', pin);
-  try {
-    const r = await fetch(u.toString());
-    const d = await r.json();
-    return d && d.success !== false && Array.isArray(d.events);
-  } catch (_) { return false; }
-}
 
 function getKiStore() {
   const siteID = process.env.NETLIFY_SITE_ID;
@@ -44,9 +29,8 @@ exports.handler = async (event) => {
   catch (_) { return { statusCode: 400, body: JSON.stringify({ success: false, error: 'bad_json' }) }; }
 
   const { pin, conversation_id, status, note } = body;
-  if (!pin || !(await verifyPin(pin))) {
-    return { statusCode: 401, body: JSON.stringify({ success: false, error: 'unauthorized' }) };
-  }
+  const auth = await checkAuth(event, pin);
+  if (!auth.ok) return unauthorized(auth);
   if (!conversation_id || typeof conversation_id !== 'string') {
     return { statusCode: 400, body: JSON.stringify({ success: false, error: 'missing_conversation_id' }) };
   }

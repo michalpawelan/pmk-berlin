@@ -2,23 +2,8 @@
 // GET /.netlify/functions/ki-audio?id=conv_XXX&pin=YYY
 // Streams ElevenLabs conversation audio (MP3). Returns 413 if >5 MB.
 
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
-  || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
-const ADMIN_PIN = process.env.ADMIN_PIN || '';
+const { checkAuth, unauthorized, verifyToken } = require('./_admin-auth');
 const MAX_AUDIO_BYTES = 5 * 1024 * 1024;   // 5 MB
-
-async function verifyPin(pin) {
-  if (ADMIN_PIN) return pin === ADMIN_PIN;
-  if (!APPS_SCRIPT_URL) return false;
-  const u = new URL(APPS_SCRIPT_URL);
-  u.searchParams.set('action', 'list');
-  u.searchParams.set('pin', pin);
-  try {
-    const r = await fetch(u.toString());
-    const d = await r.json();
-    return d && d.success !== false && Array.isArray(d.events);
-  } catch (_) { return false; }
-}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') {
@@ -26,14 +11,16 @@ exports.handler = async (event) => {
   }
 
   const q = event.queryStringParameters || {};
-  const pin = q.pin || '';
   const id = q.id || '';
-
-  if (!pin || !(await verifyPin(pin))) {
-    return { statusCode: 401, body: JSON.stringify({ success: false, error: 'unauthorized' }) };
-  }
   if (!id || !id.startsWith('conv_')) {
     return { statusCode: 400, body: JSON.stringify({ success: false, error: 'invalid_id' }) };
+  }
+
+  // Das <audio>-Element kann keine Header setzen -> kurzlebiges, an die conv-id
+  // gebundenes Token (aus ki-conversations) akzeptieren. Sonst normaler PIN-Check.
+  if (!verifyToken(id, q.token)) {
+    const auth = await checkAuth(event);
+    if (!auth.ok) return unauthorized(auth);
   }
 
   const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -61,7 +48,7 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: {
         'Content-Type': 'audio/mpeg',
-        'Cache-Control': 'private, max-age=3600',
+        'Cache-Control': 'private, no-store',
         'Accept-Ranges': 'none'
       },
       body: buf.toString('base64'),

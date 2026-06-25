@@ -22,7 +22,7 @@ const Newsletter = (function() {
     loading = true;
     render();
     try {
-      const res = await fetch('/.netlify/functions/newsletter-list?pin=' + encodeURIComponent(pin));
+      const res = await fetch('/.netlify/functions/newsletter-list', { headers: Auth.headers() });
       const data = await res.json();
       subs = (data && Array.isArray(data.subscribers)) ? data.subscribers : [];
     } catch (e) {

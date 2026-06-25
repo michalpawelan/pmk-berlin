@@ -12,6 +12,7 @@
 //   DRIVE_FOLDER_ID        - (optional) Ziel-Folder-ID. Leer = Drive-Root.
 
 const crypto = require('crypto');
+const { checkAuth, unauthorized } = require('./_admin-auth');
 
 const ADMIN_PIN             = process.env.ADMIN_PIN || '';
 const GOOGLE_CLIENT_ID      = process.env.GOOGLE_CLIENT_ID || '';
@@ -123,15 +124,32 @@ exports.handler = async (event) => {
   }
 
   const { fileName, mimeType, data, pin } = payload;
-  if (pin !== ADMIN_PIN) {
-    return { statusCode: 401, body: JSON.stringify({ success: false, error: 'Nieprawidlowy PIN' }) };
-  }
+  const auth = await checkAuth(event, pin);
+  if (!auth.ok) return unauthorized(auth);
   if (!data) {
     return { statusCode: 400, body: JSON.stringify({ success: false, error: 'Brak danych obrazu' }) };
   }
 
-  const finalName = fileName || ('event-' + Date.now() + '.jpg');
-  const finalMime = mimeType || 'image/jpeg';
+  // Nur Bilder zulassen (Whitelist), Dateinamen haerten, Groesse begrenzen.
+  const ALLOWED = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+  if (mimeType && !ALLOWED[mimeType]) {
+    return { statusCode: 400, body: JSON.stringify({ success: false, error: 'Nieobslugiwany typ pliku (tylko JPG/PNG/WEBP)' }) };
+  }
+  const finalMime = ALLOWED[mimeType] ? mimeType : 'image/jpeg';
+  const ext = ALLOWED[finalMime];
+  const safeBase = String(fileName || '')
+    .replace(/[^\w.\- ]+/g, '_')   // Pfadtrenner & Sonderzeichen entfernen
+    .replace(/\.{2,}/g, '.')       // keine ".." Traversal-Reste
+    .replace(/\.[^.]*$/, '')       // alte Endung weg
+    .slice(0, 120)
+    .trim();
+  const finalName = (safeBase || 'event-' + Date.now()) + '.' + ext;
+
+  // Groessen-Cap (5 MB) auf dem dekodierten Base64.
+  const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+  if (Math.floor((String(data).length * 3) / 4) > MAX_UPLOAD_BYTES) {
+    return { statusCode: 413, body: JSON.stringify({ success: false, error: 'Plik za duzy (max 5 MB)' }) };
+  }
 
   try {
     const token = await getAccessToken();

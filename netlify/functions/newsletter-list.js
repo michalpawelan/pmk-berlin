@@ -2,6 +2,8 @@
 // GET /.netlify/functions/newsletter-list?pin=XXX
 // Proxiert list_subscribers vom Apps Script, damit der PIN nicht client-side im Apps-Script-URL landet.
 
+const { checkAuth, unauthorized, readPin, NO_STORE } = require('./_admin-auth');
+
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
   || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
 
@@ -10,10 +12,11 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: JSON.stringify({ success: false, error: 'method_not_allowed' }) };
   }
 
-  const pin = (event.queryStringParameters && event.queryStringParameters.pin) || '';
-  if (!pin) {
-    return { statusCode: 401, body: JSON.stringify({ success: false, error: 'missing_pin' }) };
-  }
+  // Lokaler Auth-Check (Rate-Limit + Konstant-Zeit) BEVOR die Subscriber-Liste
+  // (PII) vom Apps Script geholt wird. Vorher pruefte nur das Apps Script.
+  const auth = await checkAuth(event);
+  if (!auth.ok) return unauthorized(auth);
+  const pin = readPin(event);
 
   const url = new URL(APPS_SCRIPT_URL);
   url.searchParams.set('action', 'list_subscribers');
@@ -24,7 +27,7 @@ exports.handler = async (event) => {
     const text = await res.text();
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60' },
+      headers: { 'Content-Type': 'application/json', ...NO_STORE },
       body: text
     };
   } catch (err) {
