@@ -59,6 +59,7 @@ function normalizePhone(raw) {
   let d = compact.replace(/^\+/, '');
   if (d.startsWith('00')) d = d.slice(2);
   else if (d.startsWith('0')) d = '49' + d.slice(1);
+  else if (d.length === 9) d = '48' + d; // poln. National-Nr (9-stellig, ohne 0/+48) -> +48 statt verwerfen
   else if (!compact.startsWith('+') && !d.startsWith('49')) return s; // ohne Vorwahl-Hinweis nicht raten
   if (OWN_NUMBERS.indexOf(d) !== -1) return '';
   return '+' + d.slice(0, 2) + ' ' + d.slice(2);

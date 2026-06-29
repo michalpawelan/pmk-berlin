@@ -12,7 +12,7 @@ const EL_BASE = 'https://api.elevenlabs.io/v1/convai';
 
 const HANDOFF_RE = /przekaż|przekaza[łl]|przekazu|zanotuj|notuj[ęe]|odezwie|oddzwoni|weitergeleitet|weitergegeben|leite[^.]{0,25}weiter|melden sich|notiert|i'?ll pass|pass(?:ed)? (?:it|this) on/i;
 const SALES_RE = /churchdesk|ofert\w*\s+handlow|współprac|wspolprac|reklam|w imieniu firmy|przedstawiciel handlow|sprzedaż|kooperation|werbung|vertrieb|im auftrag (?:der |des )?firma?/i;
-const URGENT_RE = /umieraj|kona\b|intensywn|zagrożenie życia|zagrozenie zycia|namaszcz|ostatnie namaszczenie|reanimacj|sterbe|sterbend|krankensalbung|letzte ölung|nie żyje|zmar[łl]/i;
+const URGENT_RE = /umiera|kona\b|intensywn|zagrożenie życia|zagrozenie zycia|namaszcz|ostatnie namaszczenie|reanimacj|sterbe|sterbend|stirbt|krankensalbung|letzte ölung|nie żyje|zmar[łl]/i;
 
 function agentText(transcript) {
   return (transcript || []).filter(t => t && t.role === 'agent').map(t => t.message || '').join('\n');
@@ -20,9 +20,14 @@ function agentText(transcript) {
 function allText(transcript) {
   return (transcript || []).map(t => (t && t.message) || '').join('\n');
 }
+function userText(transcript) {
+  return (transcript || []).filter(t => t && t.role === 'user').map(t => t.message || '').join('\n');
+}
 function hasHandoffPromise(transcript) { return HANDOFF_RE.test(agentText(transcript)); }
 function isSalesCall(transcript) { return SALES_RE.test(allText(transcript)); }
-function isUrgent(transcript) { return URGENT_RE.test(allText(transcript)); }
+// Dringlichkeit NUR aus den Worten des ANRUFERS — sonst lösen die Sakramenten-
+// Antworten des Agenten ("namaszczenie chorych") Fehlalarme bei reinen Infofragen aus.
+function isUrgent(transcript) { return URGENT_RE.test(userText(transcript)); }
 
 function hasSuccessfulZgloszenie(transcript) {
   for (const turn of (transcript || [])) {
@@ -35,12 +40,36 @@ function hasSuccessfulZgloszenie(transcript) {
   return false;
 }
 
+// Weitere Handoff-Signale jenseits des wörtlichen Versprechens. Die Analyse
+// erfasst Rückrufnummer/Name und ggf. ein handoff_promised-Flag in
+// data_collection_results (dieselbe Quelle wie extractTicketFields). Ein
+// Anrufer, der alles in einem Atemzug sagt und auflegt, bekommt sonst kein
+// Versprechen zu hören — sein Anliegen ginge trotz erfasster Nummer verloren.
+function handoffPromisedFlag(convo) {
+  const dc = (convo && convo.analysis && convo.analysis.data_collection_results) || {};
+  const v = dc.handoff_promised;
+  const s = (v && typeof v === 'object') ? v.value : v;
+  return s === true || String(s == null ? '' : s).trim().toLowerCase() === 'true';
+}
+function hasContactCaptured(convo) {
+  const dc = (convo && convo.analysis && convo.analysis.data_collection_results) || {};
+  const params = abandonedToolParams((convo && convo.transcript) || []);
+  const phone = (dcValue(dc, 'callback_phone') || params.phone || '').toString().trim();
+  return phone.length > 0;
+}
+
 function detectLostHandoff(convo) {
   const t = (convo && convo.transcript) || [];
-  if (!hasHandoffPromise(t)) return { lost: false, reason: 'no_promise' };
+  // Erfolgreicher Tool-Call oder Vertriebsanruf -> nie ein verlorener Handoff.
   if (hasSuccessfulZgloszenie(t)) return { lost: false, reason: 'tool_succeeded' };
   if (isSalesCall(t)) return { lost: false, reason: 'sales_excluded' };
-  return { lost: true, reason: 'promise_without_tool' };
+  // Verloren, sobald EIN Signal für Weiterleitungsbedarf vorliegt, aber kein
+  // erfolgreicher create_zgloszenie-Tool-Call erfolgte (Reihenfolge = Stärke):
+  if (hasHandoffPromise(t)) return { lost: true, reason: 'promise_without_tool' };
+  if (handoffPromisedFlag(convo)) return { lost: true, reason: 'flag_without_tool' };
+  if (hasContactCaptured(convo)) return { lost: true, reason: 'contact_without_tool' };
+  if (isUrgent(t)) return { lost: true, reason: 'urgent_without_tool' };
+  return { lost: false, reason: 'no_signal' };
 }
 
 function isQuotaFailure(convo) {
@@ -80,6 +109,7 @@ function extractTicketFields(convo) {
 
 module.exports = {
   detectLostHandoff, hasHandoffPromise, hasSuccessfulZgloszenie,
+  handoffPromisedFlag, hasContactCaptured,
   isSalesCall, isUrgent, isQuotaFailure, extractTicketFields,
 };
 

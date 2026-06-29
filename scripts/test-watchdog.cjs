@@ -50,8 +50,8 @@ const quotaCall = { transcript: [ user('O której msza?') ], metadata: { termina
 // G) Sterbefall -> urgent
 const urgentTranscript = [ user('Mój mąż umiera na intensywnej terapii, potrzebny ksiądz.'), agent('Przekażę natychmiast.') ];
 
-let fail = 0;
-function check(label, cond) { if (!cond) fail++; console.log(`${cond ? 'PASS' : 'FAIL'}  ${label}`); }
+let fail = 0; let total = 0;
+function check(label, cond) { total++; if (!cond) fail++; console.log(`${cond ? 'PASS' : 'FAIL'}  ${label}`); }
 
 check('A lost (Perfekt-Versprechen, kein Tool)',        w.detectLostHandoff(lostCall).lost === true);
 check('B nicht lost (Tool-Erfolg)',                     w.detectLostHandoff(okCall).lost === false);
@@ -75,6 +75,67 @@ const massStipendCall = { transcript: [
 check('H lost (oferta mszalna ist KEIN Vertrieb)', w.detectLostHandoff(massStipendCall).lost === true);
 check('H isSalesCall false (oferta mszalna)',       w.isSalesCall(massStipendCall.transcript) === false);
 
+// === A1: erweiterter Recall — Ticket auch OHNE wörtliches "leite ich weiter" ===
+// I) Begrüßung-only: Anrufer nennt Name+Rückrufnummer, Agent verspricht NICHTS, KEIN Tool
+//    (echte Fälle 29.06.: Vivantes Spandau / Danuta Weber) -> lost via Kontaktdaten
+const contactNoPromiseCall = {
+  transcript: [
+    user('Dzień dobry, Hanna Bernatowicz, mąż w szpitalu Vivantes Spandau, proszę o telefon, numer 0176 2659 6021.'),
+    agent('Szczęść Boże, dodzwonił się Pan do asystenta Polskiej Misji Katolickiej.'),
+  ],
+  analysis: { data_collection_results: {
+    caller_name: { value: 'Hanna Bernatowicz' },
+    callback_phone: { value: '0176 2659 6021' },
+    concern: { value: 'Prośba o telefon, mąż w szpitalu' },
+  } },
+};
+check('I lost (Kontaktdaten erfasst, kein Versprechen, kein Tool)', w.detectLostHandoff(contactNoPromiseCall).lost === true);
+check('I Grund contact_without_tool', w.detectLostHandoff(contactNoPromiseCall).reason === 'contact_without_tool');
+
+// J) data_collection-Flag handoff_promised=true, kein Versprechens-Text, kein Tool -> lost
+const flagCall = {
+  transcript: [ user('Proszę o kontakt w sprawie chrztu.'), agent('Dobrze.') ],
+  analysis: { data_collection_results: { handoff_promised: { value: true } } },
+};
+check('J lost (handoff_promised-Flag ohne Tool)', w.detectLostHandoff(flagCall).lost === true);
+check('J Grund flag_without_tool', w.detectLostHandoff(flagCall).reason === 'flag_without_tool');
+
+// K) Notfall ohne Versprechen/Kontakt (Gespräch bricht ab) -> lost via urgent
+const urgentCutoffCall = {
+  transcript: [ user('Mój mąż kona, potrzebne ostatnie namaszczenie, proszę szybko...') ],
+  analysis: { data_collection_results: {} },
+};
+check('K lost (Notfall ohne Versprechen, abgebrochen)', w.detectLostHandoff(urgentCutoffCall).lost === true);
+check('K Grund urgent_without_tool', w.detectLostHandoff(urgentCutoffCall).reason === 'urgent_without_tool');
+
+// L) Reine Info-Frage, nur Name erfasst (KEINE Rückrufnummer), kein Versprechen -> NICHT lost (Präzision)
+const nameOnlyInfoCall = {
+  transcript: [ user('Nazywam się Kowalski, o której jest msza?'), agent('O dziewiątej i jedenastej. Czy mogę jeszcze pomóc?') ],
+  analysis: { data_collection_results: { caller_name: { value: 'Kowalski' } } },
+};
+check('L nicht lost (nur Name, keine Nummer, kein Versprechen)', w.detectLostHandoff(nameOnlyInfoCall).lost === false);
+
+// M) Vertriebsanruf MIT hinterlassener Nummer -> bleibt ausgeschlossen (Sales vor Kontakt-Trigger)
+const salesWithPhoneCall = {
+  transcript: [ user('Dzwonię w imieniu firmy ChurchDesk, mój numer to 030 1234567, proszę o kontakt.') ],
+  analysis: { data_collection_results: { callback_phone: { value: '030 1234567' } } },
+};
+check('M nicht lost (Vertrieb mit Nummer bleibt ausgeschlossen)', w.detectLostHandoff(salesWithPhoneCall).lost === false);
+check('M Grund sales_excluded', w.detectLostHandoff(salesWithPhoneCall).reason === 'sales_excluded');
+
+// N) isUrgent erkennt "umiera" (3. Person, ohne "-j") — echter Wortlaut aus Sterbefällen
+check('N isUrgent "umiera" (3. Person)', w.isUrgent([user('Babcia umiera, potrzebny ksiądz')]) === true);
+
+// O) Agent zählt beim Sakramenten-Info "namaszczenie chorych" auf, der ANRUFER hat aber
+//    KEIN dringendes Anliegen -> isUrgent muss FALSE sein (sonst Fehlalarm-Tickets bei
+//    reinen Info-Fragen wie "Jakie sakramenty oferujecie?"). Nur Anrufer-Worte zählen.
+const sacramentInfoChat = [
+  user('Jakie sakramenty oferujecie?'),
+  agent('Oferujemy chrzest, Komunię, bierzmowanie, ślub, namaszczenie chorych i spowiedź.'),
+];
+check('O isUrgent false (nur Agent nennt "namaszczenie")', w.isUrgent(sacramentInfoChat) === false);
+check('O detectLostHandoff nicht lost (Sakramenten-Info ohne Anliegen)', w.detectLostHandoff({ transcript: sacramentInfoChat }).lost === false);
+
 // --- Extraktion ---
 // data_collection bevorzugt
 const dcConvo = { transcript: [agent('Przekażę.')], analysis: { data_collection_results: {
@@ -94,5 +155,5 @@ check('extract: Phone aus abgebrochenen Tool-Params', f2.phone === '030 223');
 const sumConvo = { transcript: [agent('Przekażę.')], analysis: { transcript_summary: 'Sprawa pogrzebu.' } };
 check('extract: concern Fallback auf Summary', w.extractTicketFields(sumConvo).concern === 'Sprawa pogrzebu.');
 
-console.log(`\n${20 - fail}/20 passed`);
+console.log(`\n${total - fail}/${total} passed`);
 process.exit(fail ? 1 : 0);
