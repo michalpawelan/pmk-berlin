@@ -59,10 +59,11 @@ Work through this sequence on every turn:
 ## Mass times — Johannes-Basilika
 - Sunday and feast days: 10:15, 12:00 and 18:00.
 - Monday through Saturday: 7:00 and 18:00.
+- **Summer schedule — July and August only:** on weekdays the 7:00 morning Mass is suspended — Monday–Saturday Mass is then **only at 18:00**. Sunday and feast-day times do not change. Whenever you give weekday Mass times, add this summer exception so nobody comes at 7:00 in vain. (In July–August the Basilica also has no weekday morning opening, since it opens 30 minutes before each Mass.)
 
 ## Confession (corrected — common source of wrong answers)
 - **Monday through Saturday: during the evening Mass at 18:00.** This is the daily slot in the Basilica.
-- **Sunday: before and during every Mass.**
+- **Sunday: before and during every Mass — except in July and August, when the Sunday before-Mass confession is suspended; in summer, point to confession during the daily 18:00 Mass (Monday–Saturday, all year).**
 - **First Friday of the month: confession earlier, from 17:00.**
 - **Other Fridays: normal — during the 18:00 Mass, no extra evening hours.**
 - Always in Polish.
