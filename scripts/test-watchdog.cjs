@@ -136,6 +136,37 @@ const sacramentInfoChat = [
 check('O isUrgent false (nur Agent nennt "namaszczenie")', w.isUrgent(sacramentInfoChat) === false);
 check('O detectLostHandoff nicht lost (Sakramenten-Info ohne Anliegen)', w.detectLostHandoff({ transcript: sacramentInfoChat }).lost === false);
 
+// === 08.07.2026: Beerdigung + "will einen Menschen" ===
+// P) Beerdigungs-Anruf ohne Nummer/Versprechen -> lost via urgent (pogrzeb = PILNE)
+const funeralCall = { transcript: [
+  user('Dzień dobry, dzwonię w sprawie pogrzebu mojej mamy, potrzebny polski ksiądz.'),
+  agent('Biuro parafialne jest czynne w poniedziałki i środy od dziesiątej do trzynastej.'),
+] };
+check('P lost (pogrzeb ohne Nummer/Versprechen)',   w.detectLostHandoff(funeralCall).lost === true);
+check('P Grund urgent_without_tool',                w.detectLostHandoff(funeralCall).reason === 'urgent_without_tool');
+check('P isUrgent true (pogrzeb)',                  w.isUrgent(funeralCall.transcript) === true);
+check('P isUrgent true (DE Beerdigung)',            w.isUrgent([user('Ich rufe wegen der Beerdigung meiner Mutter an.')]) === true);
+
+// P2) Agent nennt "pogrzeby" beim Aufzählen der Posługi, Anrufer hat KEIN Anliegen
+//     -> isUrgent muss FALSE bleiben (nur Anrufer-Worte zählen).
+const serviceInfoChat = [
+  user('Jakie posługi oferujecie?'),
+  agent('Oferujemy chrzty, śluby, pogrzeby oraz Msze Święte.'),
+];
+check('P2 isUrgent false (nur Agent nennt "pogrzeby")', w.isUrgent(serviceInfoChat) === false);
+check('P2 detectLostHandoff nicht lost',                w.detectLostHandoff({ transcript: serviceInfoChat }).lost === false);
+
+// Q) Anrufer will ausdrücklich einen Menschen, kein Anliegen/Nummer -> lost via wants_human
+const wantsHumanCall = { transcript: [
+  user('Czy mogę porozmawiać z jakąś żywą osobą, a nie z automatem?'),
+  agent('Przykro mi, jestem asystentem. Mogę spróbować pomóc.'),
+] };
+check('Q lost (żywa osoba)',                 w.detectLostHandoff(wantsHumanCall).lost === true);
+check('Q Grund wants_human_without_tool',    w.detectLostHandoff(wantsHumanCall).reason === 'wants_human_without_tool');
+check('Q wantsHuman true',                   w.wantsHuman(wantsHumanCall.transcript) === true);
+check('Q2 wantsHuman true (operator/przełącz)', w.wantsHuman([user('Proszę przełączyć mnie do operatora albo konsultanta.')]) === true);
+check('Q3 wantsHuman false (reine Info-Frage)', w.wantsHuman(infoCall.transcript) === false);
+
 // --- Extraktion ---
 // data_collection bevorzugt
 const dcConvo = { transcript: [agent('Przekażę.')], analysis: { data_collection_results: {

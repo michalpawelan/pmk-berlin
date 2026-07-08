@@ -12,7 +12,15 @@ const EL_BASE = 'https://api.elevenlabs.io/v1/convai';
 
 const HANDOFF_RE = /przekaż|przekaza[łl]|przekazu|zanotuj|notuj[ęe]|odezwie|oddzwoni|weitergeleitet|weitergegeben|leite[^.]{0,25}weiter|melden sich|notiert|i'?ll pass|pass(?:ed)? (?:it|this) on/i;
 const SALES_RE = /churchdesk|ofert\w*\s+handlow|współprac|wspolprac|reklam|w imieniu firmy|przedstawiciel handlow|sprzedaż|kooperation|werbung|vertrieb|im auftrag (?:der |des )?firma?/i;
-const URGENT_RE = /umiera|kona\b|intensywn|zagrożenie życia|zagrozenie zycia|namaszcz|ostatnie namaszczenie|reanimacj|sterbe|sterbend|stirbt|krankensalbung|letzte ölung|nie żyje|zmar[łl]/i;
+// Dringend/pastoral zeitkritisch. Beerdigung gehört ausdrücklich dazu — die
+// Ticket-Mail nennt "pogrzeb" selbst als PILNE-Beispiel, aber die Regex kannte
+// den Begriff bisher nicht (Beerdigungs-Anrufe ohne Nummer/Versprechen liefen
+// deshalb als no_signal ins Leere, 08.07.2026).
+const URGENT_RE = /umiera|kona\b|intensywn|zagrożenie życia|zagrozenie zycia|namaszcz|ostatnie namaszczenie|reanimacj|sterbe|sterbend|stirbt|krankensalbung|letzte ölung|nie żyje|zmar[łl]|pogrzeb|pochów|pochow|pochow[au]|beerdig|bestattung|trauerfeier|trauerfall/i;
+// Anrufer will ausdrücklich einen Menschen (kein Anliegen erfasst, keine Nummer,
+// kein Agent-Versprechen) — z. B. "z żywą osobą", "przełącz do operatora",
+// "mit einem Menschen". Muss trotzdem als verlorener Handoff gelten.
+const WANTS_HUMAN_RE = /żyw\w+\s+osob|z\s+(?:jakąś\s+)?(?:żywą\s+)?osobą|z\s+prawdziw|z\s+człowiek|człowieka|z\s+kimś|do\s+kogoś|przełącz|operator|konsultant|mit\s+(?:einem|einer)\s+mensch|echte[rn]?\s+person|mit\s+jemandem|mit\s+einer\s+person/i;
 
 function agentText(transcript) {
   return (transcript || []).filter(t => t && t.role === 'agent').map(t => t.message || '').join('\n');
@@ -28,6 +36,9 @@ function isSalesCall(transcript) { return SALES_RE.test(allText(transcript)); }
 // Dringlichkeit NUR aus den Worten des ANRUFERS — sonst lösen die Sakramenten-
 // Antworten des Agenten ("namaszczenie chorych") Fehlalarme bei reinen Infofragen aus.
 function isUrgent(transcript) { return URGENT_RE.test(userText(transcript)); }
+// Auch nur aus Anrufer-Worten — der Agent bietet selbst an, jemanden „zu
+// verbinden", das darf hier nicht triggern.
+function wantsHuman(transcript) { return WANTS_HUMAN_RE.test(userText(transcript)); }
 
 function hasSuccessfulZgloszenie(transcript) {
   for (const turn of (transcript || [])) {
@@ -69,6 +80,7 @@ function detectLostHandoff(convo) {
   if (handoffPromisedFlag(convo)) return { lost: true, reason: 'flag_without_tool' };
   if (hasContactCaptured(convo)) return { lost: true, reason: 'contact_without_tool' };
   if (isUrgent(t)) return { lost: true, reason: 'urgent_without_tool' };
+  if (wantsHuman(t)) return { lost: true, reason: 'wants_human_without_tool' };
   return { lost: false, reason: 'no_signal' };
 }
 
@@ -110,7 +122,7 @@ function extractTicketFields(convo) {
 module.exports = {
   detectLostHandoff, hasHandoffPromise, hasSuccessfulZgloszenie,
   handoffPromisedFlag, hasContactCaptured,
-  isSalesCall, isUrgent, isQuotaFailure, extractTicketFields,
+  isSalesCall, isUrgent, wantsHuman, isQuotaFailure, extractTicketFields,
 };
 
 // ============================================================
@@ -169,6 +181,39 @@ async function sendQuotaAlert(count) {
   return true;
 }
 
+// De-Dup-Speicher öffnen. In einem normalen Netlify-Build ist Blobs automatisch
+// konfiguriert; bei CLI-Deploys (`netlify deploy --dir`) fehlt der Auto-Kontext
+// (MissingBlobsEnvironmentError), deshalb explizit mit siteID + Token aus der
+// Umgebung verbinden. Ohne beides wirft die Funktion -> der Aufrufer pausiert
+// dann sicher (siehe Handler), statt bei jedem Lauf zu crashen.
+function openStore() {
+  const { getStore } = require('@netlify/blobs');
+  try {
+    return getStore('zgloszenie-watchdog');
+  } catch (e) {
+    const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+    const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_BLOBS_TOKEN;
+    if (siteID && token) return getStore({ name: 'zgloszenie-watchdog', siteID, token });
+    throw new Error('blobs_unconfigured: ' + (e && e.message));
+  }
+}
+
+async function sendConfigAlert(message) {
+  const user = process.env.IONOS_SMTP_USER, pass = process.env.IONOS_SMTP_PASS;
+  const to = process.env.ZGLOSZENIE_ALERT_TO || process.env.ZGLOSZENIE_TO || user;
+  if (!user || !pass || !to) return false;
+  let nodemailer; try { nodemailer = require('nodemailer'); } catch (_) { return false; }
+  const host = process.env.IONOS_SMTP_HOST || 'smtp.ionos.de';
+  const port = parseInt(process.env.IONOS_SMTP_PORT || '465', 10);
+  const transporter = nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
+  await transporter.sendMail({
+    from: 'PMK Watchdog <' + user + '>', to,
+    subject: '⚠️ PMK-Watchdog: Konfigurationsproblem',
+    text: message,
+  });
+  return true;
+}
+
 // ============================================================
 // Scheduled handler — läuft alle 15 Min auf Netlify
 // ============================================================
@@ -182,7 +227,21 @@ module.exports.handler = async () => {
   const since = Math.floor(Date.now() / 1000) - lookbackH * 3600;
 
   let store = null;
-  if (!dry) { const { getStore } = require('@netlify/blobs'); store = getStore('zgloszenie-watchdog'); }
+  if (!dry) {
+    try {
+      store = openStore();
+    } catch (e) {
+      // Ohne De-Dup-Speicher würde jeder 15-Min-Lauf dieselben verlorenen
+      // Handoffs erneut ticketen (Pfarrbüro-Spam). Daher NICHT verarbeiten,
+      // sondern gedrosselt (~1x/Tag, 06:00-Lauf) Alarm an admin@ schlagen,
+      // damit der Ausfall nicht still bleibt.
+      const now = new Date();
+      if (now.getUTCHours() === 6 && now.getUTCMinutes() < 15) {
+        try { await sendConfigAlert('Watchdog pausiert: ' + (e && e.message) + '. Bitte NETLIFY_SITE_ID + NETLIFY_API_TOKEN als Env setzen (oder via Netlify-Build deployen).'); } catch (_) {}
+      }
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'blobs_unconfigured', detail: e && e.message }) };
+    }
+  }
 
   const result = { scanned: 0, recovered: 0, failed: 0, quota: 0, skipped: 0, errors: 0, pending: 0, dry, details: [] };
   for (const [agentId, source] of Object.entries(AGENTS)) {
