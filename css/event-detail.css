@@ -412,6 +412,17 @@
   font-size: var(--text-sm);
 }
 
+/* Hinweis auf die IP-Uebermittlung — muss VOR dem Klick sichtbar sein,
+   sonst ist der Klick keine informierte Einwilligung. */
+.map-placeholder .map-consent-note {
+  margin-top: calc(var(--space-3) * -0.5);
+  padding: 0 var(--space-4);
+  max-width: 34rem;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  text-align: center;
+}
+
 .event-map iframe {
   width: 100%;
   height: 100%;
