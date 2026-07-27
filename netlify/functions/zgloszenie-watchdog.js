@@ -114,9 +114,15 @@ function extractTicketFields(convo) {
   const params = abandonedToolParams(t);
   const name = (dcValue(dc, 'caller_name') || params.name || '').toString().trim();
   const phone = (dcValue(dc, 'callback_phone') || params.phone || '').toString().trim();
+  // Seit dem Netz-AWS-Fix (17.07.2026) trägt external_number die ECHTE
+  // Anrufernummer. Wir reichen sie als caller_id mit — die zgloszenie-Function
+  // entscheidet zentral (pickPhone): diktierte Nummer vor Caller-ID, eigene
+  // PMK-Nummern und "anonymous" fallen dort automatisch raus.
+  const caller_id = ((convo && convo.metadata && convo.metadata.phone_call
+    && convo.metadata.phone_call.external_number) || '').toString().trim();
   const concern = (dcValue(dc, 'concern') || params.concern || ana.transcript_summary || '').toString().trim();
   const lang = ((convo && convo.metadata && convo.metadata.main_language) || params.lang || '').toString().toLowerCase().slice(0, 2);
-  return { name, phone, concern, urgent: isUrgent(t) || !!params.urgent, lang };
+  return { name, phone, concern, urgent: isUrgent(t) || !!params.urgent, lang, caller_id };
 }
 
 module.exports = {
@@ -157,7 +163,7 @@ async function postRecoveredTicket(fields, source, conversationId) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       name: fields.name, phone: fields.phone, concern: fields.concern,
-      urgent: fields.urgent, lang: fields.lang,
+      urgent: fields.urgent, lang: fields.lang, caller_id: fields.caller_id || '',
       source: source, recovered: true, call_link: callLink, conversation_id: conversationId,
     }),
   });

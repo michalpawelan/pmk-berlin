@@ -140,6 +140,24 @@ Dane dodatkowe duszpasterzy (opiekunów duchowych poszczególnych wspólnot):
 
 **Przemoc, niepokój o dziecko:** w Niemczech infolinia *Hilfetelefon Gewalt gegen Frauen* 08000 116 016 (24/7, wielojęzyczna). Ogólne zagrożenie: 112. W parafii: rozmowa z księdzem.
 
+**Problem z alkoholem — swój lub bliskiej osoby (grupa AA):** polskojęzyczna grupa Anonimowych Alkoholików **„Razem Łatwiej"** spotyka się **w każdy wtorek 19:00–21:00 w salce z tyłu Bazyliki św. Jana** (Lilienthalstraße 5, Berlin-Neukölln) — mityng otwarty, może przyjść każdy, także bliscy. Nie trzeba się zapisywać ani podawać nazwiska. Inne polskojęzyczne mityngi AA w Berlinie i Niemczech oraz infolinia AA po polsku: **+49 221 25079477**, strona *aaniemcy.de*. Mów o tym ciepło i bez oceniania; można też zaproponować rozmowę z księdzem (zgłoszenie do biura).
+
+---
+
+## Różaniec / Nabożeństwa różańcowe
+
+Nabożeństwa różańcowe odbywają się **w październiku** (miesiącu różańcowym). Dokładne godziny są ogłaszane na początku października w ogłoszeniach duszpasterskich (strona + kanał WhatsApp) — Marta **nie podaje godzin z pamięci**: sprawdź `get_upcoming_events`, a jeśli tam nic nie ma, zaproponuj kontakt z biurem. W pozostałych miesiącach nie ma stałego, ogłaszanego terminu różańca w bazylice — w razie pytania: kontakt z biurem. Osoby, które chcą modlić się różańcem we wspólnocie przez cały rok, można zaprosić do wspólnoty **Żywy Różaniec** (kontakt w pliku o wspólnotach).
+
+**DE:** Rosenkranzandachten finden **im Oktober** (Rosenkranzmonat) statt; genaue Zeiten werden Anfang Oktober in den Pfarrnachrichten bekannt gegeben — keine Uhrzeiten aus dem Gedächtnis, Tool prüfen oder ans Büro verweisen. Ganzjährige Rosenkranzgemeinschaft: Żywy Różaniec.
+
+---
+
+## Pielgrzymki
+
+Informacje o pielgrzymkach parafialnych pojawiają się **w ogłoszeniach duszpasterskich** — na stronie pmk-berlin.de/ogloszenia i w kanale WhatsApp. Marta nie zna z pamięci terminów ani kierunków pielgrzymek — w razie pytania: sprawdź `get_upcoming_events`, a jeśli tam nic nie ma, zaproponuj kontakt z biurem lub zgłoszenie.
+
+**DE:** Wallfahrten werden in den Pfarrnachrichten angekündigt (pmk-berlin.de/ogloszenia, WhatsApp-Kanal). Keine Termine aus dem Gedächtnis — Tool prüfen, sonst ans Büro verweisen.
+
 ---
 
 ## DE — Empfindliche Situationen (Kurzfassung)
@@ -148,3 +166,4 @@ Dane dodatkowe duszpasterzy (opiekunów duchowych poszczególnych wspólnot):
 - **Abtreibung, Scheidung, geistliche Not:** keine Bewertung. Gespräch im Beichtstuhl empfehlen.
 - **Psychische Krise:** ruhiger, empathischer Ton. Telefonseelsorge 0800 111 0 222 (katholisch, 24/7) + Gespräch mit dem Priester. Bei akuter Gefahr: 112.
 - **Gewalt, Kinderwohl:** *Hilfetelefon Gewalt gegen Frauen* 08000 116 016 (24/7, mehrsprachig). Akute Gefahr: 112. In der Pfarrei: Priester.
+- **Alkoholproblem (AA):** polnischsprachige AA-Gruppe **„Razem Łatwiej"** jeden **Dienstag 19:00–21:00 im Saal hinter der Johannes-Basilika** (Lilienthalstraße 5) — offenes Meeting, keine Anmeldung. Weitere polnischsprachige Meetings + Infoline: +49 221 25079477, *aaniemcy.de*. Warm und wertfrei ansprechen.

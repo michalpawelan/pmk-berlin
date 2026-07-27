@@ -8,7 +8,10 @@
 //
 // Erwarteter JSON-Body (alle Felder optional, aber min. eins von name/phone/concern):
 //   { "name": "...", "phone": "...", "concern": "...",
-//     "urgent": true|false, "lang": "pl"|"de", "source": "voice"|"chat" }
+//     "urgent": true|false, "lang": "pl"|"de", "source": "voice"|"chat",
+//     "caller_id": "+49157..." }  // system__caller_id aus ElevenLabs; seit dem
+//                                 // AWS-Fix (17.07.2026, *21* im Telekom-Netz)
+//                                 // ist das die ECHTE Anrufernummer
 
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
   || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
@@ -69,6 +72,20 @@ function normalizePhone(raw) {
 // Kein Einfluss auf den Netlify-Handler, der weiterhin exports.handler nutzt.
 exports.normalizePhone = normalizePhone;
 
+const USABLE_RE = /^\+\d{1,3}\s\d{6,}$/;
+
+// Rückrufnummer wählen: diktierte Nummer hat Vorrang (der Anrufer hat sie
+// bewusst bestätigt), sonst die Caller-ID. "anonymous"/Wortformen normalisieren
+// nicht zu "+…" und fallen damit automatisch raus, ebenso die eigenen Nummern.
+function pickPhone(dictatedRaw, callerIdRaw) {
+  const dictated = normalizePhone(dictatedRaw);
+  if (USABLE_RE.test(dictated)) return { phone: dictated, phone_source: 'dictated' };
+  const cid = normalizePhone(callerIdRaw);
+  if (USABLE_RE.test(cid)) return { phone: cid, phone_source: 'caller_id' };
+  return { phone: dictated, phone_source: '' };
+}
+exports.pickPhone = pickPhone;
+
 // Reine Mail-Texterzeugung (für scripts/test-zgloszenie-mail.cjs exportiert).
 // recovered=true => das Safety-Net hat dieses Anliegen aus dem Transkript
 // rekonstruiert (Tool feuerte nicht). Pfarrei MUSS Name/Nummer gegen die
@@ -90,7 +107,8 @@ function buildMail(d) {
     + recBanner
     + 'Nowe zgłoszenie przekazane przez ' + srcLabel + ':\n\n'
     + 'Imię i nazwisko: ' + (d.name || '—') + '\n'
-    + 'Telefon (oddzwonić): ' + (d.phone || '—') + '\n'
+    + 'Telefon (oddzwonić): ' + (d.phone || '—')
+    + (d.phone && d.phone_source === 'caller_id' ? ' (numer z identyfikacji połączenia)' : '') + '\n'
     + 'Język rozmowy: ' + (d.lang ? d.lang.toUpperCase() : '—') + '\n\n'
     + 'Sprawa:\n' + (d.concern || '—') + '\n\n'
     + '— Prosimy oddzwonić. Wiadomość wygenerowana automatycznie przez asystenta PMK.';
@@ -147,17 +165,17 @@ exports.handler = async (event) => {
 
   const name = String(p.name || '').trim().slice(0, 200);
   const rawPhone = String(p.phone || p.telefon || '').trim().slice(0, 60);
-  const phone = normalizePhone(rawPhone);
+  const rawCallerId = String(p.caller_id || '').trim().slice(0, 60);
+  const picked = pickPhone(rawPhone, rawCallerId);
+  const phone = picked.phone;
   const concern = String(p.concern || p.message || p.sprawa || '').trim().slice(0, 2000);
 
-  // Hat der Anrufer eine Nummer geliefert, die aber NICHT als gültige
-  // Rückrufnummer verwertbar ist (eigene PMK-Nummer, Wortform wie
-  // "dwadzieścia trzy", unparsebar)? Dann gibt normalizePhone "" oder den
-  // Rohtext zurück. Der Agent erfuhr das bisher NICHT (stiller Fehlschlag) und
-  // sagte dem Anrufer "wir rufen zurück" ohne erreichbare Nummer. phone_usable
-  // signalisiert dem Agenten, die Nummer erneut zu erfragen.
+  // Diktierte Nummer hat Vorrang; ohne verwertbare diktierte Nummer springt die
+  // Caller-ID ein (seit 17.07.2026 kommt dank Netz-AWS die echte Anrufernummer
+  // an). phone_usable=false heißt jetzt: WEDER diktiert NOCH Caller-ID
+  // verwertbar (z. B. unterdrückte Nummer + Wortform) -> Agent fragt nach.
   const phoneProvided = rawPhone.length > 0;
-  const phoneUsable = /^\+\d{1,3}\s\d{6,}$/.test(phone);
+  const phoneUsable = USABLE_RE.test(phone);
 
   // Mindestens ein verwertbares Feld
   if (!name && !phone && !concern) {
@@ -175,7 +193,7 @@ exports.handler = async (event) => {
 
   // 1) E-Mail über IONOS (echte Pfarrei-Adresse) — wenn konfiguriert.
   let mail = { sent: false, reason: 'skipped' };
-  try { mail = await sendViaIonos({ name, phone, concern, lang, source, urgent: truthy(p.urgent), recovered, call_link: callLink }); }
+  try { mail = await sendViaIonos({ name, phone, phone_source: picked.phone_source, concern, lang, source, urgent: truthy(p.urgent), recovered, call_link: callLink }); }
   catch (e) { mail = { sent: false, reason: 'smtp_error', detail: e.message }; }
 
   const form = new URLSearchParams();
@@ -211,7 +229,8 @@ exports.handler = async (event) => {
         message: 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.',
         mail,
         phone_provided: phoneProvided,
-        phone_usable: phoneUsable
+        phone_usable: phoneUsable,
+        phone_source: picked.phone_source
       };
       // Anrufer hat eine Nummer genannt, die nicht verwertbar ist -> Agent soll
       // sie erneut Ziffer für Ziffer erfragen (das Anliegen ist trotzdem erfasst).

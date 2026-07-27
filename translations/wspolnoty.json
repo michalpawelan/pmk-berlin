@@ -1136,12 +1136,16 @@
     "de": "Nehmen Sie Kontakt mit uns auf"
   },
   "wspolnota_meska.contact_leader_label": {
-    "pl": "Prowadzący / Odpowiedzialny",
-    "de": "Leitung / Verantwortlicher"
+    "pl": "Odpowiedzialny",
+    "de": "Verantwortlicher"
   },
   "wspolnota_meska.contact_leader_value": {
-    "pl": "Brak danych",
-    "de": "Keine Angaben"
+    "pl": "Tomasz Zdych",
+    "de": "Tomasz Zdych"
+  },
+  "wspolnota_meska.contact_email_label": {
+    "pl": "E-mail",
+    "de": "E-Mail"
   },
   "wspolnota_meska.contact_spiritual_label": {
     "pl": "Opieka duchowa",
