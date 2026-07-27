@@ -122,7 +122,13 @@
       if (b && b.t === 'img' && b.u) {
         const raw = String(b.u);
         const m = raw.match(/\/d\/([a-zA-Z0-9_-]+)/) || raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        const url = m ? ('https://lh3.googleusercontent.com/d/' + m[1] + '=w1200') : raw;
+        // Ueber den eigenen Bild-Proxy, damit beim Besucher kein direkter
+        // Google-Request (IP-Uebermittlung) entsteht.
+        // Fremde absolute URLs werden verworfen statt durchgereicht — sonst laedt
+        // der Browser des Besuchers doch wieder direkt bei einem Dritten.
+        const url = m ? ('/.netlify/functions/img?id=' + encodeURIComponent(m[1]) + '&w=1200')
+                      : (/^https?:\/\//i.test(raw) ? '' : raw);
+        if (!url) return '';
         // The image is shown at its natural aspect ratio (never cropped), mounted on a
         // clean card (rounded + soft shadow) by .ogloszenia-img-block in ogloszenia.html.
         return '<img class="ogloszenia-img-block" src="' + escapeHTML(url) + '" alt="Plakat ogłoszeń parafialnych" loading="lazy" decoding="async">';

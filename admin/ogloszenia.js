@@ -38,10 +38,12 @@ const Ogloszenia = (function() {
     return d.toLocaleDateString('pl-PL', { day: '2-digit', month: 'short', year: 'numeric' });
   }
 
+  // Bilder ueber den eigenen Proxy (/.netlify/functions/img) laden statt direkt
+  // von Google — dieselbe Logik wie auf der oeffentlichen Seite.
   function convertDriveUrl(url) {
     if (!url) return '';
     const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-    if (match) return 'https://lh3.googleusercontent.com/d/' + match[1] + '=w400';
+    if (match) return '/.netlify/functions/img?id=' + encodeURIComponent(match[1]) + '&w=400';
     return url;
   }
 

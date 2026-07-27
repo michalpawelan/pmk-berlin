@@ -149,15 +149,18 @@ const EventsManager = (function() {
     }
   }
 
-  // Google Drive Links in direkte Bild-URLs umwandeln
+  // Google Drive Links in Bild-URLs des eigenen Proxys umwandeln
+  // (kein direkter Google-Request beim Besucher, DSGVO).
   function convertGoogleDriveUrl(url) {
     if (!url) return '';
     const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
                        url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
     if (driveMatch) {
-      return `https://lh3.googleusercontent.com/d/${driveMatch[1]}=w800`;
+      return `/.netlify/functions/img?id=${encodeURIComponent(driveMatch[1])}&w=800`;
     }
-    return url;
+    // Fremde absolute URLs werden verworfen statt durchgereicht — sonst laedt
+    // der Browser des Besuchers doch wieder direkt bei einem Dritten.
+    return /^https?:\/\//i.test(url) ? '' : url;
   }
 
   // ============================================

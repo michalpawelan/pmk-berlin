@@ -160,20 +160,22 @@
   // Sheet columns: A=id, B=title, C=body, D=image_url, E=published_at,
   //                F=expires_at, G=published (TAK/NIE).
   // If no current ogłoszenie or fetch fails: section stays hidden, no flicker.
-  // localStorage cache helpers — stale-while-revalidate. All wrapped so private
-  // mode / disabled storage never throws.
+  // In-Memory-Cache (stale-while-revalidate innerhalb EINES Seitenaufrufs).
+  // Bewusst KEIN localStorage: nach § 25 TDDDG waere ein Speichern auf dem
+  // Geraet des Besuchers einwilligungspflichtig. Der Cache lebt nur solange
+  // die Seite offen ist und verschwindet mit ihr.
+  const memCache = Object.create(null);
   function readCache(key) {
-    try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; }
-    catch (e) { return null; }
+    return Object.prototype.hasOwnProperty.call(memCache, key) ? memCache[key] : null;
   }
   function writeCache(key, val) {
-    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* ignore */ }
+    memCache[key] = val;
   }
   function removeCache(key) {
-    try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+    delete memCache[key];
   }
-  const OGLOSZENIE_CACHE_KEY = 'pmk-ogloszenie-v1';
-  const EVENTS_CACHE_KEY = 'pmk-events-v1';
+  const OGLOSZENIE_CACHE_KEY = 'ogloszenie';
+  const EVENTS_CACHE_KEY = 'events';
 
   // Populate + reveal the homepage strip from a plain { title, publishedAtISO } object.
   // Used both for the instant cache paint and the fresh network result.
@@ -384,15 +386,20 @@
         if (!dateStr && rawVal) dateStr = String(rawVal);
       }
 
-      // Bild-URL (Spalte E) - Google Drive URLs konvertieren
+      // Bild-URL (Spalte E) - Google Drive URLs ueber den eigenen Bild-Proxy
+      // ausliefern (kein direkter Google-Request beim Besucher, DSGVO).
       const imgUrl = val(4);
       let imageUrl = '';
       if (imgUrl) {
         const driveMatch = imgUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
                            imgUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        // Fremde absolute URLs werden bewusst VERWORFEN statt durchgereicht:
+        // sonst laedt der Browser des Besuchers doch wieder direkt bei einem
+        // Dritten (IP-Uebermittlung ohne Einwilligung). Eigene relative Pfade
+        // bleiben erlaubt; alles andere faellt auf den Platzhalter zurueck.
         imageUrl = driveMatch
-          ? `https://lh3.googleusercontent.com/d/${driveMatch[1]}=w800`
-          : imgUrl;
+          ? `/.netlify/functions/img?id=${encodeURIComponent(driveMatch[1])}&w=800`
+          : (/^https?:\/\//i.test(imgUrl) ? '' : imgUrl);
       }
 
       // ID aus Titel generieren (slug)

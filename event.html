@@ -269,8 +269,8 @@
         </div>
         <div class="footer-nav-group">
           <h4 data-i18n="footer.info_title">Informacje</h4>
-          <a href="impressum">Impressum</a>
-          <a href="datenschutz">Datenschutz</a>
+          <a href="nota-prawna">Nota prawna</a>
+          <a href="polityka-prywatnosci">Polityka prywatności</a>
           <a href="schutzkonzept">Schutzkonzept</a>
         </div>
       </nav>
@@ -297,8 +297,9 @@
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
+  <p class="footer-newsletter-consent" data-i18n="footer.newsletter_consent">Zapisując się, wyrażasz zgodę na przetwarzanie swojego adresu e-mail w celu wysyłki newslettera parafii. Zgodę możesz cofnąć w każdej chwili.</p>
   <p class="footer-newsletter-legal">
-    <a href="/datenschutz" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
+    <a href="/polityka-prywatnosci" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
   </p>
 </div>
 <!-- END newsletter-footer -->
@@ -323,29 +324,19 @@ document.addEventListener('DOMContentLoaded', async function() {
     return;
   }
 
-  // 1. Instant paint from the homepage's shared events cache (pmk-events-v1).
-  //    The cached event objects have the exact same shape renderEvent expects,
-  //    so arriving from the homepage shows the event immediately — no long spinner.
-  let painted = false;
-  try {
-    const cached = JSON.parse(localStorage.getItem('pmk-events-v1') || 'null');
-    if (Array.isArray(cached)) {
-      const hit = cached.find(e => e && e.id === eventId);
-      if (hit) { renderEvent(hit); painted = true; }
-    }
-  } catch (e) { /* ignore — fall through to network */ }
-
-  // 2. Revalidate from the live source. Only render/error here if the cache
-  //    didn't already paint (avoids re-running renderEvent's one-time setup).
+  // Kein geraetegebundener Cache mehr (§ 25 TDDDG: localStorage waere
+  // einwilligungspflichtig). Das Event wird direkt aus der Live-Quelle geladen;
+  // bis dahin zeigt die Seite ihren Spinner.
   try {
     const event = await EventsManager.getEventById(eventId);
     if (event) {
-      if (!painted) renderEvent(event);
-    } else if (!painted) {
+      renderEvent(event);
+    } else {
       showError();
     }
   } catch (error) {
-    if (!painted) { console.error('Fehler beim Laden:', error); showError(); }
+    console.error('Fehler beim Laden:', error);
+    showError();
   }
 });
 

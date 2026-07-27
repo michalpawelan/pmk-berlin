@@ -20,7 +20,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://identity.netlify.com https://unpkg.com https://esm.sh https://*.elevenlabs.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https://*.elevenlabs.io; connect-src 'self' https://identity.netlify.com https://script.google.com https://script.googleusercontent.com https://esm.sh https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io; frame-src https://identity.netlify.com https://maps.google.com https://www.google.com https://*.elevenlabs.io; worker-src 'self' blob:; object-src 'none'; base-uri 'self'"
+    # Bewusst eng gehalten: Schriften liegen selbst gehostet unter /fonts (keine
+    # Google-Fonts-Hosts noetig), unpkg wird nirgends verwendet, und img-src laesst
+    # keine fremden Hosts mehr zu — Veranstaltungsbilder laufen ueber den eigenen
+    # Proxy /.netlify/functions/img. Damit kann auch ein versehentlich in die
+    # Tabelle eingetragener Fremdlink keine Besucher-IP mehr an Dritte schicken.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://identity.netlify.com https://esm.sh https://*.elevenlabs.io; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: https://*.elevenlabs.io; connect-src 'self' https://identity.netlify.com https://script.google.com https://script.googleusercontent.com https://esm.sh https://*.elevenlabs.io wss://*.elevenlabs.io wss://api.us.elevenlabs.io; frame-src https://identity.netlify.com https://maps.google.com https://www.google.com https://*.elevenlabs.io; worker-src 'self' blob:; object-src 'none'; base-uri 'self'"
 
 # ============================================
 # CORS und Caching fuer die API
@@ -30,6 +35,14 @@
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Cache-Control = "public, no-cache"
+
+# Bild-Proxy: liefert Drive-Bilder ueber die eigene Domain aus (kein direkter
+# Google-Request beim Besucher). Bilder sind pro id+w unveraenderlich, deshalb
+# hier bewusst lange cachen statt der no-cache-Regel oben.
+[[headers]]
+  for = "/.netlify/functions/img"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
 
 # ============================================
 # Caching: Statische Assets (Bilder, Fonts)
@@ -422,6 +435,12 @@
   force = true
 
 [[redirects]]
+  from = "/nota-prawna.html"
+  to = "/nota-prawna"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/ogloszenia.html"
   to = "/ogloszenia"
   status = 301
@@ -769,6 +788,41 @@
 
 [[redirects]]
   from = "/netlify.toml"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Interne Quelldateien, die durch publish="." mitgehen, zur Laufzeit aber NICHT
+# gebraucht werden: die Wissensbasis der KI-Assistentin, die Uebersetzungs-
+# tabellen, die HTML-Bausteine und die Build-Skripte. Sie waren oeffentlich
+# lesbar (200), obwohl der Agenten-Prompt daneben bewusst geblockt ist.
+# events.json bleibt bewusst erreichbar — main.js und events-manager.js laden es.
+[[redirects]]
+  from = "/knowledge-base/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/translations/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/components/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.superpowers/*"
   to = "/404.html"
   status = 404
   force = true

@@ -311,12 +311,13 @@
   <h4>Bleiben Sie auf dem Laufenden</h4>
   <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Vorname">
-    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Imię / Vorname">
+    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn">Anmelden</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
+  <p class="footer-newsletter-consent">Mit der Anmeldung willigen Sie in die Verarbeitung Ihrer E-Mail-Adresse zum Versand des Pfarr-Newsletters ein. Sie können die Einwilligung jederzeit widerrufen.</p>
   <p class="footer-newsletter-legal">
     <a href="/datenschutz">Datenschutzhinweis</a>
   </p>
@@ -343,29 +344,19 @@ document.addEventListener('DOMContentLoaded', async function() {
     return;
   }
 
-  // 1. Instant paint from the homepage's shared events cache (pmk-events-v1).
-  //    The cached event objects have the exact same shape renderEvent expects,
-  //    so arriving from the homepage shows the event immediately — no long spinner.
-  let painted = false;
-  try {
-    const cached = JSON.parse(localStorage.getItem('pmk-events-v1') || 'null');
-    if (Array.isArray(cached)) {
-      const hit = cached.find(e => e && e.id === eventId);
-      if (hit) { renderEvent(hit); painted = true; }
-    }
-  } catch (e) { /* ignore — fall through to network */ }
-
-  // 2. Revalidate from the live source. Only render/error here if the cache
-  //    didn't already paint (avoids re-running renderEvent's one-time setup).
+  // Kein geraetegebundener Cache mehr (§ 25 TDDDG: localStorage waere
+  // einwilligungspflichtig). Das Event wird direkt aus der Live-Quelle geladen;
+  // bis dahin zeigt die Seite ihren Spinner.
   try {
     const event = await EventsManager.getEventById(eventId);
     if (event) {
-      if (!painted) renderEvent(event);
-    } else if (!painted) {
+      renderEvent(event);
+    } else {
       showError();
     }
   } catch (error) {
-    if (!painted) { console.error('Fehler beim Laden:', error); showError(); }
+    console.error('Fehler beim Laden:', error);
+    showError();
   }
 });
 
