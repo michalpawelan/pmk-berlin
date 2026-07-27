@@ -38,16 +38,19 @@ const I18N = {
   pl: {
     launcher_title: 'Masz pytania?',
     launcher_sub: 'Napisz do nas',
-    teaser: 'Szczęść Boże! 🙏 Pomogę w sprawie Mszy, sakramentów czy wydarzeń?',
+    teaser: 'Szczęść Boże! 🙏 Tu Marta, asystentka AI. Pomogę w sprawie Mszy, sakramentów czy wydarzeń?',
     header_name: 'Marta',
-    header_role: 'Wirtualna asystentka · PMK Berlin',
+    header_role: 'Asystentka AI · PMK Berlin',
     close: 'Zamknij',
     call_tooltip: 'Zadzwoń do parafii',
     input_placeholder: 'Napisz wiadomość…',
     send: 'Wyślij',
     connecting: 'Łączę…',
     connection_error: 'Chwilowy problem z połączeniem. Napisz jeszcze raz albo zadzwoń.',
-    greeting: 'Szczęść Boże! Jestem Marta z Polskiej Misji Katolickiej w Berlinie. Pomogę Ci w sprawie Mszy Świętych, sakramentów, wydarzeń i kontaktu z parafią — w czym mogę pomóc?',
+    greeting: 'Szczęść Boże! Jestem Marta, asystentka cyfrowa (AI) Polskiej Misji Katolickiej w Berlinie. Pomogę Ci w sprawie Mszy Świętych, sakramentów, wydarzeń i kontaktu z parafią — w czym mogę pomóc?',
+    disclaimer: 'Asystent AI — Twoje wiadomości przetwarzamy, by odpowiedzieć. Nie podawaj danych wrażliwych (zdrowie, spowiedź/duszpasterstwo).',
+    privacy_label: 'Polityka prywatności',
+    privacy_href: '/polityka-prywatnosci',
     chips_title: 'Popularne pytania',
     chips: [
       { icon: '⛪', label: 'Msze Święte',  text: 'Kiedy są Msze Święte?' },
@@ -61,16 +64,19 @@ const I18N = {
   de: {
     launcher_title: 'Haben Sie Fragen?',
     launcher_sub: 'Schreiben Sie uns',
-    teaser: 'Grüß Gott! 🙏 Fragen zu Messen, Sakramenten oder Terminen?',
+    teaser: 'Grüß Gott! 🙏 Marta hier, die KI-Assistentin. Fragen zu Messen, Sakramenten oder Terminen?',
     header_name: 'Marta',
-    header_role: 'Virtuelle Assistentin · PMK Berlin',
+    header_role: 'KI-Assistentin · PMK Berlin',
     close: 'Schließen',
     call_tooltip: 'Die Pfarrei anrufen',
     input_placeholder: 'Nachricht schreiben…',
     send: 'Senden',
     connecting: 'Verbinde…',
     connection_error: 'Vorübergehender Verbindungsfehler. Bitte erneut versuchen oder anrufen.',
-    greeting: 'Grüß Gott! Ich bin Marta von der Polnischen Katholischen Mission in Berlin. Ich helfe bei Fragen zu Messen, Sakramenten, Veranstaltungen und Kontakt — wie kann ich helfen?',
+    greeting: 'Grüß Gott! Ich bin Marta, die digitale Assistentin (KI) der Polnischen Katholischen Mission in Berlin. Ich helfe bei Fragen zu Messen, Sakramenten, Veranstaltungen und Kontakt — wie kann ich helfen?',
+    disclaimer: 'KI-Assistent — Ihre Eingaben werden zur Beantwortung verarbeitet. Bitte keine sensiblen Angaben (Gesundheit, Beichte/Seelsorge).',
+    privacy_label: 'Datenschutzerklärung',
+    privacy_href: '/datenschutz',
     chips_title: 'Häufige Fragen',
     chips: [
       { icon: '⛪', label: 'Messzeiten',       text: 'Wann sind die Messen?' },
@@ -84,16 +90,19 @@ const I18N = {
   en: {
     launcher_title: 'Any questions?',
     launcher_sub: 'Message us',
-    teaser: 'Hello! 🙏 Questions about Mass, sacraments or events?',
+    teaser: 'Hello! 🙏 Marta here, the AI assistant. Questions about Mass, sacraments or events?',
     header_name: 'Marta',
-    header_role: 'Virtual assistant · PMK Berlin',
+    header_role: 'AI assistant · PMK Berlin',
     close: 'Close',
     call_tooltip: 'Call the parish',
     input_placeholder: 'Type a message…',
     send: 'Send',
     connecting: 'Connecting…',
     connection_error: 'Temporary connection issue. Please try again or call us.',
-    greeting: 'Hello! I\'m Marta from the Polish Catholic Mission in Berlin. I can help with Mass times, sacraments, events and contacting the parish — how can I help?',
+    greeting: 'Hello! I\'m Marta, the digital (AI) assistant of the Polish Catholic Mission in Berlin. I can help with Mass times, sacraments, events and contacting the parish — how can I help?',
+    disclaimer: 'AI assistant — your messages are processed to answer them. Please do not enter sensitive details (health, confession/pastoral care).',
+    privacy_label: 'Privacy policy',
+    privacy_href: '/polityka-prywatnosci',
     chips_title: 'Common questions',
     chips: [
       { icon: '⛪', label: 'Mass times',    text: 'When are the Masses?' },
@@ -506,12 +515,37 @@ const CSS = `
 
   /* Input */
   .pmk-footer {
+    flex: 0 0 auto;
     border-top: 1px solid var(--pmk-border-soft);
     background: #ffffff;
     padding: 10px 10px 10px 16px;
     display: flex; align-items: center;
     gap: 8px;
   }
+
+  /* KI-Kennzeichnung + Datenschutz (EU AI Act Art. 50 / Art. 13 DSGVO).
+     Sitzt als eigener Flex-Streifen UNTER dem Eingabefeld: scrollt nicht mit der
+     Nachrichtenliste (die bleibt .pmk-body mit flex:1) und verdeckt nichts. */
+  .pmk-disclaimer {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 8px 16px 10px;
+    background: #ffffff;
+    border-top: 1px solid var(--pmk-border-soft);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--pmk-ink-soft);
+    text-align: center;
+    text-wrap: pretty;
+  }
+  .pmk-disclaimer a {
+    color: var(--pmk-gold-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+  .pmk-disclaimer a:hover { color: var(--pmk-ink); }
+  .pmk-disclaimer a:focus-visible { outline: 2px solid var(--pmk-gold); outline-offset: 2px; border-radius: 3px; }
   .pmk-input {
     flex: 1;
     border: none;
@@ -713,7 +747,15 @@ function buildPanel() {
     '<form class="pmk-footer" id="pmkForm">' +
       '<textarea class="pmk-input" id="pmkInput" rows="1" placeholder="' + t('input_placeholder') + '" aria-label="' + t('input_placeholder') + '"></textarea>' +
       '<button type="submit" class="pmk-send-btn" id="pmkSend" aria-label="' + t('send') + '" disabled>' + ICON_SEND + '</button>' +
-    '</form>';
+    '</form>' +
+    // KI-Kennzeichnung (EU AI Act Art. 50 Abs. 1) + Datenschutz-Hinweis (Art. 13 DSGVO).
+    // Bewusst NICHT aria-hidden — der Hinweis muss auch für Screenreader lesbar sein.
+    '<p class="pmk-disclaimer" id="pmkDisclaimer">' +
+      escapeHTML(t('disclaimer')) + ' ' +
+      '<a href="' + escapeHTML(t('privacy_href')) + '" target="_blank" rel="noopener">' +
+        escapeHTML(t('privacy_label')) +
+      '</a>' +
+    '</p>';
   document.body.appendChild(panel);
   panel.inert = true; // geschlossen: nicht fokussierbar / nicht im Tab-Fluss (a11y)
 
