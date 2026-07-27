@@ -325,8 +325,9 @@
     .donate-thanks-card {
       background: var(--color-surface, #fff);
       border: 1px solid var(--color-border, #e5e0d8);
-      border-radius: var(--radius-lg, 12px);
-      padding: var(--space-8) var(--space-7);
+      border-radius: var(--radius-2xl, 1.5rem);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      padding: var(--space-8);
     }
     .donate-thanks-card h2 {
       font-family: var(--font-serif);
@@ -642,12 +643,13 @@
   <h4>Bleiben Sie auf dem Laufenden</h4>
   <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Vorname">
-    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Imię / Vorname">
+    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn">Anmelden</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
+  <p class="footer-newsletter-consent">Mit der Anmeldung willigen Sie in die Verarbeitung Ihrer E-Mail-Adresse zum Versand des Pfarr-Newsletters ein. Sie können die Einwilligung jederzeit widerrufen.</p>
   <p class="footer-newsletter-legal">
     <a href="/datenschutz">Datenschutzhinweis</a>
   </p>

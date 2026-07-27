@@ -95,6 +95,10 @@
     "pl": "Newsletter parafii — informacje o wydarzeniach, ogłoszenia.",
     "de": "Pfarr-Newsletter — Veranstaltungen, Ankündigungen."
   },
+  "footer.newsletter_consent": {
+    "pl": "Zapisując się, wyrażasz zgodę na przetwarzanie swojego adresu e-mail w celu wysyłki newslettera parafii. Zgodę możesz cofnąć w każdej chwili.",
+    "de": "Mit der Anmeldung willigen Sie in die Verarbeitung Ihrer E-Mail-Adresse zum Versand des Pfarr-Newsletters ein. Sie können die Einwilligung jederzeit widerrufen."
+  },
   "footer.newsletter_placeholder": {
     "pl": "twój e-mail",
     "de": "Ihre E-Mail"

@@ -45,8 +45,7 @@
   <meta name="ICBM" content="52.48762, 13.40901">
 
   <!-- Performance: Preconnect & Preload -->
-  <link rel="preconnect" href="https://docs.google.com">
-  <link rel="dns-prefetch" href="https://lh3.googleusercontent.com">
+  <!-- Google-Hosts entfernt: Sheets/Bilder laufen ueber eigene Netlify-Functions (DSGVO, kein Drittanbieter-Request) -->
   <link rel="preload" href="styles.css" as="style">
   <link rel="preload" href="main.js" as="script">
 
@@ -411,10 +410,7 @@
   </div>
 </section>
 
-<!-- WhatsApp channel CTA band — TEMPORARILY HIDDEN (2026-06-11).
-     The WhatsApp channel is not live yet (goes live next week). Re-enable by
-     un-commenting this whole <section>. Channel link + i18n keys are intact. -->
-<!--
+<!-- WhatsApp channel CTA band -->
 <section class="section section-events section-upcoming" id="wydarzenia">
   <div class="section-container">
     <div class="events-footer">
@@ -433,7 +429,6 @@
     </div>
   </div>
 </section>
--->
 
 <!-- Mass Schedule Section -->
 <section class="section section-dark section-mass-bg" id="messzeiten">
@@ -1160,8 +1155,8 @@
         </div>
         <div class="footer-nav-group">
           <h4 data-i18n="index.footer.info_title">Informacje</h4>
-          <a href="impressum">Impressum</a>
-          <a href="datenschutz">Datenschutz</a>
+          <a href="nota-prawna">Nota prawna</a>
+          <a href="polityka-prywatnosci">Polityka prywatności</a>
           <a href="schutzkonzept">Schutzkonzept</a>
           <a href="/de/" hreflang="de" lang="de" data-lang="de">Auf Deutsch</a>
         </div>
@@ -1189,8 +1184,9 @@
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
+  <p class="footer-newsletter-consent" data-i18n="footer.newsletter_consent">Zapisując się, wyrażasz zgodę na przetwarzanie swojego adresu e-mail w celu wysyłki newslettera parafii. Zgodę możesz cofnąć w każdej chwili.</p>
   <p class="footer-newsletter-legal">
-    <a href="/datenschutz" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
+    <a href="/polityka-prywatnosci" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
   </p>
 </div>
 <!-- END newsletter-footer -->

@@ -29,6 +29,7 @@ const DE_PENDANT = {
   'event.html': '/de/veranstaltung.html',
   'ogloszenia.html': '/de/ogloszenia.html',
   'polityka-prywatnosci.html': '/datenschutz.html',
+  'nota-prawna.html': '/impressum.html',
   // Wspólnoty 1:1
   ...Object.fromEntries([
     'apostolstwo', 'domowy-kosciol', 'grono-dzieci-maryi', 'grupa-kobiet', 'grupa-meska',
@@ -38,10 +39,10 @@ const DE_PENDANT = {
 };
 
 // Deutschsprachige Root-Seiten (Rechtstexte): DE ist hier die Eigensprache.
-// PL-Pendant nur für Datenschutz vorhanden.
+// PL-Pendant für Datenschutz und Impressum vorhanden, für Schutzkonzept nicht.
 const GERMAN_ROOT = {
   'datenschutz.html': '/polityka-prywatnosci.html',
-  'impressum.html': null,
+  'impressum.html': '/nota-prawna.html',
   'schutzkonzept.html': null,
 };
 

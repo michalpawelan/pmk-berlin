@@ -41,6 +41,7 @@ const LINK_MAP = {
   'event.html': '/de/veranstaltung.html',
   'ogloszenia.html': '/de/ogloszenia.html',
   'polityka-prywatnosci.html': '/datenschutz.html',
+  'nota-prawna.html': '/impressum.html',
   'wspolnota-apostolstwo.html': '/de/wspolnota-apostolstwo.html',
   'wspolnota-domowy-kosciol.html': '/de/wspolnota-domowy-kosciol.html',
   'wspolnota-grono-dzieci-maryi.html': '/de/wspolnota-grono-dzieci-maryi.html',
@@ -54,6 +55,21 @@ const LINK_MAP = {
   'wspolnota-sne.html': '/de/wspolnota-sne.html',
   'wspolnota-zywy-rozaniec.html': '/de/wspolnota-zywy-rozaniec.html',
 };
+
+// Seit der Clean-URL-Umstellung verlinken die PL-Quellen ohne „.html"
+// (href="polityka-prywatnosci" statt href="polityka-prywatnosci.html"). Die
+// Tabelle oben kennt aber nur .html-Schluessel — ein Generatorlauf haette
+// deshalb DE-Seiten auf die POLNISCHEN Ziele zeigen lassen (in der Sandbox
+// reproduziert: >Datenschutz</a> mit href="/polityka-prywatnosci").
+// Darum jeden Eintrag zusaetzlich in der endungslosen Form ableiten.
+for (const [from, to] of Object.entries({ ...LINK_MAP })) {
+  if (!from.endsWith('.html')) continue;
+  const fromClean = from.slice(0, -5);
+  const toClean = to.endsWith('/index.html') ? to.slice(0, -'index.html'.length)
+                : to.endsWith('.html') ? to.slice(0, -5)
+                : to;
+  if (LINK_MAP[fromClean] === undefined) LINK_MAP[fromClean] = toClean;
+}
 
 const SITE = 'https://www.pmk-berlin.de';
 
@@ -273,6 +289,10 @@ const FIXED_STRINGS = [
   ['<label>Wiadomość<br>', '<label>Nachricht<br>'],
   ['<button type="submit">Wyślij</button>', '<button type="submit">Absenden</button>'],
   ['content="Polska Misja Katolicka w Berlinie"', 'content="Polnische Katholische Mission Berlin"'],
+  // Footer-Rechtslinks: die PL-Quelle sagt „Nota prawna" bzw. „Polityka prywatności",
+  // die DE-Seite verlinkt /impressum bzw. /datenschutz (Ziele via LINK_MAP).
+  ['>Nota prawna</a>', '>Impressum</a>'],
+  ['>Polityka prywatności</a>', '>Datenschutz</a>'],
   // Sichtbare PL-Reste ohne data-i18n (alt-Texte, Anreden)
   ['alt="Cudowny Medalik – emblemat Grona Dzieci Maryi"', 'alt="Wundertätige Medaille – Emblem der Marienkinder"'],
   ['alt="Emblemat Grupa Męska"', 'alt="Emblem der Männergruppe"'],

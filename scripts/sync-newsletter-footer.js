@@ -29,16 +29,63 @@ function walk(dir) {
   return out;
 }
 
+// --- Deutsche Variante -------------------------------------------------------
+// Das Snippet ist polnisch (Hauptsprache). Seiten unter /de/ liegen fertig
+// eingedeutscht vor — dort darf der Sync nicht den polnischen Text hineinschreiben.
+// Wir erzeugen die deutsche Fassung genauso, wie es germanize-de.mjs tut:
+// Texte aus translations/common.json einsetzen, PL-Links auf die DE-Entsprechung
+// mappen und die data-i18n-Attribute entfernen.
+const dict = JSON.parse(fs.readFileSync(path.join(ROOT, 'translations/common.json'), 'utf8'));
+const DE_LINK_MAP = { '/polityka-prywatnosci': '/datenschutz', '/nota-prawna': '/impressum' };
+
+function germanize(html) {
+  let out = html;
+  // <tag data-i18n="key">…</tag> -> deutscher Text
+  out = out.replace(/(<([a-z0-9]+)\b[^>]*\bdata-i18n="([^"]+)"[^>]*>)([\s\S]*?)(<\/\2>)/gi,
+    (m, open, tag, key, _body, close) => {
+      const de = dict[key] && dict[key].de;
+      return de ? open + de + close : m;
+    });
+  // data-i18n-attr="placeholder:key" -> deutsches placeholder-Attribut
+  out = out.replace(/<[^>]*\bdata-i18n-attr="([^"]+)"[^>]*>/gi, (tagStr) => {
+    const spec = /data-i18n-attr="([^"]+)"/.exec(tagStr)[1];
+    return spec.split(';').reduce((s, pair) => {
+      const [attr, key] = pair.split(':');
+      const de = dict[key] && dict[key].de;
+      if (!attr || !de) return s;
+      return s.replace(new RegExp(`\\b${attr}="[^"]*"`), `${attr}="${de}"`);
+    }, tagStr);
+  });
+  // Links auf die deutschen Entsprechungen
+  for (const [pl, de] of Object.entries(DE_LINK_MAP)) {
+    out = out.split(`href="${pl}"`).join(`href="${de}"`);
+  }
+  // i18n-Marker entfernen (die DE-Seiten laden kein i18n.js mehr)
+  out = out.replace(/\s+data-i18n(-html|-attr)?="[^"]*"/g, '');
+  return out;
+}
+
+const snippetDe = germanize(snippet);
+
+// --dry zeigt nur, was passieren wuerde (und die erzeugte deutsche Fassung).
+const DRY = process.argv.includes('--dry');
+if (DRY) {
+  console.log('--- deutsche Fassung, die in /de/ geschrieben wuerde ---');
+  console.log(snippetDe);
+  console.log('---\n');
+}
+
 let updated = 0, unchanged = 0, noBlock = 0;
 
 for (const file of walk(ROOT)) {
   const txt = fs.readFileSync(file, 'utf8');
   if (!BLOCK_RE.test(txt)) { noBlock++; continue; }
-  const next = txt.replace(BLOCK_RE, snippet);
+  const isGerman = path.relative(ROOT, file).split(path.sep)[0] === 'de';
+  const next = txt.replace(BLOCK_RE, isGerman ? snippetDe : snippet);
   if (next === txt) { unchanged++; continue; }
-  fs.writeFileSync(file, next, 'utf8');
+  if (!DRY) fs.writeFileSync(file, next, 'utf8');
   updated++;
-  console.log('updated:', path.relative(ROOT, file));
+  console.log(`${DRY ? 'would update' : 'updated'}:`, path.relative(ROOT, file));
 }
 
 console.log(`\nDone. updated=${updated}, unchanged=${unchanged}, no_block=${noBlock}`);

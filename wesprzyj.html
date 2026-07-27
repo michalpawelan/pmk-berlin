@@ -313,8 +313,9 @@
     .donate-thanks-card {
       background: var(--color-surface, #fff);
       border: 1px solid var(--color-border, #e5e0d8);
-      border-radius: var(--radius-lg, 12px);
-      padding: var(--space-8) var(--space-7);
+      border-radius: var(--radius-2xl, 1.5rem);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      padding: var(--space-8);
     }
     .donate-thanks-card h2 {
       font-family: var(--font-serif);
@@ -614,8 +615,8 @@
         </div>
         <div class="footer-nav-group">
           <h4 data-i18n="footer.info_title">Informacje</h4>
-          <a href="impressum">Impressum</a>
-          <a href="datenschutz">Datenschutz</a>
+          <a href="nota-prawna">Nota prawna</a>
+          <a href="polityka-prywatnosci">Polityka prywatności</a>
           <a href="schutzkonzept">Schutzkonzept</a>
         </div>
       </nav>
@@ -632,8 +633,9 @@
     <button type="submit" class="footer-newsletter-btn" data-i18n="footer.newsletter_submit">Zapisz mnie</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
+  <p class="footer-newsletter-consent" data-i18n="footer.newsletter_consent">Zapisując się, wyrażasz zgodę na przetwarzanie swojego adresu e-mail w celu wysyłki newslettera parafii. Zgodę możesz cofnąć w każdej chwili.</p>
   <p class="footer-newsletter-legal">
-    <a href="/datenschutz" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
+    <a href="/polityka-prywatnosci" data-i18n="footer.newsletter_legal">Informacja o ochronie danych</a>
   </p>
 </div>
 <!-- END newsletter-footer -->

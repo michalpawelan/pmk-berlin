@@ -622,8 +622,15 @@
           <div class="group-contact-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
             <div>
-              <div class="label">Leitung / Verantwortlicher</div>
-              <div class="value">Keine Angaben</div>
+              <div class="label">Verantwortlicher</div>
+              <div class="value">Tomasz Zdych</div>
+            </div>
+          </div>
+          <div class="group-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <div class="label">E-Mail</div>
+              <div class="value"><a href="mailto:mezczyzni@pmk.berlin">mezczyzni@pmk.berlin</a></div>
             </div>
           </div>
           <div class="group-contact-item">
@@ -747,12 +754,13 @@
   <h4>Bleiben Sie auf dem Laufenden</h4>
   <p>Pfarr-Newsletter — Veranstaltungen, Ankündigungen.</p>
   <form class="footer-newsletter-form" onsubmit="return PmkNewsletter.submit(event, this)">
-    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Vorname">
-    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="E-Mail-Adresse">
+    <input type="text" name="firstName" maxlength="60" autocomplete="given-name" placeholder="Vorname (optional)" class="footer-newsletter-input" aria-label="Imię / Vorname">
+    <input type="email" name="email" required placeholder="Ihre E-Mail" class="footer-newsletter-input" aria-label="Adres e-mail / E-Mail-Adresse">
     <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
     <button type="submit" class="footer-newsletter-btn">Anmelden</button>
     <p class="footer-newsletter-msg" hidden></p>
   </form>
+  <p class="footer-newsletter-consent">Mit der Anmeldung willigen Sie in die Verarbeitung Ihrer E-Mail-Adresse zum Versand des Pfarr-Newsletters ein. Sie können die Einwilligung jederzeit widerrufen.</p>
   <p class="footer-newsletter-legal">
     <a href="/datenschutz">Datenschutzhinweis</a>
   </p>

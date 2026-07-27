@@ -358,10 +358,22 @@
   <!-- Rechtliches (Pflichtangaben, DE)              -->
   <!-- ============================================ -->
   <url>
-    <loc>https://www.pmk-berlin.de/impressum</loc>
-    <lastmod>2026-06-02</lastmod>
+    <loc>https://www.pmk-berlin.de/nota-prawna</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/impressum"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/nota-prawna"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/nota-prawna"/>
+  </url>
+  <url>
+    <loc>https://www.pmk-berlin.de/impressum</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.pmk-berlin.de/impressum"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.pmk-berlin.de/nota-prawna"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pmk-berlin.de/nota-prawna"/>
   </url>
   <url>
     <loc>https://www.pmk-berlin.de/datenschutz</loc>
