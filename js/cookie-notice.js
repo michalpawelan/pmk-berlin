@@ -65,11 +65,12 @@
       '}',
       '.pmk-notice button:hover{background:#e4dcd1;border-color:#b8a892;}',
       '.pmk-notice button:focus-visible{outline:2px solid #9a8b76;outline-offset:2px;}',
-      /* Auf schmalen Screens volle Breite; Chat-Widget weicht solange nach oben aus. */
+      /* Auf schmalen Screens volle Breite; Chat-Widget weicht um die gemessene
+         Hoehe der Leiste (--pmk-notice-h) nach oben aus. */
       '@media (max-width:720px){',
       '  .pmk-notice{left:12px;right:12px;bottom:12px;max-width:none;}',
-      '  html.' + OPEN_CLASS + ' .pmk-launcher{bottom:150px;}',
-      '  html.' + OPEN_CLASS + ' .pmk-teaser{bottom:222px;}',
+      '  html.' + OPEN_CLASS + ' .pmk-launcher{bottom:calc(var(--pmk-notice-h, 0px) + 36px);}',
+      '  html.' + OPEN_CLASS + ' .pmk-teaser{bottom:calc(var(--pmk-notice-h, 0px) + 108px);}',
       '}',
       '@media (prefers-reduced-motion:reduce){',
       '  .pmk-notice{transition:none;transform:none;}',
@@ -98,12 +99,18 @@
     a.textContent = t.link;
     p.appendChild(a);
 
+    var measure = function () {
+      document.documentElement.style.setProperty('--pmk-notice-h', box.offsetHeight + 'px');
+    };
+
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = t.button;
     btn.addEventListener('click', function () {
       remember();
+      window.removeEventListener('resize', measure);
       document.documentElement.classList.remove(OPEN_CLASS);
+      document.documentElement.style.removeProperty('--pmk-notice-h');
       box.removeAttribute('data-shown');
       window.setTimeout(function () { box.remove(); }, 400);
     });
@@ -112,6 +119,8 @@
     box.appendChild(btn);
     document.body.appendChild(box);
     document.documentElement.classList.add(OPEN_CLASS);
+    measure();
+    window.addEventListener('resize', measure);
 
     // Ein Frame warten, damit der Einblend-Übergang greift.
     window.requestAnimationFrame(function () {
