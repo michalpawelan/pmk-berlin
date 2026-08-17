@@ -6,10 +6,16 @@
 //   1) Benachrichtigung an die Pfarrei (pmk@pmk-berlin.de)
 //   2) Danke-Mail an den Spender (PL oder DE, je nach Seite)
 
+const { guard, dailyQuota } = require('./_form-guard.js');
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const PARISH_EMAIL = process.env.SACRAMENT_TO || 'pmk@pmk-berlin.de';
 const FROM_NAME = 'Polska Misja Katolicka Berlin';
+
+// Obergrenze fuer Danke-Mails an selbst eingetippte Adressen (Backscatter-Schutz,
+// siehe _form-guard.js). Echte Spendermeldungen liegen bei wenigen pro Woche.
+const DONOR_MAIL_QUOTA = parseInt(process.env.DONOR_MAIL_QUOTA || '25', 10);
 
 function json(statusCode, obj) {
   return {
@@ -101,7 +107,12 @@ async function sendViaIonos(p, lang) {
     text: teamLines.join('\n')
   });
 
-  // Danke an den Spender — best effort
+  // Danke an den Spender — best effort, und nur innerhalb der Tagesquote:
+  // die Adresse stammt aus dem Formular, ist also frei waehlbar. Ist die Quote
+  // aufgebraucht, erfaehrt die Pfarrei trotzdem von der Spende (Mail oben).
+  const quota = await dailyQuota('spende-danke-donor-mail', DONOR_MAIL_QUOTA);
+  if (!quota.ok) return { sent: true, donorMailSkipped: true };
+
   try {
     await transporter.sendMail({
       from,
@@ -130,6 +141,13 @@ exports.handler = async (event) => {
   // Honeypot: Bots füllen das versteckte Feld -> "ok" zurückgeben, aber nichts senden
   if (String(p.website || '').trim()) {
     return json(200, { success: true });
+  }
+
+  // Origin + Formular-Token + Rate-Limit (siehe _form-guard.js). Fängt genau den
+  // Bot ab, der am Honeypot vorbei direkt auf diese URL postet (17.08.2026).
+  const g = await guard(event, { token: p.formToken, bucket: 'spende-danke', perHour: 5, perDay: 15 });
+  if (!g.ok) {
+    return json(g.statusCode, { success: false, error: g.error });
   }
 
   const email = String(p.email || '').trim();

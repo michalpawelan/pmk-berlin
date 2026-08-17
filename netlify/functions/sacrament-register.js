@@ -6,6 +6,8 @@
 // Adresse senden) — schlägt SMTP fehl, bekommt das Formular einen echten Fehler
 // und zeigt den mailto-Hinweis auf pmk@pmk-berlin.de.
 
+const { guard } = require('./_form-guard.js');
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ALLOWED = new Set(['komunia', 'bierzmowanie']);
 
@@ -28,7 +30,7 @@ const FIELD_ORDER = [
   ['katecheza', 'Katecheza (miejsce i godzina)'],
   ['uwagi', 'Uwagi']
 ];
-const SKIP = { action: 1, pin: 1, website: 1, datenschutz: 1, sakrament: 1, metryka_data: 1, metryka_name: 1, metryka_type: 1 };
+const SKIP = { action: 1, pin: 1, website: 1, formToken: 1, datenschutz: 1, sakrament: 1, metryka_data: 1, metryka_name: 1, metryka_type: 1 };
 
 function json(statusCode, obj) {
   return {
@@ -161,6 +163,15 @@ exports.handler = async (event) => {
   // Honeypot: Bots füllen das versteckte Feld -> "ok" zurückgeben, aber nichts senden
   if (String(p.website || '').trim()) {
     return json(200, { success: true });
+  }
+
+  // Origin + Formular-Token + Rate-Limit (siehe _form-guard.js). Auch hier geht
+  // eine Bestätigung an eine frei eingetippte Adresse — gleicher Missbrauchsweg
+  // wie bei spende-danke (17.08.2026). Etwas großzügiger: Eltern melden
+  // nacheinander mehrere Kinder an, oft aus demselben WLAN.
+  const g = await guard(event, { token: p.formToken, bucket: 'sacrament', perHour: 8, perDay: 20 });
+  if (!g.ok) {
+    return json(g.statusCode, { success: false, error: g.error });
   }
 
   const sakrament = String(p.sakrament || '').toLowerCase();

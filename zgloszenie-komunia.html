@@ -528,6 +528,7 @@
   </div>
 </div>
 
+<script src="/js/form-token.js"></script>
 <script>
 // Sakrament-Anmeldung: Validierung + Versand ueber Netlify-Function -> Google Apps Script.
 // (E-Mail an die Pfarrei + Bestaetigung an den Absender; ersetzt das alte formsubmit.co/PDF-Verfahren.)
@@ -549,6 +550,7 @@ if (consentInput) consentInput.addEventListener('change', function () {
   if (this.checked) document.querySelector('.consent').classList.remove('shake');
 });
 
+PmkFormToken.prime(document.getElementById('komuniaForm'));   // Spam-Schutz vorladen
 document.getElementById('komuniaForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
@@ -589,10 +591,13 @@ document.getElementById('komuniaForm').addEventListener('submit', function (e) {
   const send = (extra) => {
     const body = Object.assign({}, payload, extra);
     delete body.metryka; // das File-Objekt selbst nicht senden (nur base64)
-    fetch('/.netlify/functions/sacrament-register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(body)
+    PmkFormToken.get().then(token => {
+      body.formToken = token;   // Spam-Schutz, siehe netlify/functions/_form-guard.js
+      return fetch('/.netlify/functions/sacrament-register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
+      });
     })
       .then(r => r.ok ? r.json() : Promise.reject(new Error('http_' + r.status)))
       .then(data => {

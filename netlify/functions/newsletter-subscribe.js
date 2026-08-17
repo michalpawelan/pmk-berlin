@@ -8,6 +8,8 @@
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
   || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
 
+const { guard } = require('./_form-guard.js');
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SITE_BASE = process.env.SITE_BASE || 'https://www.pmk-berlin.de';
 const PARISH_EMAIL = 'pmk@pmk-berlin.de';
@@ -106,6 +108,20 @@ exports.handler = async (event) => {
   if (honeypot) {
     return json(200, { success: true, message: 'subscribed' });
   }
+
+  // Origin + Rate-Limit (siehe _form-guard.js). Die Bestätigungsmail geht an eine
+  // frei eingetippte Adresse — derselbe Missbrauchsweg wie bei spende-danke.
+  // Ohne Token-Pflicht, weil das Feld im Footer jeder Seite steht und nur die
+  // Formularseiten js/form-token.js laden; schickt der Client trotzdem eins,
+  // wird es geprüft.
+  const g = await guard(event, {
+    token: payload.formToken, requireToken: false,
+    bucket: 'newsletter', perHour: 5, perDay: 15
+  });
+  if (!g.ok) {
+    return json(g.statusCode, { success: false, error: g.error });
+  }
+
   if (!email || email.length > 254 || !EMAIL_RE.test(email)) {
     return json(400, { success: false, error: 'invalid_email' });
   }

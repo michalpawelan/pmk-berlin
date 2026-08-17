@@ -648,6 +648,7 @@
 </footer>
 
 <script src="main.js" defer></script>
+<script src="/js/form-token.js" defer></script>
 <script>
   // Spenden-Danke-Formular: AJAX an die Netlify-Function, On-Page-Bestätigung
   document.addEventListener('DOMContentLoaded', function() {
@@ -659,6 +660,9 @@
     var lang = window.location.pathname.indexOf('/de/') === 0 ? 'de' : 'pl';
     var btnIdle = btn.textContent;
     var btnSending = lang === 'de' ? 'Wird gesendet…' : 'Wysyłanie…';
+
+    // Spam-Schutz: Token vorladen, sobald jemand das Formular anfasst
+    PmkFormToken.prime(form);
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -672,10 +676,13 @@
         adres: form.adres.value, website: form.website.value,
         lang: lang
       };
-      fetch('/.netlify/functions/spende-danke', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      PmkFormToken.get().then(function(token) {
+        payload.formToken = token;
+        return fetch('/.netlify/functions/spende-danke', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
       }).then(function(r) { return r.json().catch(function() { return {}; }).then(function(d) { return { ok: r.ok && d.success }; }); })
         .then(function(res) {
           if (res.ok) {
