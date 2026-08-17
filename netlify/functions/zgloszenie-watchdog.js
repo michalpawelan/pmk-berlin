@@ -158,9 +158,12 @@ async function listRecent(agentId, sinceUnix) {
 async function postRecoveredTicket(fields, source, conversationId) {
   const callLink = 'https://elevenlabs.io/app/conversational-ai/history/' + conversationId;
   const url = process.env.ZGLOSZENIE_URL || 'https://www.pmk-berlin.de/.netlify/functions/zgloszenie';
+  // Shared Secret mitschicken, sobald es konfiguriert ist (siehe zgloszenie.js).
+  const headers = { 'Content-Type': 'application/json' };
+  if (process.env.ZGLOSZENIE_SECRET) headers['X-Zgloszenie-Secret'] = process.env.ZGLOSZENIE_SECRET;
   const res = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify({
       name: fields.name, phone: fields.phone, concern: fields.concern,
       urgent: fields.urgent, lang: fields.lang, caller_id: fields.caller_id || '',

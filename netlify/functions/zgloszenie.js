@@ -13,8 +13,42 @@
 //                                 // AWS-Fix (17.07.2026, *21* im Telekom-Netz)
 //                                 // ist das die ECHTE Anrufernummer
 
+const crypto = require('crypto');
+
 const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL
   || 'https://script.google.com/macros/s/AKfycbzizmtkEWB6IUM-SvAODGCEm10q6opPNLXIY7a7_bGhhZXJDjgu5FAU9QUv_EN16mJERQ/exec';
+
+// Shared Secret. Aufrufer sind ausschliesslich Server: das ElevenLabs-Tool
+// create_zgloszenie (beide Agenten) und zgloszenie-watchdog.js — der Browser
+// ruft diese Function NIE auf, ein Secret ist hier also nicht exponiert.
+//
+// Bewusst env-gated: solange ZGLOSZENIE_SECRET nicht gesetzt ist, bleibt der
+// Endpoint offen. So kann das Ausrollen die Eskalation nicht abwuergen, und ein
+// Loeschen der Variable schaltet die Pruefung sofort wieder ab. Hier haengen
+// Beerdigungen und Krankensalbungen dran — ein stiller Fehlschlag waere teuer.
+const ZGLOSZENIE_SECRET = process.env.ZGLOSZENIE_SECRET || '';
+
+function safeEqual(a, b) {
+  const ba = Buffer.from(String(a == null ? '' : a));
+  const bb = Buffer.from(String(b == null ? '' : b));
+  if (ba.length !== bb.length) {
+    try { crypto.timingSafeEqual(ba, ba); } catch (_) {}
+    return false;
+  }
+  return crypto.timingSafeEqual(ba, bb);
+}
+
+// Akzeptiert den Header `X-Zgloszenie-Secret` oder `Authorization: Bearer …`.
+function secretOk(event) {
+  if (!ZGLOSZENIE_SECRET) return true;   // nicht konfiguriert -> offen wie bisher
+  const h = (event && event.headers) || {};
+  const direct = String(h['x-zgloszenie-secret'] || h['X-Zgloszenie-Secret'] || '').trim();
+  if (direct) return safeEqual(direct, ZGLOSZENIE_SECRET);
+  const auth = String(h.authorization || h.Authorization || '').trim();
+  const bearer = /^bearer\s+/i.test(auth) ? auth.replace(/^bearer\s+/i, '') : '';
+  return safeEqual(bearer, ZGLOSZENIE_SECRET);
+}
+exports.secretOk = secretOk;
 
 function json(statusCode, obj) {
   return {
@@ -22,7 +56,7 @@ function json(statusCode, obj) {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Zgloszenie-Secret, Authorization',
       'Access-Control-Allow-Methods': 'POST, OPTIONS'
     },
     body: JSON.stringify(obj)
@@ -149,6 +183,10 @@ exports.handler = async (event) => {
   }
   if (event.httpMethod !== 'POST') {
     return json(405, { success: false, error: 'method_not_allowed' });
+  }
+
+  if (!secretOk(event)) {
+    return json(401, { success: false, error: 'unauthorized' });
   }
 
   let p;
