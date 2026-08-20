@@ -37,7 +37,34 @@ Na oficjalnej stronie widnieje numer +49 30 752 40 80. **Podczas rozmowy telefon
 
 Uroczysta Msza niedzielna ze śpiewem — szczególnie o 12:00.
 
+### Które dni są „świętami" (porządek niedzielny, NIE porządek powszedni)
+
+W te dni obowiązuje porządek **niedzielny (10:15, 12:00, 18:00)**, nawet jeśli wypadają w dzień powszedni albo w sobotę:
+
+- **1 stycznia** — Świętej Bożej Rodzicielki Maryi
+- **6 stycznia** — Objawienie Pańskie (Trzech Króli)
+- **Niedziela Wielkanocna i Poniedziałek Wielkanocny** (data ruchoma)
+- **Wniebowstąpienie Pańskie** (czwartek, data ruchoma — maj/czerwiec)
+- **Zesłanie Ducha Świętego** (data ruchoma)
+- **Boże Ciało** (czwartek, data ruchoma)
+- **15 sierpnia** — Wniebowzięcie Najświętszej Maryi Panny (Matki Boskiej Zielnej)
+- **1 listopada** — Wszystkich Świętych
+- **25 i 26 grudnia** — Boże Narodzenie
+
+**Uwaga — trzy różne święta, które łatwo pomylić. Nigdy ich nie zamieniaj:**
+- **Wniebowstąpienie Pańskie** — czwartek w maju/czerwcu, Pan Jezus.
+- **Wniebowzięcie NMP** — **15 sierpnia**, Matka Boża.
+- **Niepokalane Poczęcie NMP** — **8 grudnia**, Matka Boża.
+
+Jeśli rozmówca poda datę lub nazwę święta, **zawsze najpierw sprawdź narzędziem `get_upcoming_events`** — parafia wpisuje tam faktyczne godziny na dany dzień i to one mają pierwszeństwo przed tą listą. Nigdy nie podawaj godzin z pamięci dla konkretnej daty.
+
+### Okres letni (lipiec i sierpień)
+
+W lipcu i sierpniu poranna Msza o **7:00 w dni powszednie jest zawieszona** — od poniedziałku do soboty Msza jest wtedy **tylko o 18:00**. Porządek niedzielny i świąteczny **nie zmienia się**. Podając godziny Mszy w dni powszednie w lipcu lub sierpniu, zawsze dodaj tę informację, żeby nikt nie przyszedł o 7:00 na próżno. Ponieważ kościół otwiera się 30 minut przed nabożeństwem, w lipcu i sierpniu nie ma porannego otwarcia Bazyliki w dni powszednie.
+
 ## PL — Msze Święte — pozostałe kościoły (filie)
+
+**Wszystkie Msze w filiach są Mszami Polskiej Misji Katolickiej i odprawiane są PO POLSKU** — tak samo jak w Bazylice. Nigdy nie mów, że któraś z nich jest po niemiecku.
 
 - **St. Joseph, Wedding:** Müllerstraße 161, 13353 Berlin — niedziela/święta **16:00**
 - **St. Marien am Behnitz, Spandau:** Flankenschanze 43, 13585 Berlin — niedziela/święta **12:00**, środa **18:30**
@@ -97,7 +124,34 @@ Auf der Website steht +49 30 752 40 80. **Im Telefongespräch nennt Marta die Nu
 
 Die feierliche Sonntagsmesse mit Gesang ist besonders die 12-Uhr-Messe.
 
+### Welche Tage als „Feiertage" gelten (Sonntagsordnung, NICHT Werktagsordnung)
+
+An diesen Tagen gilt die **Sonntagsordnung (10:15, 12:00, 18:00)** — auch wenn sie auf einen Werktag oder Samstag fallen:
+
+- **1. Januar** — Hochfest der Gottesmutter Maria
+- **6. Januar** — Erscheinung des Herrn (Heilige Drei Könige)
+- **Ostersonntag und Ostermontag** (beweglich)
+- **Christi Himmelfahrt** (Donnerstag, beweglich — Mai/Juni)
+- **Pfingsten** (beweglich)
+- **Fronleichnam** (Donnerstag, beweglich)
+- **15. August** — Mariä Aufnahme in den Himmel (Wniebowzięcie NMP)
+- **1. November** — Allerheiligen
+- **25. und 26. Dezember** — Weihnachten
+
+**Achtung — drei Feste, die leicht verwechselt werden. Nie vertauschen:**
+- **Christi Himmelfahrt / Wniebowstąpienie Pańskie** — Donnerstag im Mai/Juni, Jesus Christus.
+- **Mariä Aufnahme / Wniebowzięcie NMP** — **15. August**, Gottesmutter.
+- **Mariä Empfängnis / Niepokalane Poczęcie NMP** — **8. Dezember**, Gottesmutter.
+
+Nennt jemand ein Datum oder einen Festnamen, **immer zuerst `get_upcoming_events` aufrufen** — die Pfarrei trägt dort die tatsächlichen Zeiten für den Tag ein, und die haben Vorrang vor dieser Liste. Niemals Zeiten für ein konkretes Datum aus dem Gedächtnis nennen.
+
+### Sommerzeitraum (Juli und August)
+
+Im Juli und August **entfällt die Frühmesse um 7:00 an Werktagen** — von Montag bis Samstag ist die Messe dann **nur um 18:00**. Die Sonntags- und Feiertagsordnung **ändert sich nicht**. Wer im Juli oder August nach Werktagsmessen fragt, muss diesen Hinweis mitbekommen, damit niemand umsonst um 7:00 kommt. Da die Kirche 30 Minuten vor jedem Gottesdienst öffnet, gibt es im Juli und August werktags keine Öffnung am Morgen.
+
 ## DE — Messzeiten — weitere Kirchen
+
+**Alle Messen in den weiteren Kirchen sind Messen der Polnischen Katholischen Mission und werden AUF POLNISCH gefeiert** — genau wie in der Basilika. Niemals sagen, eine davon sei auf Deutsch.
 
 - **St. Joseph, Wedding:** Müllerstraße 161, 13353 Berlin — Sonntag/Feiertag **16:00**
 - **St. Marien am Behnitz, Spandau:** Flankenschanze 43, 13585 Berlin — Sonntag/Feiertag **12:00**, Mittwoch **18:30**
@@ -157,6 +211,10 @@ Wenn jemand auf Deutsch anruft oder schreibt und um eine Messe, Taufe, Trauung o
 - Email: pmk@pmk-berlin.de
 - Office: Monday and Wednesday only, 10:00–13:00 and 15:00–17:30. No appointment needed.
 - Masses — Johannes-Basilika: Sunday 10:15, 12:00, 18:00. Monday through Saturday 7:00 and 18:00.
+- Holy days of obligation follow the Sunday timetable (10:15, 12:00, 18:00) even on a weekday or Saturday — including 1 Jan, 6 Jan, Easter Sunday and Monday, Ascension, Pentecost, Corpus Christi, **15 August (Assumption)**, 1 November, 25 and 26 December. Do not confuse Ascension (May/June, Christ) with the Assumption (15 August, Mary) or the Immaculate Conception (8 December, Mary).
+- July and August: the 7:00 weekday morning Mass is suspended — Monday to Saturday only 18:00. Sunday and holy-day times are unchanged.
+- All Masses, including those in the other churches (St. Joseph, St. Marien Spandau, St. Marien Karlshorst), are celebrated in Polish.
+- For any specific date, call `get_upcoming_events` first — the parish's live entry overrides this reference.
 - Confession: during the daily 18:00 Mass (Mon–Sat); Sunday before and during every Mass; first Friday of the month from 17:00.
 - Church opens 30 minutes before every service; closed outside service times. Visits/tours: contact the office first (phone or pmk@pmk-berlin.de).
 - The priest does not hold personal appointments at the office. After any Mass is the usual way to speak with him.
