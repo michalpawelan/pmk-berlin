@@ -108,6 +108,40 @@ exports.normalizePhone = normalizePhone;
 
 const USABLE_RE = /^\+\d{1,3}\s\d{6,}$/;
 
+// Antwort an den Agenten. Der Agent liest `message` praktisch wörtlich vor —
+// also darf dort ohne verwertbare Rückrufnummer NIE eine Zusage stehen.
+//
+// Warum das scharf sein muss (Audit 20.08.2026): Seit dem 03.08. liefert die
+// Telefonie bei jedem Anruf die eigene Bueronummer als Caller-ID. Die steht auf
+// OWN_NUMBERS, faellt raus, und der Fall ist dann phone_provided=false +
+// phone_usable=false. Genau dort schickte die Function bis jetzt trotzdem
+// "Oddzwonimy najszybciej, jak to możliwe." zurueck. Ergebnis: 7 Tickets ohne
+// jede Nummer, und die Anrufer warteten auf einen Rueckruf, der nicht kommen
+// konnte. Das Anliegen selbst ist in allen Faellen erfasst — es fehlt nur der
+// Rueckweg, und den muss der Agent im Gespraech nachholen.
+function buildToolResponse({ phoneProvided, phoneUsable, phoneSource, lang } = {}) {
+  const de = String(lang || '').toLowerCase() === 'de';
+
+  if (phoneUsable) {
+    return {
+      message: de
+        ? 'Anliegen aufgenommen. Wir rufen Sie so bald wie möglich zurück.'
+        : 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.'
+    };
+  }
+
+  return {
+    message: de
+      ? 'Anliegen aufgenommen, aber uns fehlt Ihre Rufnummer. Unter welcher Nummer erreichen wir Sie?'
+      : 'Zgłoszenie przyjęte, ale brakuje numeru do kontaktu. Pod jaki numer mamy oddzwonić?',
+    phone_warning: phoneProvided
+      ? 'Podany numer NIE został zapisany jako prawidłowy numer do oddzwonienia. Poproś o niego ponownie, cyfra po cyfrze.'
+      : 'BRAK numeru: identyfikacja połączenia nie zawiera numeru rozmówcy (przekierowanie centrali), a rozmówca żadnego nie podał.',
+    next_action: 'NIE obiecuj oddzwonienia — nie ma numeru. Poproś rozmówcę o numer telefonu, powtórz go na głos cyfra po cyfrze, potem wywołaj create_zgloszenie jeszcze raz z polem phone. Jeśli rozmówca odmówi, powiedz, że trzeba zadzwonić do biura w godzinach otwarcia.'
+  };
+}
+exports.buildToolResponse = buildToolResponse;
+
 // Rückrufnummer wählen: diktierte Nummer hat Vorrang (der Anrufer hat sie
 // bewusst bestätigt), sonst die Caller-ID. "anonymous"/Wortformen normalisieren
 // nicht zu "+…" und fallen damit automatisch raus, ebenso die eigenen Nummern.
@@ -262,19 +296,18 @@ exports.handler = async (event) => {
     try { data = JSON.parse(text); } catch (_) { data = { success: false, error: 'upstream_parse' }; }
     // Dem Agenten eine klare, knappe Antwort geben
     if (data && data.success) {
-      const resp = {
-        success: true,
-        message: 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.',
-        mail,
-        phone_provided: phoneProvided,
-        phone_usable: phoneUsable,
-        phone_source: picked.phone_source
-      };
-      // Anrufer hat eine Nummer genannt, die nicht verwertbar ist -> Agent soll
-      // sie erneut Ziffer für Ziffer erfragen (das Anliegen ist trotzdem erfasst).
-      if (phoneProvided && !phoneUsable) {
-        resp.phone_warning = 'Telefonnummer NICHT als gültige Rückrufnummer gespeichert. Bitte die Nummer erneut Ziffer für Ziffer erfragen und bestätigen, dann das Tool erneut aufrufen.';
-      }
+      // buildToolResponse entscheidet, ob eine Rückruf-Zusage überhaupt zulässig
+      // ist. Ohne verwertbare Nummer kommt stattdessen die Rückfrage zurück.
+      const resp = Object.assign(
+        { success: true },
+        buildToolResponse({ phoneProvided, phoneUsable, phoneSource: picked.phone_source, lang }),
+        {
+          mail,
+          phone_provided: phoneProvided,
+          phone_usable: phoneUsable,
+          phone_source: picked.phone_source
+        }
+      );
       return json(200, resp);
     }
     return json(502, { success: false, error: (data && data.error) || 'upstream_failed' });
