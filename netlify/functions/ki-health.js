@@ -132,7 +132,34 @@ function buildReport(checks) {
   };
 }
 
-module.exports = { detectStuckCallerId, checkReachability, checkToolErrors, checkQuota, buildReport };
+// Signatur des aktuellen Befundstands — reihenfolgeunabhaengig, nur die
+// tatsaechlich alarmierenden Pruefungen.
+function signatureOf(checks) {
+  return (checks || []).filter(c => c && c.alert).map(c => c.name).sort().join('|');
+}
+
+// Wann darf der Waechter ueberhaupt mailen? Ein bekanntes, andauerndes Problem
+// taeglich zu melden waere genau die Alarmmuedigkeit, die im Audit am Watchdog
+// kritisiert wurde. Gemeldet wird nur Neues, Veraendertes, Behobenes — plus
+// einmal pro Woche eine Erinnerung, damit nichts stillschweigend liegen bleibt.
+const REMINDER_DAYS = 7;
+function decideDelivery({ signature, prev, now, reminderDays }) {
+  const days = reminderDays || REMINDER_DAYS;
+  const prevSig = prev && typeof prev.signature === 'string' ? prev.signature : null;
+  const lastSent = (prev && prev.lastSent) || 0;
+  if (!signature) {
+    return (prevSig)
+      ? { send: true, reason: 'resolved' }
+      : { send: false, reason: 'quiet' };
+  }
+  if (prevSig === null) return { send: true, reason: 'new' };
+  if (prevSig !== signature) return { send: true, reason: 'changed' };
+  if ((now - lastSent) >= days * 86400) return { send: true, reason: 'reminder' };
+  return { send: false, reason: 'suppressed' };
+}
+
+module.exports = { detectStuckCallerId, checkReachability, checkToolErrors, checkQuota, buildReport,
+  signatureOf, decideDelivery };
 
 // ------------------------------------------------------------- Datenbeschaffung
 async function el(path) {
@@ -182,6 +209,20 @@ async function gather(sinceTs, maxDetail) {
   return records;
 }
 
+// Zustandsspeicher fuer die Zustellregeln (gleiches Muster wie der Watchdog:
+// bei CLI-Deploys fehlt der Blob-Kontext, dann ueber Site-ID + Token).
+function openStore() {
+  const { getStore } = require('@netlify/blobs');
+  try {
+    return getStore('ki-health');
+  } catch (e) {
+    const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+    const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_BLOBS_TOKEN;
+    if (siteID && token) return getStore({ name: 'ki-health', siteID, token });
+    throw new Error('blobs_unconfigured: ' + (e && e.message));
+  }
+}
+
 async function sendMail(subject, body) {
   const user = process.env.IONOS_SMTP_USER;
   const pass = process.env.IONOS_SMTP_PASS;
@@ -226,13 +267,38 @@ module.exports.handler = async () => {
       })
     ];
     const report = buildReport(checks);
-    let mail = { sent: false, reason: 'no_finding' };
-    if (report.alert) mail = await sendMail(report.subject, report.body);
+    const signature = signatureOf(checks);
+
+    // Zustand lesen, damit derselbe Befund nicht taeglich mailt. Ohne
+    // Blob-Speicher lieber einmal zu viel melden als stumm bleiben.
+    let store = null, prev = null;
+    try { store = openStore(); prev = JSON.parse((await store.get('state')) || 'null'); }
+    catch (_) { store = null; }
+
+    const decision = decideDelivery({ signature, prev, now });
+    let mail = { sent: false, reason: decision.reason };
+    if (decision.send) {
+      const subject = decision.reason === 'resolved'
+        ? 'PMK KI-Check: wieder unauffaellig'
+        : report.subject + (decision.reason === 'reminder' ? ' (seit einer Woche offen)' : '');
+      const body = decision.reason === 'resolved'
+        ? 'Die zuletzt gemeldeten Befunde treten nicht mehr auf.\n\n' + report.body
+        : report.body;
+      mail = Object.assign({ reason: decision.reason }, await sendMail(subject, body));
+    }
+    if (store) {
+      try {
+        await store.set('state', JSON.stringify({
+          signature,
+          lastSent: decision.send ? now : ((prev && prev.lastSent) || 0)
+        }));
+      } catch (_) {}
+    }
 
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({ ok: true, alert: report.alert, mail, checks, conversations: records.length }, null, 1)
+      body: JSON.stringify({ ok: true, alert: report.alert, signature, decision, mail, checks, conversations: records.length }, null, 1)
     };
   } catch (e) {
     // Ein kaputter Waechter darf nicht still sein — das war ja gerade das Problem.

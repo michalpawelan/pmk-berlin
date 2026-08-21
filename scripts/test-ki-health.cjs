@@ -90,6 +90,32 @@ check('Bericht: Nummer taucht im Text auf', report.body.includes('+49307524080')
 check('Bericht ohne Befunde -> alert=false, keine Mail noetig',
   h.buildReport([{ alert: false, name: 'x', summary: 'ok' }]).alert === false);
 
+// ------------------------------------------------------------ Zustellregeln
+// Ein bekanntes, andauerndes Problem darf nicht jeden Tag mailen — sonst wird
+// der Waechter zu dem, was im Audit am Watchdog kritisiert wurde (18 Zeilen
+// fuer 5 Anrufer). Gemeldet wird: Neues, Veraendertes, Behobenes, und einmal
+// pro Woche eine Erinnerung, damit nichts stillschweigend liegen bleibt.
+const DAY = 86400;
+const d = (sig, extra) => Object.assign({ signature: sig, lastSent: 0 }, extra);
+check('Zustellung: erster Befund -> senden',
+  h.decideDelivery({ signature: 'A', prev: null, now: 100 * DAY }).send === true);
+check('Zustellung: derselbe Befund am naechsten Tag -> unterdruecken',
+  h.decideDelivery({ signature: 'A', prev: d('A', { lastSent: 100 * DAY }), now: 101 * DAY }).send === false);
+check('Zustellung: neuer Befund kommt dazu -> senden',
+  h.decideDelivery({ signature: 'A|B', prev: d('A', { lastSent: 100 * DAY }), now: 101 * DAY }).send === true);
+check('Zustellung: nach 7 Tagen Erinnerung -> senden',
+  h.decideDelivery({ signature: 'A', prev: d('A', { lastSent: 100 * DAY }), now: 107 * DAY }).send === true);
+check('Zustellung: Problem behoben -> einmal Entwarnung',
+  (() => { const r = h.decideDelivery({ signature: '', prev: d('A', { lastSent: 100 * DAY }), now: 101 * DAY });
+    return r.send === true && r.reason === 'resolved'; })());
+check('Zustellung: dauerhaft sauber -> keine Post',
+  h.decideDelivery({ signature: '', prev: d('', { lastSent: 100 * DAY }), now: 101 * DAY }).send === false);
+check('Zustellung: Signatur ist reihenfolgeunabhaengig',
+  h.signatureOf([{ name: 'B', alert: true }, { name: 'A', alert: true }])
+  === h.signatureOf([{ name: 'A', alert: true }, { name: 'B', alert: true }]));
+check('Zustellung: nicht alarmierende Pruefungen stehen nicht in der Signatur',
+  h.signatureOf([{ name: 'A', alert: true }, { name: 'C', alert: false }]) === h.signatureOf([{ name: 'A', alert: true }]));
+
 // -------------------------------------------------------------- Verdrahtung
 // module.exports wird in ki-health.js ersetzt; wird der Handler danach an
 // `exports` statt an `module.exports` gehaengt, findet Netlify ihn nicht und
