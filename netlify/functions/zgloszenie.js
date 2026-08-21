@@ -125,19 +125,19 @@ function buildToolResponse({ phoneProvided, phoneUsable, phoneSource, lang } = {
   if (phoneUsable) {
     return {
       message: de
-        ? 'Anliegen aufgenommen. Wir rufen Sie so bald wie möglich zurück.'
-        : 'Zgłoszenie przyjęte. Oddzwonimy najszybciej, jak to możliwe.'
+        ? 'Anliegen aufgenommen. Ich leite es an das Pfarrbüro weiter.'
+        : 'Zgłoszenie przyjęte. Przekazuję sprawę do biura parafialnego.'
     };
   }
 
   return {
     message: de
-      ? 'Anliegen aufgenommen, aber uns fehlt Ihre Rufnummer. Unter welcher Nummer erreichen wir Sie?'
-      : 'Zgłoszenie przyjęte, ale brakuje numeru do kontaktu. Pod jaki numer mamy oddzwonić?',
+      ? 'Anliegen aufgenommen und weitergeleitet, aber uns fehlt Ihre Rufnummer. Unter welcher Nummer sind Sie erreichbar?'
+      : 'Zgłoszenie przyjęte i przekazane do biura, ale brakuje numeru kontaktowego. Pod jakim numerem można się z Panem lub Panią skontaktować?',
     phone_warning: phoneProvided
-      ? 'Podany numer NIE został zapisany jako prawidłowy numer do oddzwonienia. Poproś o niego ponownie, cyfra po cyfrze.'
+      ? 'Podany numer NIE został zapisany jako prawidłowy numer kontaktowy. Poproś o niego ponownie, cyfra po cyfrze.'
       : 'BRAK numeru: identyfikacja połączenia nie zawiera numeru rozmówcy (przekierowanie centrali), a rozmówca żadnego nie podał.',
-    next_action: 'NIE obiecuj oddzwonienia — nie ma numeru. Poproś rozmówcę o numer telefonu, powtórz go na głos cyfra po cyfrze, potem wywołaj create_zgloszenie jeszcze raz z polem phone. Jeśli rozmówca odmówi, powiedz, że trzeba zadzwonić do biura w godzinach otwarcia.'
+    next_action: 'NIE obiecuj kontaktu zwrotnego. Poproś rozmówcę o numer telefonu, powtórz go na głos cyfra po cyfrze, potem wywołaj create_zgloszenie jeszcze raz z polem phone. Jeśli rozmówca odmówi, powiedz, że można zadzwonić do biura w godzinach otwarcia.'
   };
 }
 exports.buildToolResponse = buildToolResponse;
