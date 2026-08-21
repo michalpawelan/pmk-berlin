@@ -8,6 +8,13 @@
 [functions."zgloszenie-watchdog"]
   schedule = "*/15 * * * *"
 
+# Taeglicher Gesundheitscheck der KI — misst Ergebnisse (Rueckrufnummern,
+# Tickets, Kontingent), nicht den Gespraechsverlauf. Grund: der Ausfall vom
+# 03.08.2026 lief 17 Tage unbemerkt, weil alle gespraechsbasierten Signale
+# gruen blieben. Meldet sich per Mail nur, wenn etwas auffaellt.
+[functions."ki-health"]
+  schedule = "0 6 * * *"
+
 # ============================================
 # Security Headers - alle Seiten
 # ============================================
