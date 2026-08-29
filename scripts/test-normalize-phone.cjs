@@ -22,6 +22,19 @@ const cases = [
   ['+48 736 354 227', '+48 736354227',     'PL bereits +48 -> bleibt +48 (Regression-Guard)'],
   ['dwadzieścia trzy', 'dwadzieścia trzy', 'number-words pass through unchanged (agent must fix, not backstop)'],
   ['', '',                                 'empty stays empty'],
+  // A3 (28.08.2026): Seit die KI bei jedem Anruf aktiv nach der Rueckrufnummer
+  // fragt, ist DAS der haeufigste Fall — und er fiel bisher durch. Anrufer
+  // diktieren "eins fuenf zwei ..." ohne die fuehrende Null. Echter Fall vom
+  // 21.08.: ein Anrufer wollte einen Priester nach Hause und hat seine Nummer
+  // in vier Anlaeufen diktiert, keiner wurde gespeichert.
+  ['15226634489', '+49 15226634489',       'DE-Mobil ohne fuehrende 0 (echter Fall 21.08.) -> +49'],
+  ['152 266 34489', '+49 15226634489',     'dito, mit Leerzeichen gruppiert'],
+  ['1722345678', '+49 1722345678',         'DE-Mobil 10-stellig ohne 0 -> +49'],
+  ['17612345678', '+49 17612345678',       'DE-Mobil 11-stellig ohne 0 -> +49'],
+  ['16098765432', '+49 16098765432',       'DE-Mobil Vorwahl 160 ohne 0 -> +49'],
+  // Abgrenzung: 9-stellig bleibt polnisch, 12-stellig ist Muell (Fehlhoerer).
+  ['736354227', '+48 736354227',           'PL 9-stellig bleibt +48 (Regression-Guard)'],
+  ['952266344489', '952266344489',         '12-stellig (Verhoerer) -> unveraendert, Agent muss nachfragen'],
 ];
 
 let fail = 0;

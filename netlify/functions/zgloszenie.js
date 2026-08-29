@@ -97,6 +97,13 @@ function normalizePhone(raw) {
   if (d.startsWith('00')) d = d.slice(2);
   else if (d.startsWith('0')) d = '49' + d.slice(1);
   else if (d.length === 9) d = '48' + d; // poln. National-Nr (9-stellig, ohne 0/+48) -> +48 statt verwerfen
+  // Deutsche Handynummer ohne fuehrende Null: "eins fuenf zwei ..." Seit die KI
+  // bei jedem Anruf aktiv nach der Rueckrufnummer fragt (28.08.2026), ist das
+  // die haeufigste diktierte Form — und sie fiel bisher komplett durch. Echter
+  // Fall vom 21.08.: vier Anlaeufe fuer eine Priesterbitte, keine Nummer
+  // gespeichert. Eindeutig, weil poln. Nummern 9-stellig sind und deutsche
+  // Mobilvorwahlen (15x/16x/17x) auf 10 oder 11 Stellen kommen.
+  else if (/^1[5-7]\d{8,9}$/.test(d)) d = '49' + d;
   else if (!compact.startsWith('+') && !d.startsWith('49')) return s; // ohne Vorwahl-Hinweis nicht raten
   if (OWN_NUMBERS.indexOf(d) !== -1) return '';
   return '+' + d.slice(0, 2) + ' ' + d.slice(2);
