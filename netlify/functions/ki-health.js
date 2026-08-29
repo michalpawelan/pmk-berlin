@@ -97,8 +97,14 @@ function checkQuota({ used, limit, daysToReset, perDay }) {
   const daysLeft = perDay > 0 ? remaining / perDay : Infinity;
   const willRunOut = daysLeft < (daysToReset || 0);
   const alert = pct >= QUOTA_HARD_PCT || willRunOut;
+  // Akut = weniger als zwei Tage Reichweite. Der Name geht in die Signatur ein,
+  // die Meldung ist also NEU statt unterdrueckt. Ohne das wuerde ein Kontingent,
+  // das schon laenger gemeldet ist, beim Kippen in den kritischen Bereich nur
+  // noch von der Wochenerinnerung erwischt — und genau dieser Posten aendert
+  // sich am schnellsten (fremdes Projekt auf demselben Konto).
+  const acute = alert && daysLeft < 2;
   return {
-    name: 'ElevenLabs-Kontingent',
+    name: acute ? 'ElevenLabs-Kontingent (akut)' : 'ElevenLabs-Kontingent',
     alert, pct, remaining, daysLeft: Number.isFinite(daysLeft) ? Math.round(daysLeft * 10) / 10 : -1,
     summary: `${Math.round(pct * 100)} % verbraucht, Rest ${remaining.toLocaleString('de-DE')} Zeichen.`
       + (Number.isFinite(daysLeft)

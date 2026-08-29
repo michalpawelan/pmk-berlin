@@ -79,6 +79,15 @@ check('Quota: knapp am Limit -> Alarm auch ohne Verbrauchsschaetzung',
   h.checkQuota({ used: 900000, limit: 917858, daysToReset: 18, perDay: 0 }).alert === true);
 check('Quota: Restreichweite in Tagen wird gemeldet',
   typeof h.checkQuota({ used: 767866, limit: 917858, daysToReset: 18, perDay: 155000 }).daysLeft === 'number');
+// Unter zwei Tagen Reichweite aendert sich der Name und damit die Signatur —
+// sonst faende die Unterdrueckung genau die kritische Verschaerfung nicht.
+check('Quota: unter 2 Tagen Reichweite -> als akut gekennzeichnet',
+  /akut/.test(h.checkQuota({ used: 1853581, limit: 2069372, daysToReset: 17, perDay: 175000 }).name));
+check('Quota: mehrere Tage Reichweite -> nicht als akut gekennzeichnet',
+  !/akut/.test(h.checkQuota({ used: 500000, limit: 2069372, daysToReset: 17, perDay: 175000 }).name));
+check('Quota: Verschaerfung erzeugt eine NEUE Signatur (also eine neue Mail)',
+  h.signatureOf([h.checkQuota({ used: 500000, limit: 2069372, daysToReset: 17, perDay: 175000 })])
+  !== h.signatureOf([h.checkQuota({ used: 1853581, limit: 2069372, daysToReset: 17, perDay: 175000 })]));
 
 // ------------------------------------------------------------------ Bericht
 const report = h.buildReport([
