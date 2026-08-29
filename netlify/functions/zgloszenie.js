@@ -115,6 +115,53 @@ exports.normalizePhone = normalizePhone;
 
 const USABLE_RE = /^\+\d{1,3}\s\d{6,}$/;
 
+// Zeitbudget für den Mailversand. Netlify bricht die Function nach rund zehn
+// Sekunden ab; ein haengender SMTP-Server darf dieses Budget nicht allein
+// aufbrauchen, sonst bekommt der Agent einen 504 und erzaehlt dem Anrufer, es
+// habe nicht geklappt. Der Sheet-Eintrag ist wichtiger als die Mail: er geht
+// auch dann raus, und der Watchdog kann die Mail nachreichen.
+const SMTP_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_SMTP_BUDGET_MS || '6000', 10);
+
+// Wartet hoechstens ms auf p und liefert sonst fallback. Verwirft das Ergebnis
+// von p danach still — der Versand laeuft ggf. zu Ende, nur ohne uns.
+function withTimeout(p, ms, fallback) {
+  let t;
+  return Promise.race([
+    Promise.resolve(p).then(v => { clearTimeout(t); return v; },
+                            e => { clearTimeout(t); return Object.assign({ sent: false, reason: 'smtp_error' }, { detail: e && e.message }); }),
+    new Promise(res => { t = setTimeout(() => res(fallback), ms); })
+  ]);
+}
+exports.withTimeout = withTimeout;
+
+// Mail-Entdopplung je Gespraech. Der Agent ruft das Tool bewusst mehrfach:
+// erst sofort ohne Nummer (fire-first), dann noch einmal mit der diktierten
+// Nummer. Jeder Aufruf schrieb bisher eine Zeile UND schickte eine Mail — in
+// echt sieben Mails fuer eine QR-Beschwerde (04.08.) und vier fuer einen
+// Anrufer am 21.08. Die Sheet-Zeile bleibt bei jedem Aufruf (die neueste ist
+// die vollstaendigste), aber gemailt wird nur, was die Pfarrei wirklich neu
+// erfaehrt: die erste Meldung, und spaeter das Auftauchen einer Rueckrufnummer.
+function shouldSendMail(prev, phoneUsable) {
+  if (!prev) return { send: true, reason: 'first' };
+  if (phoneUsable && !prev.phoneUsable) return { send: true, reason: 'phone_added' };
+  return { send: false, reason: 'duplicate' };
+}
+exports.shouldSendMail = shouldSendMail;
+
+// Zustandsspeicher fuer die Mail-Entdopplung (gleiches Muster wie der Watchdog:
+// bei CLI-Deploys fehlt der Blob-Kontext, dann ueber Site-ID + Token).
+function openMailStore() {
+  const { getStore } = require('@netlify/blobs');
+  try {
+    return getStore('zgloszenie-mail');
+  } catch (e) {
+    const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+    const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_BLOBS_TOKEN;
+    if (siteID && token) return getStore({ name: 'zgloszenie-mail', siteID, token });
+    throw new Error('blobs_unconfigured');
+  }
+}
+
 // Antwort an den Agenten. Der Agent liest `message` praktisch wörtlich vor —
 // also darf dort ohne verwertbare Rückrufnummer NIE eine Zusage stehen.
 //
@@ -168,7 +215,10 @@ exports.pickPhone = pickPhone;
 function buildMail(d) {
   const srcLabel = d.source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
   const recPrefix = d.recovered ? '⚠️ AUTO-WIEDERHERGESTELLT — ' : '';
-  const subject = recPrefix + (d.urgent ? '[PILNE] ' : '') + 'Nowe zgłoszenie (' + srcLabel + ')'
+  // update=true: dasselbe Anliegen, aber jetzt MIT Rueckrufnummer. Die Pfarrei
+  // soll auf den ersten Blick sehen, dass das kein zweites Anliegen ist.
+  const subject = recPrefix + (d.urgent ? '[PILNE] ' : '') + (d.update ? '[AKTUALIZACJA — numer] ' : '')
+    + 'Nowe zgłoszenie (' + srcLabel + ')'
     + (d.name ? ' — ' + d.name : '');
   const recBanner = d.recovered
     ? '⚠️ AUTOMATYCZNIE ODZYSKANE ZGŁOSZENIE\n'
@@ -270,11 +320,6 @@ exports.handler = async (event) => {
   const callLink = String(p.call_link || '').trim().slice(0, 300);
   const conversationId = String(p.conversation_id || '').trim().slice(0, 100);
 
-  // 1) E-Mail über IONOS (echte Pfarrei-Adresse) — wenn konfiguriert.
-  let mail = { sent: false, reason: 'skipped' };
-  try { mail = await sendViaIonos({ name, phone, phone_source: picked.phone_source, concern, lang, source, urgent: truthy(p.urgent), recovered, call_link: callLink }); }
-  catch (e) { mail = { sent: false, reason: 'smtp_error', detail: e.message }; }
-
   const form = new URLSearchParams();
   form.set('action', 'zgloszenie');
   form.set('name', name);
@@ -291,13 +336,44 @@ exports.handler = async (event) => {
   // im Sheet + Admin-Tab und geht nicht verloren.
   form.set('no_email', 'true');
 
+  // Mail und Sheet-Eintrag laufen PARALLEL. Vorher liefen sie nacheinander,
+  // und die Summe hat Netlifys Function-Timeout gerissen: der Agent bekam einen
+  // 504 und sagte dem Anrufer "hat leider nicht geklappt" — obwohl Ticket und
+  // Mail längst draußen waren (echte Fälle 21.08. Priesterbesuch, 13.08.
+  // obdachloser Anrufer, 27.08.). Beide Wege sind voneinander unabhängig, also
+  // ist das gefahrlos und halbiert im schlechtesten Fall die Wartezeit.
+  // Zweitmeldung im selben Gespraech? Zeile ja, Mail nur wenn sie etwas Neues
+  // traegt. Faellt der Zustandsspeicher aus, wird gemailt — eine Mail zu viel
+  // ist harmlos, eine verschluckte Eskalation nicht.
+  let mailStore = null, mailPrev = null;
+  if (conversationId) {
+    try {
+      mailStore = openMailStore();
+      mailPrev = JSON.parse((await mailStore.get('c:' + conversationId)) || 'null');
+    } catch (_) { mailStore = null; mailPrev = null; }
+  }
+  const mailDecision = shouldSendMail(mailPrev, phoneUsable);
+
+  const mailPromise = mailDecision.send
+    ? withTimeout(
+        sendViaIonos({ name, phone, phone_source: picked.phone_source, concern, lang, source,
+                       urgent: truthy(p.urgent), recovered, call_link: callLink,
+                       update: mailDecision.reason === 'phone_added' })
+          .catch(e => ({ sent: false, reason: 'smtp_error', detail: e && e.message })),
+        SMTP_BUDGET_MS,
+        { sent: false, reason: 'smtp_timeout' })
+    : Promise.resolve({ sent: false, reason: 'duplicate_suppressed' });
+
   try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: form.toString(),
-      redirect: 'follow'
-    });
+    const [mail, res] = await Promise.all([
+      mailPromise,
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: form.toString(),
+        redirect: 'follow'
+      })
+    ]);
     const text = await res.text();
     let data;
     try { data = JSON.parse(text); } catch (_) { data = { success: false, error: 'upstream_parse' }; }
@@ -305,6 +381,14 @@ exports.handler = async (event) => {
     if (data && data.success) {
       // buildToolResponse entscheidet, ob eine Rückruf-Zusage überhaupt zulässig
       // ist. Ohne verwertbare Nummer kommt stattdessen die Rückfrage zurück.
+      if (mailStore && conversationId) {
+        try {
+          await mailStore.set('c:' + conversationId, JSON.stringify({
+            mailed: mailPrev ? true : mailDecision.send,
+            phoneUsable: phoneUsable || !!(mailPrev && mailPrev.phoneUsable)
+          }));
+        } catch (_) { /* ohne Zustand wird beim naechsten Mal gemailt — unkritisch */ }
+      }
       const resp = Object.assign(
         { success: true },
         buildToolResponse({ phoneProvided, phoneUsable, phoneSource: picked.phone_source, lang }),

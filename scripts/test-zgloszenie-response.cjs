@@ -93,4 +93,31 @@ for (const { label, input, expect } of cases) {
   if (!ok) console.log(`      got: ${JSON.stringify(got)}`);
 }
 console.log(`\n${cases.length - fail}/${cases.length} passed`);
-process.exit(fail ? 1 : 0);
+
+// --------------------------------------------------------- Zeitbudget (29.08.)
+// Mail und Sheet-Eintrag laufen jetzt parallel, und der Mailversand hat ein
+// Budget. Grund: nacheinander riss die Summe Netlifys Function-Timeout, der
+// Agent bekam 504 und sagte dem Anrufer "hat nicht geklappt" — obwohl Ticket
+// und Mail draussen waren (21.08. Priesterbesuch, 13.08. obdachloser Anrufer).
+const { withTimeout } = require('../netlify/functions/zgloszenie.js');
+const slow = (ms, v) => new Promise(r => setTimeout(() => r(v), ms));
+(async () => {
+  let f = 0;
+  const t = async (label, cond) => { const ok = await cond; if (!ok) { f++; console.log(`FAIL  ${label}`); } else console.log(`PASS  ${label}`); };
+
+  await t('withTimeout: schnelle Antwort kommt durch',
+    withTimeout(slow(10, { sent: true }), 200, { sent: false }).then(r => r.sent === true));
+  await t('withTimeout: haengender Versand liefert den Fallback',
+    withTimeout(slow(500, { sent: true }), 60, { sent: false, reason: 'smtp_timeout' })
+      .then(r => r.sent === false && r.reason === 'smtp_timeout'));
+  await t('withTimeout: Fehler kippt die Function nicht',
+    withTimeout(Promise.reject(new Error('boom')), 200, { sent: false })
+      .then(r => r.sent === false && /boom/.test(r.detail || '')));
+  await t('withTimeout: haelt das Budget wirklich ein',
+    (async () => { const s = Date.now();
+      await withTimeout(slow(2000, {}), 80, { sent: false });
+      return Date.now() - s < 900; })());
+
+  console.log(f === 0 ? '\nZeitbudget: alle Tests gruen' : `\nZeitbudget: ${f} FEHLER`);
+  process.exit((f + fail) ? 1 : 0);
+})();
