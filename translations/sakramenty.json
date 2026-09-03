@@ -164,8 +164,8 @@
     "de": "<li>Anmeldeformular</li><li>Taufschein des Kindes</li>"
   },
   "komunia.step1.hint": {
-    "pl": "Formularz znajdziesz na dole tej strony",
-    "de": "Das Formular finden Sie unten auf dieser Seite"
+    "pl": "Formularz zgłoszeniowy otworzysz przyciskiem na dole tej strony",
+    "de": "Das Anmeldeformular öffnen Sie über den Button unten auf dieser Seite"
   },
   "komunia.step2.title": {
     "pl": "Początek katechez",
