@@ -184,12 +184,12 @@
     "de": "Orte der Katechese"
   },
   "komunia.step3.list": {
-    "pl": "<li>Poniedziałek — Wedding, godz. 17:00</li><li>Wtorek — Bazylika, godz. 16:00 lub 17:00</li><li>Środa — Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43), godz. 16:00</li>",
-    "de": "<li>Montag — Wedding, 17:00 Uhr</li><li>Dienstag — Basilika, 16:00 oder 17:00 Uhr</li><li>Mittwoch — Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43), 16:00 Uhr</li>"
+    "pl": "<li>Poniedziałek — Wedding (kościół St. Joseph, Müllerstraße 161), godz. 17:00</li><li>Wtorek — Bazylika, godz. 16:00 lub 17:00</li><li>Środa — Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43), godz. 16:00</li>",
+    "de": "<li>Montag — Wedding (Kirche St. Joseph, Müllerstraße 161), 17:00 Uhr</li><li>Dienstag — Basilika, 16:00 oder 17:00 Uhr</li><li>Mittwoch — Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43), 16:00 Uhr</li>"
   },
-  "sakramenty.salka.entry_note": {
-    "pl": "<strong>Uwaga:</strong> wejście jest <em>nie</em> od strony Müllerstraße, tylko od Wildenower Straße 8 — przez bramę nr 8 na podwórze.",
-    "de": "<strong>Hinweis:</strong> Der Eingang ist <em>nicht</em> von der Müllerstraße, sondern von der Wildenower Straße 8 — durch Tor Nr. 8 in den Hof."
+  "sakramenty.wedding.entry_note": {
+    "pl": "<strong>Uwaga — dotyczy tylko Wedding (St. Joseph):</strong> wejście jest <em>nie</em> od strony Müllerstraße, tylko od Wildenower Straße 8 — przez bramę nr 8 na podwórze. Spandau i Bazylika — wejście normalne, od frontu.",
+    "de": "<strong>Hinweis — gilt nur für Wedding (St. Joseph):</strong> Der Eingang ist <em>nicht</em> von der Müllerstraße, sondern von der Wildenower Straße 8 — durch Tor Nr. 8 in den Hof. Spandau und Basilika — normaler Eingang von vorn."
   },
   "komunia.step4.title": {
     "pl": "Pierwsza Spowiedź i Komunia Święta",
@@ -296,8 +296,8 @@
     "de": "Orte der Katechese"
   },
   "bierzmowanie.youth.step3.list": {
-    "pl": "<li>Poniedziałek — Bazylika 16:30, Wedding 17:45</li><li>Środa — Bazylika 16:30, Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43) 17:00</li>",
-    "de": "<li>Montag — Basilika 16:30, Wedding 17:45</li><li>Mittwoch — Basilika 16:30, Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43) 17:00</li>"
+    "pl": "<li>Poniedziałek — Bazylika 16:30, Wedding (kościół St. Joseph, Müllerstraße 161) 17:45</li><li>Środa — Bazylika 16:30, Spandau (salka katechetyczna przy kościele St. Marien, Flankenschanze 43) 17:00</li>",
+    "de": "<li>Montag — Basilika 16:30, Wedding (Kirche St. Joseph, Müllerstraße 161) 17:45</li><li>Mittwoch — Basilika 16:30, Spandau (Katecheseraum bei der Kirche St. Marien, Flankenschanze 43) 17:00</li>"
   },
   "bierzmowanie.adult.title": {
     "pl": "Przygotowanie dla <em>dorosłych</em>",
