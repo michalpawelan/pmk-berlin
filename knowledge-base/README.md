@@ -15,30 +15,65 @@ Agent-ID: `agent_4101kpbhjmptftzr7tscfxk639fq`
 
 Alle Dateien sind zweisprachig (Polnisch + Deutsch), da der Agent beide Sprachen bedient. Englische Anfragen werden über die polnische Quelle beantwortet.
 
-## Upload-Anleitung
+## Update-Anleitung (WICHTIG — Datei-Dokumente sind unveränderlich)
 
-Option A — über die ElevenLabs-Oberfläche:
-1. https://elevenlabs.io/app/conversational-ai → Agent *"PMK Berlin — Marta"*
-2. Tab **Knowledge Base** → **Add document** (für jede Datei einmal)
-3. Im Agent-Prompt ist die RAG-Nutzung bereits beschrieben; keine weiteren Änderungen nötig
+Eine hochgeladene Datei lässt sich in ElevenLabs **nicht** bearbeiten. Das Ändern einer `.md`
+hier im Repo wirkt sich **nicht** auf die Agenten aus. Der Weg ist immer:
+**neu hochladen → indexieren → beide Agenten umhängen → alte Dokumente entfernen.**
 
-Option B — per API:
+Es hängen **zwei** Agenten an derselben Wissensbasis. Beide müssen umgehängt werden:
+
+| Agent | ID |
+|---|---|
+| Voice (Telefon) | `agent_4101kpbhjmptftzr7tscfxk639fq` |
+| Text/Chat (Website) | `agent_9501kteh8ecmek7asfq0k7zvraqw` |
+
 ```bash
-for f in 01-*.md 02-*.md 03-*.md 04-*.md; do
-  curl -X POST https://api.elevenlabs.io/v1/convai/knowledge-base \
-    -H "xi-api-key: $ELEVENLABS_API_KEY" \
-    -F "file=@$f" \
-    -F "name=$f"
-done
+set -a; . ./.env; set +a
+
+# 1. Hochladen (Endpunkt endet auf /file, nicht auf /knowledge-base)
+curl -s -X POST https://api.elevenlabs.io/v1/convai/knowledge-base/file \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" \
+  -F "file=@knowledge-base/02-sakramenty.md;type=text/markdown" \
+  -F "name=02-sakramenty.md"
+# -> liefert die neue document id
+
+# 2. RAG-Index anstossen — OHNE diesen Schritt findet der Agent den neuen Text nicht
+curl -s -X POST "https://api.elevenlabs.io/v1/convai/knowledge-base/<NEUE_ID>/rag-index" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" -H "Content-Type: application/json" \
+  -d '{"model":"e5_mistral_7b_instruct"}'
+
+# 3. Warten bis status == succeeded (eigener Endpunkt, steht NICHT im Dokument-GET)
+curl -s -H "xi-api-key: $ELEVENLABS_API_KEY" \
+  "https://api.elevenlabs.io/v1/convai/knowledge-base/<NEUE_ID>/rag-index"
+
+# 4. BEIDE Agenten umhängen — das komplette knowledge_base-Array senden,
+#    nicht nur den geänderten Eintrag (PATCH ersetzt das Array).
+curl -s -X PATCH "https://api.elevenlabs.io/v1/convai/agents/<AGENT_ID>" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" -H "Content-Type: application/json" \
+  -d '{"conversation_config":{"agent":{"prompt":{"knowledge_base":[ ...alle 4 Einträge... ]}}}}'
+
+# 5. Erst danach die alten Dokumente löschen (?force=true, solange sie noch referenziert waren)
 ```
-Dann die zurückgegebenen `document_id`-Werte an den Agenten anhängen über
-`PATCH /v1/convai/agents/agent_4101kpbhjmptftzr7tscfxk639fq`
-mit `conversation_config.agent.prompt.knowledge_base: [{"id": "...", "type": "file"}]`.
+
+## Agenten-Prompts — Live ist NICHT automatisch gleich dem Repo
+
+`elevenlabs-agent-prompt.md` und `elevenlabs-agent-prompt-chat.md` sind die Repo-Fassungen,
+können aber hinter dem Live-Stand liegen, wenn jemand direkt in ElevenLabs gepatcht hat.
+**Vor jedem Prompt-PATCH erst den Live-Text ziehen und vergleichen**, sonst löscht man
+stillschweigend Live-Abschnitte (am 02.09.2026 hätte ein blindes Hochladen den
+EU-AI-Act-Art.-50-Transparenzblock und die Datums-Guardrail entfernt):
+
+```bash
+curl -s -H "xi-api-key: $ELEVENLABS_API_KEY" \
+  "https://api.elevenlabs.io/v1/convai/agents/<AGENT_ID>" \
+  | python3 -c "import sys,json;print(json.load(sys.stdin)['conversation_config']['agent']['prompt']['prompt'])"
+```
 
 ## Pflege
 
-- Quelle der Wahrheit ist weiterhin die Website: https://www.pmk-berlin.de (bzw. der Netlify-Deploy).
-- Bei Änderungen: Datei hier updaten → erneut hochladen (alte Version in ElevenLabs ersetzen).
+- Quelle der Wahrheit ist die Website: https://www.pmk-berlin.de
+- Bei Änderungen: Datei hier updaten → Update-Anleitung oben komplett durchlaufen.
 - Wydarzenia (Events) sind **nicht** in der KB — die kommen live über das Tool `get_upcoming_events` aus dem Google Sheet.
 
 ## Schreibkonventionen für TTS

@@ -100,7 +100,7 @@ Ciepłe powitanie! Zaproponuj: niedzielną Mszę o 12:00 w Bazylice (największa
 ## Oferta dla dzieci, młodzieży, rodzin
 
 - **Dzieci (od 3. klasy):** katecheza Pierwszej Komunii → `02-sakramenty.md`
-- **Młodzież (od 14 lat):** katecheza Bierzmowania, Ruch Światło-Życie, Schola, Grono Dzieci Maryi → `03-wspolnoty.md`
+- **Młodzież (od 15 lat):** katecheza Bierzmowania, Ruch Światło-Życie, Schola, Grono Dzieci Maryi → `03-wspolnoty.md`
 - **Młode małżeństwa:** Domowy Kościół → `03-wspolnoty.md`
 - **Kobiety:** Grupa Kobiet Empatycznych
 - **Mężczyźni:** Grupa Męska

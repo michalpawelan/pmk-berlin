@@ -106,7 +106,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 **Wiek:** dziecko musi mieć ukończoną minimum 2. klasę szkoły podstawowej.
 
-**Zapisy:** w maju–czerwcu. Proszę przyjść do biura parafialnego w godzinach otwarcia.
+**Zapisy:** we wrześniu. Proszę przyjść do biura parafialnego w godzinach otwarcia.
 
 **Dokumenty:**
 - Wypełniony formularz zgłoszeniowy (online: pmk-berlin.de → sakrament-komunia)
@@ -123,13 +123,15 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 - Wtorek, Bazylika — 16:00 lub 17:00
 - Środa, Spandau — **w salce katechetycznej przy kościele St. Marien (Flankenschanze 43)** — 16:00
 
+**Wejście na katechezę w Wedding:** kościół St. Joseph, Müllerstraße 161 — ale wejście na katechezę jest **nie** od Müllerstraße (tam jest fasada kościoła), tylko od **Wildenower Straße 8, brama nr 8**, na podwórze. Bazylika (Lilienthalstraße 5) i Spandau (St. Marien, Flankenschanze 43) — wejście normalne, od frontu.
+
 **Uroczystość:** Pierwsza Komunia Święta odbywa się w maju następnego roku, poprzedzona Pierwszą Spowiedzią.
 
 ### DE — Erstkommunion
 
 **Alter:** Kind muss mindestens die 2. Klasse abgeschlossen haben.
 
-**Anmeldung:** Mai–Juni. Ins Pfarrbüro während der Öffnungszeiten kommen.
+**Anmeldung:** im September. Ins Pfarrbüro während der Öffnungszeiten kommen.
 
 **Dokumente:**
 - Ausgefülltes Anmeldeformular (online: pmk-berlin.de → sakrament-komunia)
@@ -146,6 +148,8 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 - Dienstag, Basilika — 16:00 oder 17:00
 - Mittwoch, Spandau — **im Katecheseraum (salka katechetyczna) bei der Kirche St. Marien (Flankenschanze 43)** — 16:00
 
+**Eingang zur Katechese in Wedding:** Kirche St. Joseph, Müllerstraße 161 — der Eingang zur Katechese ist aber **nicht** von der Müllerstraße (dort ist die Kirchenfassade), sondern von der **Wildenower Straße 8, Tor Nr. 8**, in den Hof. Basilika (Lilienthalstraße 5) und Spandau (St. Marien, Flankenschanze 43) — normaler Eingang von vorn.
+
 **Feier:** Erstkommunion im Mai des Folgejahres, vorangehend die Erstbeichte.
 
 ---
@@ -154,9 +158,9 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 ### PL — Bierzmowanie (młodzież)
 
-**Wiek:** od ukończonych 14 lat.
+**Wiek:** od ukończonych 15 lat.
 
-**Zapisy:** w maju–czerwcu. Osobiście w biurze.
+**Zapisy:** we wrześniu. Osobiście w biurze.
 
 **Dokumenty:** formularz zgłoszeniowy + Akt Chrztu.
 
@@ -168,6 +172,8 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 **Miejsca katechez:**
 - Poniedziałek — Bazylika 16:30, Wedding 17:45
 - Środa — Bazylika 16:30, Spandau **(salka katechetyczna przy kościele St. Marien, Flankenschanze 43)** 17:00
+
+**Wejście na katechezę w Wedding:** kościół St. Joseph, Müllerstraße 161 — ale wejście na katechezę jest **nie** od Müllerstraße (tam jest fasada kościoła), tylko od **Wildenower Straße 8, brama nr 8**, na podwórze. Bazylika (Lilienthalstraße 5) i Spandau (St. Marien, Flankenschanze 43) — wejście normalne, od frontu.
 
 **Uroczystość:** maj lub czerwiec.
 
@@ -187,9 +193,9 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 ### DE — Firmung (Jugendliche)
 
-**Alter:** ab vollendeten 14 Jahren.
+**Alter:** ab vollendeten 15 Jahren.
 
-**Anmeldung:** Mai–Juni im Pfarrbüro.
+**Anmeldung:** im September im Pfarrbüro.
 
 **Dokumente:** Anmeldeformular + Taufschein.
 
@@ -201,6 +207,8 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 **Orte:**
 - Montag — Basilika 16:30, Wedding 17:45
 - Mittwoch — Basilika 16:30, Spandau **(Katecheseraum bei der Kirche St. Marien, Flankenschanze 43)** 17:00
+
+**Eingang zur Katechese in Wedding:** Kirche St. Joseph, Müllerstraße 161 — der Eingang zur Katechese ist aber **nicht** von der Müllerstraße (dort ist die Kirchenfassade), sondern von der **Wildenower Straße 8, Tor Nr. 8**, in den Hof. Basilika (Lilienthalstraße 5) und Spandau (St. Marien, Flankenschanze 43) — normaler Eingang von vorn.
 
 **Feier:** Mai oder Juni.
 
