@@ -1231,6 +1231,10 @@
     "pl": "Nasze <em>spotkania</em>",
     "de": "Unsere <em>Treffen</em>"
   },
+  "wspolnota_kobiet.section_meetings_lead": {
+    "pl": "Nasze spotkania mają formę warsztatów. Organizujemy je m.in. we współpracy z Pogłębiarką, w ramach której tworzymy Przestrzeń Kobiet w Berlinie.",
+    "de": "Unsere Treffen haben die Form von Workshops. Wir organisieren sie unter anderem in Zusammenarbeit mit Pogłębiarka, in deren Rahmen wir die Przestrzeń Kobiet w Berlinie (Raum der Frauen in Berlin) gestalten."
+  },
   "wspolnota_kobiet.section_meetings_intro": {
     "pl": "Stałe elementy naszych spotkań to:",
     "de": "Feste Bestandteile unserer Treffen sind:"
