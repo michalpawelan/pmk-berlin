@@ -204,8 +204,8 @@
     "de": "Melden Sie Ihr Kind zur Erstkommunion an"
   },
   "komunia.cta.body": {
-    "pl": "Zapisy: wrzesień. Wypełnij formularz zgłoszeniowy i dostarcz go razem z Aktem Chrztu do Biura Parafialnego.",
-    "de": "Anmeldung: September. Füllen Sie das Anmeldeformular aus und reichen Sie es zusammen mit der Taufurkunde im Pfarrbüro ein."
+    "pl": "Zapisy: wrzesień. Wystarczy wypełnić formularz na stronie. Jeśli nie dołączysz Aktu Chrztu, prosimy dostarczyć go do Biura Parafialnego.",
+    "de": "Anmeldung: September. Das Formular auf dieser Seite genügt. Wenn Sie die Taufurkunde nicht anhängen, reichen Sie sie bitte im Pfarrbüro nach."
   },
   "komunia.cta.form": {
     "pl": "Wypełnij formularz",
@@ -356,8 +356,8 @@
     "de": "Zur Firmung anmelden"
   },
   "bierzmowanie.cta.body": {
-    "pl": "Młodzież: zapisy wrzesień. Dorośli: informacja na ogłoszeniach duszpasterskich. Formularz + Akt Chrztu.",
-    "de": "Jugendliche: Anmeldung September. Erwachsene: Informationen in den Pfarrnachrichten. Formular + Taufschein."
+    "pl": "Młodzież: zapisy wrzesień. Dorośli: informacja na ogłoszeniach duszpasterskich. Wystarczy formularz na stronie; Akt Chrztu można dołączyć albo dostarczyć do biura.",
+    "de": "Jugendliche: Anmeldung September. Erwachsene: Informationen in den Pfarrnachrichten. Das Formular auf dieser Seite genügt; die Taufurkunde anhängen oder im Pfarrbüro nachreichen."
   },
   "bierzmowanie.cta.form": {
     "pl": "Wypełnij formularz",

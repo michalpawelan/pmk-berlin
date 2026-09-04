@@ -106,7 +106,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 **Wiek:** dziecko musi mieć ukończoną minimum 2. klasę szkoły podstawowej.
 
-**Zapisy:** we wrześniu. Proszę przyjść do biura parafialnego w godzinach otwarcia.
+**Zapisy:** we wrześniu. **Wystarczy formularz online na stronie** (pmk-berlin.de → Pierwsza Komunia). Wizyta w biurze nie jest konieczna. Jeśli rodzice nie dołączyli Aktu Chrztu do formularza, trzeba go dostarczyć do biura.
 
 **Dokumenty:**
 - Wypełniony formularz zgłoszeniowy (online: pmk-berlin.de → sakrament-komunia)
@@ -131,7 +131,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 **Alter:** Kind muss mindestens die 2. Klasse abgeschlossen haben.
 
-**Anmeldung:** im September. Ins Pfarrbüro während der Öffnungszeiten kommen.
+**Anmeldung:** im September. **Das Online-Formular auf der Website genügt** (pmk-berlin.de → Erstkommunion). Ein Besuch im Pfarrbüro ist nicht nötig. Wurde die Taufurkunde nicht angehängt, muss sie im Pfarrbüro nachgereicht werden.
 
 **Dokumente:**
 - Ausgefülltes Anmeldeformular (online: pmk-berlin.de → sakrament-komunia)
@@ -160,7 +160,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 **Wiek:** od ukończonych 15 lat.
 
-**Zapisy:** we wrześniu. Osobiście w biurze.
+**Zapisy:** we wrześniu. **Wystarczy formularz online na stronie.** Wizyta w biurze nie jest konieczna. Brakujący Akt Chrztu trzeba dostarczyć do biura.
 
 **Dokumenty:** formularz zgłoszeniowy + Akt Chrztu.
 
@@ -195,7 +195,7 @@ Die PMK Berlin **stellt Patenscheine aus** für ihre Pfarrangehörigen, die in e
 
 **Alter:** ab vollendeten 15 Jahren.
 
-**Anmeldung:** im September im Pfarrbüro.
+**Anmeldung:** im September. **Das Online-Formular auf der Website genügt.** Ein Besuch im Pfarrbüro ist nicht nötig. Ein fehlender Taufschein muss im Pfarrbüro nachgereicht werden.
 
 **Dokumente:** Anmeldeformular + Taufschein.
 
