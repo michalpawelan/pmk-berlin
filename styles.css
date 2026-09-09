@@ -2496,6 +2496,10 @@ em {
   color: var(--color-warm-400);
 }
 
+.pastor-card-photo .pastor-placeholder span {
+  font-size: 2.5rem;
+}
+
 .pastor-content {
   max-width: 560px;
 }
@@ -2567,6 +2571,7 @@ em {
 }
 
 .pastor-card-photo {
+  position: relative;
   width: 160px;
   height: 160px;
   border-radius: 50%;
