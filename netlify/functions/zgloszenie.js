@@ -122,6 +122,23 @@ const USABLE_RE = /^\+\d{1,3}\s\d{6,}$/;
 // auch dann raus, und der Watchdog kann die Mail nachreichen.
 const SMTP_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_SMTP_BUDGET_MS || '6000', 10);
 
+// Wie lange der Agent hoechstens auf die Sheet-Zeile (Apps Script) wartet,
+// gemessen ab Eingang. Audit 08.10.2026: Apps Script brauchte bis zu 20 s und
+// lieferte 5x eine Google-Fehlerseite statt JSON — der Agent bekam "Fehler",
+// obwohl die Mail an die Pfarrei laengst raus war. Ist die Pfarrei per Mail
+// benachrichtigt, reicht ein kurzes Warten; sonst ist das Sheet der einzige
+// Weg und wir warten laenger, aber immer unter dem 20-s-Tool-Timeout von
+// ElevenLabs, damit der Agent eine echte Antwort statt "timed out" bekommt.
+const SHEET_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_SHEET_BUDGET_MS || '6000', 10);
+const SHEET_HARD_MS = parseInt(process.env.ZGLOSZENIE_SHEET_HARD_MS || '17000', 10);
+
+// Gilt die Pfarrei als benachrichtigt? Ja, wenn die Mail jetzt rausging oder
+// in diesem Gespraech schon eine Mail rausging (Zweitmeldung ohne Neues).
+function parishNotified(mail) {
+  return !!(mail && (mail.sent === true || mail.reason === 'duplicate_suppressed'));
+}
+exports.parishNotified = parishNotified;
+
 // Wartet hoechstens ms auf p und liefert sonst fallback. Verwirft das Ergebnis
 // von p danach still — der Versand laeuft ggf. zu Ende, nur ohne uns.
 function withTimeout(p, ms, fallback) {
@@ -364,21 +381,35 @@ exports.handler = async (event) => {
         { sent: false, reason: 'smtp_timeout' })
     : Promise.resolve({ sent: false, reason: 'duplicate_suppressed' });
 
-  try {
-    const [mail, res] = await Promise.all([
-      mailPromise,
-      fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: form.toString(),
-        redirect: 'follow'
-      })
-    ]);
+  const t0 = Date.now();
+  // Sheet-Zeile: wirft nie, liefert immer ein Objekt. Bei einer Google-Fehlerseite
+  // wird der Anfang protokolliert — damit die naechste Analyse den Grund sieht.
+  const sheetPromise = fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: form.toString(),
+    redirect: 'follow'
+  }).then(async (res) => {
     const text = await res.text();
-    let data;
-    try { data = JSON.parse(text); } catch (_) { data = { success: false, error: 'upstream_parse' }; }
-    // Dem Agenten eine klare, knappe Antwort geben
-    if (data && data.success) {
+    try { return JSON.parse(text); }
+    catch (_) { return { success: false, error: 'upstream_parse', status: res.status, snippet: text.slice(0, 200) }; }
+  }).catch(e => ({ success: false, error: 'upstream_failed', detail: e && e.message }));
+
+  try {
+    const mail = await mailPromise;
+    const notified = parishNotified(mail);
+    const wait = Math.max(0, (notified ? SHEET_BUDGET_MS : SHEET_HARD_MS) - (Date.now() - t0));
+    const data = await withTimeout(sheetPromise, wait, { success: false, error: 'sheet_timeout' });
+    const sheetOk = !!(data && data.success);
+    if (!sheetOk) {
+      console.warn('zgloszenie: Sheet-Zeile nicht bestaetigt', JSON.stringify({
+        error: data && data.error, status: data && data.status, snippet: data && data.snippet,
+        ms: Date.now() - t0, notified, conversationId
+      }));
+    }
+    // Dem Agenten eine klare, knappe Antwort geben. Erfolg heisst: die Pfarrei
+    // weiss Bescheid — per Sheet-Zeile ODER per Mail.
+    if (sheetOk || notified) {
       // buildToolResponse entscheidet, ob eine Rückruf-Zusage überhaupt zulässig
       // ist. Ohne verwertbare Nummer kommt stattdessen die Rückfrage zurück.
       if (mailStore && conversationId) {
@@ -394,6 +425,7 @@ exports.handler = async (event) => {
         buildToolResponse({ phoneProvided, phoneUsable, phoneSource: picked.phone_source, lang }),
         {
           mail,
+          sheet: sheetOk ? 'ok' : ((data && data.error) || 'unconfirmed'),
           phone_provided: phoneProvided,
           phone_usable: phoneUsable,
           phone_source: picked.phone_source
@@ -401,7 +433,7 @@ exports.handler = async (event) => {
       );
       return json(200, resp);
     }
-    return json(502, { success: false, error: (data && data.error) || 'upstream_failed' });
+    return json(502, { success: false, error: (data && data.error) || 'upstream_failed', mail });
   } catch (_) {
     return json(502, { success: false, error: 'upstream_failed' });
   }
