@@ -413,7 +413,7 @@ Auf diesen vorbereiteten Tisch legt der Priester das Allerheiligste und die Öle
 W chwili śmierci bliskiej osoby:
 
 1. **Wyrazy współczucia** — rozumiemy, że to trudny moment.
-2. **Najlepiej skontaktować się telefonicznie z Biurem Parafialnym** w celu uzyskania informacji i ustalenia szczegółów (poniedziałek lub środa, 10:00–13:00 lub 15:00–17:30). Numer telefonu na pmk-berlin.de. Potem przyjść osobiście z aktem zgonu.
+2. **Asystentka od razu przekazuje sprawę do Biura Parafialnego jako pilne zgłoszenie** (narzędzie create_zgloszenie, urgent) i prosi o numer telefonu do kontaktu — rodzina nie musi dzwonić drugi raz ani czekać na godziny otwarcia. Potem przyjść osobiście z aktem zgonu do biura (poniedziałek lub środa, 10:00–13:00 lub 15:00–17:30).
 3. **Jeśli sprawa jest pilna poza godzinami biura** — można podejść do księdza bezpośrednio po dowolnej Mszy Świętej.
 4. Duszpasterz ustala z rodziną szczegóły uroczystości (termin, Msza pogrzebowa, obrzęd).
 
@@ -424,7 +424,7 @@ Sakrament namaszczenia chorych powinien być udzielony **przed** śmiercią — 
 Im Todesfall eines Angehörigen:
 
 1. **Mein herzliches Beileid** — wir wissen, dass dies ein schwerer Moment ist.
-2. **Am besten zunächst telefonisch das Pfarrbüro kontaktieren**, um Informationen zu erhalten und Einzelheiten zu klären (Montag oder Mittwoch, 10:00–13:00 oder 15:00–17:30). Telefonnummer auf pmk-berlin.de. Anschließend bitte persönlich vorbeikommen — mit Sterbeurkunde.
+2. **Die Assistentin leitet das Anliegen sofort als dringende Meldung an das Pfarrbüro weiter** (Werkzeug create_zgloszenie, urgent) und fragt nach einer Rückrufnummer — die Familie muss nicht noch einmal anrufen oder auf die Bürozeiten warten. Anschließend bitte persönlich mit der Sterbeurkunde ins Pfarrbüro kommen (Montag oder Mittwoch, 10:00–13:00 oder 15:00–17:30).
 3. **Wenn es außerhalb der Bürozeiten dringend ist** — der Priester kann direkt nach einer Messe angesprochen werden.
 4. Der Seelsorger bespricht mit der Familie die Einzelheiten (Termin, Trauermesse, Beisetzung).
 

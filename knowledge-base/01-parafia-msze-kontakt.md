@@ -67,7 +67,7 @@ W lipcu i sierpniu poranna Msza o **7:00 w dni powszednie jest zawieszona** — 
 **Wszystkie Msze w filiach są Mszami Polskiej Misji Katolickiej i odprawiane są PO POLSKU** — tak samo jak w Bazylice. Nigdy nie mów, że któraś z nich jest po niemiecku.
 
 - **St. Joseph, Wedding:** Müllerstraße 161, 13353 Berlin — niedziela/święta **16:00**
-- **St. Marien am Behnitz, Spandau:** Flankenschanze 43, 13585 Berlin — niedziela/święta **12:00**, środa **18:30**
+- **St. Marien am Behnitz, Spandau:** Flankenschanze 43, 13585 Berlin — niedziela/święta **12:00**, środa **18:30** — **tylko od października do końca maja** (Msza środowa jest związana z rokiem katechetycznym; od czerwca do września w środę w Spandau nie ma Mszy)
 - **St. Marien, Karlshorst:** Gundelfinger Straße 36, 10318 Berlin — niedziela/święta **11:00**
 
 ## PL — Spowiedź Święta
@@ -154,7 +154,7 @@ Im Juli und August **entfällt die Frühmesse um 7:00 an Werktagen** — von Mon
 **Alle Messen in den weiteren Kirchen sind Messen der Polnischen Katholischen Mission und werden AUF POLNISCH gefeiert** — genau wie in der Basilika. Niemals sagen, eine davon sei auf Deutsch.
 
 - **St. Joseph, Wedding:** Müllerstraße 161, 13353 Berlin — Sonntag/Feiertag **16:00**
-- **St. Marien am Behnitz, Spandau:** Flankenschanze 43, 13585 Berlin — Sonntag/Feiertag **12:00**, Mittwoch **18:30**
+- **St. Marien am Behnitz, Spandau:** Flankenschanze 43, 13585 Berlin — Sonntag/Feiertag **12:00**, Mittwoch **18:30** — **nur von Oktober bis Ende Mai** (die Mittwochsmesse folgt dem Katechesejahr; von Juni bis September ist mittwochs in Spandau keine Messe)
 - **St. Marien, Karlshorst:** Gundelfinger Straße 36, 10318 Berlin — Sonntag/Feiertag **11:00**
 
 ## DE — Beichte

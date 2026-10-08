@@ -120,40 +120,101 @@ async function getEventsCached() {
   }
 }
 
+// Suchbegriff als Datum lesen: "2026-10-10", "10.10." oder "10.10.2026".
+// Die Agenten uebergeben fuer Fragen wie "Ist heute Messe?" fast immer ein Datum.
+// Ohne Jahr gilt das naechste Vorkommen ab heute.
+function queryAsDate(query, today) {
+  const iso = query.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (iso) return iso[0];
+  const de = query.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})?$/);
+  if (!de) return null;
+  const mmdd = `${de[2].padStart(2, '0')}-${de[1].padStart(2, '0')}`;
+  if (de[3]) return `${de[3]}-${mmdd}`;
+  const todayIso = today.toISOString().slice(0, 10);
+  const year = today.getUTCFullYear();
+  return `${year}-${mmdd}` >= todayIso ? `${year}-${mmdd}` : `${year + 1}-${mmdd}`;
+}
+
+// Wochentag und lesbares Datum fuer das abgefragte Datum. Der Prompt verbietet
+// der KI, Wochentage selbst zu rechnen — bisher kam ein Wochentag aber nur fuer
+// Tage zurueck, an denen ein Sondertermin steht.
+function describeDate(date, lang) {
+  const d = new Date(`${date}T12:00:00Z`);
+  if (isNaN(d)) return null;
+  const wd = lang === 'de' ? DE_WEEKDAYS : PL_WEEKDAYS;
+  return {
+    date,
+    weekday: wd[d.getUTCDay()],
+    date_human: d.toLocaleDateString(lang === 'de' ? 'de-DE' : 'pl-PL',
+      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  };
+}
+
+// Der Feed enthaelt NUR Sonderveranstaltungen. Audit 08.10.2026: Beide Agenten
+// lasen eine leere Trefferliste als "heute keine Messe" und verneinten regulaere
+// Messen. Deshalb (a) steht der Hinweis in JEDER Antwort, und (b) liefert ein
+// Suchbegriff ohne Treffer alle kommenden Termine statt einer leeren Liste.
+const FEED_NOTE = 'This feed lists ONLY special events (catechesis, concerts, retreats, pilgrimages, parish celebrations). '
+  + 'Regular Masses and confession times are NOT in this feed — always take them from the knowledge base (regular schedule). '
+  + 'An empty or non-matching result never means there is no Mass. '
+  + 'Use the description field for the actual schedule — the time field may be empty or a coarse range. Only upcoming, published events are returned.';
+
+function buildResponseBody(events, { query = '', limit = 10, lang = 'pl', today = new Date() } = {}) {
+  const q = String(query || '').toLowerCase().trim();
+  let list = events;
+  let queryMatched;
+  let requestedDate;
+  if (q) {
+    const date = queryAsDate(q, today);
+    if (date) requestedDate = describeDate(date, lang) || undefined;
+    const hits = date
+      ? events.filter(e => e.date === date)
+      : events.filter(e =>
+          e.title.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q) ||
+          e.location.toLowerCase().includes(q));
+    queryMatched = hits.length > 0;
+    list = queryMatched ? hits : events;
+  }
+  list = list.slice(0, limit);
+
+  const body = {
+    count: list.length,
+    events: list.map(e => ({
+      title: e.title,
+      date: e.date,
+      date_human: e.date_human,
+      weekday: e.weekday,
+      time: e.time || null,
+      location: e.location,
+      address: e.address,
+      description: e.description
+    })),
+    fetched_at: new Date().toISOString(),
+    source_url: 'https://www.pmk-berlin.de/events',
+    note: FEED_NOTE
+  };
+  if (requestedDate) body.requested_date = requestedDate;
+  if (queryMatched !== undefined) {
+    body.query_matched = queryMatched;
+    if (!queryMatched) {
+      body.query_note = `No special event matched "${query}". Showing all upcoming special events instead. `
+        + 'This says nothing about regular Masses — answer those from the knowledge base.';
+    }
+  }
+  return body;
+}
+exports.buildResponseBody = buildResponseBody;
+
 exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
   const lang = (params.lang || 'pl').toLowerCase() === 'de' ? 'de' : 'pl';
   const limit = Math.min(parseInt(params.limit, 10) || 10, 30);
-  const query = (params.query || '').toLowerCase().trim();
+  const query = (params.query || '').trim();
 
   try {
-    let events = await getEventsCached();
-    events = enrich(events, lang);
-    if (query) {
-      events = events.filter(e =>
-        e.title.toLowerCase().includes(query) ||
-        e.description.toLowerCase().includes(query) ||
-        e.location.toLowerCase().includes(query)
-      );
-    }
-    events = events.slice(0, limit);
-
-    const body = {
-      count: events.length,
-      events: events.map(e => ({
-        title: e.title,
-        date: e.date,
-        date_human: e.date_human,
-        weekday: e.weekday,
-        time: e.time || null,
-        location: e.location,
-        address: e.address,
-        description: e.description
-      })),
-      fetched_at: new Date().toISOString(),
-      source_url: 'https://www.pmk-berlin.de/events',
-      note: 'Use the description field for the actual schedule — the time field may be empty or a coarse range. Only upcoming, published events are returned.'
-    };
+    const events = enrich(await getEventsCached(), lang);
+    const body = buildResponseBody(events, { query, limit, lang });
 
     return {
       statusCode: 200,
