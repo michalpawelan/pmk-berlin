@@ -509,7 +509,10 @@
     // Left visual: poster thumbnail (with image) OR a date badge (without).
     let left, whenText;
     if (ev.imageUrl) {
-      left = `<span class="ev-thumb"><img src="${safeImageUrl}" alt="" loading="lazy"></span>`;
+      // Vorschaubild ist hoechstens 96x120 CSS-px: 400 px Breite reichen auch fuer 3x-Displays
+      // (vorher 800 px = ~200 KB pro Karte, jetzt ~50 KB). Grosse Ansichten behalten 800 px.
+      const thumbUrl = escapeHTML(String(ev.imageUrl).replace(/([?&]w=)800\b/, '$1400'));
+      left = `<span class="ev-thumb"><img src="${thumbUrl}" alt="" loading="lazy"></span>`;
       whenText = `${escapeHTML(weekday)} · ${day} ${escapeHTML(month)}`;
     } else {
       left = `<span class="ev-date-badge"><span class="d">${day}</span><span class="m">${escapeHTML(String(month).slice(0, 3))}</span></span>`;

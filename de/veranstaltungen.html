@@ -459,7 +459,7 @@ function renderSection(title, events) {
     const metaLine = [timeDisplay, location].filter(Boolean).join(' · ');
 
     const left = hasImage
-      ? `<span class="ev-thumb"><img src="${ev.imageUrl}" alt="" loading="lazy"></span>`
+      ? `<span class="ev-thumb"><img src="${String(ev.imageUrl).replace(/([?&]w=)800\b/, '$1400')}" alt="" loading="lazy"></span>`
       : `<span class="ev-date-badge"><span class="d">${dateInfo.day}</span><span class="m">${String(dateInfo.month).slice(0, 3)}</span></span>`;
     const whenText = hasImage ? `${weekday} · ${dateInfo.day} ${dateInfo.month}` : weekday;
 

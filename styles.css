@@ -366,9 +366,16 @@ em {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
+}
+/* Bis 819 px ragte sonst der Markenname ("Katolicka") in den ersten Menuepunkt:
+   der Markenblock schrumpfte unter die Breite seines laengsten Wortes. */
+@media (min-width: 768px) and (max-width: 819px) {
+  .nav-container {
+    gap: 0.5rem;
+  }
   .nav-links a {
-    padding-left: 0.375rem;
-    padding-right: 0.375rem;
+    padding-left: 0.3125rem;
+    padding-right: 0.3125rem;
   }
 }
 
@@ -4837,6 +4844,13 @@ a.event-card-full:hover {
   .nav-links a:hover {
     background-color: transparent;
     color: var(--color-accent);
+  }
+
+  /* Aktiver Punkt wie Hover: nur der Unterstrich. Vorher lag zusaetzlich die
+     beige Pille aus der Grundregel darunter — auf Tablets sah das wie ein
+     beiges Kaestchen mit Strich aus (09.10.2026). Im Handy-Menue bleibt die Pille. */
+  .nav-links a.active {
+    background-color: transparent;
   }
 }
 

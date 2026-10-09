@@ -31,7 +31,9 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    .ogloszenia-page { background: var(--color-warm-50, #faf6f0); padding: 3rem 0 4rem; min-height: 60vh; }
+    .ogloszenia-page { background: var(--color-warm-50, #faf6f0); padding: 3rem 0 4rem; min-height: 100vh; }
+    /* 100vh statt 60vh: Der Aushang wird per JS nachgeladen. Mit 60vh stand die Fusszeile
+       anfangs im Bild und sprang dann nach unten (CLS 0,40). So bewegt sie sich nur ausserhalb. */
     .ogloszenia-page-container { max-width: 720px; margin: 0 auto; padding: 0 1.25rem; }
 
     .ogloszenia-back {
