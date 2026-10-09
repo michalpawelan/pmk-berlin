@@ -45,12 +45,13 @@ function navActive(file) {
   return file;
 }
 
-// Spiegel der PL-Navigation (5 Punkte) — Messzeiten/Über-uns sind Abschnitte
+// Spiegel der PL-Navigation (6 Punkte, seit 09.10.2026 mit Pfarrnachrichten) — Messzeiten/Über-uns sind Abschnitte
 // der Startseite (/de/index.html#messzeiten, #onas), keine eigenen Seiten mehr.
 const NAV_ITEMS = [
   ['index.html', 'Startseite'],
   ['sakramente.html', 'Sakramente'],
   ['veranstaltungen.html', 'Veranstaltungen'],
+  ['ogloszenia.html', 'Pfarrnachrichten'],
   ['gruppen.html', 'Gruppen'],
   ['kontakt.html', 'Kontakt'],
 ];
