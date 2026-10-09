@@ -508,6 +508,10 @@ const Events = (function() {
   // Time Mode Toggle
   // ============================================
   let currentTimeMode = 'exact';
+  // Gespeicherte Uhrzeit, die das Zeitfeld nicht darstellen konnte (es bleibt dann leer).
+  // "Speichern" darf sie nicht still durch eine leere Uhrzeit ersetzen.
+  let unreadableTime = '';
+  const UNREADABLE_TIME_MSG = 'Nie udało się odczytać zapisanej godziny – wpisz ją ponownie.';
 
   function setTimeMode(mode) {
     // Zeit zwischen Modi übertragen
@@ -531,7 +535,7 @@ const Events = (function() {
   function syncTimeToHidden() {
     if (currentTimeMode === 'exact') {
       document.getElementById('eventTime').value = document.getElementById('eventTimeFrom').value || '';
-      return true;
+      return timeNotLost();
     } else {
       const from = document.getElementById('eventTimeRangeFrom').value || '';
       const to = document.getElementById('eventTimeRangeTo').value || '';
@@ -540,11 +544,20 @@ const Events = (function() {
         return false;
       }
       document.getElementById('eventTime').value = (from && to) ? from + '-' + to : from || to || '';
-      return true;
+      return timeNotLost();
     }
   }
 
+  function timeNotLost() {
+    if (unreadableTime && !document.getElementById('eventTime').value) {
+      showToast(UNREADABLE_TIME_MSG, 'error');
+      return false;
+    }
+    return true;
+  }
+
   function loadTimeFromValue(timeStr) {
+    unreadableTime = '';
     if (!timeStr) {
       setTimeMode('exact');
       document.getElementById('eventTimeFrom').value = '';
@@ -560,6 +573,14 @@ const Events = (function() {
     } else {
       setTimeMode('exact');
       document.getElementById('eventTimeFrom').value = timeStr.trim();
+    }
+    // Das Zeitfeld verwirft alles, was keine Uhrzeit ist, und bleibt dann leer.
+    const shown = currentTimeMode === 'range'
+      ? document.getElementById('eventTimeRangeFrom').value || document.getElementById('eventTimeRangeTo').value
+      : document.getElementById('eventTimeFrom').value;
+    if (!shown) {
+      unreadableTime = timeStr;
+      showToast(UNREADABLE_TIME_MSG, 'error');
     }
   }
 

@@ -219,7 +219,11 @@ function handleRequest(e) {
  */
 function listEvents() {
   const sheet = getSheet();
-  const data = sheet.getDataRange().getValues();
+  const range = sheet.getDataRange();
+  const data = range.getValues();
+  // Uhrzeit so, wie das Sheet sie anzeigt (siehe eventTime_).
+  const shown = range.getDisplayValues();
+  const tz = sheet.getParent().getSpreadsheetTimeZone();
   const events = [];
 
   // Erste Zeile = Header, ab Zeile 2
@@ -241,7 +245,7 @@ function listEvents() {
       row: i + 1, // Zeilennummer im Sheet (1-basiert)
       title: String(row[0] || ''),
       date: dateStr,
-      time: String(row[2] || ''),
+      time: eventTime_(row[2], shown[i][2], tz),
       description: String(row[3] || ''),
       image: String(row[4] || ''),
       location: String(row[5] || ''),
@@ -255,6 +259,20 @@ function listEvents() {
   events.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
   return { success: true, events: events };
+}
+
+/**
+ * Uhrzeit-Zelle als "HH:MM". Text wie "10:00-12:00" bleibt unveraendert.
+ * Zeitzellen liefert getValues() als Datum vom 30.12.1899; String() davon steht in der
+ * Skript-Zeitzone ("Sat Dec 30 1899 19:00:00 GMT+0100" fuer 10:00, das Sheet laeuft auf
+ * einer anderen Zeitzone). Das Zeitfeld im Admin-Panel konnte das nicht lesen, blieb leer,
+ * und "Speichern" hat die Uhrzeit geloescht (gefunden 09.10.2026).
+ */
+function eventTime_(raw, shown, tz) {
+  if (!(raw instanceof Date)) return String(raw || '');
+  const m = String(shown || '').trim().match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);
+  if (m) return m[1].padStart(2, '0') + ':' + m[2];
+  return Utilities.formatDate(raw, tz, 'HH:mm');
 }
 
 /**
