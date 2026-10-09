@@ -69,6 +69,25 @@ check('Tool-Fehler: 1 von 20 -> kein Alarm',
     { ok: false, phoneUsable: null },
   ] }]).alert === false);
 
+// ------------------------------------------------------------ Ticket-Sheet
+// Code-Review 09.10.2026: Seit zgloszenie.js bei zugestellter Mail nicht mehr auf
+// das Apps Script wartet, sieht ein dauerhafter Sheet-Ausfall fuer Agent und
+// Watchdog wie Erfolg aus. Admin-Tab und Statuspflege waeren still leer.
+const esc = (sheet) => ({ ok: true, phoneUsable: true, sheet });
+check('Ticket-Sheet: 3 von 4 ohne Sheet-Bestaetigung -> Alarm',
+  typeof h.checkSheetConfirm === 'function'
+  && h.checkSheetConfirm([{ escalations: [esc('sheet_timeout'), esc('upstream_parse'), esc('sheet_timeout'), esc('ok')] }]).alert === true);
+check('Ticket-Sheet: 1 von 6 ohne Bestaetigung -> kein Alarm (ein langsamer Google-Aufruf)',
+  typeof h.checkSheetConfirm === 'function'
+  && h.checkSheetConfirm([{ escalations: [esc('sheet_timeout'), esc('ok'), esc('ok'), esc('ok'), esc('ok'), esc('ok')] }]).alert === false);
+check('Ticket-Sheet: alte Antworten ohne sheet-Feld zaehlen nicht',
+  typeof h.checkSheetConfirm === 'function'
+  && h.checkSheetConfirm([{ escalations: [esc(null), esc(null), esc(null)] }]).calls === 0);
+check('Ticket-Sheet: toRecord liest das sheet-Feld aus der Werkzeug-Antwort',
+  typeof h.toRecord === 'function'
+  && h.toRecord({ metadata: {}, transcript: [{ tool_results: [{ tool_name: 'create_zgloszenie', is_error: false,
+    result_value: '{"success":true,"phone_usable":true,"sheet":"sheet_timeout"}' }] }] }).escalations[0].sheet === 'sheet_timeout');
+
 // -------------------------------------------------------------------- Quota
 // 20.08.: 767.866 / 917.858 bei Reset am 07.09. und ~155k/Tag Verbrauch.
 check('Quota: Hochrechnung reicht nicht bis zum Reset -> Alarm',

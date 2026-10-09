@@ -77,23 +77,28 @@ function parseEvents(text) {
   return out;
 }
 
-function enrich(events, lang) {
-  const today = new Date(); today.setHours(0,0,0,0);
+// "Heute" ist der Kalendertag in Berlin, nicht in UTC (Netlify laeuft in UTC):
+// zwischen 00:00 und 02:00 Berliner Zeit waere sonst noch "gestern".
+const berlinDay = d => d.toLocaleDateString('sv-SE', { timeZone: 'Europe/Berlin' });
+
+function enrich(events, lang, now = new Date()) {
+  const today = berlinDay(now);
   const wd = lang === 'de' ? DE_WEEKDAYS : PL_WEEKDAYS;
   return events
-    .filter(e => new Date(e.date) >= today)
-    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .filter(e => e.date >= today)
+    .sort((a,b) => a.date.localeCompare(b.date))
     .map(e => {
-      const d = new Date(e.date);
+      const d = new Date(`${e.date}T12:00:00Z`);
       return {
         ...e,
-        weekday: wd[d.getDay()],
+        weekday: wd[d.getUTCDay()],
         date_human: lang === 'de'
-          ? d.toLocaleDateString('de-DE', { day:'numeric', month:'long', year:'numeric' })
-          : d.toLocaleDateString('pl-PL', { day:'numeric', month:'long', year:'numeric' })
+          ? d.toLocaleDateString('de-DE', { day:'numeric', month:'long', year:'numeric', timeZone: 'UTC' })
+          : d.toLocaleDateString('pl-PL', { day:'numeric', month:'long', year:'numeric', timeZone: 'UTC' })
       };
     });
 }
+exports.enrich = enrich;
 
 // In-Memory-Cache (sprachunabhängig: parseEvents liefert Rohdaten, enrich pro lang).
 // Ein warmer Netlify-Container serviert wiederholte Tool-Calls sofort, statt den
@@ -120,19 +125,31 @@ async function getEventsCached() {
   }
 }
 
-// Suchbegriff als Datum lesen: "2026-10-10", "10.10." oder "10.10.2026".
-// Die Agenten uebergeben fuer Fragen wie "Ist heute Messe?" fast immer ein Datum.
-// Ohne Jahr gilt das naechste Vorkommen ab heute.
+// Suchbegriff als Datum lesen: "2026-10-10", "10.10.", "10.10", "10.10.26" oder
+// "10.10.2026". Die Agenten uebergeben fuer Fragen wie "Ist heute Messe?" fast
+// immer ein Datum. Ohne Jahr gilt das naechste Vorkommen ab heute (Berlin).
+// Unmoegliche Daten ("31.02.") sind kein Datum.
+const validYmd = (y, m, d) => {
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d;
+};
+const ymd = (y, m, d) => `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 function queryAsDate(query, today) {
   const iso = query.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (iso) return iso[0];
-  const de = query.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})?$/);
+  if (iso) return validYmd(+iso[1], +iso[2], +iso[3]) ? iso[0] : null;
+  const de = query.match(/^(\d{1,2})\.(\d{1,2})\.?(\d{4}|\d{2})?$/);
   if (!de) return null;
-  const mmdd = `${de[2].padStart(2, '0')}-${de[1].padStart(2, '0')}`;
-  if (de[3]) return `${de[3]}-${mmdd}`;
-  const todayIso = today.toISOString().slice(0, 10);
-  const year = today.getUTCFullYear();
-  return `${year}-${mmdd}` >= todayIso ? `${year}-${mmdd}` : `${year + 1}-${mmdd}`;
+  const d = +de[1], m = +de[2];
+  if (de[3]) {
+    const y = de[3].length === 2 ? 2000 + +de[3] : +de[3];
+    return validYmd(y, m, d) ? ymd(y, m, d) : null;
+  }
+  const todayIso = berlinDay(today);
+  const year = +todayIso.slice(0, 4);
+  for (const y of [year, year + 1, year + 2, year + 3, year + 4]) { // 29.02. -> naechstes Schaltjahr
+    if (validYmd(y, m, d) && ymd(y, m, d) >= todayIso) return ymd(y, m, d);
+  }
+  return null;
 }
 
 // Wochentag und lesbares Datum fuer das abgefragte Datum. Der Prompt verbietet
@@ -163,7 +180,7 @@ const ANNOUNCEMENTS_NOTE = 'Parish announcements (Ogłoszenia duszpasterskie), n
   + '"next Sunday" or "today" inside a bulletin refer to the week of the bulletin (see published / valid_until), not to today. '
   + 'Use them for current devotions (e.g. the October rosary), registrations, groups and events. Regular Mass times are in the knowledge base.';
 
-const isoDay = d => (d instanceof Date && !isNaN(d)) ? d.toISOString().slice(0, 10) : null;
+const isoDay = d => (d instanceof Date && !isNaN(d)) ? berlinDay(d) : null;
 
 function buildResponseBody(events, { query = '', limit = 10, lang = 'pl', today = new Date(), announcements = null } = {}) {
   const q = String(query || '').toLowerCase().trim();
@@ -224,17 +241,34 @@ exports.buildResponseBody = buildResponseBody;
 
 // Aktuelle Ogloszenia (aktueller + vorheriger Aushang) mit eigenem Cache. Faellt der
 // Tab aus, fehlt das Feld einfach — die Termine kommen trotzdem.
-let _annCache = { items: null, ts: 0 };
-const ANN_CACHE_TTL_MS = 300000; // 5 Minuten
+// Code-Review 09.10.2026: Der Abruf ist hart begrenzt (sonst haengt das ganze
+// Werkzeug mit), ein Fehlschlag wird eine Minute gemerkt, und ein alter Stand
+// wird hoechstens sechs Stunden lang weiter ausgeliefert.
+let _annCache = { items: null, ts: 0, failTs: 0 };
+const ANN_CACHE_TTL_MS = 300000;          // 5 Minuten
+const ANN_BUDGET_MS = parseInt(process.env.AGENT_EVENTS_ANN_BUDGET_MS || '1500', 10);
+const ANN_FAIL_TTL_MS = 60000;            // 1 Minute
+const ANN_STALE_MAX_MS = 6 * 3600 * 1000; // 6 Stunden
 async function getAnnouncementsCached(now) {
-  if (_annCache.items && (Date.now() - _annCache.ts) < ANN_CACHE_TTL_MS) return _annCache.items;
+  const t = Date.now();
+  if (_annCache.items && (t - _annCache.ts) < ANN_CACHE_TTL_MS) return _annCache.items;
+  const stale = () => (_annCache.items && (t - _annCache.ts) < ANN_STALE_MAX_MS) ? _annCache.items : null;
+  if (_annCache.failTs && (t - _annCache.failTs) < ANN_FAIL_TTL_MS) return stale();
+  let timer;
   try {
     const { fetchOgloszenia, selectForKi } = require('./_ogloszenia.js');
-    const items = selectForKi(await fetchOgloszenia(), now, { max: 2 });
-    _annCache = { items, ts: Date.now() };
+    const all = await Promise.race([
+      fetchOgloszenia(),
+      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('ann_timeout')), ANN_BUDGET_MS); })
+    ]);
+    const items = selectForKi(all, now, { max: 2 });
+    _annCache = { items, ts: Date.now(), failTs: 0 };
     return items;
   } catch (_) {
-    return _annCache.items || null; // stale > nichts
+    _annCache.failTs = Date.now();
+    return stale();
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -247,7 +281,7 @@ exports.handler = async (event) => {
   try {
     const now = new Date();
     const [rawEvents, announcements] = await Promise.all([getEventsCached(), getAnnouncementsCached(now)]);
-    const events = enrich(rawEvents, lang);
+    const events = enrich(rawEvents, lang, now);
     const body = buildResponseBody(events, { query, limit, lang, announcements });
 
     return {

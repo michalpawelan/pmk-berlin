@@ -34,6 +34,18 @@ check('Wiederholung, Nummer war schon da -> NICHT nochmal mailen',
 check('Wiederholung, Nummer faellt wieder weg -> NICHT mailen',
   shouldSendMail({ mailed: true, phoneUsable: true }, false), false);
 
+// Code-Review 09.10.2026: Eine Folgemeldung kann mehr tragen als eine neue Nummer.
+check('Folgemeldung wird PILNE -> mailen',
+  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: false }, true, { urgent: true, phoneKey: 'a' }), true);
+check('Folgemeldung mit ANDERER verwertbarer Nummer -> mailen',
+  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: false }, true, { urgent: false, phoneKey: 'b' }), true);
+check('Folgemeldung, gleiche Nummer, schon PILNE -> NICHT nochmal mailen',
+  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: true }, true, { urgent: true, phoneKey: 'a' }), false);
+check('Bisher nie zugestellt (Versand scheiterte) -> mailen',
+  shouldSendMail({ mailed: false, phoneUsable: false }, false), true);
+check('Alter Zustand ohne Fingerabdruck, keine neue Info -> NICHT mailen',
+  shouldSendMail({ mailed: true, phoneUsable: true }, true, { urgent: false, phoneKey: 'a' }), false);
+
 const r = shouldSendMail({ mailed: true, phoneUsable: false }, true);
 const ok = r.reason === 'phone_added';
 if (!ok) fail++;

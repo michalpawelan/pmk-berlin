@@ -30,6 +30,8 @@ const REACH_MIN_RATE = 0.5;     // weniger als die Haelfte erreichbar -> Alarm
 const TOOLERR_MIN_CALLS = 5;
 const TOOLERR_MAX_RATE = 0.2;
 const QUOTA_HARD_PCT = 0.95;    // so nah am Limit ist es immer ein Alarm
+const SHEET_MIN_UNCONFIRMED = 2; // ein einzelner langsamer Google-Aufruf ist kein Befund
+const SHEET_MAX_RATE = 0.5;      // ab der Haelfte ohne bestaetigte Zeile -> Alarm
 
 // 1) Anrufer-ID haengt fest. Nur die juengsten Anrufe zaehlen, damit ein alter
 //    Gleichlauf nicht ewig nachhallt. Leere/unterdrueckte Nummern zaehlen nicht.
@@ -86,6 +88,26 @@ function checkToolErrors(records) {
     summary: calls
       ? `${errors} von ${calls} Aufrufen gescheitert (${Math.round(rate * 100)} %).`
       : 'keine Aufrufe im Zeitraum'
+  };
+}
+
+// 3b) Landen die Tickets auch im Sheet? Seit 09.10.2026 meldet zgloszenie.js
+//     Erfolg schon, wenn die Mail zugestellt ist — ein dauerhafter Apps-Script-
+//     Ausfall waere sonst unsichtbar (Admin-Tab und Statuspflege still leer).
+//     Nur Antworten mit sheet-Feld zaehlen (aeltere hatten keins).
+function checkSheetConfirm(records) {
+  const all = (records || []).flatMap(r => r.escalations || []).filter(e => e.ok && e.sheet);
+  const calls = all.length;
+  const unconfirmed = all.filter(e => e.sheet !== 'ok').length;
+  const rate = calls ? unconfirmed / calls : 0;
+  const alert = unconfirmed >= SHEET_MIN_UNCONFIRMED && rate >= SHEET_MAX_RATE;
+  return {
+    name: 'Ticket-Sheet',
+    alert, calls, unconfirmed, rate,
+    summary: calls
+      ? `${unconfirmed} von ${calls} Tickets ohne bestaetigte Zeile im Sheet (die Mail an die Pfarrei ging raus, `
+        + 'aber Admin-Tab und Statuspflege koennen fehlen — Apps Script pruefen).'
+      : 'keine Tickets mit Sheet-Angabe im Zeitraum'
   };
 }
 
@@ -164,7 +186,7 @@ function decideDelivery({ signature, prev, now, reminderDays }) {
   return { send: false, reason: 'suppressed' };
 }
 
-module.exports = { detectStuckCallerId, checkReachability, checkToolErrors, checkQuota, buildReport,
+module.exports = { detectStuckCallerId, checkReachability, checkToolErrors, checkSheetConfirm, checkQuota, buildReport,
   signatureOf, decideDelivery };
 
 // ------------------------------------------------------------- Datenbeschaffung
@@ -189,7 +211,8 @@ function toRecord(full) {
       escalations.push({
         ok: !tr.is_error,
         phoneUsable: /"phone_usable"\s*:\s*true/.test(raw) ? true
-          : /"phone_usable"\s*:\s*false/.test(raw) ? false : null
+          : /"phone_usable"\s*:\s*false/.test(raw) ? false : null,
+        sheet: (raw.match(/"sheet"\s*:\s*"([^"]+)"/) || [])[1] || null
       });
     }
   }
@@ -199,6 +222,8 @@ function toRecord(full) {
     escalations
   };
 }
+// An module.exports haengen (nicht an exports): module.exports wurde oben ersetzt.
+module.exports.toRecord = toRecord;
 
 async function gather(sinceTs, maxDetail) {
   const records = [];
@@ -265,6 +290,7 @@ module.exports.handler = async () => {
       detectStuckCallerId(voiceRecords),
       checkReachability(records),
       checkToolErrors(records),
+      checkSheetConfirm(records),
       checkQuota({
         used: sub.character_count || 0,
         limit: sub.character_limit || 0,

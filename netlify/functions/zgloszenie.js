@@ -115,11 +115,9 @@ exports.normalizePhone = normalizePhone;
 
 const USABLE_RE = /^\+\d{1,3}\s\d{6,}$/;
 
-// Zeitbudget für den Mailversand. Netlify bricht die Function nach rund zehn
-// Sekunden ab; ein haengender SMTP-Server darf dieses Budget nicht allein
-// aufbrauchen, sonst bekommt der Agent einen 504 und erzaehlt dem Anrufer, es
-// habe nicht geklappt. Der Sheet-Eintrag ist wichtiger als die Mail: er geht
-// auch dann raus, und der Watchdog kann die Mail nachreichen.
+// Zeitbudget für einen Mailversand. Ein haengender SMTP-Server darf die Antwort
+// an den Agenten nicht blockieren — das Werkzeug hat bei ElevenLabs ein Limit
+// von 20 s, danach erzaehlt der Agent dem Anrufer, es habe nicht geklappt.
 const SMTP_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_SMTP_BUDGET_MS || '6000', 10);
 
 // Wie lange der Agent hoechstens auf die Sheet-Zeile (Apps Script) wartet,
@@ -132,12 +130,19 @@ const SMTP_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_SMTP_BUDGET_MS || '6000',
 const SHEET_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_SHEET_BUDGET_MS || '6000', 10);
 const SHEET_HARD_MS = parseInt(process.env.ZGLOSZENIE_SHEET_HARD_MS || '17000', 10);
 
-// Gilt die Pfarrei als benachrichtigt? Ja, wenn die Mail jetzt rausging oder
-// in diesem Gespraech schon eine Mail rausging (Zweitmeldung ohne Neues).
-function parishNotified(mail) {
-  return !!(mail && (mail.sent === true || mail.reason === 'duplicate_suppressed'));
+// Zeitbudget fuer jeden Zugriff auf den Zustandsspeicher (Netlify Blobs). Ein
+// haengender Speicher darf weder die Antwort noch die Eskalation blockieren.
+const BLOB_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_BLOB_BUDGET_MS || '1500', 10);
+
+// Wartet hoechstens ms auf p. Liefert bei Zeitueberschreitung UND bei einem
+// Fehler den fallback — fuer Wege, die nie werfen duerfen (Sheet, Speicher).
+function budget(p, ms, fallback) {
+  let t;
+  return Promise.race([
+    Promise.resolve(p).then(v => { clearTimeout(t); return v; }, () => { clearTimeout(t); return fallback; }),
+    new Promise(res => { t = setTimeout(() => res(fallback), ms); })
+  ]);
 }
-exports.parishNotified = parishNotified;
 
 // Wartet hoechstens ms auf p und liefert sonst fallback. Verwirft das Ergebnis
 // von p danach still — der Versand laeuft ggf. zu Ende, nur ohne uns.
@@ -158,9 +163,16 @@ exports.withTimeout = withTimeout;
 // Anrufer am 21.08. Die Sheet-Zeile bleibt bei jedem Aufruf (die neueste ist
 // die vollstaendigste), aber gemailt wird nur, was die Pfarrei wirklich neu
 // erfaehrt: die erste Meldung, und spaeter das Auftauchen einer Rueckrufnummer.
-function shouldSendMail(prev, phoneUsable) {
+// Code-Review 09.10.2026: Eine Folgemeldung kann mehr tragen als eine neue
+// Nummer — sie kann PILNE werden oder eine andere Nummer bringen. Und "gemailt"
+// zaehlt nur, wenn die Mail wirklich zugestellt wurde (prev.mailed === false
+// heisst: bisher ist keine Mail angekommen, also jetzt senden).
+function shouldSendMail(prev, phoneUsable, cur = {}) {
   if (!prev) return { send: true, reason: 'first' };
+  if (prev.mailed === false) return { send: true, reason: 'retry_unsent' };
   if (phoneUsable && !prev.phoneUsable) return { send: true, reason: 'phone_added' };
+  if (cur.urgent && !prev.urgent) return { send: true, reason: 'urgent_added' };
+  if (phoneUsable && cur.phoneKey && prev.phoneKey && cur.phoneKey !== prev.phoneKey) return { send: true, reason: 'phone_changed' };
   return { send: false, reason: 'duplicate' };
 }
 exports.shouldSendMail = shouldSendMail;
@@ -204,7 +216,7 @@ function buildToolResponse({ phoneProvided, phoneUsable, phoneSource, lang } = {
   return {
     message: de
       ? 'Anliegen aufgenommen und weitergeleitet, aber uns fehlt Ihre Rufnummer. Unter welcher Nummer sind Sie erreichbar?'
-      : 'Zgłoszenie przyjęte i przekazane do biura, ale brakuje numeru kontaktowego. Pod jakim numerem można się z Panem lub Panią skontaktować?',
+      : 'Zgłoszenie przyjęte i przekazane do biura, ale brakuje numeru kontaktowego. Pod jakim numerem można się skontaktować?',
     phone_warning: phoneProvided
       ? 'Podany numer NIE został zapisany jako prawidłowy numer kontaktowy. Poproś o niego ponownie, cyfra po cyfrze.'
       : 'BRAK numeru: identyfikacja połączenia nie zawiera numeru rozmówcy (przekierowanie centrali), a rozmówca żadnego nie podał.',
@@ -232,9 +244,13 @@ exports.pickPhone = pickPhone;
 function buildMail(d) {
   const srcLabel = d.source === 'chat' ? 'czat na stronie' : 'asystent telefoniczny';
   const recPrefix = d.recovered ? '⚠️ AUTO-WIEDERHERGESTELLT — ' : '';
-  // update=true: dasselbe Anliegen, aber jetzt MIT Rueckrufnummer. Die Pfarrei
-  // soll auf den ersten Blick sehen, dass das kein zweites Anliegen ist.
-  const subject = recPrefix + (d.urgent ? '[PILNE] ' : '') + (d.update ? '[AKTUALIZACJA — numer] ' : '')
+  // update: dasselbe Anliegen, aber mit neuer Information (Nummer, PILNE, Details).
+  // Die Pfarrei soll auf den ersten Blick sehen, dass das kein zweites Anliegen ist.
+  const updateKind = d.updateKind || (d.update ? 'phone' : '');
+  const updateLabel = updateKind === 'phone' ? '[AKTUALIZACJA — numer] '
+    : updateKind === 'urgent' ? '[AKTUALIZACJA — pilne] '
+    : updateKind ? '[AKTUALIZACJA] ' : '';
+  const subject = recPrefix + (d.urgent ? '[PILNE] ' : '') + updateLabel
     + 'Nowe zgłoszenie (' + srcLabel + ')'
     + (d.name ? ' — ' + d.name : '');
   const recBanner = d.recovered
@@ -285,6 +301,7 @@ async function sendViaIonos(d) {
 }
 
 exports.handler = async (event) => {
+  const t0 = Date.now(); // Zeitbudgets gelten ab Eingang
   // CORS-Preflight (falls der Agent/Browser OPTIONS schickt)
   if (event.httpMethod === 'OPTIONS') {
     return json(204, {});
@@ -366,22 +383,25 @@ exports.handler = async (event) => {
   if (conversationId) {
     try {
       mailStore = openMailStore();
-      mailPrev = JSON.parse((await mailStore.get('c:' + conversationId)) || 'null');
+      mailPrev = JSON.parse((await budget(mailStore.get('c:' + conversationId), BLOB_BUDGET_MS, null)) || 'null');
     } catch (_) { mailStore = null; mailPrev = null; }
   }
-  const mailDecision = shouldSendMail(mailPrev, phoneUsable);
+  const urgentNow = truthy(p.urgent);
+  // Fingerabdruck der Nummer statt der Nummer selbst: keine Telefonnummern im Blob-Speicher.
+  const phoneKey = phoneUsable ? crypto.createHash('sha256').update(phone).digest('hex').slice(0, 16) : null;
+  const mailDecision = shouldSendMail(mailPrev, phoneUsable, { urgent: urgentNow, phoneKey });
 
+  const mailPayload = { name, phone, phone_source: picked.phone_source, concern, lang, source,
+                        urgent: urgentNow, recovered, call_link: callLink,
+                        updateKind: ({ phone_added: 'phone', phone_changed: 'phone', urgent_added: 'urgent' })[mailDecision.reason] || '' };
+  const sendMail = (payload) => withTimeout(
+    sendViaIonos(payload).catch(e => ({ sent: false, reason: 'smtp_error', detail: e && e.message })),
+    SMTP_BUDGET_MS,
+    { sent: false, reason: 'smtp_timeout' });
   const mailPromise = mailDecision.send
-    ? withTimeout(
-        sendViaIonos({ name, phone, phone_source: picked.phone_source, concern, lang, source,
-                       urgent: truthy(p.urgent), recovered, call_link: callLink,
-                       update: mailDecision.reason === 'phone_added' })
-          .catch(e => ({ sent: false, reason: 'smtp_error', detail: e && e.message })),
-        SMTP_BUDGET_MS,
-        { sent: false, reason: 'smtp_timeout' })
+    ? sendMail(mailPayload)
     : Promise.resolve({ sent: false, reason: 'duplicate_suppressed' });
 
-  const t0 = Date.now();
   // Sheet-Zeile: wirft nie, liefert immer ein Objekt. Bei einer Google-Fehlerseite
   // wird der Anfang protokolliert — damit die naechste Analyse den Grund sieht.
   const sheetPromise = fetch(APPS_SCRIPT_URL, {
@@ -396,35 +416,44 @@ exports.handler = async (event) => {
   }).catch(e => ({ success: false, error: 'upstream_failed', detail: e && e.message }));
 
   try {
+    // Benachrichtigt ist die Pfarrei nur durch eine ZUGESTELLTE Mail oder eine
+    // BESTAETIGTE Sheet-Zeile (Code-Review 09.10.2026). Eine als Duplikat
+    // unterdrueckte Mail zaehlt nicht: faellt das Sheet aus, geht sie als
+    // Aktualisierung doch noch raus (6 s Sheet + 6 s SMTP bleiben unter 20 s).
     const mail = await mailPromise;
-    const notified = parishNotified(mail);
-    const wait = Math.max(0, (notified ? SHEET_BUDGET_MS : SHEET_HARD_MS) - (Date.now() - t0));
-    const data = await withTimeout(sheetPromise, wait, { success: false, error: 'sheet_timeout' });
+    const mailSent = mail.sent === true;
+    const suppressed = mail.reason === 'duplicate_suppressed';
+    const sheetWait = Math.max(0, ((mailSent || suppressed) ? SHEET_BUDGET_MS : SHEET_HARD_MS) - (Date.now() - t0));
+    const data = await budget(sheetPromise, sheetWait, { success: false, error: 'sheet_timeout' });
     const sheetOk = !!(data && data.success);
+    let mailFinal = mail;
+    if (!sheetOk && suppressed) {
+      mailFinal = await sendMail(Object.assign({}, mailPayload, { updateKind: mailPayload.updateKind || 'details' }));
+    }
+    const delivered = mailFinal.sent === true;
     if (!sheetOk) {
       console.warn('zgloszenie: Sheet-Zeile nicht bestaetigt', JSON.stringify({
         error: data && data.error, status: data && data.status, snippet: data && data.snippet,
-        ms: Date.now() - t0, notified, conversationId
+        ms: Date.now() - t0, mail: mailFinal.reason || (delivered ? 'sent' : ''), conversationId
       }));
     }
-    // Dem Agenten eine klare, knappe Antwort geben. Erfolg heisst: die Pfarrei
-    // weiss Bescheid — per Sheet-Zeile ODER per Mail.
-    if (sheetOk || notified) {
+    if (sheetOk || delivered) {
+      if (mailStore && conversationId) {
+        // "mailed" haelt die tatsaechliche Zustellung fest, nicht die Absicht.
+        await budget(mailStore.set('c:' + conversationId, JSON.stringify({
+          mailed: !!(mailPrev && mailPrev.mailed) || delivered,
+          phoneUsable: phoneUsable || !!(mailPrev && mailPrev.phoneUsable),
+          urgent: urgentNow || !!(mailPrev && mailPrev.urgent),
+          phoneKey: phoneKey || (mailPrev && mailPrev.phoneKey) || null
+        })), BLOB_BUDGET_MS, null);
+      }
       // buildToolResponse entscheidet, ob eine Rückruf-Zusage überhaupt zulässig
       // ist. Ohne verwertbare Nummer kommt stattdessen die Rückfrage zurück.
-      if (mailStore && conversationId) {
-        try {
-          await mailStore.set('c:' + conversationId, JSON.stringify({
-            mailed: mailPrev ? true : mailDecision.send,
-            phoneUsable: phoneUsable || !!(mailPrev && mailPrev.phoneUsable)
-          }));
-        } catch (_) { /* ohne Zustand wird beim naechsten Mal gemailt — unkritisch */ }
-      }
       const resp = Object.assign(
         { success: true },
         buildToolResponse({ phoneProvided, phoneUsable, phoneSource: picked.phone_source, lang }),
         {
-          mail,
+          mail: mailFinal,
           sheet: sheetOk ? 'ok' : ((data && data.error) || 'unconfirmed'),
           phone_provided: phoneProvided,
           phone_usable: phoneUsable,
@@ -433,7 +462,7 @@ exports.handler = async (event) => {
       );
       return json(200, resp);
     }
-    return json(502, { success: false, error: (data && data.error) || 'upstream_failed', mail });
+    return json(502, { success: false, error: (data && data.error) || 'upstream_failed', mail: mailFinal });
   } catch (_) {
     return json(502, { success: false, error: 'upstream_failed' });
   }

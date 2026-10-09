@@ -87,6 +87,25 @@ if (typeof buildResponseBody !== 'function') {
   b = buildResponseBody(EVENTS, { query: 'msza' });
   check('announcements: ohne Aushaenge kein leeres Feld', b.announcements === undefined, JSON.stringify(b.announcements));
 
+  // Code-Review 09.10.2026: Datumspruefung und Berliner Zeit.
+  b = buildResponseBody(EVENTS, { query: '31.02.', today: TODAY });
+  check('ungueltiges Datum 31.02. wird nicht als Datum behandelt', b.requested_date === undefined, JSON.stringify(b.requested_date));
+  b = buildResponseBody(EVENTS, { query: '10.10', today: TODAY });
+  check('DD.MM ohne Schlusspunkt wird als Datum erkannt', b.requested_date && b.requested_date.date === '2026-10-10', JSON.stringify(b.requested_date));
+  b = buildResponseBody(EVENTS, { query: '10.10.26', today: TODAY });
+  check('DD.MM.YY wird als Datum erkannt', b.requested_date && b.requested_date.date === '2026-10-10', JSON.stringify(b.requested_date));
+  const NEWYEAR = new Date('2026-12-31T23:30:00Z'); // Berlin: 1. Januar 2027, 00:30
+  b = buildResponseBody(EVENTS, { query: '01.01.', today: NEWYEAR });
+  check('Berliner Zeit: "01.01." kurz nach Mitternacht ist HEUTE, nicht naechstes Jahr', b.requested_date && b.requested_date.date === '2027-01-01', JSON.stringify(b.requested_date));
+  b = buildResponseBody(EVENTS, { query: '31.12.', today: NEWYEAR });
+  check('Berliner Zeit: "31.12." ist nach Mitternacht schon vorbei -> naechstes Jahr', b.requested_date && b.requested_date.date === '2027-12-31', JSON.stringify(b.requested_date));
+  b = buildResponseBody(EVENTS, { query: '', announcements: [{ current: true, publishedAt: new Date('2026-10-04T22:30:00Z'),
+    expiresAt: new Date('2026-10-11T22:30:00Z'), title: 't', body: 'x' }] });
+  check('Berliner Zeit: Aushangdatum 00:30 Berlin = 5. Oktober', b.announcements && b.announcements[0].published === '2026-10-05', JSON.stringify(b.announcements));
+  const { enrich } = mod;
+  const late = enrich([{ title: 'Gestern', date: '2026-10-09', description: '', location: '', address: '' }], 'pl', new Date('2026-10-09T23:30:00Z'));
+  check('Berliner Zeit: Termin von gestern ist um 01:30 nicht mehr "kommend"', Array.isArray(late) && late.length === 0, JSON.stringify(late));
+
   b = buildResponseBody([], { query: '2026-10-12', limit: 10 });
   check('empty feed still answers with count 0', b.count === 0, String(b.count));
   const note = String(b.note || '');
@@ -116,6 +135,20 @@ if (typeof buildResponseBody !== 'function') {
   r = await fresh().handler({ queryStringParameters: { lang: 'pl' } });
   bd = JSON.parse(r.body);
   check('handler: Aushang-Tab faellt aus -> Termine trotzdem da', r.statusCode === 200 && bd.count === 1 && bd.announcements === undefined, r.body.slice(0, 300));
+
+  // Code-Review 09.10.2026: ein HAENGENDER Aushang-Abruf darf das Werkzeug nicht blockieren.
+  process.env.AGENT_EVENTS_ANN_BUDGET_MS = '200';
+  ogFails = false;
+  global.fetch = async (url) => {
+    if (/sheet=Ogloszenia/.test(String(url))) return new Promise(() => {}); // haengt fuer immer
+    return { ok: true, status: 200, text: async () => EV };
+  };
+  const m2 = fresh();
+  let t0 = Date.now(); r = await m2.handler({ queryStringParameters: { lang: 'pl' } }); let ms = Date.now() - t0;
+  bd = JSON.parse(r.body);
+  check('handler: haengender Aushang-Abruf -> Termine nach kurzem Budget', r.statusCode === 200 && bd.count === 1 && ms < 1000, `${r.statusCode} ${ms} ms`);
+  t0 = Date.now(); r = await m2.handler({ queryStringParameters: { lang: 'pl' } }); ms = Date.now() - t0;
+  check('handler: Fehlschlag wird kurz gemerkt -> zweiter Aufruf wartet nicht erneut', r.statusCode === 200 && ms < 150, `${ms} ms`);
   console.log(`\n${fail ? 'FAILED' : 'all passed'} (${fail} failing)`);
   process.exit(fail ? 1 : 0);
 })();

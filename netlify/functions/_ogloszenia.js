@@ -39,7 +39,7 @@ function bodyToText(body) {
       if (Array.isArray(blocks)) {
         return blocks.map(b => {
           if (b && b.t === 'txt' && b.c) return String(b.c);
-          if (b && b.t === 'img') return '(W ogłoszeniu jest też plakat — jego treść jest tylko na obrazie na stronie pmk-berlin.de/ogloszenia.)';
+          if (b && b.t === 'img') return '(W ogłoszeniu był też plakat — jego treść jest dostępna tylko jako obraz.)';
           return '';
         }).filter(Boolean).join('\n\n');
       }
@@ -57,7 +57,11 @@ function bodyToText(body) {
 function parseOgloszenia(text) {
   const m = String(text || '').match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
   if (!m) throw new Error('Invalid gviz response');
-  const rows = (JSON.parse(m[1]).table || {}).rows || [];
+  const data = JSON.parse(m[1]);
+  // Google meldet Fehler (Rechte, Quota) im selben Wrapper — nie als leere Liste werten,
+  // sonst ueberschreibt ElevenLabs das Wissensdokument mit einer leeren Seite.
+  if (data.status === 'error' || !data.table) throw new Error('gviz error: ' + JSON.stringify(data.errors || data.status));
+  const rows = data.table.rows || [];
   const out = [];
   for (const row of rows) {
     if (!row || !row.c) continue;
@@ -93,6 +97,7 @@ function selectForKi(items, now, { max = MAX_ITEMS, maxAgeDays = MAX_AGE_DAYS } 
 // Holt und parst den Tab; wirft bei Netz- oder Formatfehlern.
 async function fetchOgloszenia() {
   const res = await fetch(GVIZ_URL);
+  if (!res.ok) throw new Error('gviz http ' + res.status);
   return parseOgloszenia(await res.text());
 }
 

@@ -24,14 +24,18 @@ function renderKiPage(selected, now) {
   parts.push('<p>Ważne: każde ogłoszenie odnosi się do tygodnia, w którym zostało wydane. Słowa „w tym tygodniu”, '
     + '„w najbliższą niedzielę” czy „dzisiaj” oznaczają tydzień ogłoszenia, nie dzień dzisiejszy. '
     + 'Ogłoszenia z archiwum mogą być już nieaktualne.</p>');
-  if (!selected.some(i => i.current)) {
+  if (!selected.length) {
+    parts.push('<p><strong>Brak ogłoszeń z ostatnich tygodni.</strong></p>');
+  } else if (!selected.some(i => i.current)) {
     parts.push('<p><strong>Na ten tydzień brak aktualnych ogłoszeń.</strong> Poniżej ostatnie ogłoszenia (archiwum).</p>');
   }
   for (const i of selected) {
     parts.push('<section>');
     parts.push(i.current
       ? `<h2>AKTUALNE OGŁOSZENIA — wydane ${esc(plDate(i.publishedAt))}, ważne do ${esc(plDate(i.expiresAt))}</h2>`
-      : `<h2>Ogłoszenia z ${esc(plDate(i.publishedAt))} (archiwum, ważne były do ${esc(plDate(i.expiresAt))})</h2>`);
+      : (i.expiresAt && i.expiresAt > now)
+        ? `<h2>Wcześniejsze ogłoszenia z ${esc(plDate(i.publishedAt))} (nadal ważne do ${esc(plDate(i.expiresAt))})</h2>`
+        : `<h2>Ogłoszenia z ${esc(plDate(i.publishedAt))} (archiwum, ważne były do ${esc(plDate(i.expiresAt))})</h2>`);
     parts.push(`<h3>${esc(i.title)}</h3>`);
     for (const line of i.body.split(/\r?\n/)) {
       const t = line.replace(/\t/g, ' ').trim();

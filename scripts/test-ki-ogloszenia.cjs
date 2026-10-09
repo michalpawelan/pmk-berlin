@@ -81,7 +81,24 @@ const esc = parseOgloszenia(gviz([realRow('r3', JSON.stringify([{ t: 'txt', c: '
 const escHtml = renderKiPage(selectForKi(esc, NOW), NOW);
 check('render: Text aus Bloecken wird escaped', !/<script>/.test(escHtml) && /&lt;script&gt;/.test(escHtml) && /&amp;/.test(escHtml), escHtml.slice(-200));
 
+// Code-Review 09.10.2026: aelterer, NOCH gueltiger Aushang darf nicht "archiwum, ważne były" heissen.
+const OVER = parseOgloszenia(gviz([
+  row('n', 'Nowszy', 'Nowy tekst', [2026, 10, 5], [2026, 10, 12], 'TAK'),
+  row('o', 'Starszy, nadal ważny', 'Wydarzenie trwa', [2026, 10, 1], [2026, 10, 20], 'TAK'),
+]));
+const overHtml = renderKiPage(selectForKi(OVER, NOW), NOW);
+check('render: aelterer, noch gueltiger Aushang heisst "nadal ważne"', /nadal ważne/.test(overHtml) && !/Starszy[\s\S]*ważne były do 20/.test(overHtml), overHtml.slice(-400));
+check('render: ganz ohne Aushaenge kein "Poniżej ... archiwum" ueber leerem Inhalt', !/Poniżej/.test(renderKiPage([], NOW)) && /brak ogłoszeń/i.test(renderKiPage([], NOW)), renderKiPage([], NOW).slice(-200));
+check('parse: Plakat-Hinweis ohne Verweis auf die Website', !/pmk-berlin\.de/.test(real[0].body), real[0].body);
+
 (async () => {
+  // Google-Fehler duerfen NIE als 200 mit leerer Seite rausgehen (ElevenLabs wuerde sie uebernehmen).
+  global.fetch = async () => ({ ok: false, status: 500, text: async () => '<html>Internal error</html>' });
+  let e = await mod.handler({});
+  check('handler: HTTP-Fehler von Google -> 503', e.statusCode === 503, e.statusCode);
+  global.fetch = async () => ({ ok: true, status: 200, text: async () => 'google.visualization.Query.setResponse({"status":"error","errors":[{"reason":"access_denied"}]});' });
+  e = await mod.handler({});
+  check('handler: gviz-Fehlerantwort -> 503', e.statusCode === 503, e.statusCode);
   global.fetch = async () => ({ ok: true, status: 200, text: async () => TEXT });
   let r = await mod.handler({});
   check('handler: 200 + text/html + X-Robots-Tag', r.statusCode === 200 && /text\/html/.test(r.headers['Content-Type'])
