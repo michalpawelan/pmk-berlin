@@ -39,7 +39,7 @@ function bodyToText(body) {
       if (Array.isArray(blocks)) {
         return blocks.map(b => {
           if (b && b.t === 'txt' && b.c) return String(b.c);
-          if (b && b.t === 'img') return '(W ogłoszeniu był też plakat — jego treść jest dostępna tylko jako obraz.)';
+          if (b && b.t === 'img') return '(W ogłoszeniu jest też plakat — jego treść jest dostępna tylko jako obraz.)';
           return '';
         }).filter(Boolean).join('\n\n');
       }

@@ -133,6 +133,10 @@ const SHEET_HARD_MS = parseInt(process.env.ZGLOSZENIE_SHEET_HARD_MS || '17000', 
 // Zeitbudget fuer jeden Zugriff auf den Zustandsspeicher (Netlify Blobs). Ein
 // haengender Speicher darf weder die Antwort noch die Eskalation blockieren.
 const BLOB_BUDGET_MS = parseInt(process.env.ZGLOSZENIE_BLOB_BUDGET_MS || '1500', 10);
+// Der Zustand wird nur geschrieben, solange die Antwort sicher unter dem 20-s-Limit bleibt.
+const STATE_DEADLINE_MS = SHEET_HARD_MS + 1000;
+// Zustand gilt nur fuer das laufende Gespraech.
+const STATE_MAX_AGE_MS = 2 * 24 * 3600 * 1000;
 
 // Wartet hoechstens ms auf p. Liefert bei Zeitueberschreitung UND bei einem
 // Fehler den fallback — fuer Wege, die nie werfen duerfen (Sheet, Speicher).
@@ -172,7 +176,12 @@ function shouldSendMail(prev, phoneUsable, cur = {}) {
   if (prev.mailed === false) return { send: true, reason: 'retry_unsent' };
   if (phoneUsable && !prev.phoneUsable) return { send: true, reason: 'phone_added' };
   if (cur.urgent && !prev.urgent) return { send: true, reason: 'urgent_added' };
-  if (phoneUsable && cur.phoneKey && prev.phoneKey && cur.phoneKey !== prev.phoneKey) return { send: true, reason: 'phone_changed' };
+  // Nur eine DIKTIERTE andere Nummer ist neu — der Rueckfall auf die Caller-ID nicht.
+  if (phoneUsable && cur.phoneSource === 'dictated' && cur.phoneKey && prev.phoneKey && cur.phoneKey !== prev.phoneKey) {
+    return { send: true, reason: 'phone_changed' };
+  }
+  // Chat: eine E-Mail-Adresse im Anliegen ist ein neuer Kontaktweg (Re-Review 09.10.2026).
+  if (cur.emailKey && cur.emailKey !== prev.emailKey) return { send: true, reason: 'contact_added' };
   return { send: false, reason: 'duplicate' };
 }
 exports.shouldSendMail = shouldSendMail;
@@ -202,8 +211,17 @@ function openMailStore() {
 // jede Nummer, und die Anrufer warteten auf einen Rueckruf, der nicht kommen
 // konnte. Das Anliegen selbst ist in allen Faellen erfasst — es fehlt nur der
 // Rueckweg, und den muss der Agent im Gespraech nachholen.
-function buildToolResponse({ phoneProvided, phoneUsable, phoneSource, lang } = {}) {
+function buildToolResponse({ phoneProvided, phoneUsable, phoneSource, lang, emailGiven } = {}) {
   const de = String(lang || '').toLowerCase() === 'de';
+
+  // Chat: eine E-Mail-Adresse reicht als Rueckweg — nicht erneut nach einer Nummer fragen.
+  if (!phoneUsable && emailGiven) {
+    return {
+      message: de
+        ? 'Anliegen aufgenommen und mit Ihrer E-Mail-Adresse an das Pfarrbüro weitergeleitet.'
+        : 'Zgłoszenie przyjęte i przekazane do biura parafialnego razem z adresem e-mail.'
+    };
+  }
 
   if (phoneUsable) {
     return {
@@ -249,6 +267,7 @@ function buildMail(d) {
   const updateKind = d.updateKind || (d.update ? 'phone' : '');
   const updateLabel = updateKind === 'phone' ? '[AKTUALIZACJA — numer] '
     : updateKind === 'urgent' ? '[AKTUALIZACJA — pilne] '
+    : updateKind === 'contact' ? '[AKTUALIZACJA — kontakt] '
     : updateKind ? '[AKTUALIZACJA] ' : '';
   const subject = recPrefix + (d.urgent ? '[PILNE] ' : '') + updateLabel
     + 'Nowe zgłoszenie (' + srcLabel + ')'
@@ -347,7 +366,9 @@ exports.handler = async (event) => {
 
   const langRaw = String(p.lang || '').trim().toLowerCase().slice(0, 2);
   const lang = (langRaw === 'de' || langRaw === 'pl') ? langRaw : '';
-  const sourceRaw = String(p.source || 'voice').trim().toLowerCase();
+  // Das geteilte Werkzeug schickt kein source-Feld. Am Telefon ist system__caller_id
+  // immer gesetzt (notfalls die maskierte Bueronummer), im Chat ist sie leer.
+  const sourceRaw = String(p.source || (rawCallerId ? 'voice' : 'chat')).trim().toLowerCase();
   const source = sourceRaw === 'chat' ? 'chat' : 'voice';
 
   const recovered = truthy(p.recovered);
@@ -386,14 +407,20 @@ exports.handler = async (event) => {
       mailPrev = JSON.parse((await budget(mailStore.get('c:' + conversationId), BLOB_BUDGET_MS, null)) || 'null');
     } catch (_) { mailStore = null; mailPrev = null; }
   }
+  // Zustand gilt nur fuer das laufende Gespraech; aeltere Eintraege ignorieren.
+  if (mailPrev && mailPrev.ts && (Date.now() - mailPrev.ts) > STATE_MAX_AGE_MS) mailPrev = null;
   const urgentNow = truthy(p.urgent);
-  // Fingerabdruck der Nummer statt der Nummer selbst: keine Telefonnummern im Blob-Speicher.
-  const phoneKey = phoneUsable ? crypto.createHash('sha256').update(phone).digest('hex').slice(0, 16) : null;
-  const mailDecision = shouldSendMail(mailPrev, phoneUsable, { urgent: urgentNow, phoneKey });
+  // Fingerabdruecke statt Klartext: keine Telefonnummern oder Adressen im Blob-Speicher
+  // (HMAC mit dem Werkzeug-Secret, damit sich die Werte nicht zurueckrechnen lassen).
+  const fingerprint = (v) => crypto.createHmac('sha256', ZGLOSZENIE_SECRET || 'pmk-zgloszenie').update(v).digest('hex').slice(0, 16);
+  const phoneKey = phoneUsable ? fingerprint(phone) : null;
+  const emailMatch = concern.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+  const emailKey = emailMatch ? fingerprint(emailMatch[0].toLowerCase()) : null;
+  const mailDecision = shouldSendMail(mailPrev, phoneUsable, { urgent: urgentNow, phoneKey, emailKey, phoneSource: picked.phone_source });
 
   const mailPayload = { name, phone, phone_source: picked.phone_source, concern, lang, source,
                         urgent: urgentNow, recovered, call_link: callLink,
-                        updateKind: ({ phone_added: 'phone', phone_changed: 'phone', urgent_added: 'urgent' })[mailDecision.reason] || '' };
+                        updateKind: ({ phone_added: 'phone', phone_changed: 'phone', urgent_added: 'urgent', contact_added: 'contact' })[mailDecision.reason] || '' };
   const sendMail = (payload) => withTimeout(
     sendViaIonos(payload).catch(e => ({ sent: false, reason: 'smtp_error', detail: e && e.message })),
     SMTP_BUDGET_MS,
@@ -424,11 +451,17 @@ exports.handler = async (event) => {
     const mailSent = mail.sent === true;
     const suppressed = mail.reason === 'duplicate_suppressed';
     const sheetWait = Math.max(0, ((mailSent || suppressed) ? SHEET_BUDGET_MS : SHEET_HARD_MS) - (Date.now() - t0));
-    const data = await budget(sheetPromise, sheetWait, { success: false, error: 'sheet_timeout' });
-    const sheetOk = !!(data && data.success);
+    let data = await budget(sheetPromise, sheetWait, { success: false, error: 'sheet_timeout' });
+    let sheetOk = !!(data && data.success);
     let mailFinal = mail;
     if (!sheetOk && suppressed) {
       mailFinal = await sendMail(Object.assign({}, mailPayload, { updateKind: mailPayload.updateKind || 'details' }));
+      if (mailFinal.sent !== true) {
+        // Auch die Ersatz-Mail kam nicht durch: dem Sheet die restliche Zeit geben,
+        // statt "gescheitert" zu melden, obwohl die Zeile gleich kommt.
+        const more = await budget(sheetPromise, Math.max(0, SHEET_HARD_MS - (Date.now() - t0)), data);
+        if (more && more.success) { data = more; sheetOk = true; }
+      }
     }
     const delivered = mailFinal.sent === true;
     if (!sheetOk) {
@@ -438,20 +471,26 @@ exports.handler = async (event) => {
       }));
     }
     if (sheetOk || delivered) {
-      if (mailStore && conversationId) {
-        // "mailed" haelt die tatsaechliche Zustellung fest, nicht die Absicht.
+      const setBudget = Math.min(BLOB_BUDGET_MS, STATE_DEADLINE_MS - (Date.now() - t0));
+      if (mailStore && conversationId && setBudget > 0) {
+        // Neue Informationen (PILNE, Nummer, E-Mail) gelten erst als bekannt, wenn sie
+        // per Mail zugestellt wurden — oder keine Mail noetig war. Sonst holt die
+        // naechste Meldung die Mail nach (Re-Review 09.10.2026).
+        const adopt = delivered || !mailDecision.send;
         await budget(mailStore.set('c:' + conversationId, JSON.stringify({
           mailed: !!(mailPrev && mailPrev.mailed) || delivered,
-          phoneUsable: phoneUsable || !!(mailPrev && mailPrev.phoneUsable),
-          urgent: urgentNow || !!(mailPrev && mailPrev.urgent),
-          phoneKey: phoneKey || (mailPrev && mailPrev.phoneKey) || null
-        })), BLOB_BUDGET_MS, null);
+          phoneUsable: (adopt && phoneUsable) || !!(mailPrev && mailPrev.phoneUsable),
+          urgent: (adopt && urgentNow) || !!(mailPrev && mailPrev.urgent),
+          phoneKey: (adopt && phoneKey) || (mailPrev && mailPrev.phoneKey) || null,
+          emailKey: (adopt && emailKey) || (mailPrev && mailPrev.emailKey) || null,
+          ts: Date.now()
+        })), setBudget, null);
       }
       // buildToolResponse entscheidet, ob eine Rückruf-Zusage überhaupt zulässig
       // ist. Ohne verwertbare Nummer kommt stattdessen die Rückfrage zurück.
       const resp = Object.assign(
         { success: true },
-        buildToolResponse({ phoneProvided, phoneUsable, phoneSource: picked.phone_source, lang }),
+        buildToolResponse({ phoneProvided, phoneUsable, phoneSource: picked.phone_source, lang, emailGiven: !!emailMatch }),
         {
           mail: mailFinal,
           sheet: sheetOk ? 'ok' : ((data && data.error) || 'unconfirmed'),

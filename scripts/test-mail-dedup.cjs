@@ -38,11 +38,20 @@ check('Wiederholung, Nummer faellt wieder weg -> NICHT mailen',
 check('Folgemeldung wird PILNE -> mailen',
   shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: false }, true, { urgent: true, phoneKey: 'a' }), true);
 check('Folgemeldung mit ANDERER verwertbarer Nummer -> mailen',
-  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: false }, true, { urgent: false, phoneKey: 'b' }), true);
+  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: false }, true, { urgent: false, phoneKey: 'b', phoneSource: 'dictated' }), true);
 check('Folgemeldung, gleiche Nummer, schon PILNE -> NICHT nochmal mailen',
   shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a', urgent: true }, true, { urgent: true, phoneKey: 'a' }), false);
 check('Bisher nie zugestellt (Versand scheiterte) -> mailen',
   shouldSendMail({ mailed: false, phoneUsable: false }, false), true);
+// Re-Review 09.10.2026
+check('Neue E-Mail-Adresse im Anliegen (Chat) -> mailen',
+  shouldSendMail({ mailed: true, phoneUsable: false, urgent: true }, false, { urgent: true, emailKey: 'e1' }), true);
+check('Gleiche E-Mail-Adresse nochmal -> NICHT mailen',
+  shouldSendMail({ mailed: true, phoneUsable: false, urgent: true, emailKey: 'e1' }, false, { urgent: true, emailKey: 'e1' }), false);
+check('Andere Nummer nur per Caller-ID-Rueckfall -> NICHT als neue Nummer mailen',
+  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a' }, true, { phoneKey: 'b', phoneSource: 'caller_id' }), false);
+check('Andere DIKTIERTE Nummer -> mailen',
+  shouldSendMail({ mailed: true, phoneUsable: true, phoneKey: 'a' }, true, { phoneKey: 'b', phoneSource: 'dictated' }), true);
 check('Alter Zustand ohne Fingerabdruck, keine neue Info -> NICHT mailen',
   shouldSendMail({ mailed: true, phoneUsable: true }, true, { urgent: false, phoneKey: 'a' }), false);
 

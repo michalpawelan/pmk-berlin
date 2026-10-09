@@ -95,8 +95,13 @@ function checkToolErrors(records) {
 //     Erfolg schon, wenn die Mail zugestellt ist — ein dauerhafter Apps-Script-
 //     Ausfall waere sonst unsichtbar (Admin-Tab und Statuspflege still leer).
 //     Nur Antworten mit sheet-Feld zaehlen (aeltere hatten keins).
+const SHEET_RECENT = 5;          // nur die juengsten Tickets — ein frischer Ausfall faellt sofort auf
 function checkSheetConfirm(records) {
-  const all = (records || []).flatMap(r => r.escalations || []).filter(e => e.ok && e.sheet);
+  const all = (records || [])
+    .flatMap(r => (r.escalations || []).map(e => Object.assign({ ts: r.ts || 0 }, e)))
+    .filter(e => e.ok && e.sheet)
+    .sort((a, b) => b.ts - a.ts)
+    .slice(0, SHEET_RECENT);
   const calls = all.length;
   const unconfirmed = all.filter(e => e.sheet !== 'ok').length;
   const rate = calls ? unconfirmed / calls : 0;
@@ -105,7 +110,7 @@ function checkSheetConfirm(records) {
     name: 'Ticket-Sheet',
     alert, calls, unconfirmed, rate,
     summary: calls
-      ? `${unconfirmed} von ${calls} Tickets ohne bestaetigte Zeile im Sheet (die Mail an die Pfarrei ging raus, `
+      ? `${unconfirmed} der letzten ${calls} Tickets ohne bestaetigte Zeile im Sheet (die Mail an die Pfarrei ging raus, `
         + 'aber Admin-Tab und Statuspflege koennen fehlen — Apps Script pruefen).'
       : 'keine Tickets mit Sheet-Angabe im Zeitraum'
   };

@@ -64,8 +64,11 @@ function headerNav(file) {
   return `<ul class="nav-links" id="navLinks">\n${lis}\n    </ul>`;
 }
 
+// Fusszeile wie im Polnischen ohne Pfarrnachrichten (die stehen im Hauptmenue).
+const FOOTER_NAV_ITEMS = NAV_ITEMS.filter(([href]) => href !== 'ogloszenia.html');
+
 function footerNavGroup() {
-  const links = NAV_ITEMS.map(([href, label]) => `          <a href="/de/${href}">${label}</a>`).join('\n');
+  const links = FOOTER_NAV_ITEMS.map(([href, label]) => `          <a href="/de/${href}">${label}</a>`).join('\n');
   return `<div class="footer-nav-group">\n          <h4>Navigation</h4>\n${links}\n        </div>`;
 }
 

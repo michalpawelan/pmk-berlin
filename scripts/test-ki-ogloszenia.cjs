@@ -90,6 +90,7 @@ const overHtml = renderKiPage(selectForKi(OVER, NOW), NOW);
 check('render: aelterer, noch gueltiger Aushang heisst "nadal ważne"', /nadal ważne/.test(overHtml) && !/Starszy[\s\S]*ważne były do 20/.test(overHtml), overHtml.slice(-400));
 check('render: ganz ohne Aushaenge kein "Poniżej ... archiwum" ueber leerem Inhalt', !/Poniżej/.test(renderKiPage([], NOW)) && /brak ogłoszeń/i.test(renderKiPage([], NOW)), renderKiPage([], NOW).slice(-200));
 check('parse: Plakat-Hinweis ohne Verweis auf die Website', !/pmk-berlin\.de/.test(real[0].body), real[0].body);
+check('parse: Plakat-Hinweis im Praesens (passt auch fuer den aktuellen Aushang)', /jest też plakat/.test(real[0].body), real[0].body);
 
 (async () => {
   // Google-Fehler duerfen NIE als 200 mit leerer Seite rausgehen (ElevenLabs wuerde sie uebernehmen).

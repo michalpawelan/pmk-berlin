@@ -38,8 +38,8 @@ stub('@netlify/blobs', { getStore: () => ({
 }) });
 global.fetch = async () => {
   if (S.sheet === 'hang') await delay(HANG);
-  await delay(20);
-  const body = S.sheet === 'ok' ? '{"success":true,"id":"row"}' : '<html><body>Service invoked too many times</body></html>';
+  await delay(S.sheet === 'slow' ? 600 : 20); // slow: laenger als das kurze Budget (300), kuerzer als das harte (1200)
+  const body = (S.sheet === 'ok' || S.sheet === 'slow') ? '{"success":true,"id":"row"}' : '<html><body>Service invoked too many times</body></html>';
   return { ok: true, status: 200, text: async () => body };
 };
 
@@ -104,6 +104,40 @@ const body = r => JSON.parse(r.body);
   reset({ blobHangs: true }); mails.length = 0; state.clear();
   t0 = Date.now(); r = await call({ conversation_id: 'cG' }); ms = Date.now() - t0;
   check('G: haengender Blob-Speicher -> Antwort + Mail trotzdem', r.statusCode === 200 && mails.length === 1 && ms < 1500, `${r.statusCode} mails=${mails.length} ${ms} ms`);
+
+  // Re-Review 09.10.2026 ----------------------------------------------------
+  // H) PILNE-Aktualisierung scheitert (SMTP), Sheet ok -> Zustand darf "PILNE" NICHT
+  //    uebernehmen, sonst wird die naechste PILNE-Meldung als Duplikat unterdrueckt.
+  reset(); mails.length = 0; state.clear();
+  await call({ conversation_id: 'cH' });
+  reset({ mailFails: true });
+  r = await call({ conversation_id: 'cH', urgent: true, concern: 'pogrzeb — pilne' });
+  check('H1: PILNE-Mail scheitert, Sheet ok -> Erfolg', r.statusCode === 200 && mails.length === 1, `${r.statusCode} mails=${mails.length}`);
+  reset();
+  r = await call({ conversation_id: 'cH', urgent: true, concern: 'pogrzeb — pilne' });
+  check('H2: naechste PILNE-Meldung holt die Mail nach', mails.length === 2 && /PILNE/.test(mails[1].subject), `mails=${mails.length}`);
+
+  // I) Chat: erst ohne Kontakt, dann mit E-Mail im Anliegen -> die Adresse MUSS ins Postfach
+  reset(); mails.length = 0; state.clear();
+  await call({ conversation_id: 'cI', caller_id: '', urgent: true, concern: 'zmarł mój tata, pogrzeb' });
+  r = await call({ conversation_id: 'cI', caller_id: '', urgent: true, concern: 'zmarł mój tata, pogrzeb — kontakt: anna.nowak@example.com' });
+  check('I1: E-Mail aus dem Chat kommt per Mail an', mails.length === 2 && /anna\.nowak@example\.com/.test(mails[1].text), `mails=${mails.length}`);
+  check('I2: mit E-Mail fragt die Antwort NICHT erneut nach einer Telefonnummer', r.statusCode === 200 && !body(r).next_action, r.body.slice(0, 200));
+  check('I3: Chat-Ticket wird als Chat gekennzeichnet', /czat/i.test(mails[0].subject), mails[0] && mails[0].subject);
+
+  // J) Duplikat, Sheet langsamer als das kurze Budget, Ersatz-Mail scheitert -> auf das Sheet
+  //    weiter warten statt falschem 502 (sonst doppelte Zeile durch erneuten Versuch)
+  reset(); mails.length = 0; state.clear();
+  await call({ conversation_id: 'cJ' });
+  reset({ sheet: 'slow', mailFails: true });
+  r = await call({ conversation_id: 'cJ' });
+  check('J: Sheet kommt nach dem kurzen Budget doch noch -> Erfolg statt 502', r.statusCode === 200 && body(r).sheet === 'ok', `${r.statusCode} ${r.body.slice(0, 120)}`);
+
+  // K) Nummern-Aktualisierung nur fuer DIKTIERTE Nummern, nicht fuer den Caller-ID-Rueckfall
+  reset(); mails.length = 0; state.clear();
+  await call({ conversation_id: 'cK', phone: '0176 1111 1111', caller_id: '+4915112345678' });
+  r = await call({ conversation_id: 'cK', phone: '', caller_id: '+4915112345678' });
+  check('K: Rueckfall auf Caller-ID loest keine "[AKTUALIZACJA — numer]"-Mail aus', mails.length === 1, `mails=${mails.length} ${mails[1] && mails[1].subject}`);
 
   console.log(`\n${fail ? fail + ' FEHLER' : 'alle Tests gruen'}`);
   process.exit(fail ? 1 : 0);

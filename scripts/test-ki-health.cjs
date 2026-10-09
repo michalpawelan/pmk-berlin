@@ -80,6 +80,14 @@ check('Ticket-Sheet: 3 von 4 ohne Sheet-Bestaetigung -> Alarm',
 check('Ticket-Sheet: 1 von 6 ohne Bestaetigung -> kein Alarm (ein langsamer Google-Aufruf)',
   typeof h.checkSheetConfirm === 'function'
   && h.checkSheetConfirm([{ escalations: [esc('sheet_timeout'), esc('ok'), esc('ok'), esc('ok'), esc('ok'), esc('ok')] }]).alert === false);
+// Re-Review 09.10.2026: ein frischer Dauerausfall muss schnell auffallen, nicht erst
+// wenn er die Haelfte von sieben Tagen ausmacht -> nur die juengsten Tickets zaehlen.
+check('Ticket-Sheet: die 3 juengsten scheitern, davor 10 ok -> Alarm',
+  typeof h.checkSheetConfirm === 'function'
+  && h.checkSheetConfirm([
+    ...Array.from({ length: 10 }, (_, i) => ({ ts: 1000 + i, escalations: [esc('ok')] })),
+    ...Array.from({ length: 3 }, (_, i) => ({ ts: 2000 + i, escalations: [esc('upstream_parse')] })),
+  ]).alert === true);
 check('Ticket-Sheet: alte Antworten ohne sheet-Feld zaehlen nicht',
   typeof h.checkSheetConfirm === 'function'
   && h.checkSheetConfirm([{ escalations: [esc(null), esc(null), esc(null)] }]).calls === 0);

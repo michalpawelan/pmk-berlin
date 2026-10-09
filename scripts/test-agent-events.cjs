@@ -94,6 +94,8 @@ if (typeof buildResponseBody !== 'function') {
   check('DD.MM ohne Schlusspunkt wird als Datum erkannt', b.requested_date && b.requested_date.date === '2026-10-10', JSON.stringify(b.requested_date));
   b = buildResponseBody(EVENTS, { query: '10.10.26', today: TODAY });
   check('DD.MM.YY wird als Datum erkannt', b.requested_date && b.requested_date.date === '2026-10-10', JSON.stringify(b.requested_date));
+  b = buildResponseBody(EVENTS, { query: '10.1026', today: TODAY });
+  check('"10.1026" (Jahr ohne Punkt) ist kein Datum', b.requested_date === undefined, JSON.stringify(b.requested_date));
   const NEWYEAR = new Date('2026-12-31T23:30:00Z'); // Berlin: 1. Januar 2027, 00:30
   b = buildResponseBody(EVENTS, { query: '01.01.', today: NEWYEAR });
   check('Berliner Zeit: "01.01." kurz nach Mitternacht ist HEUTE, nicht naechstes Jahr', b.requested_date && b.requested_date.date === '2027-01-01', JSON.stringify(b.requested_date));
@@ -149,6 +151,19 @@ if (typeof buildResponseBody !== 'function') {
   check('handler: haengender Aushang-Abruf -> Termine nach kurzem Budget', r.statusCode === 200 && bd.count === 1 && ms < 1000, `${r.statusCode} ${ms} ms`);
   t0 = Date.now(); r = await m2.handler({ queryStringParameters: { lang: 'pl' } }); ms = Date.now() - t0;
   check('handler: Fehlschlag wird kurz gemerkt -> zweiter Aufruf wartet nicht erneut', r.statusCode === 200 && ms < 150, `${ms} ms`);
+
+  // Re-Review 09.10.2026: Ein LANGSAMER (nicht kaputter) Abruf soll den Zwischenspeicher
+  // trotzdem fuellen, damit der naechste Aufruf die Aushaenge hat.
+  global.fetch = async (url) => {
+    if (/sheet=Ogloszenia/.test(String(url))) { await new Promise(r2 => setTimeout(r2, 400)); return { ok: true, status: 200, text: async () => OG }; }
+    return { ok: true, status: 200, text: async () => EV };
+  };
+  const m3 = fresh();
+  r = await m3.handler({ queryStringParameters: { lang: 'pl' } });
+  check('handler: langsamer Abruf -> erste Antwort ohne Aushaenge, aber rechtzeitig', r.statusCode === 200 && JSON.parse(r.body).announcements === undefined, r.body.slice(0, 120));
+  await new Promise(r2 => setTimeout(r2, 400));
+  r = await m3.handler({ queryStringParameters: { lang: 'pl' } });
+  check('handler: ... der laufende Abruf fuellt den Zwischenspeicher fuer den naechsten Aufruf', (JSON.parse(r.body).announcements || []).length === 1, r.body.slice(0, 160));
   console.log(`\n${fail ? 'FAILED' : 'all passed'} (${fail} failing)`);
   process.exit(fail ? 1 : 0);
 })();

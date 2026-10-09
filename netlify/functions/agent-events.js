@@ -137,7 +137,7 @@ const ymd = (y, m, d) => `${y}-${String(m).padStart(2, '0')}-${String(d).padStar
 function queryAsDate(query, today) {
   const iso = query.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (iso) return validYmd(+iso[1], +iso[2], +iso[3]) ? iso[0] : null;
-  const de = query.match(/^(\d{1,2})\.(\d{1,2})\.?(\d{4}|\d{2})?$/);
+  const de = query.match(/^(\d{1,2})\.(\d{1,2})(?:\.(\d{4}|\d{2})?)?$/);
   if (!de) return null;
   const d = +de[1], m = +de[2];
   if (de[3]) {
@@ -241,35 +241,51 @@ exports.buildResponseBody = buildResponseBody;
 
 // Aktuelle Ogloszenia (aktueller + vorheriger Aushang) mit eigenem Cache. Faellt der
 // Tab aus, fehlt das Feld einfach — die Termine kommen trotzdem.
-// Code-Review 09.10.2026: Der Abruf ist hart begrenzt (sonst haengt das ganze
-// Werkzeug mit), ein Fehlschlag wird eine Minute gemerkt, und ein alter Stand
-// wird hoechstens sechs Stunden lang weiter ausgeliefert.
+// Code-Review 09.10.2026: Der Abruf ist begrenzt (sonst haengt das ganze Werkzeug
+// mit). Re-Review: Ein nur LANGSAMER Abruf laeuft im Hintergrund weiter und fuellt
+// den Zwischenspeicher fuer den naechsten Aufruf; als Fehlschlag gemerkt werden nur
+// echte Fehler. Ein alter Stand wird hoechstens sechs Stunden lang ausgeliefert.
 let _annCache = { items: null, ts: 0, failTs: 0 };
+let _annInflight = null, _annInflightStart = 0;
 const ANN_CACHE_TTL_MS = 300000;          // 5 Minuten
-const ANN_BUDGET_MS = parseInt(process.env.AGENT_EVENTS_ANN_BUDGET_MS || '1500', 10);
+const ANN_BUDGET_MS = parseInt(process.env.AGENT_EVENTS_ANN_BUDGET_MS || '2500', 10);
 const ANN_FAIL_TTL_MS = 60000;            // 1 Minute
 const ANN_STALE_MAX_MS = 6 * 3600 * 1000; // 6 Stunden
 async function getAnnouncementsCached(now) {
   const t = Date.now();
   if (_annCache.items && (t - _annCache.ts) < ANN_CACHE_TTL_MS) return _annCache.items;
-  const stale = () => (_annCache.items && (t - _annCache.ts) < ANN_STALE_MAX_MS) ? _annCache.items : null;
+  const stale = () => (_annCache.items && (Date.now() - _annCache.ts) < ANN_STALE_MAX_MS) ? _annCache.items : null;
   if (_annCache.failTs && (t - _annCache.failTs) < ANN_FAIL_TTL_MS) return stale();
-  let timer;
-  try {
-    const { fetchOgloszenia, selectForKi } = require('./_ogloszenia.js');
-    const all = await Promise.race([
-      fetchOgloszenia(),
-      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('ann_timeout')), ANN_BUDGET_MS); })
-    ]);
-    const items = selectForKi(all, now, { max: 2 });
-    _annCache = { items, ts: Date.now(), failTs: 0 };
-    return items;
-  } catch (_) {
-    _annCache.failTs = Date.now();
-    return stale();
-  } finally {
-    clearTimeout(timer);
+  if (!_annInflight) {
+    _annInflightStart = t;
+    _annInflight = Promise.resolve()
+      .then(() => require('./_ogloszenia.js').fetchOgloszenia())
+      .then(all => {
+        const { selectForKi } = require('./_ogloszenia.js');
+        _annCache = { items: selectForKi(all, now, { max: 2 }), ts: Date.now(), failTs: 0 };
+        return _annCache.items;
+      })
+      .catch(err => {
+        _annCache.failTs = Date.now();
+        console.warn('agent-events: Aushaenge nicht abrufbar', err && err.message);
+        return null;
+      })
+      .finally(() => { _annInflight = null; });
+  } else if (t - _annInflightStart >= ANN_BUDGET_MS) {
+    return stale(); // laeuft schon laenger als das Budget — nicht noch einmal warten
   }
+  let timer;
+  const TIMEOUT = Symbol('timeout');
+  const res = await Promise.race([
+    _annInflight,
+    new Promise(resolve => { timer = setTimeout(() => resolve(TIMEOUT), Math.max(0, ANN_BUDGET_MS - (t - _annInflightStart))); })
+  ]);
+  clearTimeout(timer);
+  if (res === TIMEOUT) {
+    console.warn('agent-events: Aushang-Abruf langsamer als ' + ANN_BUDGET_MS + ' ms — Antwort ohne neue Aushaenge');
+    return stale();
+  }
+  return res || stale();
 }
 
 exports.handler = async (event) => {
