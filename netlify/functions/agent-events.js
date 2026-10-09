@@ -159,7 +159,13 @@ const FEED_NOTE = 'This feed lists ONLY special events (catechesis, concerts, re
   + 'An empty or non-matching result never means there is no Mass. '
   + 'Use the description field for the actual schedule — the time field may be empty or a coarse range. Only upcoming, published events are returned.';
 
-function buildResponseBody(events, { query = '', limit = 10, lang = 'pl', today = new Date() } = {}) {
+const ANNOUNCEMENTS_NOTE = 'Parish announcements (Ogłoszenia duszpasterskie), newest first. Words like "this week", '
+  + '"next Sunday" or "today" inside a bulletin refer to the week of the bulletin (see published / valid_until), not to today. '
+  + 'Use them for current devotions (e.g. the October rosary), registrations, groups and events. Regular Mass times are in the knowledge base.';
+
+const isoDay = d => (d instanceof Date && !isNaN(d)) ? d.toISOString().slice(0, 10) : null;
+
+function buildResponseBody(events, { query = '', limit = 10, lang = 'pl', today = new Date(), announcements = null } = {}) {
   const q = String(query || '').toLowerCase().trim();
   let list = events;
   let queryMatched;
@@ -195,6 +201,16 @@ function buildResponseBody(events, { query = '', limit = 10, lang = 'pl', today 
     note: FEED_NOTE
   };
   if (requestedDate) body.requested_date = requestedDate;
+  if (Array.isArray(announcements) && announcements.length) {
+    body.announcements = announcements.map(a => ({
+      current: !!a.current,
+      published: isoDay(a.publishedAt),
+      valid_until: isoDay(a.expiresAt),
+      title: a.title,
+      text: a.body
+    }));
+    body.announcements_note = ANNOUNCEMENTS_NOTE;
+  }
   if (queryMatched !== undefined) {
     body.query_matched = queryMatched;
     if (!queryMatched) {
@@ -206,6 +222,22 @@ function buildResponseBody(events, { query = '', limit = 10, lang = 'pl', today 
 }
 exports.buildResponseBody = buildResponseBody;
 
+// Aktuelle Ogloszenia (aktueller + vorheriger Aushang) mit eigenem Cache. Faellt der
+// Tab aus, fehlt das Feld einfach — die Termine kommen trotzdem.
+let _annCache = { items: null, ts: 0 };
+const ANN_CACHE_TTL_MS = 300000; // 5 Minuten
+async function getAnnouncementsCached(now) {
+  if (_annCache.items && (Date.now() - _annCache.ts) < ANN_CACHE_TTL_MS) return _annCache.items;
+  try {
+    const { fetchOgloszenia, selectForKi } = require('./_ogloszenia.js');
+    const items = selectForKi(await fetchOgloszenia(), now, { max: 2 });
+    _annCache = { items, ts: Date.now() };
+    return items;
+  } catch (_) {
+    return _annCache.items || null; // stale > nichts
+  }
+}
+
 exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
   const lang = (params.lang || 'pl').toLowerCase() === 'de' ? 'de' : 'pl';
@@ -213,8 +245,10 @@ exports.handler = async (event) => {
   const query = (params.query || '').trim();
 
   try {
-    const events = enrich(await getEventsCached(), lang);
-    const body = buildResponseBody(events, { query, limit, lang });
+    const now = new Date();
+    const [rawEvents, announcements] = await Promise.all([getEventsCached(), getAnnouncementsCached(now)]);
+    const events = enrich(rawEvents, lang);
+    const body = buildResponseBody(events, { query, limit, lang, announcements });
 
     return {
       statusCode: 200,

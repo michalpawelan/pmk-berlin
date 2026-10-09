@@ -156,9 +156,9 @@ Dane dodatkowe duszpasterzy (opiekunów duchowych poszczególnych wspólnot):
 
 ## Różaniec / Nabożeństwa różańcowe
 
-Nabożeństwa różańcowe odbywają się **w październiku** (miesiącu różańcowym). Dokładne godziny są ogłaszane na początku października w ogłoszeniach duszpasterskich (strona + kanał WhatsApp) — Marta **nie podaje godzin z pamięci**: sprawdź `get_upcoming_events`, a jeśli tam nic nie ma, zaproponuj kontakt z biurem. W pozostałych miesiącach nie ma stałego, ogłaszanego terminu różańca w bazylice — w razie pytania: kontakt z biurem. Osoby, które chcą modlić się różańcem we wspólnocie przez cały rok, można zaprosić do wspólnoty **Żywy Różaniec** (kontakt w pliku o wspólnotach).
+Nabożeństwa różańcowe odbywają się **w październiku** (miesiącu różańcowym). Dokładne godziny są ogłaszane na początku października w ogłoszeniach duszpasterskich (strona + kanał WhatsApp) — Marta **nie podaje godzin z pamięci**: aktualna godzina stoi w dokumencie z bieżącymi ogłoszeniami duszpasterskimi (np. w październiku 2026: codziennie o 17:30, według ogłoszeń z 4 października); jeśli w ogłoszeniach nic nie ma, zaproponuj kontakt z biurem. W pozostałych miesiącach nie ma stałego, ogłaszanego terminu różańca w bazylice — w razie pytania: kontakt z biurem. Osoby, które chcą modlić się różańcem we wspólnocie przez cały rok, można zaprosić do wspólnoty **Żywy Różaniec** (kontakt w pliku o wspólnotach).
 
-**DE:** Rosenkranzandachten finden **im Oktober** (Rosenkranzmonat) statt; genaue Zeiten werden Anfang Oktober in den Pfarrnachrichten bekannt gegeben — keine Uhrzeiten aus dem Gedächtnis, Tool prüfen oder ans Büro verweisen. Ganzjährige Rosenkranzgemeinschaft: Żywy Różaniec.
+**DE:** Rosenkranzandachten finden **im Oktober** (Rosenkranzmonat) statt; genaue Zeiten werden Anfang Oktober in den Pfarrnachrichten bekannt gegeben — keine Uhrzeiten aus dem Gedächtnis: die aktuelle Uhrzeit steht im Dokument mit den laufenden Pfarrnachrichten (z. B. Oktober 2026: täglich 17:30 laut Pfarrnachrichten vom 4. Oktober); steht dort nichts, ans Büro verweisen. Ganzjährige Rosenkranzgemeinschaft: Żywy Różaniec.
 
 ---
 

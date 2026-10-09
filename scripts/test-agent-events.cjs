@@ -69,6 +69,24 @@ if (typeof buildResponseBody !== 'function') {
   b = buildResponseBody(EVENTS, { query: 'msza', lang: 'pl', today: TODAY });
   check('text query has no requested_date', b.requested_date === undefined, JSON.stringify(b.requested_date));
 
+  // Aktuelle Ogloszenia im Werkzeug (09.10.2026): Im Wissensabruf landeten die
+  // Aushaenge hinter der FAQ (Platz 5-8 bei 3 Plaetzen) — "Mama w akcji" oder
+  // "Oaza 21+" fand die KI nie. Das Werkzeug ruft sie aber bei jeder solchen Frage auf.
+  const ANN = [
+    { current: true, publishedAt: new Date('2026-10-05T07:45:00Z'), expiresAt: new Date('2026-10-12T07:45:00Z'),
+      title: 'XXVII niedziela zwykła (04.10.2026)', body: '7. W środę 14 października o godz. 9:30 warsztaty „Mama w akcji”.' },
+    { current: false, publishedAt: new Date('2026-09-21T07:00:00Z'), expiresAt: new Date('2026-09-28T07:00:00Z'),
+      title: 'XXV niedziela zwykła (20.09.2026)', body: 'Kurs Emaus 2–4 października.' },
+  ];
+  b = buildResponseBody(EVENTS, { query: '', announcements: ANN });
+  check('announcements: Aushaenge stehen in der Antwort', Array.isArray(b.announcements) && b.announcements.length === 2,
+    JSON.stringify(b.announcements));
+  check('announcements: aktueller zuerst, mit Text und Gueltigkeit', b.announcements && b.announcements[0].current === true
+    && /Mama w akcji/.test(b.announcements[0].text) && b.announcements[0].valid_until === '2026-10-12', JSON.stringify(b.announcements && b.announcements[0]));
+  check('announcements: Hinweis auf Aushangdatum', /date of the bulletin|week of the bulletin/i.test(b.announcements_note || ''), b.announcements_note);
+  b = buildResponseBody(EVENTS, { query: 'msza' });
+  check('announcements: ohne Aushaenge kein leeres Feld', b.announcements === undefined, JSON.stringify(b.announcements));
+
   b = buildResponseBody([], { query: '2026-10-12', limit: 10 });
   check('empty feed still answers with count 0', b.count === 0, String(b.count));
   const note = String(b.note || '');
@@ -76,5 +94,28 @@ if (typeof buildResponseBody !== 'function') {
   check('note says an empty result never means no Mass', /never means there is no Mass/i.test(note), note);
 }
 
-console.log(`\n${fail ? 'FAILED' : 'all passed'} (${fail} failing)`);
-process.exit(fail ? 1 : 0);
+// Handler: holt Termine UND Aushaenge; faellt der Aushang-Tab aus, liefert das
+// Werkzeug trotzdem die Termine (der Agent darf nie ohne Antwort dastehen).
+(async () => {
+  const gviz = rows => 'google.visualization.Query.setResponse(' + JSON.stringify({ table: { rows } }) + ');';
+  const EV = gviz([{ c: [{ v: 'Koncert' }, { v: 'Date(2099,0,10)' }, null, { v: 'opis' }, null, { v: 'Bazylika' }, { v: 'adres' }, { v: 'TAK' }] }]);
+  const OG = gviz([{ c: [{ v: 'x' }, { v: 'XXVII niedziela zwykła' }, { v: JSON.stringify([{ t: 'txt', c: 'Warsztaty „Mama w akcji” 14.10.' }]) },
+    null, { v: new Date(Date.now() - 86400000).toISOString() }, { v: new Date(Date.now() + 5 * 86400000).toISOString() }, { v: 'TAK' }] }]);
+  let ogFails = false;
+  global.fetch = async (url) => {
+    const isOg = /sheet=Ogloszenia/.test(String(url));
+    if (isOg && ogFails) throw new Error('down');
+    return { ok: true, status: 200, text: async () => (isOg ? OG : EV) };
+  };
+  const fresh = () => { delete require.cache[require.resolve('../netlify/functions/agent-events.js')]; return require('../netlify/functions/agent-events.js'); };
+  let r = await fresh().handler({ queryStringParameters: { lang: 'pl' } });
+  let bd = JSON.parse(r.body);
+  check('handler: Termine und aktueller Aushang in einer Antwort', r.statusCode === 200 && bd.count === 1
+    && bd.announcements && /Mama w akcji/.test(bd.announcements[0].text), r.body.slice(0, 300));
+  ogFails = true;
+  r = await fresh().handler({ queryStringParameters: { lang: 'pl' } });
+  bd = JSON.parse(r.body);
+  check('handler: Aushang-Tab faellt aus -> Termine trotzdem da', r.statusCode === 200 && bd.count === 1 && bd.announcements === undefined, r.body.slice(0, 300));
+  console.log(`\n${fail ? 'FAILED' : 'all passed'} (${fail} failing)`);
+  process.exit(fail ? 1 : 0);
+})();
